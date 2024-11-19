@@ -114,8 +114,8 @@ return [
 
         'mongodb' => [
         'driver' => 'mongodb',
-        'dsn' => env('DB_URI', 'mongodb+srv://admin1:123@scholarsinn.idapd.mongodb.net/ScholarsInn?retryWrites=true&w=majority'),
-        'database' => 'ScholarsInn',
+        'dsn' => env('DB_URL'),
+        'database' => env('DB_DATABASE', 'ScholarsInn'),
 ],
 
     ],

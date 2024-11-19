@@ -8,6 +8,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('dashboard'); // Return the view for the dashboard
+        return view('Admin.Dashboard.index');  // Ensure this points to resources/views/dashboard.blade.php
     }
 }
