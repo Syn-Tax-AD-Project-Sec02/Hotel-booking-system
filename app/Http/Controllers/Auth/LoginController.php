@@ -17,7 +17,7 @@ class LoginController extends Controller
 {
     public function showForm()
     {
-        return view('/'); // Return your Blade template
+        return view('Admin.user.login'); // Return your Blade template
     }
 
     public function adminIndex()
@@ -65,21 +65,25 @@ class LoginController extends Controller
             // Check if the user's role matches the selected option
             if ($user->role === $request->optionsRadios) {
                 Auth::login($user);
+                session(['_id' => $user->_id]); 
                 Log::info('User authenticated and role matched: ' . $user->role);
     
                 // Redirect based on role
                 if ($user->role === 'admin') {
+                    Auth::guard('admins')->login($user);
                     Log::info('Redirecting to admin dashboard.');
                     return redirect()->route('admin.dashboard.index');
                 } elseif ($user->role === 'staff') {
+                    Auth::guard('staff')->login($user);
                     Log::info('Redirecting to staff dashboard.');
                     return redirect()->route('staff.dashboard.index');
                 }
-            } else {
-                // Role mismatch
-                return back()->withErrors(['email' => 'You do not have permission to access this dashboard.']);
-            }
+            } 
+        }
+        else {
+                // If user doesn't exist or password is incorrect
+          return back()->withErrors(['email' => 'These credentials do not match our records.']);
+        }
     }
 }
 
-}

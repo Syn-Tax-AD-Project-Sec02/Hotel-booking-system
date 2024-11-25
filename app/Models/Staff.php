@@ -20,4 +20,9 @@ class staff extends Eloquent implements \Illuminate\Contracts\Auth\Authenticatab
      protected $casts = [
          'email_verified_at' => 'datetime',
      ];
+
+     public function getEmailForPasswordReset()
+{
+    return $this->user_email; // Custom column name
+}
 }

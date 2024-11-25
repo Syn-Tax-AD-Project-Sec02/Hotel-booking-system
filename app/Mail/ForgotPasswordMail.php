@@ -34,7 +34,7 @@ class ForgotPasswordMail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'Email.forgotpassword', // Make sure this view exists and is properly designed.
+            view: 'Admin.Email.forgotpassword', // Make sure this view exists and is properly designed.
             with: ['email' => $this->email]
         );
     }

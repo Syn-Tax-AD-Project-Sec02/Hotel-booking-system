@@ -8,19 +8,34 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Log;
 
 class ProfileController extends Controller
 {
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
+    public function changePassword(Request $request)
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
+        $request->validate([
+            'password' => 'required',
+            'newPassword' => 'required|min:8|confirmed',
         ]);
+    
+        $staff = auth()->user(); // Assuming the logged-in user is a staff member
+    
+        if (!Hash::check($request->currentPassword, $staff->password)) {
+            Log::warning("Password change failed for user ID {$staff->id}: Incorrect current password."); // Log failed attempt
+            return back()->withErrors(['password' => 'Current password is incorrect.']);
+        }
+    
+        $staff->password = Hash::make($request->newPassword);
+        $staff->save();
+    
+        Log::info("Password changed successfully for user ID {$staff->id}."); // Log successful password change
+        return back()->with('success', 'Password changed successfully.');
     }
-
+    
     /**
      * Update the user's profile information.
      */

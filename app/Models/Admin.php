@@ -14,5 +14,7 @@ class Admin extends Eloquent implements \Illuminate\Contracts\Auth\Authenticatab
 
     protected $fillable = ['email', 'password', 'role'];
 
-   
+    protected $hidden = [
+        'password', // Hide password in the response
+    ];
 }
