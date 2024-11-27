@@ -13,6 +13,7 @@
     <link href="{{ asset('dist/assets/css/bootstrap/../bootstrap-icons/bootstrap-icons.css" rel="stylesheet" ') }}">
     <link href="{{ asset('dist/assets/css/bootstrap/js/bootstrap.bundle.min.js" rel="stylesheet"') }}">
     <link href="{{ asset('dist/assets/css/bootstrap/css/bootstrap-reboot.min.css" rel="stylesheet"') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
@@ -259,6 +260,27 @@
           <div class="tab-pane fade show active pt-3" id="profile-change-password">
               <!-- Change Password Form -->
               <form id="changePasswordForm"  action="{{ url('changePass') }}" method="POST">
+                @if (session('success'))
+                    <script>
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: "{{ session('success') }}",
+                            confirmButtonText: 'OK'
+                        });
+                    </script>
+                    @endif
+
+                    @if (session('error'))
+                    <script>
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: "{{ session('error') }}",
+                            confirmButtonText: 'Try Again'
+                        });
+                    </script>
+                    @endif
                         <!-- Change Password Form -->
                         @csrf
                     <div class="row mb-3">
