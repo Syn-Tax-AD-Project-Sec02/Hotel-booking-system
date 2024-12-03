@@ -15,11 +15,17 @@ class Users extends Migration
     {
         // Creating a MongoDB collection
         Schema::create('users', function (Blueprint $collection) {
-            $collection->index('username');  // Create an index on the 'username' field
-            $collection->string('username');
+            $collection->id();  
+            $collection->string('name');  // Create an index on the 'username' field
             $collection->string('email');
-            $collection->string('country');
             $collection->string('password');
+            $collection->string('phone');
+            $collection->enum('role', ['staff', 'student', 'public']); // Define roles
+            $collection->string('matricStaffNo')->nullable(); // Only for 'student'
+            //$table->string('staff_no')->nullable(); // Only for 'staff'
+            $collection->rememberToken();
+            $collection->timestamps();
+            $collection->date('email_verified_at')->nullable();
             // Add other fields as needed
         });
     }

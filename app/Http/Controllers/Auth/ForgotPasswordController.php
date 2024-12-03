@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Admin;
+use App\Models\User;
+use App\Models\reset;
 use App\Models\Staff;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
@@ -22,7 +23,7 @@ class ForgotPasswordController extends Controller
 {
     public function showLinkRequestForm()
     {
-        return view('Admin.user.forgot_password');
+        return view('Admin.forgotpassword');
     }
 
     public function sendResetLinkEmail(Request $request)
@@ -31,9 +32,7 @@ class ForgotPasswordController extends Controller
 
         Log::info('Sending reset link email to: ' . $request->email);
        // Mail::to($toEmail)->send(new WelcomeEmail($message));
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
+     
 
         //$request->validate(['email' => 'required|email']);
         $token = Str::random(60); // You can generate a token like this
@@ -61,7 +60,7 @@ class ForgotPasswordController extends Controller
     {
         //$email = request('email'); // Retrieve the email from the request (query parameter)
 
-        return view('Admin.user.resetPassword')->with(
+        return view('Admin.resetPassword')->with(
             ['token' => $token, 'email' => request()->get('email')]
         );
     }
@@ -81,26 +80,15 @@ class ForgotPasswordController extends Controller
         $token = $request->token;
         
         // Try to find the user in Staff or Admin models
-        $resetEntry = Staff::where('email', $token)->first();
-        if (!$resetEntry) {
-            // If not found in Staff, check Admin
-            $resetEntry = Admin::where('email', $token)->first();
-        }
-        
+        $resetEntry = User::where('email', $token)->first();
+
         if (!$resetEntry) {
             // Log the error and return if no match in either collection
             Log::error('Invalid token or email combination.');
             return back()->withErrors(['email' => 'Invalid reset token or email.']);
         }
         
-        // At this point, $resetEntry contains a matching record from Staff or Admin
-        
-        // Process user details
-        if ($resetEntry instanceof Staff) {
-            Log::info('User found in Staff collection.');
-        } elseif ($resetEntry instanceof Admin) {
-            Log::info('User found in Admin collection.');
-        }
+
     // Update the user's password
     try {
         $resetEntry->forceFill([
@@ -113,19 +101,21 @@ class ForgotPasswordController extends Controller
         //$resetEntry->delete();
 
         // Redirect to login with success message
-        return redirect('/')->with( 'Password reset successful.');
+        return redirect('/login')->with( 'Password reset successful.');
     } catch (\Exception $e) {
         Log::error('Failed to update password for staff member: ' . $token . '. Error: ' . $e->getMessage());
         return back()->withErrors(['email' => 'Failed to reset password. Please try again.']);
     }
     }
-
+/*
     public function changePasswordForm(){
         return view('Admin.user.changePass');
     }
+
+    
     
 
-    public function changePasswordSave(Request $request){
+    public function changePasswordAdmin(Request $request){
 
         
         $validator = Validator::make($request->all(),[
@@ -134,34 +124,30 @@ class ForgotPasswordController extends Controller
         ]);
         
         $admin = auth()->guard('admins')->user();
+        
         // Check if no user is authenticated
         if (!$admin) {
-            Log::warning('No authenticated user found.');
-            return redirect()->route('changePassForm')->with('error', 'You must be logged in to change your password.');
+           Log::warning('No authenticated user found.');
+           return redirect()->route('changePassForm')->with('error', 'You must be logged in to change your password.');
         }
         
 
-        if (!Hash:: check($request->currentPassword, $admin->password))
-        {
-            Log::warning('Current Password is Invalid');
-            return  redirect()->route('changePassForm')->with('error', "Current Password is Invalid");
+        if (!Hash::check($request->currentPassword, $admin->password)) {
+            return redirect()->route('changePassForm')->with('error', 'Current Password is Invalid');
         }
-
-        if($request->currentPassword === $request->newPassword)
-        {
-            Log::info('New Password cannot be same as your current password');
-            return redirect()->route('changePassForm')->with("error", "New Password cannot be same as your current password");
-
+    
+        if ($request->currentPassword === $request->newPassword) {
+             return redirect()->route('changePassForm')->with('error', 'New Password cannot be the same as the current password');
         }
-
-        //$user = Admin::find($auth->id);
+    
         $admin->password = Hash::make($request->newPassword);
         $admin->save();
         Log::info('Password changed successfully');
-        return redirect('/changePass')->with( 'Password reset successful.');
-        
+        return redirect()->route('changePassForm')->with('success', 'Password reset successful.');
+       
     }
 
+    */
     
 
 }

@@ -7,6 +7,7 @@ use App\Models\User; // Add this line
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -16,10 +17,13 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         // Insert a new user into the MongoDB collection
-        $user = new User();
-        $user->username = 'john_doe';
-        $user->email = 'john@example.com';
-        $user->password = bcrypt('password');  // Hash the password
-        $user->save();  //
+        User::create([
+            'name' => 'John Doe',
+            'email' => 'staff@example.com',
+            'password' => Hash::make('password123'),
+            'phone' => '1234567890',
+            'role' => 'staff',
+            'matricStaffNo' => 'S12345', // Staff-specific field
+        ]);
     }
 }

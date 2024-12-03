@@ -7,39 +7,54 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Validator;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\VerifyMail;
+use Illuminate\Support\Facades\Log;
 
 class RegisterController extends Controller
 {
-    public function showForm()
-    {
-        return view('Admin.user.register');
-    }
+
+
+
 
     public function register(Request $request)
     {
+        
         $validator = Validator::make($request->all(), [
-            'username' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'country' => 'required|string',
             'password' => 'required|string|min:8|confirmed',
-           //'confirmPassword' => 'required|string|min:8|confirmed',
+            'phone' => 'required|string|max:15',
+            'role' => 'required|in:staff,student,public',
+            'matricStaffNo' => 'nullable|string',
         ]);
 
-        //if ($validator->fails()) {
-       //     return redirect()->back()->withErrors($validator)->withInput();
-        //}
-
+    
         // Save user to MongoDB
         $user = new User();
-        $user->username = $request->username;
+        $user->name = $request->name;
         $user->email = $request->email;
-        $user->country = $request->country;
         $user->password = Hash::make($request->password);
+        $user->phone = $request->phone;
+        $user->role = $request->role;
+        if ($request->role === 'Student' || $request->role === 'Staff') {
+            $user->matricStaffNo = $request->matricStaffNo;  // Set the matricStaffNo
+        } else {
+            $user->matricStaffNo = null;  // Nullify it for 'public'
+        }
+        //$user->staff_no => $request->role === 'staff' ? $request->staff_no : null,
        // $user->confirmPassword = Hash::make($request->confirmPassword);
+       $user->email_verification_token = Str::random(60);
         $user->save();
 
-    
+        // Send verification email
+        Mail::to($user->email)->send(new VerifyMail($user));
 
-        return redirect('/')->with('success', 'Registration successful, please log in.');
+        // Log the email verification event
+        Log::info('Email verification sent to: ' . $user->email);
+        return redirect()->route('login')
+        ->with('success', 'Registration successful! Please check your email for the verification link.');
+        //return redirect()->route('forgotPassword');
     }
 }
