@@ -11,7 +11,7 @@ class staff extends Eloquent implements \Illuminate\Contracts\Auth\Authenticatab
      protected $connection = 'mongodb';  // MongoDB connection
      protected $collection = 'staff';    // MongoDB collection
  
-     protected $fillable = ['email', 'password', 'role'];
+     protected $fillable = ['email', 'password', 'role', 'position', 'address', 'phone'];
  
      protected $hidden = [
          'password', 'remember_token',
