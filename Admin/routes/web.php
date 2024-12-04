@@ -14,7 +14,9 @@ Route::get('/', function () {
     return view('Admin.user.login');
 });
 
-
+Route::get('/admin/tables/basic', function () {
+    return view('Admin.tables.basic-table');
+})->name('admin.tables.basic');
 
 Route::get('/user/register', function () {
     return view('Admin.user.register');
@@ -52,6 +54,8 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/user/profilestaff', function () {
     return view('Staff.User.profileStaff');
 });
+
+
 
 //Route::post('/staff/changePassword', [ProfileController::class, 'changePassword'])->name('staff.changePassword');
 

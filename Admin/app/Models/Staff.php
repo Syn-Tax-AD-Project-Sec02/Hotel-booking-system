@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Auth\Authenticatable;
 use MongoDB\Laravel\Eloquent\Model as Eloquent; // Use MongoDB's Eloquent model
 
-class staff extends Eloquent implements \Illuminate\Contracts\Auth\Authenticatable
+class Staff extends Eloquent implements \Illuminate\Contracts\Auth\Authenticatable
 {
      use Authenticatable;
      protected $connection = 'mongodb';  // MongoDB connection
@@ -25,4 +25,5 @@ class staff extends Eloquent implements \Illuminate\Contracts\Auth\Authenticatab
 {
     return $this->user_email; // Custom column name
 }
+
 }
