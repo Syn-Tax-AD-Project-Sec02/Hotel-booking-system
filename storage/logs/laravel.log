@@ -1,0 +1,76 @@
+[2024-11-27 02:35:44] local.INFO: Login attempt: {"email":"admin@example.com","role":"admin"} 
+[2024-11-27 02:35:44] local.INFO: User found: Yes  
+[2024-11-27 02:35:44] local.INFO: Password verified.  
+[2024-11-27 02:35:44] local.INFO: User role: admin  
+[2024-11-27 02:35:44] local.INFO: Requested role: admin  
+[2024-11-27 02:35:44] local.INFO: User authenticated and role matched: admin  
+[2024-11-27 02:35:44] local.INFO: Redirecting to admin dashboard.  
+[2024-11-27 02:36:03] local.INFO: Password changed successfully  
+[2024-11-27 02:36:16] local.INFO: Login attempt: {"email":"admin@example.com","role":"admin"} 
+[2024-11-27 02:36:16] local.INFO: User found: Yes  
+[2024-11-27 02:36:26] local.INFO: Login attempt: {"email":"admin@example.com","role":"admin"} 
+[2024-11-27 02:36:26] local.INFO: User found: Yes  
+[2024-11-27 02:36:36] local.INFO: Login attempt: {"email":"admin@example.com","role":"admin"} 
+[2024-11-27 02:36:37] local.INFO: User found: Yes  
+[2024-11-27 02:36:45] local.INFO: Login attempt: {"email":"admin@example.com","role":"admin"} 
+[2024-11-27 02:36:45] local.INFO: User found: Yes  
+[2024-11-27 02:37:05] local.INFO: Login attempt: {"email":"admin@example.com","role":"admin"} 
+[2024-11-27 02:37:05] local.INFO: User found: Yes  
+[2024-11-27 02:42:03] local.INFO: Login attempt: {"email":"admin@example.com","role":"admin"} 
+[2024-11-27 02:42:03] local.INFO: User found: Yes  
+[2024-11-27 03:06:59] local.INFO: Login attempt: {"email":"admin@example.com","role":"admin"} 
+[2024-11-27 03:06:59] local.INFO: User found: Yes  
+[2024-11-27 03:06:59] local.INFO: Password verified.  
+[2024-11-27 03:06:59] local.INFO: User role: admin  
+[2024-11-27 03:06:59] local.INFO: Requested role: admin  
+[2024-11-27 03:06:59] local.INFO: User authenticated and role matched: admin  
+[2024-11-27 03:07:00] local.INFO: Redirecting to admin dashboard.  
+[2024-12-03 03:42:40] local.INFO: Login attempt: {"email":"admin@example.com","role":"admin"} 
+[2024-12-03 03:42:41] local.INFO: User found: Yes  
+[2024-12-03 03:42:41] local.INFO: Password verified.  
+[2024-12-03 03:42:41] local.INFO: User role: admin  
+[2024-12-03 03:42:41] local.INFO: Requested role: admin  
+[2024-12-03 03:42:41] local.INFO: User authenticated and role matched: admin  
+[2024-12-03 03:42:41] local.INFO: Redirecting to admin dashboard.  
+[2024-12-04 05:36:04] local.INFO: Login attempt: {"email":"admin@example.com","role":"admin"} 
+[2024-12-04 05:36:05] local.INFO: User found: Yes  
+[2024-12-04 05:36:05] local.INFO: Password verified.  
+[2024-12-04 05:36:05] local.INFO: User role: admin  
+[2024-12-04 05:36:05] local.INFO: Requested role: admin  
+[2024-12-04 05:36:05] local.INFO: User authenticated and role matched: admin  
+[2024-12-04 05:36:05] local.INFO: Redirecting to admin dashboard.  
+[2024-12-04 05:51:08] local.INFO: Login attempt: {"email":"admin@example.com","role":"admin"} 
+[2024-12-04 05:51:09] local.INFO: User found: Yes  
+[2024-12-04 05:51:09] local.INFO: Password verified.  
+[2024-12-04 05:51:09] local.INFO: User role: admin  
+[2024-12-04 05:51:09] local.INFO: Requested role: admin  
+[2024-12-04 05:51:09] local.INFO: User authenticated and role matched: admin  
+[2024-12-04 05:51:09] local.INFO: Redirecting to admin dashboard.  
+[2024-12-04 06:16:04] local.INFO: Login attempt: {"email":"admin@example.com","role":"admin"} 
+[2024-12-04 06:16:04] local.INFO: User found: Yes  
+[2024-12-04 06:16:05] local.INFO: Password verified.  
+[2024-12-04 06:16:05] local.INFO: User role: admin  
+[2024-12-04 06:16:05] local.INFO: Requested role: admin  
+[2024-12-04 06:16:05] local.INFO: User authenticated and role matched: admin  
+[2024-12-04 06:16:05] local.INFO: Redirecting to admin dashboard.  
+[2024-12-04 06:16:54] local.ERROR: filemtime(): stat failed for C:\Sem 3\AD\Hotel-booking-system\.env {"exception":"[object] (ErrorException(code: 0): filemtime(): stat failed for C:\\Sem 3\\AD\\Hotel-booking-system\\.env at C:\\Sem 3\\AD\\Hotel-booking-system\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\ServeCommand.php:112)
+[stacktrace]
+#0 C:\\Sem 3\\AD\\Hotel-booking-system\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(256): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->Illuminate\\Foundation\\Bootstrap\\{closure}()
+#2 C:\\Sem 3\\AD\\Hotel-booking-system\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\ServeCommand.php(112): filemtime()
+#3 C:\\Sem 3\\AD\\Hotel-booking-system\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Foundation\\Console\\ServeCommand->handle()
+#4 C:\\Sem 3\\AD\\Hotel-booking-system\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(43): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#5 C:\\Sem 3\\AD\\Hotel-booking-system\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(95): Illuminate\\Container\\Util::unwrapIfClosure()
+#6 C:\\Sem 3\\AD\\Hotel-booking-system\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#7 C:\\Sem 3\\AD\\Hotel-booking-system\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(690): Illuminate\\Container\\BoundMethod::call()
+#8 C:\\Sem 3\\AD\\Hotel-booking-system\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(213): Illuminate\\Container\\Container->call()
+#9 C:\\Sem 3\\AD\\Hotel-booking-system\\vendor\\symfony\\console\\Command\\Command.php(279): Illuminate\\Console\\Command->execute()
+#10 C:\\Sem 3\\AD\\Hotel-booking-system\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(182): Symfony\\Component\\Console\\Command\\Command->run()
+#11 C:\\Sem 3\\AD\\Hotel-booking-system\\vendor\\symfony\\console\\Application.php(1047): Illuminate\\Console\\Command->run()
+#12 C:\\Sem 3\\AD\\Hotel-booking-system\\vendor\\symfony\\console\\Application.php(316): Symfony\\Component\\Console\\Application->doRunCommand()
+#13 C:\\Sem 3\\AD\\Hotel-booking-system\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun()
+#14 C:\\Sem 3\\AD\\Hotel-booking-system\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#15 C:\\Sem 3\\AD\\Hotel-booking-system\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
+#16 C:\\Sem 3\\AD\\Hotel-booking-system\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#17 {main}
+"} 
