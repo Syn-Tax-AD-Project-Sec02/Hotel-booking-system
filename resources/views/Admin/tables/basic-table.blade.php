@@ -6,27 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Purple Admin</title>
     <!-- plugins:css -->
-    <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="../../assets/vendors/ti-icons/css/themify-icons.css">
-    <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
-    <link rel="stylesheet" href="../../assets/vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('dist/assets/vendors/mdi/css/materialdesignicons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/assets/vendors/ti-icons/css/themify-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/assets/vendors/css/vendor.bundle.base.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/assets/vendors/font-awesome/css/font-awesome.min.css') }}">
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
-    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="{{ asset('dist/assets/css/style.css') }}">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="../../assets/images/favicon.png" />
+    <link rel="shortcut icon" href="{{asset('dist/assets/images/favicon.png')}}" />
   </head>
   <body>
     <div class="container-scroller">
       <!-- partial:../../partials/_navbar.html -->
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
-          <a class="navbar-brand brand-logo" href="../../index.html"><img src="../../assets/images/logo.svg" alt="logo" /></a>
-          <a class="navbar-brand brand-logo-mini" href="../../index.html"><img src="../../assets/images/logo-mini.svg" alt="logo" /></a>
+          <a class="navbar-brand brand-logo" href="{{ route('admin.dashboard.index') }}"><img src="{{ asset('dist/assets/images/LOGO-UTM.png') }}" alt="logo" /></a>
+          <a class="navbar-brand brand-logo-mini" href="{{ route('admin.dashboard.index') }}"><img src="{{ asset('dist/assets/images/logo-mini.svg') }}" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-stretch">
           <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -46,7 +46,7 @@
             <li class="nav-item nav-profile dropdown">
               <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                 <div class="nav-profile-img">
-                  <img src="../../assets/images/faces/face1.jpg" alt="image">
+                  <img src="{{ asset('dist/assets/images/faces/face1.jpg') }}" alt="image">
                   <span class="availability-status online"></span>
                 </div>
                 <div class="nav-profile-text">
@@ -57,7 +57,7 @@
                 <a class="dropdown-item" href="#">
                   <i class="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{{ url('/') }}">
                   <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
               </div>
             </li>
@@ -76,7 +76,7 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                    <img src="../../assets/images/faces/face4.jpg" alt="image" class="profile-pic">
+                    <img src="{{ asset('dist/assets/images/faces/face4.jpg') }}" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
                     <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Mark send you a message</h6>
@@ -86,7 +86,7 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                    <img src="../../assets/images/faces/face2.jpg" alt="image" class="profile-pic">
+                    <img src="{{ asset('dist/assets/images/faces/face2.jpg') }}" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
                     <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Cregh send you a message</h6>
@@ -96,7 +96,7 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                    <img src="../../assets/images/faces/face3.jpg" alt="image" class="profile-pic">
+                    <img src="{{ asset('dist/assets/images/faces/face3.jpg') }}" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
                     <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Profile picture updated</h6>
@@ -178,7 +178,7 @@
             <li class="nav-item nav-profile">
               <a href="#" class="nav-link">
                 <div class="nav-profile-image">
-                  <img src="../../assets/images/faces/face1.jpg" alt="profile" />
+                  <img src="{{ asset('dist/assets/images/faces/face1.jpg')}}" alt="profile" />
                   <span class="login-status online"></span>
                   <!--change to offline or busy as needed-->
                 </div>
@@ -190,7 +190,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../../index.html">
+              <a class="nav-link" href="{{ url('dashboard/index') }}">
                 <span class="menu-title">Dashboard</span>
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
@@ -223,7 +223,7 @@
               <div class="collapse" id="icons">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
-                    <a class="nav-link" href="../../pages/icons/font-awesome.html">Font Awesome</a>
+                    <a class="nav-link" href="{{ url('pages/icons/font-awesome.html') }}">Font Awesome</a>
                   </li>
                 </ul>
               </div>
@@ -236,7 +236,7 @@
               <div class="collapse" id="forms">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
-                    <a class="nav-link" href="../../pages/forms/basic_elements.html">Form Elements</a>
+                    <a class="nav-link" href="{{ url('pages/forms/basic_elements.html') }}">Form Elements</a>
                   </li>
                 </ul>
               </div>
@@ -249,7 +249,7 @@
               <div class="collapse" id="charts">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
-                    <a class="nav-link" href="../../pages/charts/chartjs.html">ChartJs</a>
+                    <a class="nav-link" href="{{ url('pages/charts/chartjs.html') }}">ChartJs</a>
                   </li>
                 </ul>
               </div>
@@ -262,7 +262,7 @@
               <div class="collapse" id="tables">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
-                    <a class="nav-link" href="../../pages/tables/basic-table.html">Basic table</a>
+                    <a class="nav-link" href="{{ route('admin.tables.basic') }}">Basic table</a>
                   </li>
                 </ul>
               </div>
@@ -276,7 +276,7 @@
               <div class="collapse" id="auth">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
-                    <a class="nav-link" href="../../pages/samples/blank-page.html"> Blank Page </a>
+                    <a class="nav-link" href="{{ url('pages/samples/blank-page.html')}}"> Blank Page </a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="../../pages/samples/login.html"> Login </a>
@@ -285,10 +285,10 @@
                     <a class="nav-link" href="../../pages/samples/register.html"> Register </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="../../pages/samples/error-404.html"> 404 </a>
+                    <a class="nav-link" href="{{ url('pages/samples/error-404.html') }}"> 404 </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="../../pages/samples/error-500.html"> 500 </a>
+                    <a class="nav-link" href="{{ url('pages/samples/error-500.html') }}"> 500 </a>
                   </li>
                 </ul>
               </div>
