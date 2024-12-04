@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ asset('dist/assets/vendors/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/assets/css/style.css') }}">
     <link rel="shortcut icon" href="{{ asset('dist/assets/images/favicon.png') }}" />
+    
 </head>
 <body>
     <div class="container-scroller">
@@ -23,8 +24,19 @@
                                 <img src="{{ asset('dist/assets/images/LOGO-UTM.png') }}" alt="Logo">
                             </div>
                             <h3>Sign In</h3>
+
+                           
+
                             <form id="loginForm" action="{{ route('login') }}" method="POST">
                                 @csrf <!-- CSRF Token -->
+
+                                @if ($errors->any())
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>Error!</strong> {{ $errors->first('email') }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                @endif
+
                                 <div class="row align-items-center">
                                     <div class="col-auto">
                                         <p class="mb-0">Please choose:</p>
