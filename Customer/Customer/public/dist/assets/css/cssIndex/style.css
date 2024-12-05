@@ -304,16 +304,36 @@ button {
      position: relative;
 }
 
-.banner .carousel-indicators li {
-     width: 20px;
-     height: 20px;
-     border-radius: 30px;
-     background: #000;
+ .homepage{
+     
+     background-image: 
+     linear-gradient(to top, rgba(0, 0, 0, 0.409), rgba(0, 0, 0, 0)), /* Black gradient overlay */
+     url('/dist/assets/images/index/scholar_inns.png'); /* Replace with your header image */
+          background-size: cover;
+          background-position: center;
+          height: 600px;
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          
 }
 
-.banner .carousel-indicators .active {
-     background-color: #fe0000;
+.homepage h1{
+     font-size: 48px;
+     margin: 0;
+     font-weight: bold;
+     color: white;
 }
+
+.homepage p{
+     font-size: 18px;
+     margin-top: 5px;
+     font-weight: bold;
+     color: white;
+}
+
+
 
 .booking_ocline {
      position: absolute;
@@ -322,79 +342,62 @@ button {
      transform: translateY(-50%);
 }
 
-.book_room {
-     background-color: #000000c7;
-     padding: 30px 35px;
-     border-left: #ff0909 solid 5px;
-}
+.booking-box {
+     background-color: white;
+     margin: -50px auto 20px;
+     padding: 20px;
+     width: 90%;
+     max-width: 900px;
+     border-radius: 10px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+ }
 
-.book_room h1 {
-     font-weight: 500;
-     font-size: 30px;
-     line-height: 30px;
-     color: #fff;
-     padding-bottom: 20px;
-     text-transform: uppercase;
+ .booking-box form {
+     display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+     gap: 10px;
+ }
+
+ .form-control {
+     display: flex;
+     flex-direction: column;
+     border: none;
+ }
+
+ .form-control label {
+     font-size: 14px;
+     margin-bottom: 5px;
+ }
+
+ .form-control input,
+ .form-control select {
+     padding: 10px;
+     width: 150px;
+     font-size: 14px;
+     border: 1px solid #ddd;
+     border-radius: 5px;
+     outline: none;
+      /* Ensure consistent height across all inputs */
+ }
+
+
+ .booking-btn {
+     background-color: #b71c1c; /* UTM Maroon color */
+     color: white;
+     font-size: 14px; /* Same as the input fields */
+     font-weight: bold;
+     border: none;
+     border-radius: 5px;
+     cursor: pointer;
+     transition: all 0.3s;
+     padding: 10px; /* Matches the padding of input fields */
+      /* Matches the height of form inputs */
      text-align: center;
-}
+ }
 
-.book_now span {
-     display: block;
-     color: #fff;
-     font-size: 18px;
-     padding-bottom: 5px;
-}
-
-.book_now .online_book {
-     width: 100%;
-     height: 50px;
-     border: #fff solid 1px;
-     background-color: transparent;
-     color: #fff;
-     padding: 0 10px;
-     padding-right: 61px;
-     margin-bottom: 25px;
-     position: relative;
-}
-
-.date_cua {
-     position: absolute;
-     width: 29px;
-     height: 29px;
-     top: 48px;
-     background-repeat: no-repeat;
-     right: 30px;
-}
-
-.book_btn {
-     background-color: #fe0000;
-     max-width: 189px;
-     width: 100%;
-     margin: 0 auto;
-     padding: 10px 0;
-     border-radius: 50px;
-     color: #fff;
-     font-size: 20px;
-     transition: ease-in 0.5s;
-     display: block;
-}
-
-.book_btn:hover {
-     background-color: #fff;
-     color: #fe0000;
-     transition: ease-in 0.5s;
-}
-
-.carousel-control-next,
-.carousel-control-prev {
-     display: none;
-}
-
-.carousel-indicators {
-     right: inherit;
-     bottom: 53px;
-     margin-left: 9%;
-}
+ .booking-btn:hover {
+     background-color: #8e0000;
+ }
 
 
 /** end banner section **/
