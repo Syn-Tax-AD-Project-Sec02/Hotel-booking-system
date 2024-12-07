@@ -7,39 +7,62 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use Illuminate\Facades\View;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use App\Models\Staff;
 
 class ProfileController extends Controller
 {
     /**
      * Display the user's profile form.
      */
-    public function changePassword(Request $request)
-    {
-        $request->validate([
-            'password' => 'required',
-            'newPassword' => 'required|min:8|confirmed',
+    public function profileStaffForm(){
+        $staff = auth()->guard('staff')->user();
+        return view('Staff.User.profileStaff', compact('staff'));
+    }
+
+    
+
+
+    public function changePasswordStaff(Request $request){
+
+        
+        $validator = Validator::make($request->all(),[
+            'currentPassword' => 'required| string',
+            'newPassword' => 'required|confirmed|min:8|string'
         ]);
-    
-        $staff = auth()->user(); // Assuming the logged-in user is a staff member
-    
+        
+        $staff = auth()->guard('staff')->user();
+        
+        // Check if no user is authenticated
+        if (!$staff) {
+           Log::warning('No authenticated user found.');
+           return redirect()->route('profileStaffForm')->with('error', 'You must be logged in to change your password.');
+        }
+        
+
         if (!Hash::check($request->currentPassword, $staff->password)) {
-            Log::warning("Password change failed for user ID {$staff->id}: Incorrect current password."); // Log failed attempt
-            return back()->withErrors(['password' => 'Current password is incorrect.']);
+            return redirect()->route('profileStaffForm')->with('error', 'Current Password is Invalid');
+        }
+    
+        if ($request->currentPassword === $request->newPassword) {
+             return redirect()->route('profileStaffForm')->with('error', 'New Password cannot be the same as the current password');
         }
     
         $staff->password = Hash::make($request->newPassword);
         $staff->save();
-    
-        Log::info("Password changed successfully for user ID {$staff->id}."); // Log successful password change
-        return back()->with('success', 'Password changed successfully.');
+        Log::info('Password changed successfully');
+        return redirect()->route('profileStaffForm')->with('success', 'Password reset successful.');
+       
     }
+
     
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    /**public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
 
@@ -55,7 +78,7 @@ class ProfileController extends Controller
     /**
      * Delete the user's account.
      */
-    public function destroy(Request $request): RedirectResponse
+    /**public function destroy(Request $request): RedirectResponse
     {
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current_password'],
@@ -72,4 +95,5 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+        */
 }
