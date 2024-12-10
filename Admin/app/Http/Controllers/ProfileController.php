@@ -7,11 +7,11 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Facades\View;
+use Illuminate\View\View;
 use Illuminate\Support\Facades\Log;
+use App\Models\Staff;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Staff;
 
 class ProfileController extends Controller
 {
@@ -57,6 +57,30 @@ class ProfileController extends Controller
         return redirect()->route('profileStaffForm')->with('success', 'Password reset successful.');
        
     }
+
+    public function updateStaffDetails(Request $request)
+    {
+    
+        $staffId = $request->input('staff_id');
+    
+        // Dynamically set the table using setTable() if you want to use a custom table name
+        $staff = new Staff();
+        $staff->setTable('staff'); // Set your custom table name here
+    
+        // Find the room in the rooms_details table
+        $staff = $staff->findOrFail($staffId);
+    
+            $staff->name  = $request->name;
+            $staff->position  = $request->position;
+            $staff->address = $request->address;
+            $staff->phone = $request->phone;
+            $staff->email = $request->email;
+           
+            $staff->save();
+        
+            return redirect()->route('profileStaffForm')->with('success', 'Room details updated successfully!');
+        }
+    
 
     
     /**
