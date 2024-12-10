@@ -13,6 +13,7 @@ use App\Models\Admin;
 use App\Models\Staff;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use App\Models\reset;
 //use Illuminate\Support\Facades\Session;
 
 
