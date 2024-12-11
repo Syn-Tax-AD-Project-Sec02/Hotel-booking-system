@@ -191,14 +191,15 @@
                <div class="card">
                  <img src="{{ asset('dist/assets/images/index/living-suite.jpg')}}" alt="Standard Room" class="card-image">
                  <div class="card-details">
-                   <h3>Standard Room</h3>
+                   <h3>Standard Apartment</h3>
                    <p>
-                     <span>1 king bed, 1 sofa bed</span><br>
+                     {{-- <span>1 king bed, 1 sofa bed</span><br>
                      <span>88 m² (947 sq.ft.)</span><br>
-                     <span>Non-refundable</span>
+                     <span>Non-refundable</span> --}}
+                     <a href="tulis apapapapa" class="room-details" >Apartment details ></a>
                    </p>
                    <div class="price-book">
-                     <span class="price">$1,557</span>
+                     <span class="price">RM 140.00</span>
                      <button class="book-now">Book Now</button>
                    </div>
                  </div>
@@ -208,14 +209,12 @@
                <div class="card">
                  <img src="{{ asset('dist/assets/images/index/kecik-scholar.jpg')}}" alt="Executive Room" class="card-image">
                  <div class="card-details">
-                   <h3>Executive Room</h3>
+                   <h3>Deluxe Apartment</h3>
                    <p>
-                     <span>1 king bed, 1 sofa bed</span><br>
-                     <span>88 m² (947 sq.ft.)</span><br>
-                     <span>Refundable</span>
+                     <a href="#" class="room-details" >Apartment details ></a>
                    </p>
                    <div class="price-book">
-                     <span class="price">$2,097</span>
+                     <span class="price">RM 160.00</span>
                      <button class="book-now">Book Now</button>
                    </div>
                  </div>
@@ -225,14 +224,15 @@
                <div class="card">
                  <img src="{{ asset('dist/assets/images/index/living-suite.jpg')}}" alt="Deluxe Room" class="card-image">
                  <div class="card-details">
-                   <h3>Deluxe Room</h3>
+                   <h3>Scholar Apartment</h3>
                    <p>
-                     <span>1 king bed, 1 sofa bed</span><br>
+                     {{-- <span>1 king bed, 1 sofa bed</span><br>
                      <span>88 m² (947 sq.ft.)</span><br>
-                     <span>Non-refundable</span>
+                     <span>Non-refundable</span> --}}
+                     <a href="#" class="room-details" >Apartment details ></a>
                    </p>
                    <div class="price-book">
-                     <span class="price">$2,902</span>
+                     <span class="price">RM 180.00</span>
                      <button class="book-now">Book Now</button>
                    </div>
                  </div>
@@ -242,14 +242,15 @@
                <div class="card">
                  <img src="{{ asset('dist/assets/images/index/living-scholar.jpg')}}" alt="Family Room" class="card-image">
                  <div class="card-details">
-                   <h3>Family Room</h3>
+                   <h3>Suite Apartment</h3>
                    <p>
-                     <span>2 king beds, 1 sofa bed</span><br>
+                     {{-- <span>2 king beds, 1 sofa bed</span><br>
                      <span>120 m² (1,292 sq.ft.)</span><br>
-                     <span>Refundable</span>
+                     <span>Refundable</span> --}}
+                     <a href="#" class="room-details" >Apartment details ></a>
                    </p>
                    <div class="price-book">
-                     <span class="price">$3,500</span>
+                     <span class="price">RM 260.00</span>
                      <button class="book-now">Book Now</button>
                    </div>
                  </div>
@@ -259,34 +260,36 @@
                <div class="card">
                  <img src="{{ asset('dist/assets/images/index/living-scholar.jpg')}}" alt="Suite Room" class="card-image">
                  <div class="card-details">
-                   <h3>Suite Room</h3>
+                   <h3>Single Room</h3>
                    <p>
-                     <span>1 king bed, lounge area</span><br>
+                     {{-- <span>1 king bed, lounge area</span><br>
                      <span>100 m² (1,076 sq.ft.)</span><br>
-                     <span>Non-refundable</span>
+                     <span>Non-refundable</span> --}}
+                     <a href="#" class="room-details" >Room details ></a>
                    </p>
                    <div class="price-book">
-                     <span class="price">$4,200</span>
+                     <span class="price">FROM RM 69.00</span>
                      <button class="book-now">Book Now</button>
                    </div>
                  </div>
                </div>
              
                <!-- Card 6 -->
-               <div class="card">
+               {{-- <div class="card">
                  <img src="{{ asset('dist/assets/images/index/living-suite.jpg')}}" alt="Penthouse" class="card-image">
                  <div class="card-details">
                    <h3>Penthouse</h3>
                    <p>
-                     <span>3 king beds, rooftop pool</span><br>
+                     {{-- <span>3 king beds, rooftop pool</span><br>
                      <span>250 m² (2,690 sq.ft.)</span><br>
-                     <span>Refundable</span>
+                     <span>Refundable</span> --}}
+                     {{-- <a href="#" class="room-details" >Room details ></a>
                    </p>
                    <div class="price-book">
                      <span class="price">$10,000</span>
                      <button class="book-now">Book Now</button>
                    </div>
-                 </div>
+                 </div> --}}
                </div>
              </div>
          </div>
