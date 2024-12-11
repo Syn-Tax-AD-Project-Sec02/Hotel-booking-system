@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Admin;
 use App\Models\Staff;
+use App\Models\reset;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 //use Illuminate\Support\Facades\Session;
