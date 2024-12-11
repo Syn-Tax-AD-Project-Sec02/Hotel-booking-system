@@ -7,16 +7,14 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
-
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoomController;
 
 
 Route::get('/', function () {
     return view('Admin.user.login');
 });
 
-Route::get('/admin/tables/basic', function () {
-    return view('Admin.tables.basic-table');
-})->name('admin.tables.basic');
 
 Route::get('/user/register', function () {
     return view('Admin.user.register');
@@ -42,20 +40,44 @@ Route::post('/user/resetPassword', [ForgotPasswordController::class, 'reset'])->
 
 Route::middleware('auth:admins')->group(function () {
   Route::get('/changePass', [ForgotPasswordController::class, 'changePasswordForm'])->name('changePassForm');
-  Route::post('/changePass', [ForgotPasswordController::class, 'changePasswordSave'])->name('changePass');
+  Route::post('/changePass', [ForgotPasswordController::class, 'changePasswordAdmin'])->name('changePass');
 });
+
+Route::middleware('auth:staff')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'profileStaffForm'])->name('profileStaffForm');
+    Route::post('/profile', [ProfileController::class, 'changePasswordStaff'])->name('changePassStaff');
+
+    Route::put('/profile', [ProfileController::class, 'updateStaffDetails'])->name('updateStaffDetails');
+  });
 
 
 Route::get('/register', [RegisterController::class, 'showForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
+Route::get('/room-details', [RoomController::class, 'showFormRoomDetails'])->name('RoomDetailsForm');
+Route::post('/room-details', [RoomController::class, 'addRoomDetails']);
+Route::put('/room-details', [RoomController::class, 'updateRoomDetails'])->name('updateRoomDetails');
+Route::delete('/room-details', [RoomController::class, 'deleteRoomDetails'])->name('deleteRoomDetails');
+
+
+
+
+
+
+
+
+//Route::get('/room-details', function(){
+ // return view('Admin.Room.RoomDetails');
+//});
+
+Route::get('/room-list', function(){
+  return view('Admin.Room.RoomList');
+});
 //Route::get('/changePass', function () {return view('Admin.user.changePass');});
 
-Route::get('/user/profilestaff', function () {
-    return view('Staff.User.profileStaff');
-});
-
-
+//Route::get('/user/profilestaff', function () {
+ //   return view('Staff.User.profileStaff');
+//});
 
 //Route::post('/staff/changePassword', [ProfileController::class, 'changePassword'])->name('staff.changePassword');
 

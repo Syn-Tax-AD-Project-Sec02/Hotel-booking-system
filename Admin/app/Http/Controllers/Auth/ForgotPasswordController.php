@@ -13,7 +13,6 @@ use App\Models\Admin;
 use App\Models\Staff;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
-use App\Models\reset;
 //use Illuminate\Support\Facades\Session;
 
 
@@ -124,9 +123,11 @@ class ForgotPasswordController extends Controller
     public function changePasswordForm(){
         return view('Admin.user.changePass');
     }
+
+    
     
 
-    public function changePasswordSave(Request $request){
+    public function changePasswordAdmin(Request $request){
 
         
         $validator = Validator::make($request->all(),[
@@ -135,34 +136,30 @@ class ForgotPasswordController extends Controller
         ]);
         
         $admin = auth()->guard('admins')->user();
+        
         // Check if no user is authenticated
         if (!$admin) {
-            Log::warning('No authenticated user found.');
-            return redirect()->route('changePassForm')->with('error', 'You must be logged in to change your password.');
+           Log::warning('No authenticated user found.');
+           return redirect()->route('changePassForm')->with('error', 'You must be logged in to change your password.');
         }
         
 
-        if (!Hash:: check($request->currentPassword, $admin->password))
-        {
-            Log::warning('Current Password is Invalid');
-            return  redirect()->route('changePassForm')->with('error', "Current Password is Invalid");
+        if (!Hash::check($request->currentPassword, $admin->password)) {
+            return redirect()->route('changePassForm')->with('error', 'Current Password is Invalid');
         }
-
-        if($request->currentPassword === $request->newPassword)
-        {
-            Log::info('New Password cannot be same as your current password');
-            return redirect()->route('changePassForm')->with("error", "New Password cannot be same as your current password");
-
+    
+        if ($request->currentPassword === $request->newPassword) {
+             return redirect()->route('changePassForm')->with('error', 'New Password cannot be the same as the current password');
         }
-
-        //$user = Admin::find($auth->id);
+    
         $admin->password = Hash::make($request->newPassword);
         $admin->save();
         Log::info('Password changed successfully');
-        return redirect('/changePass')->with( 'Password reset successful.');
-        
+        return redirect()->route('changePassForm')->with('success', 'Password reset successful.');
+       
     }
 
+    
     
 
 }

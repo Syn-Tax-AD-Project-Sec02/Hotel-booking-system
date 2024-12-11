@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Scholars Admin</title>
-
+    
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('dist/assets/vendors/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/assets/vendors/ti-icons/css/themify-icons.css') }}">
@@ -15,10 +15,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/light-font@0.2.63/css/materialdesignicons-light.min.css">
     <link rel="stylesheet" href="https://cdn.oesmith.co.uk/morris-0.5.1.css">
     <link rel="stylesheet" href="{{ asset('dist/assets/plugins/morris/morris.css') }}">
-
+    
     <!-- End plugin css for this page -->
     <link rel="stylesheet" href="{{ asset('dist/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
-
+    
     <!-- Layout styles -->
     <link rel="stylesheet" href="{{ asset('dist/assets/css/style.css') }}">
     <!-- End layout styles -->
@@ -48,8 +48,8 @@
         <!-- Navigation -->
         <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
-                <a class="navbar-brand brand-logo" href="{{ route('admin.dashboard.index') }}"><img src="{{ asset('dist/assets/images/LOGO-UTM.png') }}" alt="logo" /></a>
-                <a class="navbar-brand brand-logo-mini" href="{{ route('admin.dashboard.index') }}"><img src="{{ asset('dist/assets/images/logo-mini.svg') }}" alt="logo" /></a>
+                <a class="navbar-brand brand-logo" href="{{ url('index') }}"><img src="{{ asset('dist/assets/images/LOGO-UTM.png') }}" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" href="{{ url('index') }}"><img src="{{ asset('dist/assets/images/logo-mini.svg') }}" alt="logo" /></a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-stretch">
                 <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -177,8 +177,8 @@
                 <h6 class="p-3 mb-0 text-center">See all notifications</h6>
               </div>
             </li>
-
-
+            
+           
           </ul>
           <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
             <span class="mdi mdi-menu"></span>
@@ -210,7 +210,7 @@
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
             </li>
-
+          
             <li class="nav-item">
               <a class="nav-link" href="">
                 <span class="menu-title">Booking</span>
@@ -231,10 +231,21 @@
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url('pages/room/room.html') }}">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">Room</span>
-                <i class="mdi mdi-bookmark-outline menu-icon"></i>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-crosshairs-gps menu-icon"></i>
               </a>
+              <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/room-details') }}">Room Details</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/room-list') }}">Room List</a>
+                  </li>
+                </ul>
+              </div>
             </li>
             <li class="nav-item">
               <a class="nav-link" href=" {{ url('staff.html') }}">
@@ -248,29 +259,7 @@
                 <i class="mdi mdi-tag-outline menu-icon"></i>
               </a>
             </li>
-
-            <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-title">Basic UI Elements</span>
-                <i class="menu-arrow"></i>
-                <i class="mdi mdi-crosshairs-gps menu-icon"></i>
-              </a>
-              <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{ url('pages/ui-features/buttons.html') }}">Buttons</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{ url('pages/ui-features/dropdowns.html') }}">Dropdowns</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{ url('pages/ui-features/typography.html') }}">Typography</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-
-
+          
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
                 <span class="menu-title">Tables</span>
@@ -279,7 +268,7 @@
               <div class="collapse" id="tables">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.tables.basic') }}">Basic table</a>
+                    <a class="nav-link" href="{{ url('pages/tables/basic-table.html')}}">Basic table</a>
                   </li>
                 </ul>
               </div>
@@ -294,7 +283,7 @@
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
                     <a class="nav-link" href="{{ url('pages/samples/blank-page.html')}}"> Blank Page </a>
-                  </li>
+                  </li>                  
                   <li class="nav-item">
                     <a class="nav-link" href="{{ url('pages/samples/error-404.html') }}"> 404 </a>
                   </li>
@@ -378,7 +367,7 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title" style="padding-bottom: 25px;">Room Booked</h4>
-
+                    
                     <div class="doughnutjs-wrapper d-flex justify-content-center">
                       <canvas id="traffic-chart"></canvas>
                     </div>
@@ -387,7 +376,7 @@
                 </div>
               </div>
             </div>
-
+            
             <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">

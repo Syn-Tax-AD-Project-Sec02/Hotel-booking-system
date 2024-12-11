@@ -4,17 +4,15 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Scholars Staff</title>
+    <title>Scholars Admin</title>
     <!-- plugins:css -->
-    <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="../../assets/vendors/ti-icons/css/themify-icons.css">
-    <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
-    <link rel="stylesheet" href="../../assets/vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('dist/assets/vendors/mdi/css/materialdesignicons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/assets/vendors/ti-icons/css/themify-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/assets/vendors/css/vendor.bundle.base.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/assets/vendors/font-awesome/css/font-awesome.min.css') }}">
     <meta property="og:url" content="https://keenthemes.com/products/oswald-html-pro" />
 		<meta property="og:site_name" content="Keenthemes | Oswald HTML Free" />
 		<link rel="canonical" href="https://preview.keenthemes.com/axel-html-free" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
     
     <!-- endinject -->
     <!-- Plugin css for this page -->
@@ -22,18 +20,18 @@
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
-    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="{{ asset('dist/assets/css/style.css') }}">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="../../assets/images/favicon.png" />
+    <link rel="shortcut icon" href="{{ asset('dist/assets/images/favicon.png') }}" />
   </head>
   <body>
     <div class="container-scroller">
       <!-- partial:../../partials/_navbar.html -->
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
-          <a class="navbar-brand brand-logo" href="../../index.html"><img src="../../assets/images/logo.svg" alt="logo" /></a>
-          <a class="navbar-brand brand-logo-mini" href="../../index.html"><img src="../../assets/images/logo-mini.svg" alt="logo" /></a>
-        </div>
+          <a class="navbar-brand brand-logo" href="{{ url('index') }}"><img src="{{ asset('dist/assets/images/LOGO-UTM.png') }}" alt="logo" /></a>
+          <a class="navbar-brand brand-logo-mini" href="{{ url('index') }}"><img src="{{ asset('dist/assets/images/logo-mini.svg') }}" alt="logo" /></a>
+      </div>
         <div class="navbar-menu-wrapper d-flex align-items-stretch">
           <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
             <span class="mdi mdi-menu"></span>
@@ -52,9 +50,9 @@
             <li class="nav-item nav-profile dropdown">
               <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                 <div class="nav-profile-img">
-                  <img src="../../assets/images/faces/face1.jpg" alt="image">
+                  <img src="{{ asset('dist/assets/images/faces/face1.jpg') }}" alt="image">
                   <span class="availability-status online"></span>
-                </div>
+              </div>
                 <div class="nav-profile-text">
                   <p class="mb-1 text-black">David Greymaax</p>
                 </div>
@@ -63,7 +61,7 @@
                 <a class="dropdown-item" href="#">
                   <i class="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="../user/login.html">
+                <a class="dropdown-item" href="#">
                   <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
               </div>
             </li>
@@ -92,7 +90,7 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                    <img src="../../assets/images/faces/face2.jpg" alt="image" class="profile-pic">
+                    <img src="{{ asset('dist/assets/images/faces/face2.jpg') }}" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
                     <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Cregh send you a message</h6>
@@ -102,7 +100,7 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                    <img src="../../assets/images/faces/face3.jpg" alt="image" class="profile-pic">
+                    <img src="{{ ('assets/images/faces/face3.jpg')}}" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
                     <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Profile picture updated</h6>
@@ -176,25 +174,25 @@
             <li class="nav-item nav-profile">
               <a href="#" class="nav-link">
                 <div class="nav-profile-image">
-                  <img src="../../assets/images/faces/face1.jpg" alt="profile" />
+                  <img src="{{ ('assets/images/faces/face1.jpg')}}" alt="profile" />
                   <span class="login-status online"></span>
                   <!--change to offline or busy as needed-->
                 </div>
                 <div class="nav-profile-text d-flex flex-column">
                   <span class="font-weight-bold mb-2">David Grey. H</span>
-                  <span class="text-secondary text-small">Receptionist</span>
+                  <span class="text-secondary text-small">Project Manager</span>
                 </div>
                 <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../../index.html">
+              <a class="nav-link" href="{{ url('/')}}">
                 <span class="menu-title">Dashboard</span>
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="booking.html">
+              <a class="nav-link" href="pages/tables/booking.html">
                 <span class="menu-title">Booking</span>
                 <i class="mdi mdi-calendar-edit-outline menu-icon"></i>
               </a>
@@ -211,7 +209,19 @@
                   </li>
                 </ul>
               </div>
-            </li>           
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="room.html">
+                <span class="menu-title">Room</span>
+                <i class="mdi mdi-bookmark-outline menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="staff.html">
+                <span class="menu-title">Staff</span>
+                <i class="mdi mdi-account-outline menu-icon"></i>
+              </a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="rate.html">
                 <span class="menu-title">Rate</span>
@@ -236,7 +246,7 @@
                   <nav aria-label="breadcrumb">
                       <ol class="breadcrumb">
                           <li class="breadcrumb-item"><a href="#">Dashboards</a></li>
-                          <li class="breadcrumb-item active" aria-current="page">Booking</li>
+                          <li class="breadcrumb-item active" aria-current="page">Room</li>
                       </ol>
                   </nav>
               </div>
@@ -249,55 +259,66 @@
                     
                       <div class=" d-flex justify-content-between align-items-center">
                         <h4 class="card-title">All Room</h4>
-                        <button type="button" class="btn btn-primary btn-rounded shadow" style="padding: 15PX;" data-bs-toggle="modal" data-bs-target="#modalBooking" data-bs-whatever="@mdo">Add Booking</button>
+                        <button type="button" class="btn btn-primary btn-rounded shadow" style="padding: 15PX;" data-bs-toggle="modal" data-bs-target="#modalBooking" data-bs-whatever="@mdo">Add Room</button>
                         <div class="modal fade" id="modalBooking" tabindex="-1" aria-labelledby="modalBookingLabel" aria-hidden="true">
                           <div class="modal-dialog">
                             <div class="modal-content"  style="background-color: white;">
                               <div class="modal-header">
-                                <h5 class="modal-title" id="modalBookingLabel">Add Booking</h5>
+                                <h5 class="modal-title" id="modalBookingLabel">Add Room</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
                                 <form>                                  
                                   <div class="mb-4">
-                                    <label for="FormControlName" style="padding-left: 15px" class="form-label">Full Name</label>
-                                    <input type="text" class="form-control" style="border-radius: 50px;" placeholder="Full Name" aria-label="Full Name">
+                                    <label for="FormControlName"  class="form-label">Room No</label>
+                                    <input type="text" class="form-control" name="RoomNo" placeholder="Room No" aria-label="Room No">
                                   </div>
                                   <div class="mb-4">
-                                    <label for="exampleFormControlInput1" style="padding-left: 15px" class="form-label">Type of Room</label>
-                                    <select class="form-select" style="border-radius: 50px; height:43px; font-size: 12px;" id="inputGroupSelect01">
+                                    <label for="exampleFormControlInput1"  class="form-label">Type of Room</label>
+                                    <select class="form-select" style="height:43px; font-size: 12px;" name="TypeRoom" id="inputGroupSelect01">
                                       <option selected>Choose...</option>
                                       <option value="1">Single</option>
-                                      <option value="2">Deluxe</option>
-                                      <option value="3">Scholars</option>
+                                      <option value="2">Standard</option>
+                                      <option value="3">Deluxe</option>
+                                      <option value="4">Scholars</option>
+                                      <option value="5">Suite</option>
                                     </select>
                                   </div>
-                                  <div class="row mb-4">
-                                    <div class="col">
-                                      <label for="FormControlArrDate" style="padding-left: 15px" class="form-label">Arrival Date</label>
-                                      <input type="date" class="form-control" style="border-radius: 50px;"  aria-label="Arrival Date">
-                                    </div>
-                                    <div class="col">
-                                      <label for="FormControlDepDate" style="padding-left: 15px" class="form-label">Departure Date</label>
-                                      <input type="date" class="form-control" style="border-radius: 50px;"  aria-label="Departure Date">
-                                    </div>
-                                  </div>
                                   <div class="mb-4">
-                                    <label for="FormControlStatus" style="padding-left: 15px" class="form-label">Status</label>
-                                    <select class="form-select" style="border-radius: 50px; height:43px; font-size: 12px;" id="inputGroupSelect01">
+                                    <label for="exampleFormControlInput1" class="form-label">Room Floor</label>
+                                    <select class="form-select" style=" height:43px; font-size: 12px;" name="RoomFloor" id="inputGroupSelect01">
                                       <option selected>Choose...</option>
-                                      <option value="1">Check-In</option>
-                                      <option value="2">Check-Out</option>
+                                      <option value="1">Floor 1</option>
+                                      <option value="2">Floor 2</option>
+                                      <option value="3">Floor 3</option>
+                                      <option value="4">Floor 4</option>
+                                      <option value="5">Floor 5</option>
+                                    </select>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="exampleFormControlInput1" class="form-label">Block</label>
+                                    <select class="form-select" style=" height:43px; font-size: 12px;" name="RoomBlock" id="inputGroupSelect01">
+                                      <option selected>Choose...</option>
+                                      <option value="1">U9</option>
+                                      <option value="2">S46</option>
+                                    </select>
+                                </div>
+                                  <div class="mb-4">
+                                    <label for="FormControlStatus"  class="form-label">Status</label>
+                                    <select class="form-select" style="height:43px; font-size: 12px;" name="Status" id="inputGroupSelect01">
+                                      <option selected>Choose...</option>
+                                      <option value="1">Booked</option>
+                                      <option value="2">Available</option>
                                     </select>
                                   </div>
 
-                                </form>
+                               
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-primary btn-rounded">Add</button>
-                                <button type="button" class="btn btn-secondary btn-rounded" data-bs-dismiss="modal">Cancel</button>
-                                
-                              </div>
+                                <button type="button" class="btn btn-secondary btn-rounded" data-bs-dismiss="modal">Cancel</button>                        
+                              </div> 
+                            </form>
                             </div>
                           </div>
                         </div>
@@ -316,12 +337,11 @@
                     <table class="table table-hover">
                       <thead>
                         <tr>
-                          <th>Room Id</th>
-                          <th>Name</th>
-                          <th>Room type</th>
-                          <th>Arrival Date</th>
-                          <th>Departure Date</th>
-                          <th>Amounts</th>
+                          <th>#</th>
+                          <th>Room No</th>
+                          <th>Room Type</th>
+                          <th>Room Floor</th>
+                          <th>Block</th>
                           <th>Status</th>
                           <th>Action</th>
                         </tr>
@@ -329,12 +349,161 @@
                       <tbody>
                         <tr>
                           <td>#001</td>
-                          <td>Marlia</td>
                           <td>Single</td>
-                          <td>1/11/2024</td>
-                          <td>5/11/2024</td>
-                          <td>RM289</td>
-                          <td><label class="badge badge-danger">Check-In</label></td>
+                          <td>Floor 1</td>
+                          <td>U9</td>
+                          <td><label class="badge badge-danger">Booked</label></td>
+                          <td>
+                            <a class="nav-link" id="dropdownMenuIconButton1" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                              <i class="mdi mdi-dots-vertical"></i>
+                            </a>
+                            <div class="dropdown-menu navbar-dropdown" aria-labelledby="dropdownMenuIconButton1">
+                              <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalBooking">
+                                <i class="mdi mdi-pencil me-2 text-info"></i> Edit </a>
+                                <div class="modal fade" id="modalBooking" tabindex="-1" aria-labelledby="modalBookingLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content"  style="background-color: white;">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="modalBookingLabel">Add Room</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <form>                                  
+                                              <div class="mb-4">
+                                                <label for="FormControlName" style="padding-left: 15px" class="form-label">Room No</label>
+                                                <input type="text" class="form-control" style="border-radius: 50px;" placeholder="Room No" aria-label="Full Name">
+                                              </div>
+                                              <div class="mb-4">
+                                                <label for="exampleFormControlInput1" style="padding-left: 15px" class="form-label">Type of Room</label>
+                                                <select class="form-select" style="border-radius: 50px; height:43px; font-size: 12px;" id="inputGroupSelect01">
+                                                  <option selected>Choose...</option>
+                                                  <option value="1">Single</option>
+                                                  <option value="2">Standard</option>
+                                                  <option value="3">Deluxe</option>
+                                                  <option value="4">Scholars</option>
+                                                  <option value="5">Suite</option>
+                                                </select>
+                                              </div>
+                                              <div class="mb-4">
+                                                <label for="exampleFormControlInput1" style="padding-left: 15px" class="form-label">Room Floor</label>
+                                                <select class="form-select" style="border-radius: 50px; height:43px; font-size: 12px;" id="inputGroupSelect01">
+                                                  <option selected>Choose...</option>
+                                                  <option value="1">Floor 1</option>
+                                                  <option value="2">Floor 2</option>
+                                                  <option value="3">Floor 3</option>
+                                                  <option value="4">Floor 4</option>
+                                                  <option value="5">Floor 5</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-4">
+                                                <label for="exampleFormControlInput1" style="padding-left: 15px" class="form-label">Block</label>
+                                                <select class="form-select" style="border-radius: 50px; height:43px; font-size: 12px;" id="inputGroupSelect01">
+                                                  <option selected>Choose...</option>
+                                                  <option value="1">U9</option>
+                                                  <option value="2">S46</option>
+                                                </select>
+                                            </div>
+                                              <div class="mb-4">
+                                                <label for="FormControlStatus" style="padding-left: 15px" class="form-label">Status</label>
+                                                <select class="form-select" style="border-radius: 50px; height:43px; font-size: 12px;" id="inputGroupSelect01">
+                                                  <option selected>Choose...</option>
+                                                  <option value="1">Booked</option>
+                                                  <option value="2">Available</option>
+                                                </select>
+                                              </div>
+            
+                                            </form>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary btn-rounded">Add</button>
+                                            <button type="button" class="btn btn-secondary btn-rounded" data-bs-dismiss="modal">Cancel</button>
+                                            
+                                          </div>
+                                        </div>
+                                      </div>
+                                </div>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="#">
+                                <i class="mdi mdi-delete me-2 text-danger"></i> Delete </a>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                            <td>#002</td>
+                            <td>Deluxe</td>
+                            <td>Floor 1</td>
+                            <td>U9</td>
+                            <td><label class="badge badge-danger">Booked</label></td>
+                          <td>
+                            <a class="nav-link" id="dropdownMenuIconButton1" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                              <i class="mdi mdi-dots-vertical"></i>
+                            </a>
+                            <div class="dropdown-menu navbar-dropdown" aria-labelledby="dropdownMenuIconButton1">
+                              <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalBooking">
+                                <i class="mdi mdi-pencil me-2 text-info"></i> Edit </a>
+                                <div class="modal fade" id="modalBooking" tabindex="-1" aria-labelledby="modalBookingLabel" aria-hidden="true">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content"  style="background-color: white;">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="modalBookingLabel">Edit Room</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <form>                                  
+                                          <div class="mb-4">
+                                            <label for="FormControlName" style="padding-left: 15px" class="form-label">Full Name</label>
+                                            <input type="text" class="form-control"  placeholder="Full Name" aria-label="Full Name">
+                                          </div>
+                                          <div class="mb-4">
+                                            <label for="exampleFormControlInput1" style="padding-left: 15px" class="form-label">Type of Room</label>
+                                            <select class="form-select" style="border-radius: 50px; height:43px; font-size: 12px;" id="inputGroupSelect01">
+                                              <option selected>Choose...</option>
+                                              <option value="1">Single</option>
+                                              <option value="2">Deluxe</option>
+                                              <option value="3">Scholars</option>
+                                            </select>
+                                          </div>
+                                          <div class="row mb-4">
+                                            <div class="col">
+                                              <label for="FormControlArrDate" style="padding-left: 15px" class="form-label">Arrival Date</label>
+                                              <input type="date" class="form-control" style="border-radius: 50px;"  aria-label="Arrival Date">
+                                            </div>
+                                            <div class="col">
+                                              <label for="FormControlDepDate" style="padding-left: 15px" class="form-label">Departure Date</label>
+                                              <input type="date" class="form-control" style="border-radius: 50px;"  aria-label="Departure Date">
+                                            </div>
+                                          </div>
+                                          <div class="mb-4">
+                                            <label for="FormControlStatus" style="padding-left: 15px" class="form-label">Status</label>
+                                            <select class="form-select" style="border-radius: 50px; height:43px; font-size: 12px;" id="inputGroupSelect01">
+                                              <option selected>Choose...</option>
+                                              <option value="1">Pay</option>
+                                              <option value="2">Pending</option>
+                                            </select>
+                                          </div>
+        
+                                        </form>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary btn-rounded">Add</button>
+                                        <button type="button" class="btn btn-secondary btn-rounded" data-bs-dismiss="modal">Cancel</button>
+                                        
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="#">
+                                <i class="mdi mdi-delete me-2 text-danger"></i> Delete </a>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                            <td>#003</td>
+                            <td>Scholars</td>
+                            <td>Floor 1</td>
+                            <td>U9</td>
+                            <td><label class="badge badge-danger">Booked</label></td>
                           <td>
                             <a class="nav-link" id="dropdownMenuIconButton1" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                               <i class="mdi mdi-dots-vertical"></i>
@@ -400,13 +569,11 @@
                           </td>
                         </tr>
                         <tr>
-                          <td>#002</td>
-                          <td>Qasih</td>
-                          <td>Deluxe</td>
-                          <td>1/11/2024</td>
-                          <td>5/11/2024</td>
-                          <td>RM289</td>
-                          <td><label class="badge badge-danger">Check-In</label></td>
+                            <td>#004</td>
+                            <td>Scholars</td>
+                            <td>Floor 1</td>
+                            <td>U9</td>
+                          <td><label class="badge badge-success">Available</label></td>
                           <td>
                             <a class="nav-link" id="dropdownMenuIconButton1" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                               <i class="mdi mdi-dots-vertical"></i>
@@ -472,162 +639,11 @@
                           </td>
                         </tr>
                         <tr>
-                          <td>#003</td>
-                          <td>Amer</td>
-                          <td>Suit</td>
-                          <td>1/11/2024</td>
-                          <td>5/11/2024</td>
-                          <td>RM289</td>
-                          <td><label class="badge badge-danger">Check-In</label></td>
-                          <td>
-                            <a class="nav-link" id="dropdownMenuIconButton1" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                              <i class="mdi mdi-dots-vertical"></i>
-                            </a>
-                            <div class="dropdown-menu navbar-dropdown" aria-labelledby="dropdownMenuIconButton1">
-                              <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalBooking">
-                                <i class="mdi mdi-pencil me-2 text-info"></i> Edit </a>
-                                <div class="modal fade" id="modalBooking" tabindex="-1" aria-labelledby="modalBookingLabel" aria-hidden="true">
-                                  <div class="modal-dialog">
-                                    <div class="modal-content"  style="background-color: white;">
-                                      <div class="modal-header">
-                                        <h5 class="modal-title" id="modalBookingLabel">Edit Booking</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                      </div>
-                                      <div class="modal-body">
-                                        <form>                                  
-                                          <div class="mb-4">
-                                            <label for="FormControlName" style="padding-left: 15px" class="form-label">Full Name</label>
-                                            <input type="text" class="form-control" style="border-radius: 50px;" placeholder="Full Name" aria-label="Full Name">
-                                          </div>
-                                          <div class="mb-4">
-                                            <label for="exampleFormControlInput1" style="padding-left: 15px" class="form-label">Type of Room</label>
-                                            <select class="form-select" style="border-radius: 50px; height:43px; font-size: 12px;" id="inputGroupSelect01">
-                                              <option selected>Choose...</option>
-                                              <option value="1">Single</option>
-                                              <option value="2">Deluxe</option>
-                                              <option value="3">Scholars</option>
-                                            </select>
-                                          </div>
-                                          <div class="row mb-4">
-                                            <div class="col">
-                                              <label for="FormControlArrDate" style="padding-left: 15px" class="form-label">Arrival Date</label>
-                                              <input type="date" class="form-control" style="border-radius: 50px;"  aria-label="Arrival Date">
-                                            </div>
-                                            <div class="col">
-                                              <label for="FormControlDepDate" style="padding-left: 15px" class="form-label">Departure Date</label>
-                                              <input type="date" class="form-control" style="border-radius: 50px;"  aria-label="Departure Date">
-                                            </div>
-                                          </div>
-                                          <div class="mb-4">
-                                            <label for="FormControlStatus" style="padding-left: 15px" class="form-label">Status</label>
-                                            <select class="form-select" style="border-radius: 50px; height:43px; font-size: 12px;" id="inputGroupSelect01">
-                                              <option selected>Choose...</option>
-                                              <option value="1">Pay</option>
-                                              <option value="2">Pending</option>
-                                            </select>
-                                          </div>
-        
-                                        </form>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary btn-rounded">Add</button>
-                                        <button type="button" class="btn btn-secondary btn-rounded" data-bs-dismiss="modal">Cancel</button>
-                                        
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#">
-                                <i class="mdi mdi-delete me-2 text-danger"></i> Delete </a>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#004</td>
-                          <td>Alif</td>
-                          <td>Single</td>
-                          <td>1/11/2024</td>
-                          <td>5/11/2024</td>
-                          <td>RM289</td>
-                          <td><label class="badge badge-success">Check-Out</label></td>
-                          <td>
-                            <a class="nav-link" id="dropdownMenuIconButton1" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                              <i class="mdi mdi-dots-vertical"></i>
-                            </a>
-                            <div class="dropdown-menu navbar-dropdown" aria-labelledby="dropdownMenuIconButton1">                              
-                              <a class="dropdown-item" href="#">
-                                <i class="mdi mdi-invoice-text-outline me-2 text-secondary"></i> Invoice </a>
-                                <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalBooking">
-                                <i class="mdi mdi-pencil me-2 text-info"></i> Edit </a>
-                                <div class="modal fade" id="modalBooking" tabindex="-1" aria-labelledby="modalBookingLabel" aria-hidden="true">
-                                  <div class="modal-dialog">
-                                    <div class="modal-content"  style="background-color: white;">
-                                      <div class="modal-header">
-                                        <h5 class="modal-title" id="modalBookingLabel">Edit Booking</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                      </div>
-                                      <div class="modal-body">
-                                        <form>                                  
-                                          <div class="mb-4">
-                                            <label for="FormControlName" style="padding-left: 15px" class="form-label">Full Name</label>
-                                            <input type="text" class="form-control" style="border-radius: 50px;" placeholder="Full Name" aria-label="Full Name">
-                                          </div>
-                                          <div class="mb-4">
-                                            <label for="exampleFormControlInput1" style="padding-left: 15px" class="form-label">Type of Room</label>
-                                            <select class="form-select" style="border-radius: 50px; height:43px; font-size: 12px;" id="inputGroupSelect01">
-                                              <option selected>Choose...</option>
-                                              <option value="1">Single</option>
-                                              <option value="2">Deluxe</option>
-                                              <option value="3">Scholars</option>
-                                            </select>
-                                          </div>
-                                          <div class="row mb-4">
-                                            <div class="col">
-                                              <label for="FormControlArrDate" style="padding-left: 15px" class="form-label">Arrival Date</label>
-                                              <input type="date" class="form-control" style="border-radius: 50px;"  aria-label="Arrival Date">
-                                            </div>
-                                            <div class="col">
-                                              <label for="FormControlDepDate" style="padding-left: 15px" class="form-label">Departure Date</label>
-                                              <input type="date" class="form-control" style="border-radius: 50px;"  aria-label="Departure Date">
-                                            </div>
-                                          </div>
-                                          <div class="mb-4">
-                                            <label for="FormControlStatus" style="padding-left: 15px" class="form-label">Status</label>
-                                            <select class="form-select" style="border-radius: 50px; height:43px; font-size: 12px;" id="inputGroupSelect01">
-                                              <option selected>Choose...</option>
-                                              <option value="1">Pay</option>
-                                              <option value="2">Pending</option>
-                                            </select>
-                                          </div>
-        
-                                        </form>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary btn-rounded">Add</button>
-                                        <button type="button" class="btn btn-secondary btn-rounded" data-bs-dismiss="modal">Cancel</button>
-                                        
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#">
-                                <i class="mdi mdi-delete me-2 text-danger"></i> Delete </a>
-                                
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#005</td>
-                          <td>Aina</td>
-                          <td>Scholar</td>
-                          <td>1/11/2024</td>
-                          <td>5/11/2024</td>
-                          <td>RM289</td>
-                          <td><label class="badge badge-success">Check-Out</label></td>
+                            <td>#005</td>
+                            <td>Suite</td>
+                            <td>Floor 1</td>
+                            <td>U9</td>
+                          <td><label class="badge badge-success">Available</label></td>
                           <td>
                               <a class="nav-link" id="dropdownMenuIconButton1" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="mdi mdi-dots-vertical"></i>
@@ -715,20 +731,15 @@
     </div>
     <!-- container-scroller -->
     <!-- plugins:js -->
-    <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
+    <script src="{{ asset('dist/assets/vendors/js/vendor.bundle.base.js')}}"></script><!-- endinject -->
     <!-- Plugin js for this page -->
     <!-- End plugin js for this page -->
     <!-- inject:js -->
-    <script src="../../assets/js/off-canvas.js"></script>
-    <script src="../../assets/js/misc.js"></script>
-    <script src="../../assets/js/settings.js"></script>
-    <script src="../../assets/js/todolist.js"></script>
-    <script src="../../assets/js/jquery.cookie.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    <!-- endinject -->
+    <script src="{{asset('dist/assets/js/off-canvas.js')}}"></script>
+    <script src="{{asset('dist/assets/js/misc.js')}}"></script>
+    <script src="{{asset('dist/assets/js/settings.js')}}"></script>
+    <script src="{{asset('dist/assets/js/todolist.js')}}"></script>
+    <script src="{{asset('dist/assets/js/jquery.cookie.js')}}"></script>  <!-- endinject -->
     <!-- Custom js for this page -->
     <!-- End custom js for this page -->
   </body>

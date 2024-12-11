@@ -16,7 +16,7 @@ class StaffSeeder extends Seeder
     {
         Staff::create([
             'name' => 'Staff',
-            'email' => 'yixn02@gmail.com',
+            'email' => 'staf@example.com',
             'password' => Hash::make('password123'),
             'role' => 'staff', // Replace with a secure password
         ]);
