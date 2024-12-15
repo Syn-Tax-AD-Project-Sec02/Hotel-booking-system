@@ -14,10 +14,13 @@ class Room extends Model
 
     // Define the fillable properties to allow mass assignment
     protected $fillable = [
-        'Image',
         'TypeRoom',
         'Facilities',
         'Rate',
+    ];
+
+    protected $casts = [
+        'ImagePaths' => 'array',  // Convert ImagePaths to an array automatically
     ];
 }
 

@@ -81,6 +81,7 @@ Route::get('/room-list', function(){
 
 //Route::post('/staff/changePassword', [ProfileController::class, 'changePassword'])->name('staff.changePassword');
 
+Route::post('/add-room', [RoomController::class, 'addRoomDetails'])->name('addRoomDetails');
 
 
 
