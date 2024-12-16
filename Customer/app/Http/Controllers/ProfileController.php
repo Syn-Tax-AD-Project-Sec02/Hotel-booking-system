@@ -9,51 +9,87 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Log;
-use App\Models\Staff;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
 {
     /**
      * Display the user's profile form.
      */
-    public function profileStaffForm(){
-        $staff = auth()->guard('staff')->user();
-        return view('Staff.User.profileStaff', compact('staff'));
+
+     public function profileForm(){
+        $users = auth()->user(); // Get authenticated user
+        return view('profile-cust', compact('users'));
     }
 
+    public function updateDetails(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'dob' => 'nullable|date',
+            'gender' => 'nullable|string|max:15',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+    
+        $usersId = $request->input('users_id');
+    
+        // Dynamically set the table using setTable() if you want to use a custom table name
+        $users = new User();
+        $users->setTable('users'); // Set your custom table name here
+        
+        // Find the room in the rooms_details table
+        $users = $users->findOrFail($usersId);
+    
+            $users->name  = $request->name;
+            $users->email = $request->email;
+            $users->phone  = $request->phone;
+            $users->dob = $request->dob;
+            $users->gender = $request->gender;
+            $users->save();
+        
+          return redirect()->route('profileForm')->with('success', 'Profile details updated successfully!');
+        }
+    
+
+        public function changePasswordForm(){
+            return view('Admin.changePassword-cust');
+        }
     
 
 
-    public function changePasswordStaff(Request $request){
+    public function updatePasswordCust(Request $request){
 
-        
+       
         $validator = Validator::make($request->all(),[
             'currentPassword' => 'required| string',
             'newPassword' => 'required|confirmed|min:8|string'
         ]);
         
-        $staff = auth()->guard('staff')->user();
+        $users = auth()->user();
         
         // Check if no user is authenticated
-        if (!$staff) {
+        if (!$users) {
            Log::warning('No authenticated user found.');
-           return redirect()->route('profileStaffForm')->with('error', 'You must be logged in to change your password.');
+           return redirect()->route('changePassForm')->with('error', 'You must be logged in to change your password.');
         }
         
 
-        if (!Hash::check($request->currentPassword, $staff->password)) {
-            return redirect()->route('profileStaffForm')->with('error', 'Current Password is Invalid');
+        if (!Hash::check($request->currentPassword, $users->password)) {
+            return redirect()->route('changePassForm')->with('error', 'Current Password is Invalid');
         }
     
         if ($request->currentPassword === $request->newPassword) {
-             return redirect()->route('profileStaffForm')->with('error', 'New Password cannot be the same as the current password');
+             return redirect()->route('changePassForm')->with('error', 'New Password cannot be the same as the current password');
         }
     
-        $staff->password = Hash::make($request->newPassword);
-        $staff->save();
+        $users->password = Hash::make($request->newPassword);
+        $users->save();
         Log::info('Password changed successfully');
-        return redirect()->route('profileStaffForm')->with('success', 'Password reset successful.');
+        return redirect()->route('changePassForm')->with('success', 'Password reset successful.');
        
     }
 
