@@ -199,7 +199,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="titlepage">
-                        <h2>Our Room</h2>
+                        <h2>Our Rooms & Apartments</h2>
                         <p> </p>
                     </div>
                 </div>
@@ -240,31 +240,53 @@
                                 <div class="modal-body">
                                     <div class="row">
                                         <!-- Room Image -->
-                                        <div class="col-md-6">
-                                            <img src="{{ asset('dist/assets/images/index/' . $room['image']) }}"
-                                                alt="{{ $room['title'] }}" class="img-fluid room-image">
+                                        <div id="roomCarousel" class="carousel slide" data-bs-ride="carousel">
+                                            <!-- Indicators -->
+                                            <div class="carousel-indicators">
+                                                <button type="button" data-bs-target="#roomCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                                <button type="button" data-bs-target="#roomCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                                <button type="button" data-bs-target="#roomCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                            </div>
+                                        
+                                            <!-- Slideshow Images -->
+                                            <div class="carousel-inner">
+                                                <div class="carousel-item active">
+                                                    <img src="resources/views/images/Single room(Aircond)/image 1.jpg" class="d-block w-100" alt="Room 1">
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img src="room2.jpg" class="d-block w-100" alt="Room 2">
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img src="room3.jpg" class="d-block w-100" alt="Room 3">
+                                                </div>
+                                            </div>
+                                        
+                                            <!-- Controls -->
+                                            <button class="carousel-control-prev" type="button" data-bs-target="#roomCarousel" data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Previous</span>
+                                            </button>
+                                            <button class="carousel-control-next" type="button" data-bs-target="#roomCarousel" data-bs-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Next</span>
+                                            </button>
                                         </div>
                                         <!-- Room Details -->
                                         <div class="col-md-6">
                                             <h6>Room Highlights</h6>
                                             <div class="room-highlights">
                                                 <ul>
-                                                    <li>🛌 Sleeps 2</li>
-                                                    <li>📺 50-inch HDTV</li>
-                                                    <li>🛁 Separate bathtub and shower</li>
-                                                    <li>❄️ Mini refrigerator</li>
-                                                    <li>🪑 Seating area with sofa</li>
-                                                </ul>
-                                            </div>
-                                            <h6>Amenities</h6>
-                                            <div class="room-highlights">
-                                                <ul>
-                                                    <li>✔ Free WiFi</li>
-                                                    <li>✔ Non-smoking rooms</li>
-                                                    <li>✔ Concierge</li>
-                                                    <li>✔ Spa</li>
-                                                    <li>✔ EV charging</li>
-                                                </ul>
+                                                    <li>🛌 Bedroom with 1 Queen-sized Bed</li>
+                                                    <li>📶 Free Wi-Fi</li>
+                                                    <li>🚿 Bathroom with Water Heater</li>
+                                                    <li>🧴 Complimentary Toiletries</li>
+                                                    <li>📺 Flat Screen LCD TV</li>
+                                                    <li>🧹 Iron & Ironing Board</li>
+                                                    <li>🕌 Prayer Mat</li>
+                                                    <li>❄️ Refrigerator</li>
+                                                    <li>🛎️ Room Service</li>
+                                                    <li>🧼 Towels</li>
+                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
