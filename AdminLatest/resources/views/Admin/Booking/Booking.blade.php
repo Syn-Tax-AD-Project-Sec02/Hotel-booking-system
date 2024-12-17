@@ -383,7 +383,7 @@
 
                                   <div class="mb-4">
                                     <label for="FormControlName"  class="form-label">Phone</label>
-                                    <input type="number" class="form-control" name="Phone" placeholder="Phone" aria-label="Phone">
+                                    <input type="text" class="form-control" name="Phone" placeholder="Phone" aria-label="Phone">
                                   </div>
 
                                
@@ -437,7 +437,7 @@
                             <!-- Dropdown Menu -->
                             <div class="dropdown-menu navbar-dropdown" aria-labelledby="dropdownMenuIconButton1">
                               <!-- Edit Option -->
-                              <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalBookingU{{ $booking->id }}">
+                              <a class="dropdown-item" href="{{ route('updateBookingList') }}" data-bs-toggle="modal" data-bs-target="#modalBookingU{{ $booking->id }}">
                                 <i class="mdi mdi-pencil me-2 text-info"></i> Edit
                               </a>
 
@@ -466,49 +466,52 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                   </div>
                                   <div class="modal-body">
-                                    <form action="{{ route('updateBookingList')}}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('updateBookingList') }}" method="POST" enctype="multipart/form-data">
                                       @csrf
                                       @method('PUT')
-                                      <input type="hidden" name="booking_id" value="{{ $booking->id }}">
-                                      <!-- Input Fields -->
+                                      <input type="hidden" name="booking_id" value="{{ $booking->_id }}">
+                  
+                                      <!-- Name -->
                                       <div class="mb-4">
-                                        <label for="Name{{ $booking->id }}" class="form-label">Name</label>
-                                        <input type="text" class="form-control" name="Name" id="Name{{ $booking->id }}" value="{{ $booking->Name }}">
+                                          <label for="Name{{ $booking->id }}" class="form-label">Name</label>
+                                          <input type="text" class="form-control" name="Name" id="Name{{ $booking->id }}" value="{{ $booking->Name }}">
                                       </div>
-
-                                    <!-- Other Fields -->
-                                    <div class="mb-4">
-                                        <label for="RoomNo{{ $booking->id }}" class="form-label">Room No</label>
-                                        <input type="text" class="form-control" name="RoomNo" id="RoomNo{{ $booking->id }}" value="{{ $booking->RoomNo }}">
-                                    </div>
-
+                  
+                                      <!-- Room No -->
                                       <div class="mb-4">
-                                        <label for="TypeRoom{{ $booking->id }}" class="form-label">Type of Room</label>
-                                        <select class="form-select" name="TypeRoom" id="TypeRoom{{ $booking->id }}">
-                                          <option value="Single" {{ $booking->TypeRoom == 'Single' ? 'selected' : '' }}>Single</option>
-                                          <option value="Standard" {{ $booking->TypeRoom == 'Standard' ? 'selected' : '' }}>Standard</option>
-                                          <option value="Deluxe" {{ $booking->TypeRoom == 'Deluxe' ? 'selected' : '' }}>Deluxe</option>
-                                          <option value="Scholars" {{ $booking->TypeRoom == 'Scholars' ? 'selected' : '' }}>Scholars</option>
-                                          <option value="Suite" {{ $booking->TypeRoom == 'Suite' ? 'selected' : '' }}>Suite</option>
-                                        </select>
+                                          <label for="RoomNo{{ $booking->id }}" class="form-label">Room No</label>
+                                          <input type="text" class="form-control" name="RoomNo" id="RoomNo{{ $booking->id }}" value="{{ $booking->RoomNo }}">
                                       </div>
-                                       
-                                      
+                  
+                                      <!-- Type of Room -->
+                                      <div class="mb-4">
+                                          <label for="TypeRoom{{ $booking->id }}" class="form-label">Type of Room</label>
+                                          <select class="form-select" name="TypeRoom" id="TypeRoom{{ $booking->id }}">
+                                              <option value="Single" {{ $booking->TypeRoom == 'Single' ? 'selected' : '' }}>Single</option>
+                                              <option value="Standard" {{ $booking->TypeRoom == 'Standard' ? 'selected' : '' }}>Standard</option>
+                                              <option value="Deluxe" {{ $booking->TypeRoom == 'Deluxe' ? 'selected' : '' }}>Deluxe</option>
+                                              <option value="Scholars" {{ $booking->TypeRoom == 'Scholars' ? 'selected' : '' }}>Scholars</option>
+                                              <option value="Suite" {{ $booking->TypeRoom == 'Suite' ? 'selected' : '' }}>Suite</option>
+                                          </select>
+                                      </div>
+                  
+                                      <!-- Check-In and Check-Out -->
                                       <div class="row mb-4">
-                                            <div class="col-md-6">
-                                                <label for="CheckIn{{ $booking->id }}" class="form-label">Check-In</label>
-                                                <input type="date" class="form-control" name="CheckIn" id="CheckIn{{ $booking->id }}" value="{{ $booking->CheckIn }}">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="CheckOut{{ $booking->id }}" class="form-label">Check-Out</label>
-                                                <input type="date" class="form-control" name="CheckOut" id="CheckOut{{ $booking->id }}" value="{{ $booking->CheckOut }}">
-                                            </div>
-                                        </div>
-                                    
-                                        <div class="mb-4">
-                                            <label for="RoomNo{{ $booking->id }}" class="form-label">Room No</label>
-                                            <input type="text" class="form-control" name="RoomNo" id="RoomNo{{ $booking->id }}" value="{{ $booking->RoomNo }}">
-                                        </div>
+                                          <div class="col-md-6">
+                                              <label for="CheckIn{{ $booking->id }}" class="form-label">Check-In</label>
+                                              <input type="date" class="form-control" name="CheckIn" id="CheckIn{{ $booking->id }}" value="{{ $booking->CheckIn }}">
+                                          </div>
+                                          <div class="col-md-6">
+                                              <label for="CheckOut{{ $booking->id }}" class="form-label">Check-Out</label>
+                                              <input type="date" class="form-control" name="CheckOut" id="CheckOut{{ $booking->id }}" value="{{ $booking->CheckOut }}">
+                                          </div>
+                                      </div>
+                  
+                                      <!-- Phone -->
+                                      <div class="mb-4">
+                                          <label for="Phone{{ $booking->id }}" class="form-label">Phone</label>
+                                          <input type="text" class="form-control" name="Phone" id="Phone{{ $booking->id }}" value="{{ $booking->Phone }}">
+                                      </div>
                                     
                                     
                                   

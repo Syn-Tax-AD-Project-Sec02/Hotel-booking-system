@@ -16,7 +16,7 @@ class BookingController extends Controller
     public function showBookingList()
     {
         $bookings = Booking::from('booking_list')->paginate(6);
-        return view('Staff.Booking.Booking', compact('bookings'));
+        return view('Admin.Booking.Booking', compact('bookings'));
     }
 
     public function addBookingList(Request $request)
@@ -28,10 +28,14 @@ class BookingController extends Controller
             'TypeRoom' => 'required|string|in:Single,Standard,Deluxe,Scholars,Suite',
             'CheckIn' => 'required|date|before_or_equal:CheckOut',
             'CheckOut' => 'required|date|after_or_equal:CheckIn',
-            'Phone' => 'required|digits_between:10,15',
+            'Phone' => 'required|string|max:10,15',
         ]);
 
-        $room = Room::where('RoomNo', $request->RoomNo)->where('TypeRoom', $request->TypeRoom)->first();
+        $room = new Room();
+        $room->setTable('room_lists');
+        $room = $room->where('RoomNo', $request->RoomNo)
+             ->where('TypeRoom', $request->TypeRoom)
+             ->first();
         if (!$room) {
             return redirect()->back()->with('error', 'The selected room does not exist or the details do not match.');
         }
@@ -73,14 +77,12 @@ class BookingController extends Controller
     public function updateBookingList(Request $request)
     {
 
-    $bookingId = $request->input('booking_id');
+        $bookingId = $request->input('booking_id');
 
-    // Dynamically set the table using setTable() if you want to use a custom table name
-    $booking = new Booking();
-    $booking->setTable('booking_list'); // Set your custom table name here
-
-    // Find the room in the rooms_details table
-    $booking = $booking->findOrFail($bookingId);
+        $booking = new Booking();
+        $booking->setTable('booking_list'); // Ensure you're pointing to the right table
+        
+        $booking = $booking->findOrFail($bookingId); // Find the record
 
     $booking->Name = $request->Name;
     $booking->RoomNo = $request->RoomNo;
@@ -90,31 +92,33 @@ class BookingController extends Controller
     $booking->Phone = $request->Phone;
     $booking->save();
     
-        return redirect()->route('bookingListsForm')->with('success', 'Room details updated successfully!');
+    return redirect()->route('bookingListsForm')->with('success', 'Room details updated successfully!');
     }
 
 
     public function deleteBookingList(Request $request)
     {
     
-        // Get the room_id from the request
+
         $bookingId = $request->input('booking_id');
 
-        // Set the custom table for MongoDB
-        $booking = new Booking();
-        $booking->setTable('booking_list'); // Custom table name
+    if (!$bookingId) {
+        return redirect()->back()->with('error', 'No booking ID provided.');
+    }
 
-        // Find the room by its MongoDB ObjectId
-        $booking = $booking->find($bookingId);
+        // Set table dynamically
+        $booking = new Booking();
+        $booking->setTable('booking_list');
+
+        $booking = $booking->where('_id', $bookingId)->first();
 
         if (!$booking) {
-            return redirect()->route('bookingListsForm')->with('error', 'Room not found!');
+            return redirect()->back()->with('error', 'Booking not found.');
         }
 
-        // Delete the room
+        // Delete booking
         $booking->delete();
-
-        // Redirect with success message
-        return redirect()->route('bookingListsForm')->with('success', 'Room deleted successfully!');
+    
+        return redirect()->route('bookingListsForm')->with('success', 'Booking deleted successfully!');
     }
 }

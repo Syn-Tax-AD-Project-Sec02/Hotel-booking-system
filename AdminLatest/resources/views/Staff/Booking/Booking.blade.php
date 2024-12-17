@@ -506,8 +506,8 @@
                                         </div>
                                     
                                         <div class="mb-4">
-                                            <label for="RoomNo{{ $booking->id }}" class="form-label">Room No</label>
-                                            <input type="text" class="form-control" name="RoomNo" id="RoomNo{{ $booking->id }}" value="{{ $booking->RoomNo }}">
+                                            <label for="Phone{{ $booking->id }}" class="form-label">Room No</label>
+                                            <input type="text" class="form-control" name="Phone" id="Phone{{ $booking->id }}" value="{{ $booking->Phone }}">
                                         </div>
                                     
                                     

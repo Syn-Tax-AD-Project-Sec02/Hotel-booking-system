@@ -106,7 +106,6 @@ class RoomController extends Controller
         // Find the room in the `rooms_details` table
         $room = new Room();
         $room->setTable('rooms_details');
-        $room = $room->findOrFail($roomId);
 
         // Handle image update
         $room = $room->findOrFail($roomId);
