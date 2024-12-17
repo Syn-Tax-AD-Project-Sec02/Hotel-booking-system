@@ -5,13 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Room;
 use App\Models\RoomList;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use MongoDB\BSON\ObjectId;
+
 
 
 
@@ -28,7 +27,12 @@ class RoomController extends Controller
     // Show the room details form (for /room/details route)
     public function showFormRoomDetails()
     {
-        $rooms = Room::paginate(6); // Example, you can change the number of rooms displayed per page
+        // $rooms = Room::all(); // Example, you can change the number of rooms displayed per page
+        $rooms = DB::connection('mongodb')
+        ->table('rooms_details')
+        ->paginate();
+
+
         return view('Admin.Room.RoomDetails', compact('rooms'));
     }
 

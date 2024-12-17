@@ -14,8 +14,35 @@ use App\Http\Controllers\Auth\VerifyController;
 
 
 Route::get('/', function () {
-    return view('index');
+    $rooms = [
+        [
+            'title' => 'Standard Room',
+            'image' => 'living-suite.jpg',
+            'price' => '140.00',
+            'description' => 'Relax in this expansive room, designed for your comfort.',
+        ],
+        [
+            'title' => 'Deluxe Room',
+            'image' => 'living-suite.jpg',
+            'price' => '180.00',
+            'description' => 'A luxurious room with modern amenities and style.',
+        ],
+        [
+            'title' => 'Twin Deluxe Room',
+            'image' => 'living-suite.jpg',
+            'price' => '200.00',
+            'description' => 'Perfect for friends or couples needing extra space.',
+        ],
+        // Add 4 more entries as needed
+        ['title' => 'Executive Suite', 'image' => 'living-suite.jpg', 'price' => '250.00', 'description' => 'Spacious suite with executive facilities.'],
+        ['title' => 'Family Suite', 'image' => 'living-suite.jpg', 'price' => '300.00', 'description' => 'Ideal for families seeking comfort and relaxation.'],
+        ['title' => 'Studio Room', 'image' => 'living-suite.jpg', 'price' => '150.00', 'description' => 'A compact room for budget-conscious travelers.'],
+        ['title' => 'Presidential Suite', 'image' => 'living-suite.jpg', 'price' => '400.00', 'description' => 'Top-tier luxury for an unparalleled experience.'],
+    ];
+
+    return view('index', ['rooms' => $rooms]);
 });
+
 
 
 Route::get('/login', [LoginController::class, 'showForm'])->name('login');
@@ -43,4 +70,3 @@ Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkReques
 Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail']);
 Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('/reset-password', [ForgotPasswordController::class, 'reset'])->name('password.update');
-

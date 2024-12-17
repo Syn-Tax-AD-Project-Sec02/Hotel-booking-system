@@ -11,15 +11,4 @@ class RoomList extends Model
     protected $collection = 'room_lists';
     protected $fillable = ['RoomNo', 'TypeRoom', 'RoomFloor', 'Block', 'Status'];
     public $timestamps = true; // Enable timestamps for created_at and updated_at
-
-    // Custom query scopes
-    public function scopeAvailable($query)
-    {
-        return $query->where('Status', 'Available');
-    }
-
-    public function scopeByFloor($query, $floor)
-    {
-        return $query->where('RoomFloor', $floor);
-    }
 }
