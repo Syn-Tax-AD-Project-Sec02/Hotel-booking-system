@@ -185,7 +185,7 @@
                 </div>
                 <div class="col-md-7">
                     <div class="about_img">
-                        <figure><img src="{{ asset('dist/assets/images/index/about.png') }}" alt="#" />
+                        <figure><img src="{{ asset('dist/assets/images/index/tasik.jpg') }}" alt="#" />
                         </figure>
                     </div>
                 </div>
@@ -243,15 +243,20 @@
                                         <div id="roomCarousel" class="carousel slide" data-bs-ride="carousel">
                                             <!-- Indicators -->
                                             <div class="carousel-indicators">
-                                                <button type="button" data-bs-target="#roomCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                                <button type="button" data-bs-target="#roomCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                                <button type="button" data-bs-target="#roomCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                                <button type="button" data-bs-target="#roomCarousel"
+                                                    data-bs-slide-to="0" class="active" aria-current="true"
+                                                    aria-label="Slide 1"></button>
+                                                <button type="button" data-bs-target="#roomCarousel"
+                                                    data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                                <button type="button" data-bs-target="#roomCarousel"
+                                                    data-bs-slide-to="2" aria-label="Slide 3"></button>
                                             </div>
-                                        
+
                                             <!-- Slideshow Images -->
                                             <div class="carousel-inner">
                                                 <div class="carousel-item active">
-                                                    <img src="resources/views/images/Single room(Aircond)/image 1.jpg" class="d-block w-100" alt="Room 1">
+                                                    <img src="resources/views/images/Single room(Aircond)/image 1.jpg"
+                                                        class="d-block w-100" alt="Room 1">
                                                 </div>
                                                 <div class="carousel-item">
                                                     <img src="room2.jpg" class="d-block w-100" alt="Room 2">
@@ -260,13 +265,15 @@
                                                     <img src="room3.jpg" class="d-block w-100" alt="Room 3">
                                                 </div>
                                             </div>
-                                        
+
                                             <!-- Controls -->
-                                            <button class="carousel-control-prev" type="button" data-bs-target="#roomCarousel" data-bs-slide="prev">
+                                            <button class="carousel-control-prev" type="button"
+                                                data-bs-target="#roomCarousel" data-bs-slide="prev">
                                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                                 <span class="visually-hidden">Previous</span>
                                             </button>
-                                            <button class="carousel-control-next" type="button" data-bs-target="#roomCarousel" data-bs-slide="next">
+                                            <button class="carousel-control-next" type="button"
+                                                data-bs-target="#roomCarousel" data-bs-slide="next">
                                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                                 <span class="visually-hidden">Next</span>
                                             </button>
@@ -275,24 +282,34 @@
                                         <div class="col-md-6">
                                             <h6>Room Facilities</h6>
                                             <ul>
-                                               
+
                                                 <li>{{ $room->Facilities }}</li>
-                                                
+
                                             </ul>
                                             <button class="book-now-card">Book Now</button>
-                                             <style>
+                                            <style>
                                                 .book-now-card {
-                                                    width: 765px; /* lebar butang */
-                                                    height: 50px; /* Tinggi butang */
-                                                    background-color: #8e0707; /* Warna background */
-                                                    color: white; /* Warna teks */
-                                                    border: none; /* Hilangkan border */
-                                                    border-radius: 5px; /* Buat hujung bulat */
-                                                    font-size: 16px; /* Saiz font */
-                                                    cursor: pointer; /* Tukar kursor jadi tngn */
+                                                    width: 765px;
+                                                    /* lebar butang */
+                                                    height: 50px;
+                                                    /* Tinggi butang */
+                                                    background-color: #8e0707;
+                                                    /* Warna background */
+                                                    color: white;
+                                                    /* Warna teks */
+                                                    border: none;
+                                                    /* Hilangkan border */
+                                                    border-radius: 5px;
+                                                    /* Buat hujung bulat */
+                                                    font-size: 16px;
+                                                    /* Saiz font */
+                                                    cursor: pointer;
+                                                    /* Tukar kursor jadi tngn */
                                                 }
+
                                                 .book-now-card:hover {
-                                                    background-color: #197b0e; /* Keluar warna hover */
+                                                    background-color: #197b0e;
+                                                    /* Keluar warna hover */
                                                 }
                                             </style>
                                         </div>
@@ -327,49 +344,55 @@
             <div class="row">
                 <div class="col-md-3 col-sm-6">
                     <div class="gallery_img">
-                        <figure><img src="{{ asset('dist/assets/images/index/gallery1.jpg') }}" alt="#" />
+                        <figure><img src="{{ asset('dist/assets/images/index/living-scholar.jpg') }}"
+                                alt="#" />
                         </figure>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="gallery_img">
-                        <figure><img src="{{ asset('dist/assets/images/index/gallery2.jpg') }}" alt="#" />
+                        <figure><img src="{{ asset('dist/assets/images/index/kecik-scholar.jpg') }}"
+                                alt="#" />
                         </figure>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="gallery_img">
-                        <figure><img src="{{ asset('dist/assets/images/index/gallery3.jpg') }}" alt="#" />
+                        <figure><img src="{{ asset('dist/assets/images/index/living-suite.jpg') }}" alt="#" />
                         </figure>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="gallery_img">
-                        <figure><img src="{{ asset('dist/assets/images/index/gallery4.jpg') }}" alt="#" />
+                        <figure><img src="{{ asset('dist/assets/images/index/master-scholar.jpg') }}"
+                                alt="#" />
                         </figure>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="gallery_img">
-                        <figure><img src="{{ asset('dist/assets/images/index/gallery5.jpg') }}" alt="#" />
+                        <figure><img src="{{ asset('dist/assets/images/index/living-scholar.jpg') }}"
+                                alt="#" />
                         </figure>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="gallery_img">
-                        <figure><img src="{{ asset('dist/assets/images/index/gallery6.jpg') }}" alt="#" />
+                        <figure><img src="{{ asset('dist/assets/images/index/kecik-scholar.jpg') }}"
+                                alt="#" />
                         </figure>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="gallery_img">
-                        <figure><img src="{{ asset('dist/assets/images/index/gallery7.jpg') }}" alt="#" />
+                        <figure><img src="{{ asset('dist/assets/images/index/living-suite.jpg') }}" alt="#" />
                         </figure>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="gallery_img">
-                        <figure><img src="{{ asset('dist/assets/images/index/gallery8.jpg') }}" alt="#" />
+                        <figure><img src="{{ asset('dist/assets/images/index/master-scholar.jpg') }}"
+                                alt="#" />
                         </figure>
                     </div>
                 </div>
