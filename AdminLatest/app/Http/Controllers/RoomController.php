@@ -83,7 +83,7 @@ class RoomController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $room = new RoomList();
+        $room = new Room();
         $room->RoomNo = $request->RoomNo;
         $room->TypeRoom = $request->TypeRoom;
         $room->RoomFloor = $request->RoomFloor;
@@ -137,7 +137,7 @@ class RoomController extends Controller
     public function updateRoomList(Request $request, $id)
     {
         // Find the room by ID and validate
-        $room = RoomList::findOrFail($id);
+        $room = Room::findOrFail($id);
 
         $request->validate([
             'RoomNo' => 'required|string|max:255',
@@ -182,7 +182,7 @@ class RoomController extends Controller
     {
         try {
 
-            $rooms = RoomList::all();
+            $rooms = Room::all();
             $room = $rooms->findOrFail($id);
             // // Perform deletion
             $room->delete();
@@ -222,7 +222,10 @@ class RoomController extends Controller
     public function filterRoomStatus(Request $request)
     {
         $status = $request->get('status'); // Get the filter status from AJAX
-        $query = RoomList::query();
+        $query = new Room();
+
+        // Dynamically set the table (collection) to rooms_lists
+        $query->setTable('room_lists');
 
         if ($status && $status !== 'all') {
             $rooms = $query->where('Status', $status)->get(); // Filter based on status

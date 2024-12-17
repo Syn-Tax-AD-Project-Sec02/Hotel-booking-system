@@ -13,7 +13,7 @@ class Room extends Model
     
     private static $collectionConfig = [
         'rooms_details' => ['Image', 'TypeRoom', 'Facilities', 'Rate'],
-        'rooms_lists' => ['RoomNo', 'TypeRoom', 'RoomFloor', 'RoomBlock', 'Status'],
+        'room_lists' => ['RoomNo', 'TypeRoom', 'RoomFloor', 'RoomBlock', 'Status'],
     ];
 
      /**
@@ -23,6 +23,9 @@ class Room extends Model
      * @throws \Exception
      */
     
+     
+
+
     public function useCollection(string $collectionName)
     {
         if (!array_key_exists($collectionName, self::$collectionConfig)) {

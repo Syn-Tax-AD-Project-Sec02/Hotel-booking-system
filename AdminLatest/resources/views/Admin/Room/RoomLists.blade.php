@@ -265,7 +265,7 @@
                             <!-- Add Room Modal -->
                             <div class="modal fade" id="modalAddRoom" tabindex="-1" aria-labelledby="modalAddRoomLabel" aria-hidden="true">
                                 <div class="modal-dialog">
-                                    <div class="modal-content">
+                                    <div class="modal-content" style="background-color: white;">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="modalAddRoomLabel">Add Room</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -387,9 +387,9 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                                    <i class="mdi mdi-dots-vertical"></i>
-                                                </a>
+                                              <a class="nav-link" id="dropdownMenuIconButton1" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="mdi mdi-dots-vertical"></i>
+                                              </a>
                                                 <ul class="dropdown-menu">
                                                     <li>
                                                         <!-- Edit Button -->
@@ -417,7 +417,7 @@
                             @foreach ($rooms as $room)
                                 <div class="modal fade" id="modalEditRoom{{ $room->id }}" tabindex="-1" aria-labelledby="modalEditRoomLabel{{ $room->id }}" aria-hidden="true">
                                     <div class="modal-dialog">
-                                        <div class="modal-content">
+                                        <div class="modal-content" style="background-color: white;">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="modalEditRoomLabel{{ $room->id }}">Edit Room</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -511,86 +511,84 @@
     <script src="{{asset('dist/assets/js/jquery.cookie.js')}}"></script>  <!-- endinject -->
 
     <script>
-
-        document.getElementById('editRoomForm').action = `/room-list/${roomData.id}`;
-
-        document.addEventListener('DOMContentLoaded', function () {
-            // By default, load the 'Available' filter and highlight it
-            const availableButton = document.getElementById('allBtn');
-            filterItems('all', availableButton);
-        });
-
-        function filterItems(status, element) {
-            // Send AJAX request to filter rooms
-            $.ajax({
-                url: "{{ route('filterRoomStatus') }}",
-                type: "POST",
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    status: status
-                },
-                success: function (response) {
-                    // Update the room table (your current logic)
-                    const tableBody = $("table tbody");
-                    tableBody.empty();
-                    response.rooms.forEach(room => {
-                        let statusBadge = room.Status === 'Booked'
-                            ? '<span class="badge bg-danger">Booked</span>'
-                            : '<span class="badge bg-success">Available</span>';
-                        tableBody.append(`
-                            <tr>
-                                <td>${room.RoomNo}</td>
-                                <td>${room.TypeRoom}</td>
-                                <td>${room.RoomFloor}</td>
-                                <td>${room.RoomBlock}</td>
-                                <td>${statusBadge}</td>
-                                <td>
-                                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                                    <i class="mdi mdi-dots-vertical"></i>
-                                                </a>
-                                                <ul class="dropdown-menu">
-                                                    <li>
-                                                        <!-- Edit Button -->
-                                                        <a class="dropdown-item" href="{{ route('updateRoomList', $room->id) }}" data-bs-toggle="modal" data-bs-target="#modalEditRoom{{ $room->id }}">
-                                                            <i class="mdi mdi-pencil me-2 text-info"></i> Edit
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <form action="{{ route('deleteRoomFromList', $room->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this room?');">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button class="dropdown-item text-danger" type="submit">
-                                                                <i class="mdi mdi-delete me-2"></i>Delete
-                                                            </button>
-                                                        </form>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                            </tr>
-                        `);
-                    });
-
-                    // Highlight the selected button
-                    highlightSelectedButton(element);
-                },
-                error: function (error) {
-                    console.error("Error filtering rooms:", error);
-                }
-            });
-        }
-
-        function highlightSelectedButton(selectedButton) {
-            // Remove the 'btn-primary' class from all buttons
-            document.querySelectorAll('.btn-group .btn').forEach(button => {
-                button.classList.remove('btn-primary', 'btn-filter-active');
-                button.classList.add('btn-filter'); // Reset to default style
-            });
-
-            // Add the highlight class to the selected button
-            selectedButton.classList.remove('btn-filter');
-            selectedButton.classList.add('btn-primary', 'btn-filter-active');
-        }
-    </script>
+      $(document).ready(function() {
+          // By default, load the 'Available' filter and highlight it
+          const availableButton = document.getElementById('allBtn');
+          filterItems('all', availableButton);
+      });
+  
+      function filterItems(status, element) {
+          // Send AJAX request to filter rooms
+          $.ajax({
+              url: "{{ route('filterRoomStatus') }}", // Ensure this route is correct
+              type: "POST",
+              data: {
+                  _token: "{{ csrf_token() }}",
+                  status: status
+              },
+              success: function (response) {
+                  // Update the room table (your current logic)
+                  const tableBody = $("table tbody");
+                  tableBody.empty();
+                  response.rooms.forEach(room => {
+                      let statusBadge = room.Status === 'Booked'
+                          ? '<span class="badge bg-danger">Booked</span>'
+                          : '<span class="badge bg-success">Available</span>';
+                      tableBody.append(`
+                          <tr>
+                              <td>${room.RoomNo}</td>
+                              <td>${room.TypeRoom}</td>
+                              <td>${room.RoomFloor}</td>
+                              <td>${room.RoomBlock}</td>
+                              <td>${statusBadge}</td>
+                              <td>
+                                  <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                      <i class="mdi mdi-dots-vertical"></i>
+                                  </a>
+                                  <ul class="dropdown-menu">
+                                      <li>
+                                          <!-- Edit Button -->
+                                          <a class="dropdown-item" href="/room-list/${room.id}/edit" data-bs-toggle="modal" data-bs-target="#modalEditRoom${room.id}">
+                                              <i class="mdi mdi-pencil me-2 text-info"></i> Edit
+                                          </a>
+                                      </li>
+                                      <li>
+                                          <form action="/room-list/${room.id}" method="POST" onsubmit="return confirm('Are you sure you want to delete this room?');">
+                                              <input type="hidden" name="_method" value="DELETE">
+                                              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                              <button class="dropdown-item text-danger" type="submit">
+                                                  <i class="mdi mdi-delete me-2"></i>Delete
+                                              </button>
+                                          </form>
+                                      </li>
+                                  </ul>
+                              </td>
+                          </tr>
+                      `);
+                  });
+  
+                  // Highlight the selected button
+                  highlightSelectedButton(element);
+              },
+              error: function (error) {
+                  console.error("Error filtering rooms:", error);
+              }
+          });
+      }
+  
+      function highlightSelectedButton(selectedButton) {
+          // Remove the 'btn-primary' class from all buttons
+          document.querySelectorAll('.btn-group .btn').forEach(button => {
+              button.classList.remove('btn-primary', 'btn-filter-active');
+              button.classList.add('btn-filter'); // Reset to default style
+          });
+  
+          // Add the highlight class to the selected button
+          selectedButton.classList.remove('btn-filter');
+          selectedButton.classList.add('btn-primary', 'btn-filter-active');
+      }
+  </script>
+  
     <!-- Custom js for this page -->
     <!-- End custom js for this page -->
   </body>
