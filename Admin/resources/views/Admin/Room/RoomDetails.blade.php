@@ -307,23 +307,23 @@
                                     <div>
                                       <input type="checkbox" name="facilities[]" value="1 Master Bedroom with Queen Size Bed">
                                       <label for="facility1">🛌 1 Master Bedroom with Queen Size Bed</label>
-                                  </div>
-                                  <div>
+                                    </div>
+                                    <div>
                                       <input type="checkbox" id="facility2" name="facilities[]" value="2 Standard Bedroom with Single Beds">
                                       <label for="facility2">🛌 2 Standard Bedroom with Single Beds</label>
-                                  </div>
-                                  <div>
+                                    </div>
+                                    <div>
                                       <input type="checkbox" id="facility3" name="facilities[]" value="Bedroom with 1 Queen-sized Bed">
                                       <label for="facility3">🛏️ Bedroom with 1 Queen-sized Bed</label>
-                                  </div>
-                                  <div>
+                                    </div>
+                                    <div>
                                       <input type="checkbox" id="facility4" name="facilities[]" value="Air Conditioned">
                                       <label for="facility4">❄️ Air Conditioned</label>
-                                  </div>
-                                  <div>
+                                    </div>
+                                    <div>
                                     <input type="checkbox" id="facility15" name="facilities[]" value="Fan">
                                     <label for="facility15">🌀 Fan</label>
-                                </div>
+                                  </div>
                                   <div>
                                       <input type="checkbox" id="facility5" name="facilities[]" value="Free Wi-Fi">
                                       <label for="facility5">📶 Free Wi-Fi</label>

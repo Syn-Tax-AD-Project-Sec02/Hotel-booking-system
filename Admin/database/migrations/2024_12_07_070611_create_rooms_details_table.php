@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('rooms_details', function (Blueprint $collection) {   
             $collection->id(); // Primary key
-            $collection->string('Image')->nullable();
+            $collection->test('ImagePaths')->nullable();
             $collection->string('TypeRoom'); // Room type
             $collection->string('Facilities'); // Facilities provided
             $collection->decimal('Rate', 8, 2); // Room rate with 2 decimal points

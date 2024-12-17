@@ -28,22 +28,18 @@ class RoomController extends Controller
     public function showFormRoomDetails()
     {
         // $rooms = Room::all(); // Example, you can change the number of rooms displayed per page
-        $rooms = DB::connection('mongodb')
-        ->table('rooms_details')
-        ->paginate();
-
-
+        $rooms = Room::from('rooms_details')->paginate(6);
         return view('Admin.Room.RoomDetails', compact('rooms'));
     }
 
     public function addRoomDetails(Request $request)
     {
         $validator = Validator::make($request->all(), [
-             'Images' => 'nullable|array',
-             'Images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-             'TypeRoom' => 'required|string|max:255',
-             'Facilities' => 'required|string|max:255',
-             'Rate' => 'required|string|max:15',
+            'Images' => 'nullable|array', // Allow an array of images
+            'Images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validate each image
+            'TypeRoom' => 'required|string|max:255',
+            'Facilities' => 'nullable|array', // Allow multiple facilities
+            'Rate' => 'required|string|max:15',
         ]);
 
         // Handle multiple image uploads
@@ -58,9 +54,10 @@ class RoomController extends Controller
         $room = new Room;
         $room->setTable('rooms_details');
         $room->TypeRoom = $request->TypeRoom;
-        $room->Facilities = $request->Facilities;
+        $room->Facilities = json_encode($request->facilities); // Save facilities as JSON array
         $room->Rate = $request->Rate;
-        $room->ImagePaths = json_encode($imagePaths);  // Save multiple image paths as a JSON array            $room->save();
+        $room->ImagePaths = json_encode($imagePaths);   // Save multiple image paths as a JSON array           
+        $room->save();
 
         // Log the event
         Log::info('Room details successfully added with images: ' . $room->id);

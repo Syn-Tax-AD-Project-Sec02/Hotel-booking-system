@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 40px;
+        }
+        .invoice-container {
+            max-width: 800px;
+            margin: auto;
+            border: 1px solid #ddd;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        .header, .bill-to, .invoice-details, .payment-summary {
+            margin-bottom: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+        }
+        .header .company-info {
+            line-height: 1.5;
+        }
+        .header .logo {
+            text-align: right;
+        }
+        h1 {
+            margin: 0;
+        }
+        .bill-to, .invoice-details {
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .totals-row {
+            text-align: right;
+        }
+        .balance-due {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <div class="header">
+            <div class="company-info">
+                <h1>UTM Scholars Inn</h1>
+                <p>Scholar's Inn<br>
+                    Universiti Teknologi Malaysia,<br>
+                    81310 UTM Skudai,Johor<br>
+                   P: 0378310321<br>
+                   M: 0166777393<br>
+                   F: 0378310321<br>
+                   Email : scholarsinn@utm.my</p>
+            </div>
+            <div class="logo">
+                <img src="../../assets/images/LOGO-UTM.png" alt="Company Logo" width="200">
+            </div>
+        </div>
+
+        <div class="invoice-details">
+            <h2>Invoice INV4840</h2>
+            <p><strong>Date:</strong> 06/12/2024</p>
+        </div>
+
+        <div class="bill-to">
+            <h3>Bill To:</h3>
+            <p>Marlia</p>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>QTY</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Single Room Booking at Demo Hotel<br>
+                        Check-out: 5 Nov 2024<br>
+                        Room Only</td>
+                    <td>1</td>
+                    <td>RM289.00</td>
+                    <td>RM289.00</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="payment-summary">
+            <p class="totals-row"><strong>Total:</strong> RM289.00</p>
+            <p class="totals-row"><strong>Paid:</strong> RM289.00</p>
+            <p class="totals-row balance-due"><strong>Balance Due:</strong> RM0.00</p>
+        </div>
+    </div>
+</body>
+</html>
