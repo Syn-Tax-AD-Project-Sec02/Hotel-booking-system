@@ -15,7 +15,6 @@ Route::get('/', function () {
     return view('Admin.user.login');
 });
 
-
 Route::get('/user/register', function () {
     return view('Admin.user.register');
 });
@@ -50,7 +49,6 @@ Route::middleware('auth:staff')->group(function () {
     Route::put('/profile', [ProfileController::class, 'updateStaffDetails'])->name('updateStaffDetails');
   });
 
-
 Route::get('/register', [RegisterController::class, 'showForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
@@ -68,11 +66,12 @@ Route::get('/booking', [BookingController::class, 'showBookingList'])->name('boo
 Route::post('/booking', [BookingController::class, 'addBookingList']);
 Route::put('/booking', [BookingController::class, 'updateBookingList'])->name('updateBookingList');
 Route::delete('/booking', [BookingController::class, 'deleteBookingList'])->name('deleteBookingList');
+Route::get('/room-list', [RoomController::class, 'showRoomList'])->name('RoomList');
+Route::post('/room-list', [RoomController::class, 'addRoomToList'])->name('addRoomToList');
+Route::put('/room-list/{id}', [RoomController::class, 'updateRoomList'])->name('updateRoomList');
+Route::delete('/room-list/{id}', [RoomController::class, 'destroy'])->name('deleteRoomFromList');
 
-
-
-
-
+Route::post('/filter-room-status', [RoomController::class, 'filterRoomStatus'])->name('filterRoomStatus');
 
 
 //Route::get('/room-details', function(){

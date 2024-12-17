@@ -20,8 +20,15 @@ class Users extends Migration
             $collection->string('email');
             $collection->string('password');
             $collection->string('phone');
+            $collection->string('phonebackup');
+            $collection->enum('category', ['individual']); // TBA (not sure category of what)
+
             $collection->enum('role', ['staff', 'student', 'public']); // Define roles
-            $collection->string('matricStaffNo')->nullable(); // Only for 'student'
+            
+            // Only for 'student' & 'staff'
+            $collection->string('matricStaffNo')->nullable(); 
+            $collection->string('semester')->nullable(); 
+
             //$table->string('staff_no')->nullable(); // Only for 'staff'
             $collection->rememberToken();
             $collection->timestamps();

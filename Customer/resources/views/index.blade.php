@@ -114,7 +114,7 @@
             <h1>Welcome to UTM Scholar's Inn</h1>
             <p>Your comfort is our priority</p>
         </header>
-        
+
         <div class="booking-box">
             <form>
                 <!-- Check-in Date -->
@@ -198,10 +198,16 @@
                    <div class="price-book">
                      <span class="price">$1,557</span>
                      <button class="book-now">Book Now</button>
+                     <span class="price">RM 140.00</span>
+                     <button
+                        class="book-now"
+                        onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
+                        Book Now
+                    </button>
                    </div>
                  </div>
                </div>
-             
+
                <!-- Card 2 -->
                <div class="card">
                  <img src="{{ asset('dist/assets/images/index/kecik-scholar.jpg')}}" alt="Executive Room" class="card-image">
@@ -213,10 +219,16 @@
                    <div class="price-book">
                      <span class="price">$2,097</span>
                      <button class="book-now">Book Now</button>
+                     <span class="price">RM 160.00</span>
+                     <button
+                        class="book-now"
+                        onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
+                        Book Now
+                    </button>
                    </div>
                  </div>
                </div>
-             
+
                <!-- Card 3 -->
                <div class="card">
                  <img src="{{ asset('dist/assets/images/index/living-suite.jpg')}}" alt="Deluxe Room" class="card-image">
@@ -228,10 +240,16 @@
                    <div class="price-book">
                      <span class="price">$2,902</span>
                      <button class="book-now">Book Now</button>
+                     <span class="price">RM 180.00</span>
+                     <button
+                        class="book-now"
+                        onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
+                        Book Now
+                    </button>
                    </div>
                  </div>
                </div>
-             
+
                <!-- Card 4 -->
                <div class="card">
                  <img src="{{ asset('dist/assets/images/index/living-scholar.jpg')}}" alt="Family Room" class="card-image">
@@ -243,10 +261,16 @@
                    <div class="price-book">
                      <span class="price">$3,500</span>
                      <button class="book-now">Book Now</button>
+                     <span class="price">RM 260.00</span>
+                     <button
+                        class="book-now"
+                        onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
+                        Book Now
+                    </button>
                    </div>
                  </div>
                </div>
-             
+
                <!-- Card 5 -->
                <div class="card">
                  <img src="{{ asset('dist/assets/images/index/living-scholar.jpg')}}" alt="Suite Room" class="card-image">
@@ -261,20 +285,29 @@
                    </div>
                  </div>
                </div>
-             
+
                <!-- Card 6 -->
                <div class="card">
                  <img src="{{ asset('dist/assets/images/index/living-suite.jpg')}}" alt="Penthouse" class="card-image">
                  <div class="card-details">
                    <h3>Penthouse</h3>
-                  
+
                      <a href="about.html">Rooom Details ></a>
-                  
+
                    <div class="price-book">
                      <span class="price">$10,000</span>
                      <button class="book-now">Book Now</button>
                    </div>
                  </div>
+                     <span class="price">FROM RM 69.00</span>
+                     <button
+                        class="book-now"
+                        onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
+                        Book Now
+                    </button>
+                   </div>
+                 </div>
+               </div>
                </div>
              </div>
          </div>
@@ -402,13 +435,13 @@
                   <form id="request" class="main_form">
                      <div class="row">
                         <div class="col-md-12 ">
-                           <input class="contactus" placeholder="Name" type="type" name="Name"> 
+                           <input class="contactus" placeholder="Name" type="type" name="Name">
                         </div>
                         <div class="col-md-12">
-                           <input class="contactus" placeholder="Email" type="type" name="Email"> 
+                           <input class="contactus" placeholder="Email" type="type" name="Email">
                         </div>
                         <div class="col-md-12">
-                           <input class="contactus" placeholder="Phone Number" type="type" name="Phone Number">                          
+                           <input class="contactus" placeholder="Phone Number" type="type" name="Phone Number">
                         </div>
                         <div class="col-md-12">
                            <textarea class="textarea" placeholder="Message" type="type" Message="Name">Message</textarea>
@@ -476,7 +509,7 @@
                <div class="container">
                   <div class="row">
                      <div class="col-md-10 offset-md-1">
-                        
+
                         <p>
                            Copyright ©2021 Universiti Teknologi Malaysia
                         </p>
