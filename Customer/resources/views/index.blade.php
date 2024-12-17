@@ -25,6 +25,7 @@
       <!-- Tweaks for older IEs-->
       <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
       <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -114,7 +115,7 @@
             <h1>Welcome to UTM Scholar's Inn</h1>
             <p>Your comfort is our priority</p>
         </header>
-
+        
         <div class="booking-box">
             <form>
                 <!-- Check-in Date -->
@@ -193,21 +194,65 @@
                  <div class="card-details">
                    <h3>Standard Room</h3>
                    <p>
-                     <a href="about.html">Rooom Details ></a>
+                     <a href="about.html" data-bs-toggle="modal" data-bs-target="#roomDetailsModal">Room Details ></a>
+                     <div class="container mt-5">
+                      
+                    </div>
+                
+                    <!-- Modal -->
+                    <div class="modal fade" id="roomDetailsModal" tabindex="-1" aria-labelledby="roomDetailsLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content blur-bg">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="roomDetailsLabel">Twin Deluxe Room</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <!-- Room Image -->
+                                        <div class="col-md-6">
+                                            <img src="room-placeholder.jpg" alt="Room Image" class="img-fluid room-image">
+                                        </div>
+                                        <!-- Room Details -->
+                                        <div class="col-md-6">
+                                            <h6>Room Highlights</h6>
+                                            <div class="room-highlights">
+                                                <ul>
+                                                    <li>🛌 Sleeps 2</li>
+                                                    <li>📺 50-inch HDTV</li>
+                                                    <li>🛁 Separate bathtub and shower</li>
+                                                    <li>❄️ Mini refrigerator</li>
+                                                    <li>🪑 Seating area with sofa</li>
+                                                </ul>
+                                            </div>
+                                            <h6>Amenities</h6>
+                                            <div class="room-highlights">
+                                                <ul>
+                                                    <li>✔ Free WiFi</li>
+                                                    <li>✔ Non-smoking rooms</li>
+                                                    <li>✔ Concierge</li>
+                                                    <li>✔ Spa</li>
+                                                    <li>✔ EV charging</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="mt-3">
+                                        Relax in this expansive room, thoughtfully designed with contemporary interior for your comfort.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
                    </p>
                    <div class="price-book">
                      <span class="price">$1,557</span>
                      <button class="book-now">Book Now</button>
-                     <span class="price">RM 140.00</span>
-                     <button
-                        class="book-now"
-                        onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
-                        Book Now
-                    </button>
                    </div>
                  </div>
                </div>
-
+             
                <!-- Card 2 -->
                <div class="card">
                  <img src="{{ asset('dist/assets/images/index/kecik-scholar.jpg')}}" alt="Executive Room" class="card-image">
@@ -219,37 +264,25 @@
                    <div class="price-book">
                      <span class="price">$2,097</span>
                      <button class="book-now">Book Now</button>
-                     <span class="price">RM 160.00</span>
-                     <button
-                        class="book-now"
-                        onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
-                        Book Now
-                    </button>
                    </div>
                  </div>
                </div>
-
+             
                <!-- Card 3 -->
                <div class="card">
                  <img src="{{ asset('dist/assets/images/index/living-suite.jpg')}}" alt="Deluxe Room" class="card-image">
                  <div class="card-details">
                    <h3>Deluxe Room</h3>
                    <p>
-                     <a href="about.html">Rooom Details ></a>
+                     <a href="about.html">Room Details ></a>
                    </p>
                    <div class="price-book">
                      <span class="price">$2,902</span>
                      <button class="book-now">Book Now</button>
-                     <span class="price">RM 180.00</span>
-                     <button
-                        class="book-now"
-                        onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
-                        Book Now
-                    </button>
                    </div>
                  </div>
                </div>
-
+             
                <!-- Card 4 -->
                <div class="card">
                  <img src="{{ asset('dist/assets/images/index/living-scholar.jpg')}}" alt="Family Room" class="card-image">
@@ -261,16 +294,10 @@
                    <div class="price-book">
                      <span class="price">$3,500</span>
                      <button class="book-now">Book Now</button>
-                     <span class="price">RM 260.00</span>
-                     <button
-                        class="book-now"
-                        onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
-                        Book Now
-                    </button>
                    </div>
                  </div>
                </div>
-
+             
                <!-- Card 5 -->
                <div class="card">
                  <img src="{{ asset('dist/assets/images/index/living-scholar.jpg')}}" alt="Suite Room" class="card-image">
@@ -285,29 +312,20 @@
                    </div>
                  </div>
                </div>
-
+             
                <!-- Card 6 -->
                <div class="card">
                  <img src="{{ asset('dist/assets/images/index/living-suite.jpg')}}" alt="Penthouse" class="card-image">
                  <div class="card-details">
                    <h3>Penthouse</h3>
-
+                  
                      <a href="about.html">Rooom Details ></a>
-
+                  
                    <div class="price-book">
                      <span class="price">$10,000</span>
                      <button class="book-now">Book Now</button>
                    </div>
                  </div>
-                     <span class="price">FROM RM 69.00</span>
-                     <button
-                        class="book-now"
-                        onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
-                        Book Now
-                    </button>
-                   </div>
-                 </div>
-               </div>
                </div>
              </div>
          </div>
@@ -435,13 +453,13 @@
                   <form id="request" class="main_form">
                      <div class="row">
                         <div class="col-md-12 ">
-                           <input class="contactus" placeholder="Name" type="type" name="Name">
+                           <input class="contactus" placeholder="Name" type="type" name="Name"> 
                         </div>
                         <div class="col-md-12">
-                           <input class="contactus" placeholder="Email" type="type" name="Email">
+                           <input class="contactus" placeholder="Email" type="type" name="Email"> 
                         </div>
                         <div class="col-md-12">
-                           <input class="contactus" placeholder="Phone Number" type="type" name="Phone Number">
+                           <input class="contactus" placeholder="Phone Number" type="type" name="Phone Number">                          
                         </div>
                         <div class="col-md-12">
                            <textarea class="textarea" placeholder="Message" type="type" Message="Name">Message</textarea>
@@ -509,7 +527,7 @@
                <div class="container">
                   <div class="row">
                      <div class="col-md-10 offset-md-1">
-
+                        
                         <p>
                            Copyright ©2021 Universiti Teknologi Malaysia
                         </p>
@@ -526,6 +544,7 @@
       <script src="{{ asset('dist/assets/js/jsIndex/bootstrap.bundle.min.js')}}"></script>
       <script src="{{ asset('dist/assets/js/jsIndex/jquery-3.0.0.min.js')}}"></script>
       <!-- sidebar -->
+      {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> --}}
       <script src="{{ asset('dist/assets/js/jsIndex/jquery.mCustomScrollbar.concat.min.js')}}"></script>
       <script src="{{ asset('dist/assets/js/jsIndex/custom.js')}}"></script>
    </body>
