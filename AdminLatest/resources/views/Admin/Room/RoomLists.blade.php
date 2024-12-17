@@ -13,13 +13,7 @@
     <meta property="og:url" content="https://keenthemes.com/products/oswald-html-pro" />
 		<meta property="og:site_name" content="Keenthemes | Oswald HTML Free" />
 		<link rel="canonical" href="https://preview.keenthemes.com/axel-html-free" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css">
-    <!-- Include SweetAlert JS -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.js"></script>
 
-  
-
-    
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
@@ -64,12 +58,12 @@
                 </div>
               </a>
               <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-                <a class="dropdown-item" href="{{ route('changePassForm') }}">
-                    <i class="mdi mdi-cached me-2 text-success"></i> Change Password </a>
+                <a class="dropdown-item" href="#">
+                  <i class="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{ url('/') }}">
-                    <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
-            </div>
+                <a class="dropdown-item" href="#">
+                  <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
+              </div>
             </li>
             <li class="nav-item d-none d-lg-block full-screen-link">
               <a class="nav-link">
@@ -164,8 +158,8 @@
                 <h6 class="p-3 mb-0 text-center">See all notifications</h6>
               </div>
             </li>
-           
-            
+
+
           </ul>
           <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
             <span class="mdi mdi-menu"></span>
@@ -192,7 +186,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ route('admin.dashboard.index')}}">
+              <a class="nav-link" href="{{ url('/')}}">
                 <span class="menu-title">Dashboard</span>
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
@@ -217,21 +211,10 @@
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <a class="nav-link" href="room.html">
                 <span class="menu-title">Room</span>
-                <i class="menu-arrow"></i>
-                <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                <i class="mdi mdi-bookmark-outline menu-icon"></i>
               </a>
-              <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/room-details') }}">Room Details</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/room-list') }}">Room List</a>
-                  </li>
-                </ul>
-              </div>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="staff.html">
@@ -268,247 +251,239 @@
                   </nav>
               </div>
             </div>
-            
+
             <div class="row">
-              <div class="col-lg-12 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body ">
-                    <!-- Display success message -->
-@if(session('success'))
-<div class="alert alert-success">
-    {{ session('success') }}
-</div>
-@endif
-
-                <!-- Display error message -->
-                @if(session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-                @endif
-
-                <!-- Display validation errors -->
-                @if($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif
-                      <div class=" d-flex justify-content-between align-items-center">
-                        <h4 class="card-title">All Room</h4>
-                        <button type="button" class="btn btn-primary btn-rounded shadow" style="padding: 15PX;" data-bs-toggle="modal" data-bs-target="#modalBooking" data-bs-whatever="@mdo">Add Room</button>
-                        <div class="modal fade" id="modalBooking" tabindex="-1" aria-labelledby="modalBookingLabel" aria-hidden="true">
-                          <div class="modal-dialog">
-                            <div class="modal-content"  style="background-color: white;">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="modalBookingLabel">Add Room</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
-                                <form action="{{ route('RoomListsForm') }}" method="POST" >                                  
-                                  @csrf                                
-                                  <div class="mb-4">
-                                    <label for="FormControlName"  class="form-label">Room No</label>
-                                    <input type="text" class="form-control" name="RoomNo" placeholder="Room No" aria-label="Room No">
-                                  </div>
-                                  <div class="mb-4">
-                                    <label for="exampleFormControlInput1"  class="form-label">Type of Room</label>
-                                    <select class="form-select" style="height:43px; font-size: 12px;" name="TypeRoom" id="inputGroupSelect01">
-                                      <option selected>Choose...</option>
-                                      <option value="Single">Single</option>
-                                      <option value="Standard">Standard</option>
-                                      <option value="Deluxe">Deluxe</option>
-                                      <option value="Scholars">Scholars</option>
-                                      <option value="Suite">Suite</option>
-                                    </select>
-                                  </div>
-                                  <div class="mb-4">
-                                    <label for="exampleFormControlInput1" class="form-label">Room Floor</label>
-                                    <select class="form-select" style=" height:43px; font-size: 12px;" name="RoomFloor" id="inputGroupSelect01">
-                                      <option selected>Choose...</option>
-                                      <option value="Floor 1">Floor 1</option>
-                                      <option value="Floor 2">Floor 2</option>
-                                      <option value="Floor 3">Floor 3</option>
-                                      <option value="Floor 4">Floor 4</option>
-                                      <option value="Floor 5">Floor 5</option>
-                                    </select>
-                                </div>
-                                <div class="mb-4">
-                                    <label for="exampleFormControlInput1" class="form-label">Block</label>
-                                    <select class="form-select" style=" height:43px; font-size: 12px;" name="RoomBlock" id="inputGroupSelect01">
-                                      <option selected>Choose...</option>
-                                      <option value="U9">U9</option>
-                                      <option value="S46">S46</option>
-                                    </select>
-                                </div>
-                                  <div class="mb-4">
-                                    <label for="FormControlStatus"  class="form-label">Status</label>
-                                    <select class="form-select" style="height:43px; font-size: 12px;" name="Status" id="inputGroupSelect01">
-                                      <option selected>Choose...</option>
-                                      <option value="Booked">Booked</option>
-                                      <option value="Available">Available</option>
-                                    </select>
-                                  </div>
-
-                               
-                              </div>
-                              <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary btn-rounded">Add</button>
-                                <button type="button" class="btn btn-secondary btn-rounded" data-bs-dismiss="modal">Cancel</button>                        
-                              </div> 
-                            </form>
+                <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Header with Add Room Button -->
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4 class="card-title">All Rooms</h4>
+                                <button type="button" class="btn btn-primary btn-rounded shadow" data-bs-toggle="modal" data-bs-target="#modalAddRoom">Add Room</button>
                             </div>
-                          </div>
-                        </div>
-                      </div>
-                    
-                      <div class="container mt-4">
-                        <!-- Filter Buttons -->
-                        <div class="btn-group mb-3" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-filter-active btn-primary rounded-pill me-2 " onclick="filterItems('all')">All room(100)</button>
-                            <button type="button" class="btn btn-filter rounded-pill me-2" onclick="filterItems('available')">Available room(20)</button>
-                            <button type="button" class="btn btn-filter rounded-pill me-2" onclick="filterItems('booked')">Booked(80)</button>
+
+                            <!-- Add Room Modal -->
+                            <div class="modal fade" id="modalAddRoom" tabindex="-1" aria-labelledby="modalAddRoomLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalAddRoomLabel">Add Room</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form method="POST" action="{{ route('addRoomToList') }}">
+                                            @csrf
+                                            <div class="modal-body">
+                                                <!-- Add Room Form Fields -->
+                                                <div class="mb-3">
+                                                    <label for="roomNo" class="form-label">Room No</label>
+                                                    <input type="text" class="form-control @error('RoomNo') is-invalid @enderror" id="roomNo" name="RoomNo" placeholder="Room No" required>
+                                                    @error('RoomNo')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                    <div class="mb-3">
+                                                        <label for="roomType" class="form-label">Type of Room</label>
+                                                        <select class="form-select @error('TypeRoom') is-invalid @enderror" id="roomType" name="TypeRoom" required>
+                                                        <option value="">Choose...</option>
+                                                        <option value="Single">Single</option>
+                                                        <option value="Standard">Standard</option>
+                                                        <option value="Deluxe">Deluxe</option>
+                                                        <option value="Scholars">Scholars</option>
+                                                        <option value="Suite">Suite</option>
+                                                    </select>
+                                                    @error('TypeRoom')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="roomFloor" class="form-label">Room Floor</label>
+                                                    <select class="form-select @error('RoomFloor') is-invalid @enderror" id="roomFloor" name="RoomFloor" required>
+                                                        <option value="">Choose...</option>
+                                                        <option value="Floor 1">Floor 1</option>
+                                                        <option value="Floor 2">Floor 2</option>
+                                                        <option value="Floor 3">Floor 3</option>
+                                                        <option value="Floor 4">Floor 4</option>
+                                                        <option value="Floor 5">Floor 5</option>
+                                                    </select>
+                                                    @error('RoomFloor')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="roomBlock" class="form-label">Block</label>
+                                                    <select class="form-select @error('RoomBlock') is-invalid @enderror" id="roomBlock" name="RoomBlock" required>
+                                                        <option value="">Choose...</option>
+                                                        <option value="U9">U9</option>
+                                                        <option value="S46">S46</option>
+                                                    </select>
+                                                    @error('RoomBlock')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="status" class="form-label">Status</label>
+                                                    <select class="form-select @error('Status') is-invalid @enderror" id="status" name="Status" required>
+                                                        <option value="">Choose...</option>
+                                                        <option value="Available">Available</option>
+                                                        <option value="Booked">Booked</option>
+                                                    </select>
+                                                    @error('Status')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary btn-rounded">Add</button>
+                                                <button type="button" class="btn btn-secondary btn-rounded" data-bs-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Error/Success Messages -->
+                            @if(session('success'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ session('success') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
+                            @if(session('error'))
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    {{ session('error') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
+
+                            <!-- Filter Buttons -->
+                            <div class="btn-group mb-3" role="group" aria-label="Filter Rooms">
+                                <button type="button" class="btn btn-primary btn-filter-active rounded-pill" id="allBtn" onclick="filterItems('all', this)">All Rooms ({{ count($rooms) }})</button>
+                                <button type="button" class="btn btn-filter rounded-pill" id="availableBtn" onclick="filterItems('Available', this)">Available Rooms ({{ $rooms->where('Status', 'Available')->count() }})</button>
+                                <button type="button" class="btn btn-filter rounded-pill" id="bookedBtn" onclick="filterItems('Booked', this)">Booked ({{ $rooms->where('Status', 'Booked')->count() }})</button>
+                            </div>
+
+                            <!-- Room Table -->
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Room No</th>
+                                        <th>Room Type</th>
+                                        <th>Room Floor</th>
+                                        <th>Block</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($rooms as $room)
+                                        <tr>
+                                            <td>{{ $room->RoomNo }}</td>
+                                            <td>{{ $room->TypeRoom }}</td>
+                                            <td>{{ $room->RoomFloor }}</td>
+                                            <td>{{ $room->RoomBlock }}</td>
+                                            <td>
+                                                <span class="badge {{ $room->Status == 'Booked' ? 'bg-danger' : 'bg-success' }}">
+                                                    {{ $room->Status }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                                    <i class="mdi mdi-dots-vertical"></i>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <!-- Edit Button -->
+                                                        <a class="dropdown-item" href="{{ route('updateRoomList', $room->id) }}" data-bs-toggle="modal" data-bs-target="#modalEditRoom{{ $room->id }}">
+                                                            <i class="mdi mdi-pencil me-2 text-info"></i> Edit
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <form action="{{ route('deleteRoomFromList', $room->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this room?');">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="dropdown-item text-danger" type="submit">
+                                                                <i class="mdi mdi-delete me-2"></i>Delete
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+
+                            <!-- Edit Room Modal -->
+                            @foreach ($rooms as $room)
+                                <div class="modal fade" id="modalEditRoom{{ $room->id }}" tabindex="-1" aria-labelledby="modalEditRoomLabel{{ $room->id }}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalEditRoomLabel{{ $room->id }}">Edit Room</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form method="POST" action="{{ route('updateRoomList', ['id' => $room->id]) }}">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="modal-body">
+                                                    <!-- Room Number -->
+                                                    <div class="mb-3">
+                                                        <label for="roomNo" class="form-label">Room No</label>
+                                                        <input type="text" class="form-control" id="roomNo" name="RoomNo" value="{{ $room->RoomNo }}" required>
+                                                    </div>
+                                                    <!-- Type of Room -->
+                                                    <div class="mb-3">
+                                                        <label for="roomType" class="form-label">Type of Room</label>
+                                                        <select class="form-select" id="roomType" name="TypeRoom" required>
+                                                            <option value="Single" {{ $room->TypeRoom == 'Single' ? 'selected' : '' }}>Single</option>
+                                                            <option value="Standard" {{ $room->TypeRoom == 'Standard' ? 'selected' : '' }}>Standard</option>
+                                                            <option value="Deluxe" {{ $room->TypeRoom == 'Deluxe' ? 'selected' : '' }}>Deluxe</option>
+                                                            <option value="Scholars" {{ $room->TypeRoom == 'Scholars' ? 'selected' : '' }}>Scholars</option>
+                                                            <option value="Suite" {{ $room->TypeRoom == 'Suite' ? 'selected' : '' }}>Suite</option>
+                                                        </select>
+                                                    </div>
+                                                    <!-- Floor Selection -->
+                                                    <div class="mb-3">
+                                                        <label for="roomFloor" class="form-label">Room Floor</label>
+                                                        <select class="form-select" id="roomFloor" name="RoomFloor" required>
+                                                            <option value="Floor 1" {{ $room->RoomFloor == 'Floor 1' ? 'selected' : '' }}>Floor 1</option>
+                                                            <option value="Floor 2" {{ $room->RoomFloor == 'Floor 2' ? 'selected' : '' }}>Floor 2</option>
+                                                            <option value="Floor 3" {{ $room->RoomFloor == 'Floor 3' ? 'selected' : '' }}>Floor 3</option>
+                                                            <option value="Floor 4" {{ $room->RoomFloor == 'Floor 4' ? 'selected' : '' }}>Floor 4</option>
+                                                            <option value="Floor 5" {{ $room->RoomFloor == 'Floor 5' ? 'selected' : '' }}>Floor 5</option>
+                                                        </select>
+                                                    </div>
+                                                    <!-- Block Selection -->
+                                                    <div class="mb-3">
+                                                        <label for="roomBlock" class="form-label">Block</label>
+                                                        <select class="form-select" id="roomBlock" name="RoomBlock" required>
+                                                            <option value="U9" {{ $room->RoomBlock == 'U9' ? 'selected' : '' }}>U9</option>
+                                                            <option value="S46" {{ $room->RoomBlock == 'S46' ? 'selected' : '' }}>S46</option>
+                                                        </select>
+                                                    </div>
+                                                    <!-- Status Selection -->
+                                                    <div class="mb-3">
+                                                        <label for="status" class="form-label">Status</label>
+                                                        <select class="form-select" id="status" name="Status" required>
+                                                            <option value="Available" {{ $room->Status == 'Available' ? 'selected' : '' }}>Available</option>
+                                                            <option value="Booked" {{ $room->Status == 'Booked' ? 'selected' : '' }}>Booked</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary btn-rounded">Save Changes</button>
+                                                    <button type="button" class="btn btn-secondary btn-rounded" data-bs-dismiss="modal">Cancel</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
-                    
-                    </p>
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Room No</th>
-                          <th>Room Type</th>
-                          <th>Room Floor</th>
-                          <th>Block</th>
-                          <th>Status</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach ($rooms->sortBy('RoomNo') as $room)
-                        <tr>
-                          <td>{{ $loop->iteration + ($rooms->currentPage() - 1) * $rooms->perPage() }}</td>
-                          <td>{{ $room->RoomNo }}</td>
-                          <td>{{ $room->TypeRoom }}</td>
-                          <td>{{ $room->RoomFloor }}</td>
-                          <td>{{ $room->RoomBlock }}</td>
-                          <td>
-                            @if($room->Status === 'Booked')
-                                <label class="badge badge-danger">Booked</label>
-                            @elseif($room->Status === 'Available')
-                                <label class="badge badge-success">Available</label>
-                            @endif
-                        </td>
-                          
-                          <td>
-                            <!-- Dropdown Trigger -->
-                            <a class="nav-link" id="dropdownMenuIconButton1" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                              <i class="mdi mdi-dots-vertical"></i>
-                            </a>
-                            
-
-                            <!-- Dropdown Menu -->
-                            <div class="dropdown-menu navbar-dropdown" aria-labelledby="dropdownMenuIconButton1">
-                              <!-- Edit Option -->
-                              <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalBookingU{{ $room->_id }}">
-                                <i class="mdi mdi-pencil me-2 text-info"></i> Edit
-                              </a>
-
-                              <!-- Divider -->
-                              <div class="dropdown-divider"></div>
-
-                              <!-- Delete Option -->
-                             <!-- Delete Option -->
-                             <a class="dropdown-item" href="javascript:void(0);" onclick="event.preventDefault(); document.getElementById('deleteRoomForm{{ $room->_id }}').submit();">
-                              <i class="mdi mdi-delete me-2 text-danger"></i> Delete
-                          </a>
-                          
-                          <form id="deleteRoomForm{{ $room->_id }}" action="{{ route('deleteRoomList') }}" method="POST" style="display: none;">
-                              @csrf
-                              @method('DELETE')
-                              <input type="hidden" name="room_id" value="{{ $room->_id }}"> <!-- Pass the room's _id -->
-                          </form>
-                            </div>
-
-                            <!-- Modal (Place Outside Dropdown Menu) -->
-                            <div class="modal fade" id="modalBookingU{{ $room->id }}" tabindex="-1" aria-labelledby="modalBookingU{{ $room->id }}Label" aria-hidden="true">
-                              <div class="modal-dialog">
-                                <div class="modal-content" style="background-color: white;">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title" id="modalBookingU{{ $room->id }}Label">Edit Room</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <form action="{{ route('updateRoomList') }}" method="POST" enctype="multipart/form-data">
-                                      @csrf
-                                      @method('PUT')
-                                      <input type="hidden" name="room_id" value="{{ $room->id }}">
-                                      <!-- Input Fields -->
-                                      <div class="mb-4">
-                                        <label for="RoomNo{{ $room->id }}" class="form-label">Room No</label>
-                                        <input type="text" class="form-control" name="RoomNo" id="RoomNo{{ $room->id }}" value="{{ $room->RoomNo }}">
-                                      </div>
-                                      <div class="mb-4">
-                                        <label for="TypeRoom{{ $room->id }}" class="form-label">Type of Room</label>
-                                        <select class="form-select" name="TypeRoom" id="TypeRoom{{ $room->id }}">
-                                          <option value="Single" {{ $room->TypeRoom == 'Single' ? 'selected' : '' }}>Single</option>
-                                          <option value="Standard" {{ $room->TypeRoom == 'Standard' ? 'selected' : '' }}>Standard</option>
-                                          <option value="Deluxe" {{ $room->TypeRoom == 'Deluxe' ? 'selected' : '' }}>Deluxe</option>
-                                          <option value="Scholars" {{ $room->TypeRoom == 'Scholars' ? 'selected' : '' }}>Scholars</option>
-                                          <option value="Suite" {{ $room->TypeRoom == 'Suite' ? 'selected' : '' }}>Suite</option>
-                                        </select>
-                                      </div>
-                                       <!-- Other Fields -->
-                                       <div class="mb-4">
-                                        <label for="RoomFloor{{ $room->id }}" class="form-label">Floor Room</label>
-                                        <select class="form-select" name="RoomFloor" id="RoomFloor{{ $room->id }}">
-                                          <option value="Floor 1" {{ $room->RoomFloor == 'Floor 1' ? 'selected' : '' }}>Floor 1</option>
-                                          <option value="Floor 2" {{ $room->RoomFloor == 'Floor 2' ? 'selected' : '' }}>Floor 2</option>
-                                          <option value="Floor 3" {{ $room->RoomFloor == 'Floor 3' ? 'selected' : '' }}>Floor 3</option>
-                                          <option value="Floor 4" {{ $room->RoomFloor == 'Floor 4' ? 'selected' : '' }}>Floor 4</option>
-                                          <option value="Floor 5" {{ $room->RoomFloor == 'Floor 5' ? 'selected' : '' }}>Floor 5</option>
-                                        </select>
-                                      </div>
-                                      <div class="mb-4">
-                                        <label for="RoomBlock{{ $room->id }}" class="form-label">Block Room</label>
-                                        <select class="form-select" name="RoomBlock" id="RoomBlock{{ $room->id }}">
-                                          <option value="S46" {{ $room->RoomBlock == 'S46' ? 'selected' : '' }}>S46</option>
-                                          <option value="U9" {{ $room->RoomBlock == 'U9' ? 'selected' : '' }}>U9</option>
-                                         </select>
-                                      </div>
-                                      <div class="mb-4">
-                                        <label for="Status{{ $room->id }}" class="form-label">availabilitystatus</label>
-                                        <select class="form-select" name="Status" id="Status{{ $room->id }}">
-                                          <option value="Booked" {{ $room->Status == 'Booked' ? 'selected' : '' }}>Booked</option>
-                                          <option value="Available" {{ $room->Status == 'Available' ? 'selected' : '' }}>Available</option>
-                                         </select>
-                                      </div>
-                                    
-                                    
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary">Save</button>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                  </div>
-                                  @endforeach
-                                </form>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                        
-
-                      </tbody>
-                    </table>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
+
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
           <footer class="footer">
@@ -534,6 +509,88 @@
     <script src="{{asset('dist/assets/js/settings.js')}}"></script>
     <script src="{{asset('dist/assets/js/todolist.js')}}"></script>
     <script src="{{asset('dist/assets/js/jquery.cookie.js')}}"></script>  <!-- endinject -->
+
+    <script>
+
+        document.getElementById('editRoomForm').action = `/room-list/${roomData.id}`;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // By default, load the 'Available' filter and highlight it
+            const availableButton = document.getElementById('allBtn');
+            filterItems('all', availableButton);
+        });
+
+        function filterItems(status, element) {
+            // Send AJAX request to filter rooms
+            $.ajax({
+                url: "{{ route('filterRoomStatus') }}",
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    status: status
+                },
+                success: function (response) {
+                    // Update the room table (your current logic)
+                    const tableBody = $("table tbody");
+                    tableBody.empty();
+                    response.rooms.forEach(room => {
+                        let statusBadge = room.Status === 'Booked'
+                            ? '<span class="badge bg-danger">Booked</span>'
+                            : '<span class="badge bg-success">Available</span>';
+                        tableBody.append(`
+                            <tr>
+                                <td>${room.RoomNo}</td>
+                                <td>${room.TypeRoom}</td>
+                                <td>${room.RoomFloor}</td>
+                                <td>${room.RoomBlock}</td>
+                                <td>${statusBadge}</td>
+                                <td>
+                                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                                    <i class="mdi mdi-dots-vertical"></i>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <!-- Edit Button -->
+                                                        <a class="dropdown-item" href="{{ route('updateRoomList', $room->id) }}" data-bs-toggle="modal" data-bs-target="#modalEditRoom{{ $room->id }}">
+                                                            <i class="mdi mdi-pencil me-2 text-info"></i> Edit
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <form action="{{ route('deleteRoomFromList', $room->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this room?');">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="dropdown-item text-danger" type="submit">
+                                                                <i class="mdi mdi-delete me-2"></i>Delete
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                            </tr>
+                        `);
+                    });
+
+                    // Highlight the selected button
+                    highlightSelectedButton(element);
+                },
+                error: function (error) {
+                    console.error("Error filtering rooms:", error);
+                }
+            });
+        }
+
+        function highlightSelectedButton(selectedButton) {
+            // Remove the 'btn-primary' class from all buttons
+            document.querySelectorAll('.btn-group .btn').forEach(button => {
+                button.classList.remove('btn-primary', 'btn-filter-active');
+                button.classList.add('btn-filter'); // Reset to default style
+            });
+
+            // Add the highlight class to the selected button
+            selectedButton.classList.remove('btn-filter');
+            selectedButton.classList.add('btn-primary', 'btn-filter-active');
+        }
+    </script>
     <!-- Custom js for this page -->
     <!-- End custom js for this page -->
   </body>

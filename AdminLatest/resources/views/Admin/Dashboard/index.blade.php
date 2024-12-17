@@ -242,7 +242,7 @@
                     <a class="nav-link" href="{{ url('/room-details') }}">Room Details</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/room-lists') }}">Room List</a>
+                    <a class="nav-link" href="{{ route('RoomList') }}">Room List</a>
                   </li>
                 </ul>
               </div>
