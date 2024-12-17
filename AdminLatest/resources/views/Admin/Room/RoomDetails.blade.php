@@ -305,11 +305,12 @@
                                     <label for="exampleFormControlInput1" style="padding-left: 15px" class="form-label">Type of Room</label>
                                     <select class="form-select" name="TypeRoom" style=" 50px; height:43px; font-size: 12px;" id="inputGroupSelect01">
                                       <option selected>Choose...</option>
-                                      <option value="Single">Single</option>
-                                      <option value="Standard">Standard</option>
-                                      <option value="Deluxe">Deluxe</option>
-                                      <option value="Scholars">Scholars</option>
-                                      <option value="Suite">Suite</option>
+                                      <option value="Single(Fan) Room">Single(Fan) Room</option>
+                                      <option value="Single(Aircond) Room">Single(Aircond) Room</option>
+                                      <option value="Standard Apartment">Standard Apartment</option>
+                                      <option value="Deluxe Apartment">Deluxe Apartment</option>
+                                      <option value="Scholars Apartment">Scholars Apartment</option>
+                                      <option value="Suite Apartment">Suite Apartment</option>
                                     </select>
                                   </div>
                                   <div class="mb-4">
@@ -321,7 +322,7 @@
                                     </div>
                                     <div>
                                       <input type="checkbox" id="facility2" name="facilities[]" value="2 Standard Bedroom with Single Beds">
-                                      <label for="facility2">🛌 2 Standard Bedroom with Single Beds</label>
+                                      <label for="facility2">🛌 1 Standard Bedroom with 2 Single Beds</label>
                                     </div>
                                     <div>
                                       <input type="checkbox" id="facility3" name="facilities[]" value="Bedroom with 1 Queen-sized Bed">
@@ -395,12 +396,12 @@
                     
                       <div class="container mt-4">
                         <!-- Filter Buttons -->
-                        <div class="btn-group mb-3" role="group" aria-label="Basic example">
+                        {{-- <div class="btn-group mb-3" role="group" aria-label="Basic example">
                             <button type="button" class="btn btn-filter-active btn-primary rounded-pill me-2 " onclick="filterItems('all')">All room(100)</button>
                             <button type="button" class="btn btn-filter rounded-pill me-2" onclick="filterItems('available')">Available room(20)</button>
                             <button type="button" class="btn btn-filter rounded-pill me-2" onclick="filterItems('booked')">Booked(80)</button>
                         </div>
-                    </div>
+                    </div> --}}
                     
                     </p>
                     <table class="table table-hover">
@@ -498,11 +499,12 @@
                                       <div class="mb-4">
                                         <label for="TypeRoom{{ $room->id }}" class="form-label">Type of Room</label>
                                         <select class="form-select" name="TypeRoom" id="TypeRoom{{ $room->id }}">
-                                          <option value="Single" {{ $room->TypeRoom == 'Single' ? 'selected' : '' }}>Single</option>
-                                          <option value="Standard" {{ $room->TypeRoom == 'Standard' ? 'selected' : '' }}>Standard</option>
-                                          <option value="Deluxe" {{ $room->TypeRoom == 'Deluxe' ? 'selected' : '' }}>Deluxe</option>
-                                          <option value="Scholars" {{ $room->TypeRoom == 'Scholars' ? 'selected' : '' }}>Scholars</option>
-                                          <option value="Suite" {{ $room->TypeRoom == 'Suite' ? 'selected' : '' }}>Suite</option>
+                                          <option value="Single(Fan) Room" {{ $room->TypeRoom == 'Single(Fan) Room' ? 'selected' : '' }}>Single(Fan) Room</option>
+                                          <option value="Single(Aircond) Room" {{ $room->TypeRoom == 'Single(Aircond) Room' ? 'selected' : '' }}>Single(Aircond) Room</option>
+                                          <option value="Standard Apartment" {{ $room->TypeRoom == 'Standard Apartment' ? 'selected' : '' }}>Standard Apartment</option>
+                                          <option value="Deluxe Apartment" {{ $room->TypeRoom == 'Deluxe Apartment' ? 'selected' : '' }}>Deluxe Apartment</option>
+                                          <option value="Scholars Apartment" {{ $room->TypeRoom == 'Scholars Apartment' ? 'selected' : '' }}>Scholars Apartment</option>
+                                          <option value="Suite Apartment" {{ $room->TypeRoom == 'Suite Apartment' ? 'selected' : '' }}>Suite Apartment</option>
                                         </select>
                                       </div>
                                        <!-- Other Fields -->
@@ -520,7 +522,7 @@
                                         <div>
                                             <input type="checkbox" name="facilities[]" value="2 Standard Bedroom with Single Beds" 
                                             {{ in_array("2 Standard Bedroom with Single Beds", $facilities) ? 'checked' : '' }}>
-                                            <label for="facility2">🛌 2 Standard Bedroom with Single Beds</label>
+                                            <label for="facility2">🛌 1 Standard Bedroom with 2 Single Beds</label>
                                         </div>
                                         <div>
                                             <input type="checkbox" name="facilities[]" value="Bedroom with 1 Queen-sized Bed" 
