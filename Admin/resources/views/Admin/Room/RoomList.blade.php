@@ -281,9 +281,9 @@
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>
-                                                <div class="mb-3">
-                                                    <label for="roomType" class="form-label">Type of Room</label>
-                                                    <select class="form-select @error('TypeRoom') is-invalid @enderror" id="roomType" name="TypeRoom" required>
+                                                    <div class="mb-3">
+                                                        <label for="roomType" class="form-label">Type of Room</label>
+                                                        <select class="form-select @error('TypeRoom') is-invalid @enderror" id="roomType" name="TypeRoom" required>
                                                         <option value="">Choose...</option>
                                                         <option value="Single">Single</option>
                                                         <option value="Standard">Standard</option>
@@ -545,8 +545,27 @@
                                 <td>${room.RoomBlock}</td>
                                 <td>${statusBadge}</td>
                                 <td>
-                                    <button class="btn btn-danger btn-sm">Delete</button>
-                                </td>
+                                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                                    <i class="mdi mdi-dots-vertical"></i>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <!-- Edit Button -->
+                                                        <a class="dropdown-item" href="{{ route('updateRoomList', $room->id) }}" data-bs-toggle="modal" data-bs-target="#modalEditRoom{{ $room->id }}">
+                                                            <i class="mdi mdi-pencil me-2 text-info"></i> Edit
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <form action="{{ route('deleteRoomFromList', $room->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this room?');">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="dropdown-item text-danger" type="submit">
+                                                                <i class="mdi mdi-delete me-2"></i>Delete
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </td>
                             </tr>
                         `);
                     });
