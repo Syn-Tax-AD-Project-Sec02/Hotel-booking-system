@@ -197,7 +197,7 @@
                      <a href="about.html" data-bs-toggle="modal" data-bs-target="#roomDetailsModal">Room Details ></a>
                      <div class="container mt-5">
                       
-                    </div>
+                    
                 
                     <!-- Modal -->
                     <div class="modal fade" id="roomDetailsModal" tabindex="-1" aria-labelledby="roomDetailsLabel" aria-hidden="true">
@@ -246,9 +246,10 @@
                     </div>
                 
                    </p>
+                  </div>
                    <div class="price-book">
-                     <button class="book-now">Book Now</button>
                      <span class="price">RM 140.00</span>
+                     <button class="book-now">Book Now</button>
                      {{-- <button
                         class="book-now"
                         onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
@@ -262,97 +263,357 @@
                <div class="card">
                  <img src="{{ asset('dist/assets/images/index/kecik-scholar.jpg')}}" alt="Executive Room" class="card-image">
                  <div class="card-details">
-                   <h3>Executive Room</h3>
-                   <p>
-                     <a href="about.html">Rooom Details ></a>
-                   </p>
-                   <div class="price-book">
-                     <button class="book-now">Book Now</button>
-                     <span class="price">RM 160.00</span>
-                     {{-- <button
-                        class="book-now"
-                        onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
-                        Book Now
-                    </button> --}}
+                  <h3>Deluxe Room</h3>
+                  <p>
+                    <a href="about.html" data-bs-toggle="modal" data-bs-target="#roomDetailsModal">Room Details ></a>
+                    <div class="container mt-5">
+                     
+                   
+               
+                   <!-- Modal -->
+                   <div class="modal fade" id="roomDetailsModal" tabindex="-1" aria-labelledby="roomDetailsLabel" aria-hidden="true">
+                       <div class="modal-dialog modal-lg">
+                           <div class="modal-content blur-bg">
+                               <div class="modal-header">
+                                   <h5 class="modal-title" id="roomDetailsLabel">Twin Deluxe Room</h5>
+                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                               </div>
+                               <div class="modal-body">
+                                   <div class="row">
+                                       <!-- Room Image -->
+                                       <div class="col-md-6">
+                                           <img src="room-placeholder.jpg" alt="Room Image" class="img-fluid room-image">
+                                       </div>
+                                       <!-- Room Details -->
+                                       <div class="col-md-6">
+                                           <h6>Room Highlights</h6>
+                                           <div class="room-highlights">
+                                               <ul>
+                                                   <li>🛌 Sleeps 2</li>
+                                                   <li>📺 50-inch HDTV</li>
+                                                   <li>🛁 Separate bathtub and shower</li>
+                                                   <li>❄️ Mini refrigerator</li>
+                                                   <li>🪑 Seating area with sofa</li>
+                                               </ul>
+                                           </div>
+                                           <h6>Amenities</h6>
+                                           <div class="room-highlights">
+                                               <ul>
+                                                   <li>✔ Free WiFi</li>
+                                                   <li>✔ Non-smoking rooms</li>
+                                                   <li>✔ Concierge</li>
+                                                   <li>✔ Spa</li>
+                                                   <li>✔ EV charging</li>
+                                               </ul>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <p class="mt-3">
+                                       Relax in this expansive room, thoughtfully designed with contemporary interior for your comfort.
+                                   </p>
+                               </div>
+                           </div>
+                       </div>
                    </div>
+               
+                  </p>
                  </div>
+                  <div class="price-book">
+                    <span class="price">RM 160.00</span>
+                    <button class="book-now">Book Now</button>
+                    {{-- <button
+                       class="book-now"
+                       onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
+                       Book Now
+                   </button> --}}
+                  </div>
+                </div>
                </div>
              
                <!-- Card 3 -->
                <div class="card">
                  <img src="{{ asset('dist/assets/images/index/living-suite.jpg')}}" alt="Deluxe Room" class="card-image">
                  <div class="card-details">
-                   <h3>Deluxe Room</h3>
-                   <p>
-                     <a href="about.html">Room Details ></a>
-                   </p>
-                   <div class="price-book">
-                     <button class="book-now">Book Now</button>
-                     <span class="price">RM 180.00</span>
-                     {{-- <button
-                        class="book-now"
-                        onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
-                        Book Now
-                    </button> --}}
+                  <h3>Scholar Room</h3>
+                  <p>
+                    <a href="about.html" data-bs-toggle="modal" data-bs-target="#roomDetailsModal">Room Details ></a>
+                    <div class="container mt-5">
+                     
+                   
+               
+                   <!-- Modal -->
+                   <div class="modal fade" id="roomDetailsModal" tabindex="-1" aria-labelledby="roomDetailsLabel" aria-hidden="true">
+                       <div class="modal-dialog modal-lg">
+                           <div class="modal-content blur-bg">
+                               <div class="modal-header">
+                                   <h5 class="modal-title" id="roomDetailsLabel">Twin Deluxe Room</h5>
+                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                               </div>
+                               <div class="modal-body">
+                                   <div class="row">
+                                       <!-- Room Image -->
+                                       <div class="col-md-6">
+                                           <img src="room-placeholder.jpg" alt="Room Image" class="img-fluid room-image">
+                                       </div>
+                                       <!-- Room Details -->
+                                       <div class="col-md-6">
+                                           <h6>Room Highlights</h6>
+                                           <div class="room-highlights">
+                                               <ul>
+                                                   <li>🛌 Sleeps 2</li>
+                                                   <li>📺 50-inch HDTV</li>
+                                                   <li>🛁 Separate bathtub and shower</li>
+                                                   <li>❄️ Mini refrigerator</li>
+                                                   <li>🪑 Seating area with sofa</li>
+                                               </ul>
+                                           </div>
+                                           <h6>Amenities</h6>
+                                           <div class="room-highlights">
+                                               <ul>
+                                                   <li>✔ Free WiFi</li>
+                                                   <li>✔ Non-smoking rooms</li>
+                                                   <li>✔ Concierge</li>
+                                                   <li>✔ Spa</li>
+                                                   <li>✔ EV charging</li>
+                                               </ul>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <p class="mt-3">
+                                       Relax in this expansive room, thoughtfully designed with contemporary interior for your comfort.
+                                   </p>
+                               </div>
+                           </div>
+                       </div>
                    </div>
+               
+                  </p>
                  </div>
+                  <div class="price-book">
+                    <span class="price">RM 180.00</span>
+                    <button class="book-now">Book Now</button>
+                    {{-- <button
+                       class="book-now"
+                       onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
+                       Book Now
+                   </button> --}}
+                  </div>
+                </div>
                </div>
              
                <!-- Card 4 -->
                <div class="card">
                  <img src="{{ asset('dist/assets/images/index/living-scholar.jpg')}}" alt="Family Room" class="card-image">
                  <div class="card-details">
-                   <h3>Family Room</h3>
-                   <p>
-                     <a href="about.html">Rooom Details ></a>
-                   </p>
-                   <div class="price-book">
-                     <button class="book-now">Book Now</button>
-                     <span class="price">RM 260.00</span>
-                     {{-- <button
-                        class="book-now"
-                        onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
-                        Book Now
-                    </button> --}}
+                  <h3>Suite Room</h3>
+                  <p>
+                    <a href="about.html" data-bs-toggle="modal" data-bs-target="#roomDetailsModal">Room Details ></a>
+                    <div class="container mt-5">
+                     
+                   
+               
+                   <!-- Modal -->
+                   <div class="modal fade" id="roomDetailsModal" tabindex="-1" aria-labelledby="roomDetailsLabel" aria-hidden="true">
+                       <div class="modal-dialog modal-lg">
+                           <div class="modal-content blur-bg">
+                               <div class="modal-header">
+                                   <h5 class="modal-title" id="roomDetailsLabel">Twin Deluxe Room</h5>
+                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                               </div>
+                               <div class="modal-body">
+                                   <div class="row">
+                                       <!-- Room Image -->
+                                       <div class="col-md-6">
+                                           <img src="room-placeholder.jpg" alt="Room Image" class="img-fluid room-image">
+                                       </div>
+                                       <!-- Room Details -->
+                                       <div class="col-md-6">
+                                           <h6>Room Highlights</h6>
+                                           <div class="room-highlights">
+                                               <ul>
+                                                   <li>🛌 Sleeps 2</li>
+                                                   <li>📺 50-inch HDTV</li>
+                                                   <li>🛁 Separate bathtub and shower</li>
+                                                   <li>❄️ Mini refrigerator</li>
+                                                   <li>🪑 Seating area with sofa</li>
+                                               </ul>
+                                           </div>
+                                           <h6>Amenities</h6>
+                                           <div class="room-highlights">
+                                               <ul>
+                                                   <li>✔ Free WiFi</li>
+                                                   <li>✔ Non-smoking rooms</li>
+                                                   <li>✔ Concierge</li>
+                                                   <li>✔ Spa</li>
+                                                   <li>✔ EV charging</li>
+                                               </ul>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <p class="mt-3">
+                                       Relax in this expansive room, thoughtfully designed with contemporary interior for your comfort.
+                                   </p>
+                               </div>
+                           </div>
+                       </div>
                    </div>
+               
+                  </p>
                  </div>
+                  <div class="price-book">
+                    <span class="price">RM 140.00</span>
+                    <button class="book-now">Book Now</button>
+                    {{-- <button
+                       class="book-now"
+                       onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
+                       Book Now
+                   </button> --}}
+                  </div>
+                </div>
                </div>
              
                <!-- Card 5 -->
                <div class="card">
                  <img src="{{ asset('dist/assets/images/index/living-scholar.jpg')}}" alt="Suite Room" class="card-image">
                  <div class="card-details">
-                   <h3>Suite Room</h3>
-                   <p>
-                     {{-- <a href="{{route('booking')}}">Room Details ></a> --}}
-                   </p>
-                   <div class="price-book">
-                     <button class="book-now">Book Now</button>
+                  <h3>Single Queen Room</h3>
+                  <h3>(Aircond)</h3>
+                  <p>
+                    <a href="about.html" data-bs-toggle="modal" data-bs-target="#roomDetailsModal">Room Details ></a>
+                    <div class="container mt-5">
+                     
+                   
+               
+                   <!-- Modal -->
+                   <div class="modal fade" id="roomDetailsModal" tabindex="-1" aria-labelledby="roomDetailsLabel" aria-hidden="true">
+                       <div class="modal-dialog modal-lg">
+                           <div class="modal-content blur-bg">
+                               <div class="modal-header">
+                                   <h5 class="modal-title" id="roomDetailsLabel">Twin Deluxe Room</h5>
+                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                               </div>
+                               <div class="modal-body">
+                                   <div class="row">
+                                       <!-- Room Image -->
+                                       <div class="col-md-6">
+                                           <img src="room-placeholder.jpg" alt="Room Image" class="img-fluid room-image">
+                                       </div>
+                                       <!-- Room Details -->
+                                       <div class="col-md-6">
+                                           <h6>Room Highlights</h6>
+                                           <div class="room-highlights">
+                                               <ul>
+                                                   <li>🛌 Sleeps 2</li>
+                                                   <li>📺 50-inch HDTV</li>
+                                                   <li>🛁 Separate bathtub and shower</li>
+                                                   <li>❄️ Mini refrigerator</li>
+                                                   <li>🪑 Seating area with sofa</li>
+                                               </ul>
+                                           </div>
+                                           <h6>Amenities</h6>
+                                           <div class="room-highlights">
+                                               <ul>
+                                                   <li>✔ Free WiFi</li>
+                                                   <li>✔ Non-smoking rooms</li>
+                                                   <li>✔ Concierge</li>
+                                                   <li>✔ Spa</li>
+                                                   <li>✔ EV charging</li>
+                                               </ul>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <p class="mt-3">
+                                       Relax in this expansive room, thoughtfully designed with contemporary interior for your comfort.
+                                   </p>
+                               </div>
+                           </div>
+                       </div>
                    </div>
+               
+                  </p>
                  </div>
+                  <div class="price-book">
+                    <span class="price">RM 140.00</span>
+                    <button class="book-now">Book Now</button>
+                    {{-- <button
+                       class="book-now"
+                       onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
+                       Book Now
+                   </button> --}}
+                  </div>
+                </div>
                </div>
              
                <!-- Card 6 -->
                <div class="card">
                  <img src="{{ asset('dist/assets/images/index/living-suite.jpg')}}" alt="Penthouse" class="card-image">
                  <div class="card-details">
-                   <h3>Penthouse</h3>
-                  
-                     <a href="about.html">Rooom Details ></a>
-                  
-                   <div class="price-book">
-                     <button class="book-now">Book Now</button>
+                  <h3>Single Queen Room</h3>
+                  <h3>(Fan)</h3>
+                  <p>
+                    <a href="about.html" data-bs-toggle="modal" data-bs-target="#roomDetailsModal">Room Details ></a>
+                    <div class="container mt-5">
+                     
+                   
+               
+                   <!-- Modal -->
+                   <div class="modal fade" id="roomDetailsModal" tabindex="-1" aria-labelledby="roomDetailsLabel" aria-hidden="true">
+                       <div class="modal-dialog modal-lg">
+                           <div class="modal-content blur-bg">
+                               <div class="modal-header">
+                                   <h5 class="modal-title" id="roomDetailsLabel">Twin Deluxe Room</h5>
+                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                               </div>
+                               <div class="modal-body">
+                                   <div class="row">
+                                       <!-- Room Image -->
+                                       <div class="col-md-6">
+                                           <img src="room-placeholder.jpg" alt="Room Image" class="img-fluid room-image">
+                                       </div>
+                                       <!-- Room Details -->
+                                       <div class="col-md-6">
+                                           <h6>Room Highlights</h6>
+                                           <div class="room-highlights">
+                                               <ul>
+                                                   <li>🛌 Sleeps 2</li>
+                                                   <li>📺 50-inch HDTV</li>
+                                                   <li>🛁 Separate bathtub and shower</li>
+                                                   <li>❄️ Mini refrigerator</li>
+                                                   <li>🪑 Seating area with sofa</li>
+                                               </ul>
+                                           </div>
+                                           <h6>Amenities</h6>
+                                           <div class="room-highlights">
+                                               <ul>
+                                                   <li>✔ Free WiFi</li>
+                                                   <li>✔ Non-smoking rooms</li>
+                                                   <li>✔ Concierge</li>
+                                                   <li>✔ Spa</li>
+                                                   <li>✔ EV charging</li>
+                                               </ul>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <p class="mt-3">
+                                       Relax in this expansive room, thoughtfully designed with contemporary interior for your comfort.
+                                   </p>
+                               </div>
+                           </div>
+                       </div>
                    </div>
+               
+                  </p>
                  </div>
-                     <span class="price">FROM RM 69.00</span>
-                     {{-- <button
-                        class="book-now"
-                        onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
-                        Book Now
-                    </button> --}}
-                   </div>
-                 </div>
-               </div>
+                  <div class="price-book">
+                    <span class="price">RM 140.00</span>
+                    <button class="book-now">Book Now</button>
+                    {{-- <button
+                       class="book-now"
+                       onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
+                       Book Now
+                   </button> --}}
+                  </div>
+                </div>
                </div>
              </div>
          </div>
@@ -571,7 +832,7 @@
       <script src="{{ asset('dist/assets/js/jsIndex/bootstrap.bundle.min.js')}}"></script>
       <script src="{{ asset('dist/assets/js/jsIndex/jquery-3.0.0.min.js')}}"></script>
       <!-- sidebar -->
-      {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> --}}
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
       <script src="{{ asset('dist/assets/js/jsIndex/jquery.mCustomScrollbar.concat.min.js')}}"></script>
       <script src="{{ asset('dist/assets/js/jsIndex/custom.js')}}"></script>
    </body>

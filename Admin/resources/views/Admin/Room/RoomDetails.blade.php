@@ -473,4 +473,235 @@
     <!-- Custom js for this page -->
     <!-- End custom js for this page -->
   </body>
+</html> <div class="breadcrumb-container">
+                  <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="#">Dashboards</a></li>
+                          <li class="breadcrumb-item active" aria-current="page">Booking</li>
+                      </ol>
+                  </nav>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body ">
+
+                    @if(session('success'))
+                      <div class="alert alert-success">
+                          {{ session('success') }}
+                      </div>
+                  @endif
+
+                  @if($errors->any())
+                      <div class="alert alert-danger">
+                          <ul>
+                              @foreach($errors->all() as $error)
+                                  <li>{{ $error }}</li>
+                              @endforeach
+                          </ul>
+                      </div>
+                  @endif
+                    
+                      <div class=" d-flex justify-content-between align-items-center">
+                        <h4 class="card-title">All Room</h4>
+                        <button type="button" class="btn btn-primary btn-rounded shadow" style="padding: 15PX;" data-bs-toggle="modal" data-bs-target="#modalBooking" data-bs-whatever="@mdo">Add Room</button>
+                        <div class="modal fade" id="modalBooking" tabindex="-1" aria-labelledby="modalBookingLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content"  style="background-color: white;">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="modalBookingLabel">Add Room</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <form action="{{ route('RoomDetailsForm') }}" method="POST" enctype="multipart/form-data" >                                  
+                                 @csrf
+                                 <div class="mb-4">
+                                  <label for="Image" class="form-label">Room Image</label>
+                                  <input type="file" class="form-control" name="Image" id="Image" accept="image/*">
+                              </div> 
+                                  <div class="mb-4">
+                                    <label for="exampleFormControlInput1" style="padding-left: 15px" class="form-label">Type of Room</label>
+                                    <select class="form-select" name="TypeRoom" style=" 50px; height:43px; font-size: 12px;" id="inputGroupSelect01">
+                                      <option selected>Choose...</option>
+                                      <option value="Single">Single</option>
+                                      <option value="Standard">Standard</option>
+                                      <option value="Deluxe">Deluxe</option>
+                                      <option value="Scholars">Scholars</option>
+                                      <option value="Suite">Suite</option>
+                                    </select>
+                                  </div>
+                                  <div class="mb-4">
+                                    <label for="FormControlName" style="padding-left: 15px" class="form-label">Facilities</label>
+                                    <textarea class="form-control" name="Facilities" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                  </div>
+                                  <div class="mb-4">
+                                    <label for="FormControlName" style="padding-left: 15px" class="form-label">Rate</label>
+                                    <input type="text" class="form-control" name="Rate" placeholder="Rate" aria-label="Rate">
+                                  </div>
+                                
+                              </div>
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btn-rounded">Add</button>
+                                <button type="button" class="btn btn-secondary btn-rounded" data-bs-dismiss="modal">Cancel</button>                              
+                              </div>
+                            </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    
+                      <div class="container mt-4">
+                        <!-- Filter Buttons -->
+                        <div class="btn-group mb-3" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-filter-active btn-primary rounded-pill me-2 " onclick="filterItems('all')">All room(100)</button>
+                            <button type="button" class="btn btn-filter rounded-pill me-2" onclick="filterItems('available')">Available room(20)</button>
+                            <button type="button" class="btn btn-filter rounded-pill me-2" onclick="filterItems('booked')">Booked(80)</button>
+                        </div>
+                    </div>
+                    
+                    </p>
+                    <table class="table table-hover">
+                      <thead>
+                        
+                        <tr>
+                          <th>#</th>
+                          <th>Image</th>
+                          <th>Room Type</th>
+                          <th>Facilities</th>
+                          <th>Rate</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach ($rooms as $room)
+                        <tr>
+                          <td>{{ $loop->iteration + ($rooms->currentPage() - 1) * $rooms->perPage() }}</td>
+                          <td style="width: 250px; text-align: center; vertical-align: middle;">
+                            @if($room->ImagePath)
+                            <img src="{{ asset('storage/' . $room->ImagePath) }}" alt="Room Image" style="border-radius: 0; width:200px; height: 130px;">
+
+                            @else
+                                No Image
+                            @endif
+                        </td>
+                          <td>{{ $room->TypeRoom }}</td>
+                          <td>{{ $room->Facilities }}</td>
+                          <td>RM{{ $room->Rate }}</td>
+                          <td>
+                            <!-- Dropdown Trigger -->
+                            <a class="nav-link" id="dropdownMenuIconButton1" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                              <i class="mdi mdi-dots-vertical"></i>
+                            </a>
+
+                            <!-- Dropdown Menu -->
+                            <div class="dropdown-menu navbar-dropdown" aria-labelledby="dropdownMenuIconButton1">
+                              <!-- Edit Option -->
+                              <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalBookingU{{ $room->id }}">
+                                <i class="mdi mdi-pencil me-2 text-info"></i> Edit
+                              </a>
+
+                              <!-- Divider -->
+                              <div class="dropdown-divider"></div>
+
+                              <!-- Delete Option -->
+                              <a class="dropdown-item" href="javascript:void(0);" onclick="event.preventDefault(); document.getElementById('deleteRoomForm{{ $room->_id }}').submit();">
+                                <i class="mdi mdi-delete me-2 text-danger"></i> Delete
+                            </a>
+                            
+                            <form id="deleteRoomForm{{ $room->_id }}" action="{{ route('deleteRoomDetails') }}" method="POST" style="display: none;">
+                                @csrf
+                                @method('DELETE')
+                                <input type="hidden" name="room_id" value="{{ $room->_id }}"> <!-- Pass the room's _id -->
+                            </form>
+                            </div>
+
+                            <!-- Modal (Place Outside Dropdown Menu) -->
+                            <div class="modal fade" id="modalBookingU{{ $room->id }}" tabindex="-1" aria-labelledby="modalBookingU{{ $room->id }}Label" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content" style="background-color: white;">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="modalBookingU{{ $room->id }}Label">Edit Room</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form action="{{ route('updateRoomDetails') }}" method="POST" enctype="multipart/form-data">
+                                      @csrf
+                                      @method('PUT')
+                                      <input type="hidden" name="room_id" value="{{ $room->id }}">
+                                      <!-- Input Fields -->
+                                      <div class="mb-4">
+                                        <label for="Image" class="form-label">Room Image</label>
+                                        <input type="file" class="form-control" name="Image" id="Image" accept="image/*">
+                                      </div>
+                                      <div class="mb-4">
+                                        <label for="TypeRoom{{ $room->id }}" class="form-label">Type of Room</label>
+                                        <select class="form-select" name="TypeRoom" id="TypeRoom{{ $room->id }}">
+                                          <option value="Single" {{ $room->TypeRoom == 'Single' ? 'selected' : '' }}>Single</option>
+                                          <option value="Standard" {{ $room->TypeRoom == 'Standard' ? 'selected' : '' }}>Standard</option>
+                                          <option value="Deluxe" {{ $room->TypeRoom == 'Deluxe' ? 'selected' : '' }}>Deluxe</option>
+                                          <option value="Scholars" {{ $room->TypeRoom == 'Scholars' ? 'selected' : '' }}>Scholars</option>
+                                          <option value="Suite" {{ $room->TypeRoom == 'Suite' ? 'selected' : '' }}>Suite</option>
+                                        </select>
+                                      </div>
+                                       <!-- Other Fields -->
+                                    <div class="mb-4">
+                                      <label for="Facilities{{ $room->id }}" class="form-label">Facilities</label>
+                                      <textarea class="form-control" name="Facilities" id="Facilities{{ $room->id }}" rows="3">{{ $room->Facilities }}</textarea>
+                                    </div>
+                                    <div class="mb-4">
+                                      <label for="Rate{{ $room->id }}" class="form-label">Rate</label>
+                                      <input type="text" class="form-control" name="Rate" id="Rate{{ $room->id }}" value="{{ $room->Rate }}">
+                                    </div>
+                                    
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                  </div>
+                                </form>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        @endforeach
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:../../partials/_footer.html -->
+          <footer class="footer">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+              <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023 <a href="https://www.bootstrapdash.com/" target="_blank">BootstrapDash</a>. All rights reserved.</span>
+              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i></span>
+            </div>
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="{{ asset('dist/assets/vendors/js/vendor.bundle.base.js')}}"></script><!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="{{asset('dist/assets/js/off-canvas.js')}}"></script>
+    <script src="{{asset('dist/assets/js/misc.js')}}"></script>
+    <script src="{{asset('dist/assets/js/settings.js')}}"></script>
+    <script src="{{asset('dist/assets/js/todolist.js')}}"></script>
+    <script src="{{asset('dist/assets/js/jquery.cookie.js')}}"></script>  <!-- endinject -->
+    <!-- Custom js for this page -->
+    <!-- End custom js for this page -->
+  </body>
 </html>

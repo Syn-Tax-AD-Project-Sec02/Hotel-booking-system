@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use MongoDB\Laravel\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
 class Room extends Model
 {
@@ -22,6 +23,7 @@ class Room extends Model
     protected $casts = [
         'ImagePaths' => 'array',  // Convert ImagePaths to an array automatically
     ];
+
 }
 
 
