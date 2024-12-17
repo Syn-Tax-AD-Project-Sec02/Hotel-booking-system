@@ -393,14 +393,15 @@
                                                 <ul class="dropdown-menu">
                                                     <li>
                                                         <!-- Edit Button -->
-                                                        <a class="dropdown-item" href="{{ route('updateRoomList', $room->id) }}" data-bs-toggle="modal" data-bs-target="#modalEditRoom{{ $room->id }}">
+                                                        <a class="dropdown-item" href="{{ route('updateRoomList') }}" data-bs-toggle="modal" data-bs-target="#modalEditRoom{{ $room->id }}">
                                                             <i class="mdi mdi-pencil me-2 text-info"></i> Edit
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <form action="{{ route('deleteRoomFromList', $room->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this room?');">
+                                                        <form action="{{ route('deleteRoomFromList') }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this room?');">
                                                             @csrf
                                                             @method('DELETE')
+                                                            <input type="hidden" name="room_id" value="{{ $room->_id }}">
                                                             <button class="dropdown-item text-danger" type="submit">
                                                                 <i class="mdi mdi-delete me-2"></i>Delete
                                                             </button>
@@ -422,19 +423,20 @@
                                                 <h5 class="modal-title" id="modalEditRoomLabel{{ $room->id }}">Edit Room</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <form method="POST" action="{{ route('updateRoomList', ['id' => $room->id]) }}">
+                                            <form method="POST" action="{{ route('updateRoomList') }}">
                                                 @csrf
                                                 @method('PUT')
+                                                <input type="hidden" name="room_id" value="{{ $room->_id }}">
                                                 <div class="modal-body">
                                                     <!-- Room Number -->
                                                     <div class="mb-3">
                                                         <label for="roomNo" class="form-label">Room No</label>
-                                                        <input type="text" class="form-control" id="roomNo" name="RoomNo" value="{{ $room->RoomNo }}" required>
+                                                        <input type="text" class="form-control" id="roomNo" name="RoomNo" value="{{ $room->RoomNo }}">
                                                     </div>
                                                     <!-- Type of Room -->
                                                     <div class="mb-3">
                                                         <label for="roomType" class="form-label">Type of Room</label>
-                                                        <select class="form-select" id="roomType" name="TypeRoom" required>
+                                                        <select class="form-select" id="roomType" name="TypeRoom" >
                                                             <option value="Single" {{ $room->TypeRoom == 'Single' ? 'selected' : '' }}>Single</option>
                                                             <option value="Standard" {{ $room->TypeRoom == 'Standard' ? 'selected' : '' }}>Standard</option>
                                                             <option value="Deluxe" {{ $room->TypeRoom == 'Deluxe' ? 'selected' : '' }}>Deluxe</option>
@@ -445,7 +447,7 @@
                                                     <!-- Floor Selection -->
                                                     <div class="mb-3">
                                                         <label for="roomFloor" class="form-label">Room Floor</label>
-                                                        <select class="form-select" id="roomFloor" name="RoomFloor" required>
+                                                        <select class="form-select" id="roomFloor" name="RoomFloor">
                                                             <option value="Floor 1" {{ $room->RoomFloor == 'Floor 1' ? 'selected' : '' }}>Floor 1</option>
                                                             <option value="Floor 2" {{ $room->RoomFloor == 'Floor 2' ? 'selected' : '' }}>Floor 2</option>
                                                             <option value="Floor 3" {{ $room->RoomFloor == 'Floor 3' ? 'selected' : '' }}>Floor 3</option>
@@ -456,7 +458,7 @@
                                                     <!-- Block Selection -->
                                                     <div class="mb-3">
                                                         <label for="roomBlock" class="form-label">Block</label>
-                                                        <select class="form-select" id="roomBlock" name="RoomBlock" required>
+                                                        <select class="form-select" id="roomBlock" name="RoomBlock">
                                                             <option value="U9" {{ $room->RoomBlock == 'U9' ? 'selected' : '' }}>U9</option>
                                                             <option value="S46" {{ $room->RoomBlock == 'S46' ? 'selected' : '' }}>S46</option>
                                                         </select>
@@ -464,7 +466,7 @@
                                                     <!-- Status Selection -->
                                                     <div class="mb-3">
                                                         <label for="status" class="form-label">Status</label>
-                                                        <select class="form-select" id="status" name="Status" required>
+                                                        <select class="form-select" id="status" name="Status">
                                                             <option value="Available" {{ $room->Status == 'Available' ? 'selected' : '' }}>Available</option>
                                                             <option value="Booked" {{ $room->Status == 'Booked' ? 'selected' : '' }}>Booked</option>
                                                         </select>
@@ -553,13 +555,7 @@
                                           </a>
                                       </li>
                                       <li>
-                                          <form action="/room-list/${room.id}" method="POST" onsubmit="return confirm('Are you sure you want to delete this room?');">
-                                              <input type="hidden" name="_method" value="DELETE">
-                                              <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                              <button class="dropdown-item text-danger" type="submit">
-                                                  <i class="mdi mdi-delete me-2"></i>Delete
-                                              </button>
-                                          </form>
+                                          
                                       </li>
                                   </ul>
                               </td>

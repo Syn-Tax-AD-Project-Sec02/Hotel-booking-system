@@ -61,8 +61,8 @@ Route::delete('/room-details', [RoomController::class, 'deleteRoomDetails'])->na
 
 Route::get('/room-list', [RoomController::class, 'showRoomList'])->name('RoomList');
 Route::post('/room-list', [RoomController::class, 'addRoomToList'])->name('addRoomToList');
-Route::put('/room-list/{id}', [RoomController::class, 'updateRoomList'])->name('updateRoomList');
-Route::delete('/room-list/{id}', [RoomController::class, 'destroy'])->name('deleteRoomFromList');
+Route::put('/room-list', [RoomController::class, 'updateRoomList'])->name('updateRoomList');
+Route::delete('/room-list', [RoomController::class, 'destroy'])->name('deleteRoomFromList');
 Route::post('/filter-room-status', [RoomController::class, 'filterRoomStatus'])->name('filterRoomStatus');
 
 Route::get('/booking', [BookingController::class, 'showBookingList'])->name('bookingListsForm');
