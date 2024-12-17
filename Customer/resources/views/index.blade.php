@@ -288,6 +288,22 @@
                                                     <li>🧼 Towels</li>
                                                  </ul>
                                             </div>
+                                            <button class="book-now-card">Book Now</button>
+                                             <style>
+                                                .book-now-card {
+                                                    width: 765px; /* lebar butang */
+                                                    height: 50px; /* Tinggi butang */
+                                                    background-color: #8e0707; /* Warna background */
+                                                    color: white; /* Warna teks */
+                                                    border: none; /* Hilangkan border */
+                                                    border-radius: 5px; /* Buat hujung bulat */
+                                                    font-size: 16px; /* Saiz font */
+                                                    cursor: pointer; /* Tukar kursor jadi tngn */
+                                                }
+                                                .book-now-card:hover {
+                                                    background-color: #2ebc1e; /* Keluar warna hover */
+                                                }
+                                            </style>
                                         </div>
                                     </div>
                                     <p class="mt-3">
