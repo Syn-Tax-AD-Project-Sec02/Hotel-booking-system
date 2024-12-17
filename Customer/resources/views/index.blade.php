@@ -273,7 +273,7 @@
                                         </div>
                                         <!-- Room Details -->
                                         <div class="col-md-6">
-                                            <h6>Room Highlights</h6>
+                                            <h6>Room Facilities</h6>
                                             <div class="room-highlights">
                                                 <ul>
                                                     <li>🛌 Bedroom with 1 Queen-sized Bed</li>
@@ -301,7 +301,7 @@
                                                     cursor: pointer; /* Tukar kursor jadi tngn */
                                                 }
                                                 .book-now-card:hover {
-                                                    background-color: #2ebc1e; /* Keluar warna hover */
+                                                    background-color: #197b0e; /* Keluar warna hover */
                                                 }
                                             </style>
                                         </div>
