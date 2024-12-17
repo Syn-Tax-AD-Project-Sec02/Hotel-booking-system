@@ -35,8 +35,8 @@ class Room extends Model
      * Cast JSON fields to arrays for easier access.
      */
     protected $casts = [
-        'Facilities' => 'array', // Facilities as an array
-        'ImagePaths' => 'array', // ImagePaths as an array
+        'Facilities' => 'array',
+        'ImagePaths' => 'array',
     ];
 
 }

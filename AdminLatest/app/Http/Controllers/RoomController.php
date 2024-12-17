@@ -24,7 +24,7 @@ class RoomController extends Controller
         $validator = Validator::make($request->all(), [
             'Image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'TypeRoom' => 'required|string|max:255',
-            'Facilities' => 'required|string|max:255',
+            'Facilities' => 'nullable|array', // Allow multiple facilities
             'Rate' => 'required|string|max:15',
         ]);
         
@@ -39,7 +39,7 @@ class RoomController extends Controller
         $room->ImagePath = $imagePath; 
         $room->setTable('rooms_details');
         $room->TypeRoom = $request->TypeRoom;
-        $room->Facilities = $request->Facilities;
+        $room->Facilities = json_encode($request->facilities);
         $room->Rate = $request->Rate;
         $room->save();
 

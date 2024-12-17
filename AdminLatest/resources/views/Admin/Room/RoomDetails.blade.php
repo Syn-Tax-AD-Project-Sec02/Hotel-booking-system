@@ -428,7 +428,24 @@
                             @endif
                         </td>
                           <td>{{ $room->TypeRoom }}</td>
-                          <td>{{ $room->Facilities }}</td>
+                          <td>
+                            @if($room->Facilities)
+                                @php
+                                    // Decode the JSON array into PHP array
+                                    $facilities = json_decode($room->Facilities, true);
+                                @endphp
+                        
+                                @if($facilities && count($facilities) > 0)
+                                    @foreach($facilities as $facility)
+                                        <p>{{ $facility }}</p>  <!-- Display each facility -->
+                                    @endforeach
+                                @else
+                                    No facilities listed
+                                @endif
+                            @else
+                                No facilities listed
+                            @endif
+                        </td>
                           <td>RM{{ $room->Rate }}</td>
                           <td>{{ $room->Availbility }}</td>
                           <td>
