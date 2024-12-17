@@ -303,7 +303,67 @@
                                   </div>
                                   <div class="mb-4">
                                     <label for="FormControlName" style="padding-left: 15px" class="form-label">Facilities</label>
-                                    <textarea class="form-control" name="Facilities" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    {{-- <textarea class="form-control" name="Facilities" id="exampleFormControlTextarea1" rows="3"></textarea> --}}
+                                    <div>
+                                      <input type="checkbox" name="facilities[]" value="1 Master Bedroom with Queen Size Bed">
+                                      <label for="facility1">🛌 1 Master Bedroom with Queen Size Bed</label>
+                                  </div>
+                                  <div>
+                                      <input type="checkbox" id="facility2" name="facilities[]" value="2 Standard Bedroom with Single Beds">
+                                      <label for="facility2">🛌 2 Standard Bedroom with Single Beds</label>
+                                  </div>
+                                  <div>
+                                      <input type="checkbox" id="facility3" name="facilities[]" value="Bedroom with 1 Queen-sized Bed">
+                                      <label for="facility3">🛏️ Bedroom with 1 Queen-sized Bed</label>
+                                  </div>
+                                  <div>
+                                      <input type="checkbox" id="facility4" name="facilities[]" value="Air Conditioned">
+                                      <label for="facility4">❄️ Air Conditioned</label>
+                                  </div>
+                                  <div>
+                                    <input type="checkbox" id="facility15" name="facilities[]" value="Fan">
+                                    <label for="facility15">🌀 Fan</label>
+                                </div>
+                                  <div>
+                                      <input type="checkbox" id="facility5" name="facilities[]" value="Free Wi-Fi">
+                                      <label for="facility5">📶 Free Wi-Fi</label>
+                                  </div>
+                                  <div>
+                                      <input type="checkbox" id="facility6" name="facilities[]" value="Bathroom with Water Heater">
+                                      <label for="facility6">🚿 Bathroom with Water Heater</label>
+                                  </div>
+                                  <div>
+                                      <input type="checkbox" id="facility7" name="facilities[]" value="Complimentary Toiletries">
+                                      <label for="facility7">🧴 Complimentary Toiletries</label>
+                                  </div>
+                                  <div>
+                                      <input type="checkbox" id="facility8" name="facilities[]" value="Flat Screen LCD/LED TV">
+                                      <label for="facility8">📺 Flat Screen LCD/LED TV</label>
+                                  </div>
+                                  <div>
+                                      <input type="checkbox" id="facility9" name="facilities[]" value="Iron & Ironing Board">
+                                      <label for="facility9">🧹 Iron & Ironing Board</label>
+                                  </div>
+                                  <div>
+                                      <input type="checkbox" id="facility10" name="facilities[]" value="Prayer Mat">
+                                      <label for="facility10">🕌 Prayer Mat</label>
+                                  </div>
+                                  <div>
+                                      <input type="checkbox" id="facility11" name="facilities[]" value="Microwave">
+                                      <label for="facility11">🍴 Microwave</label>
+                                  </div>
+                                  <div>
+                                      <input type="checkbox" id="facility12" name="facilities[]" value="Refrigerator">
+                                      <label for="facility12">❄️ Refrigerator</label>
+                                  </div>
+                                  <div>
+                                      <input type="checkbox" id="facility13" name="facilities[]" value="Room Service">
+                                      <label for="facility13">🛎️ Room Service</label>
+                                  </div>
+                                  <div>
+                                      <input type="checkbox" id="facility14" name="facilities[]" value="Towels">
+                                      <label for="facility14">🧼 Towels</label>
+                                  </div>
                                   </div>
                                   <div class="mb-4">
                                     <label for="FormControlName" style="padding-left: 15px" class="form-label">Rate</label>
@@ -435,6 +495,10 @@
                                                     <input type="checkbox" id="facility4{{ $room->id }}" name="facilities[]" value="Air Conditioned">
                                                     <label for="facility4{{ $room->id }}">❄️ Air Conditioned</label>
                                                 </div>
+                                                <div>
+                                                  <input type="checkbox" id="facility15{{ $room->id }}" name="facilities[]" value="Fan">
+                                                  <label for="facility15{{ $room->id }}">🌀 Fan</label>
+                                              </div>
                                                 <div>
                                                     <input type="checkbox" id="facility5{{ $room->id }}" name="facilities[]" value="Free Wi-Fi">
                                                     <label for="facility5{{ $room->id }}">📶 Free Wi-Fi</label>
