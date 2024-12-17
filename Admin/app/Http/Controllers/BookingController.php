@@ -16,7 +16,7 @@ class BookingController extends Controller
     public function showBookingList()
     {
         $bookings = Booking::from('booking_list')->paginate(6);
-        return view('Admin.Booking.Booking', compact('bookings'));
+        return view('Staff.Booking.Booking', compact('bookings'));
     }
 
     public function addBookingList(Request $request)
