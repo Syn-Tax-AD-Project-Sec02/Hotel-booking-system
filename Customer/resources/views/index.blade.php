@@ -247,8 +247,13 @@
                 
                    </p>
                    <div class="price-book">
-                     <span class="price">$1,557</span>
                      <button class="book-now">Book Now</button>
+                     <span class="price">RM 140.00</span>
+                     {{-- <button
+                        class="book-now"
+                        onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
+                        Book Now
+                    </button> --}}
                    </div>
                  </div>
                </div>
@@ -262,8 +267,13 @@
                      <a href="about.html">Rooom Details ></a>
                    </p>
                    <div class="price-book">
-                     <span class="price">$2,097</span>
                      <button class="book-now">Book Now</button>
+                     <span class="price">RM 160.00</span>
+                     {{-- <button
+                        class="book-now"
+                        onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
+                        Book Now
+                    </button> --}}
                    </div>
                  </div>
                </div>
@@ -277,8 +287,13 @@
                      <a href="about.html">Room Details ></a>
                    </p>
                    <div class="price-book">
-                     <span class="price">$2,902</span>
                      <button class="book-now">Book Now</button>
+                     <span class="price">RM 180.00</span>
+                     {{-- <button
+                        class="book-now"
+                        onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
+                        Book Now
+                    </button> --}}
                    </div>
                  </div>
                </div>
@@ -292,8 +307,13 @@
                      <a href="about.html">Rooom Details ></a>
                    </p>
                    <div class="price-book">
-                     <span class="price">$3,500</span>
                      <button class="book-now">Book Now</button>
+                     <span class="price">RM 260.00</span>
+                     {{-- <button
+                        class="book-now"
+                        onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
+                        Book Now
+                    </button> --}}
                    </div>
                  </div>
                </div>
@@ -304,10 +324,9 @@
                  <div class="card-details">
                    <h3>Suite Room</h3>
                    <p>
-                     <a href="{{route('booking')}}">Room Details ></a>
+                     {{-- <a href="{{route('booking')}}">Room Details ></a> --}}
                    </p>
                    <div class="price-book">
-                     <span class="price">$4,200</span>
                      <button class="book-now">Book Now</button>
                    </div>
                  </div>
@@ -322,10 +341,18 @@
                      <a href="about.html">Rooom Details ></a>
                   
                    <div class="price-book">
-                     <span class="price">$10,000</span>
                      <button class="book-now">Book Now</button>
                    </div>
                  </div>
+                     <span class="price">FROM RM 69.00</span>
+                     {{-- <button
+                        class="book-now"
+                        onclick="location.href='{{ route('room.book', ['id' => $room->id]) }}'">
+                        Book Now
+                    </button> --}}
+                   </div>
+                 </div>
+               </div>
                </div>
              </div>
          </div>
