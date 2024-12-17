@@ -31,7 +31,7 @@ class RoomController extends Controller
          // Handle image upload
         $imagePath = null;
         if ($request->hasFile('Image')) {
-            $imagePath = $request->file('Image')->store('room_images', 'public');
+            $imagePath = $request->file('Image')->store('dist/assets/images', 'public');
         }
 
         // Save user to MongoDB

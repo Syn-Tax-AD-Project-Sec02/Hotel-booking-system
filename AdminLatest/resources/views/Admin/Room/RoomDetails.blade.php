@@ -422,7 +422,7 @@
                           <td>{{ $loop->iteration + ($rooms->currentPage() - 1) * $rooms->perPage() }}</td>
                           <td style="width: 250px; text-align: center; vertical-align: middle;">
                             @if($room->ImagePath)
-                            <img src="{{ asset('storage/' . $room->ImagePath) }}" alt="Room Image" style="border-radius: 0; width:200px; height: 130px;">
+                            <img src="{{ asset('storage/dist/assets/images/' . $room->ImagePath) }}" alt="Room Image" style="border-radius: 0; width:200px; height: 130px;">
 
                             @else
                                 No Image

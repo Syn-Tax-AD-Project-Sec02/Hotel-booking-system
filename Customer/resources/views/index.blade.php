@@ -209,10 +209,10 @@
                 @foreach ($rooms as $room)
                     <!-- Card -->
                     <div class="card">
-                        <img src="{{ asset('dist/assets/images/index/' . $room['image']) }}"
+                        <img src="{{ asset('dist/assets/images/index/' . $room->Image) }}"
                             alt="{{ $room['title'] }}" class="card-image">
                         <div class="card-details">
-                            <h3>{{ $room['title'] }}</h3>
+                            <h3>{{ $room->TypeRoom }}</h3>
                             <p>
                                 <a href="#" class="link-primary" data-bs-toggle="modal"
                                     data-bs-target="#roomDetailsModal-{{ $loop->index }}">
@@ -220,7 +220,7 @@
                                 </a>
                             </p>
                             <div class="price-book">
-                                <span class="price">RM {{ $room['price'] }}</span>
+                                <span class="price">RM {{ $room->Rate }}</span>
                                 <button class="book-now">Book Now</button>
                             </div>
                         </div>
@@ -274,20 +274,11 @@
                                         <!-- Room Details -->
                                         <div class="col-md-6">
                                             <h6>Room Facilities</h6>
-                                            <div class="room-highlights">
-                                                <ul>
-                                                    <li>🛌 Bedroom with 1 Queen-sized Bed</li>
-                                                    <li>📶 Free Wi-Fi</li>
-                                                    <li>🚿 Bathroom with Water Heater</li>
-                                                    <li>🧴 Complimentary Toiletries</li>
-                                                    <li>📺 Flat Screen LCD TV</li>
-                                                    <li>🧹 Iron & Ironing Board</li>
-                                                    <li>🕌 Prayer Mat</li>
-                                                    <li>❄️ Refrigerator</li>
-                                                    <li>🛎️ Room Service</li>
-                                                    <li>🧼 Towels</li>
-                                                 </ul>
-                                            </div>
+                                            <ul>
+                                               
+                                                <li>{{ $room->Facilities }}</li>
+                                                
+                                            </ul>
                                             <button class="book-now-card">Book Now</button>
                                              <style>
                                                 .book-now-card {
