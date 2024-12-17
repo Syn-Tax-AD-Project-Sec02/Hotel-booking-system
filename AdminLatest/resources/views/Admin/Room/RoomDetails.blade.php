@@ -313,69 +313,88 @@
                                     </select>
                                   </div>
                                   <div class="mb-4">
-                                    <label for="FormControlName" style="padding-left: 15px" class="form-label">Facilities</label>
-                                    {{-- <textarea class="form-control" name="Facilities" id="exampleFormControlTextarea1" rows="3"></textarea> --}}
+                                    <label for="Facilities{{ $room->id }}" class="form-label">Facilities</label>
+                                    @php
+                                        // Decode the JSON array into PHP array or use an empty array if null
+                                        $facilities = json_decode($room->Facilities, true) ?? [];
+                                    @endphp
                                     <div>
-                                      <input type="checkbox" name="facilities[]" value="1 Master Bedroom with Queen Size Bed">
-                                      <label for="facility1">🛌 1 Master Bedroom with Queen Size Bed</label>
+                                        <input type="checkbox" name="facilities[]" value="1 Master Bedroom with Queen Size Bed" 
+                                        {{ in_array("1 Master Bedroom with Queen Size Bed", $facilities) ? 'checked' : '' }}>
+                                        <label for="facility1">🛌 1 Master Bedroom with Queen Size Bed</label>
                                     </div>
                                     <div>
-                                      <input type="checkbox" id="facility2" name="facilities[]" value="2 Standard Bedroom with Single Beds">
-                                      <label for="facility2">🛌 2 Standard Bedroom with Single Beds</label>
+                                        <input type="checkbox" name="facilities[]" value="2 Standard Bedroom with Single Beds" 
+                                        {{ in_array("2 Standard Bedroom with Single Beds", $facilities) ? 'checked' : '' }}>
+                                        <label for="facility2">🛌 2 Standard Bedroom with Single Beds</label>
                                     </div>
                                     <div>
-                                      <input type="checkbox" id="facility3" name="facilities[]" value="Bedroom with 1 Queen-sized Bed">
-                                      <label for="facility3">🛏️ Bedroom with 1 Queen-sized Bed</label>
+                                        <input type="checkbox" name="facilities[]" value="Bedroom with 1 Queen-sized Bed" 
+                                        {{ in_array("Bedroom with 1 Queen-sized Bed", $facilities) ? 'checked' : '' }}>
+                                        <label for="facility3">🛏️ Bedroom with 1 Queen-sized Bed</label>
                                     </div>
                                     <div>
-                                      <input type="checkbox" id="facility4" name="facilities[]" value="Air Conditioned">
-                                      <label for="facility4">❄️ Air Conditioned</label>
+                                        <input type="checkbox" name="facilities[]" value="Air Conditioned" 
+                                        {{ in_array("Air Conditioned", $facilities) ? 'checked' : '' }}>
+                                        <label for="facility4">❄️ Air Conditioned</label>
                                     </div>
                                     <div>
-                                    <input type="checkbox" id="facility15" name="facilities[]" value="Fan">
-                                    <label for="facility15">🌀 Fan</label>
-                                  </div>
-                                  <div>
-                                      <input type="checkbox" id="facility5" name="facilities[]" value="Free Wi-Fi">
-                                      <label for="facility5">📶 Free Wi-Fi</label>
-                                  </div>
-                                  <div>
-                                      <input type="checkbox" id="facility6" name="facilities[]" value="Bathroom with Water Heater">
-                                      <label for="facility6">🚿 Bathroom with Water Heater</label>
-                                  </div>
-                                  <div>
-                                      <input type="checkbox" id="facility7" name="facilities[]" value="Complimentary Toiletries">
-                                      <label for="facility7">🧴 Complimentary Toiletries</label>
-                                  </div>
-                                  <div>
-                                      <input type="checkbox" id="facility8" name="facilities[]" value="Flat Screen LCD/LED TV">
-                                      <label for="facility8">📺 Flat Screen LCD/LED TV</label>
-                                  </div>
-                                  <div>
-                                      <input type="checkbox" id="facility9" name="facilities[]" value="Iron & Ironing Board">
-                                      <label for="facility9">🧹 Iron & Ironing Board</label>
-                                  </div>
-                                  <div>
-                                      <input type="checkbox" id="facility10" name="facilities[]" value="Prayer Mat">
-                                      <label for="facility10">🕌 Prayer Mat</label>
-                                  </div>
-                                  <div>
-                                      <input type="checkbox" id="facility11" name="facilities[]" value="Microwave">
-                                      <label for="facility11">🍴 Microwave</label>
-                                  </div>
-                                  <div>
-                                      <input type="checkbox" id="facility12" name="facilities[]" value="Refrigerator">
-                                      <label for="facility12">❄️ Refrigerator</label>
-                                  </div>
-                                  <div>
-                                      <input type="checkbox" id="facility13" name="facilities[]" value="Room Service">
-                                      <label for="facility13">🛎️ Room Service</label>
-                                  </div>
-                                  <div>
-                                      <input type="checkbox" id="facility14" name="facilities[]" value="Towels">
-                                      <label for="facility14">🧼 Towels</label>
-                                  </div>
-                                  </div>
+                                        <input type="checkbox" name="facilities[]" value="Fan" 
+                                        {{ in_array("Fan", $facilities) ? 'checked' : '' }}>
+                                        <label for="facility5">🌀 Fan</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="facilities[]" value="Free Wi-Fi" 
+                                        {{ in_array("Free Wi-Fi", $facilities) ? 'checked' : '' }}>
+                                        <label for="facility6">📶 Free Wi-Fi</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="facilities[]" value="Bathroom with Water Heater" 
+                                        {{ in_array("Bathroom with Water Heater", $facilities) ? 'checked' : '' }}>
+                                        <label for="facility7">🚿 Bathroom with Water Heater</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="facilities[]" value="Complimentary Toiletries" 
+                                        {{ in_array("Complimentary Toiletries", $facilities) ? 'checked' : '' }}>
+                                        <label for="facility8">🧴 Complimentary Toiletries</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="facilities[]" value="Flat Screen LCD/LED TV" 
+                                        {{ in_array("Flat Screen LCD/LED TV", $facilities) ? 'checked' : '' }}>
+                                        <label for="facility9">📺 Flat Screen LCD/LED TV</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="facilities[]" value="Iron & Ironing Board" 
+                                        {{ in_array("Iron & Ironing Board", $facilities) ? 'checked' : '' }}>
+                                        <label for="facility10">🧹 Iron & Ironing Board</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="facilities[]" value="Prayer Mat" 
+                                        {{ in_array("Prayer Mat", $facilities) ? 'checked' : '' }}>
+                                        <label for="facility11">🕌 Prayer Mat</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="facilities[]" value="Microwave" 
+                                        {{ in_array("Microwave", $facilities) ? 'checked' : '' }}>
+                                        <label for="facility12">🍴 Microwave</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="facilities[]" value="Refrigerator" 
+                                        {{ in_array("Refrigerator", $facilities) ? 'checked' : '' }}>
+                                        <label for="facility13">❄️ Refrigerator</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="facilities[]" value="Room Service" 
+                                        {{ in_array("Room Service", $facilities) ? 'checked' : '' }}>
+                                        <label for="facility14">🛎️ Room Service</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="facilities[]" value="Towels" 
+                                        {{ in_array("Towels", $facilities) ? 'checked' : '' }}>
+                                        <label for="facility15">🧼 Towels</label>
+                                    </div>
+                                </div>
+                                
                                   <div class="mb-4">
                                     <label for="FormControlName" style="padding-left: 15px" class="form-label">Rate</label>
                                     <input type="text" class="form-control" name="Rate" placeholder="Rate" aria-label="Rate">

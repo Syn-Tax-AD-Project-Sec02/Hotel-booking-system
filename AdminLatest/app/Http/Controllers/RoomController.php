@@ -69,7 +69,7 @@ class RoomController extends Controller
     }
 
         $room->TypeRoom = $request->TypeRoom;
-        $room->Facilities = $request->Facilities;
+        $room->Facilities = json_encode($request->facilities);
         $room->Rate = $request->Rate;
         $room->save();
     
