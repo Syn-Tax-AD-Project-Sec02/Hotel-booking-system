@@ -12,9 +12,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
-
-
-
 class RoomController extends Controller
 {
     // Show the room list (for /room-list route)
@@ -61,7 +58,7 @@ class RoomController extends Controller
         $room->TypeRoom = $request->TypeRoom;
         $room->Facilities = json_encode($request->facilities); // Save facilities as JSON array
         $room->Rate = $request->Rate;
-        $room->ImagePath = $imagePath;    // Save multiple image paths as a JSON array           
+        $room->ImagePath =  json_encode($request->image);    // Save multiple image paths as a JSON array           
         $room->save();
 
         // Log the event
