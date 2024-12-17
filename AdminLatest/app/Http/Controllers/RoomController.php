@@ -180,7 +180,7 @@ class RoomController extends Controller
 
         // Set the custom table for MongoDB
         $room = new Room();
-        $room->setTable('rooms_lists'); // Custom table name
+        $room->setTable('room_lists'); // Custom table name
         
 
         // Find the room by its MongoDB ObjectId
