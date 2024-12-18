@@ -30,7 +30,7 @@ class RoomController extends Controller
     public function showFormRoomDetails()
     {
         // $rooms = Room::all(); // Example, you can change the number of rooms displayed per page
-        $rooms = Room::from('rooms_details')->paginate(6);
+        $rooms = Room::from('rooms_details')->paginate(20);
         return view('Admin.Room.RoomDetails', compact('rooms'));
     }
 
@@ -45,21 +45,25 @@ class RoomController extends Controller
         ]);
 
         // Handle multiple image uploads
-         $imagePaths = [];
-        if ($request->hasFile('Images')) {
-            foreach ($request->file('Images') as $image) {
-                  $imagePaths[] = $image->store('room_images', 'public');
-             }
+        $imagePaths = [];
+    if ($request->hasFile('Images')) {
+        foreach ($request->file('Images') as $image) {
+            // Store the image and collect the path
+            $imagePaths[] = $image->store('room_images', 'public');
         }
+    }
 
-         // Save room details to MongoDB
-        $room = new Room;
-        $room->setTable('rooms_details');
-        $room->TypeRoom = $request->TypeRoom;
-        $room->Facilities = json_encode($request->facilities); // Save facilities as JSON array
-        $room->Rate = $request->Rate;
-        $room->ImagePath =  json_encode($request->image);    // Save multiple image paths as a JSON array           
-        $room->save();
+    // Save room details to MongoDB
+    $room = new Room;
+    $room->setTable('rooms_details');
+    $room->TypeRoom = $request->TypeRoom;
+    $room->Facilities = json_encode($request->facilities); // Save facilities as JSON array
+    $room->Rate = $request->Rate;
+
+    // If no images are uploaded, store an empty array
+    $room->ImagePath = !empty($imagePaths) ? json_encode($imagePaths) : json_encode([]);
+
+    $room->save();
 
         // Log the event
         Log::info('Room details successfully added with images: ' . $room->id);
@@ -97,21 +101,26 @@ class RoomController extends Controller
     public function updateRoomDetails(Request $request)
     {
        
-
         $roomId = $request->input('room_id');
 
         // Find the room in the `rooms_details` table
         $room = new Room();
         $room->setTable('rooms_details');
-
-        // Handle image update
+    
+        // Fetch the room
         $room = $room->findOrFail($roomId);
-    if($request->hasFile('Image')){
-        if($room->ImagePath && file_exists(storage_path('app/public' . $room->ImagePath))){
-            unlink(storage_path('app/public/' . $room->ImagePath));
+    
+        // Handle image update
+        if ($request->hasFile('Images')) {
+            // Delete the old image if it exists
+            if ($room->ImagePath && file_exists(storage_path('app/public/' . $room->ImagePath))) {
+                unlink(storage_path('app/public/' . $room->ImagePath));
+            }
+    
+            // Store the new image
+            $room->ImagePath = $request->file('Images')->store('room_images', 'public');
         }
-        $room->ImagePath = $request->file('Image')->store('room_images', 'public');
-    }
+        
 
         $room->TypeRoom = $request->TypeRoom;
         $room->Facilities = json_encode($request->facilities); 

@@ -423,7 +423,7 @@
                           <td>{{ $loop->iteration + ($rooms->currentPage() - 1) * $rooms->perPage() }}</td>
                           <td style="width: 250px; text-align: center; vertical-align: middle;">
                             @if($room->ImagePath)
-                            <img src="{{ asset('storage/' . $room->ImagePath) }}" alt="Room Image" style="border-radius: 0; width:200px; height: 130px;">
+                            <img src="{{ asset('storage/room_images/' .basename($room->ImagePath)) }}" alt="Room Image" style="border-radius: 0; width:200px; height: 130px;">
 
                             @else
                                 No Image
@@ -490,11 +490,11 @@
                                     <form action="{{ route('updateRoomDetails') }}" method="POST" enctype="multipart/form-data">
                                       @csrf
                                       @method('PUT')
-                                      <input type="hidden" name="room_id" value="{{ $room->id }}">
+                                      <input type="hidden" name="room_id" value="{{ $room->_id }}">
                                       <!-- Input Fields -->
                                       <div class="mb-4">
                                         <label for="Image" class="form-label">Room Image</label>
-                                        <input type="file" class="form-control" name="Image" id="Image" accept="image/*">
+                                        <input type="file" class="form-control" name="Images" id="Images" accept="image/*">
                                       </div>
                                       <div class="mb-4">
                                         <label for="TypeRoom{{ $room->id }}" class="form-label">Type of Room</label>
