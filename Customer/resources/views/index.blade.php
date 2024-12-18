@@ -209,7 +209,7 @@
                 @foreach ($rooms as $room)
                     <!-- Card -->
                     <div class="card">
-                        <img src="{{ asset('dist/assets/images/index/' . $room->Image) }}"
+                        <img src="{{ asset('storage/room_images/' .basename($room->ImagePath)) }}
                             alt="{{ $room['title'] }}" class="card-image">
                         <div class="card-details">
                             <h3>{{ $room->TypeRoom }}</h3>
