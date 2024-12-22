@@ -3,192 +3,234 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
-use MongoDB\BSON\ObjectId;
-use App\Models\RoomList;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Validator;
+use Illuminate\Support\Facades\Log;
+use MongoDB\BSON\ObjectId;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
+
 
 class RoomController extends Controller
 {
-    // Show the room list (for /room-list route)
-    public function showRoomList()
-    {
-        $room = new Room();
-        $room->setTable('room_lists'); // Set the table for this instance
-        
-        // Fetch all rooms from the 'rooms_lists' collection
-        $rooms = $room->get();
-
-        return view('Admin.Room.RoomLists', compact('rooms'));  // Pass the variable to the view
-    }
-
-    // Show the room details form (for /room/details route)
     public function showFormRoomDetails()
     {
-        // $rooms = Room::all(); // Example, you can change the number of rooms displayed per page
-        $rooms = Room::from('rooms_details')->paginate(20);
+        $rooms = Room::from('rooms_details')->paginate(10);
         return view('Admin.Room.RoomDetails', compact('rooms'));
     }
 
     public function addRoomDetails(Request $request)
     {
+        
         $validator = Validator::make($request->all(), [
-            'Images' => 'nullable|array', // Allow an array of images
-            'Images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validate each image
+            'Image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'TypeRoom' => 'required|string|max:255',
             'Facilities' => 'nullable|array', // Allow multiple facilities
             'Rate' => 'required|string|max:15',
         ]);
-
-        // Handle multiple image uploads
-        $imagePaths = [];
-    if ($request->hasFile('Images')) {
-        foreach ($request->file('Images') as $image) {
-            // Store the image and collect the path
-            $imagePaths[] = $image->store('room_images', 'public');
-        }
-    }
-
-    // Save room details to MongoDB
-    $room = new Room;
-    $room->setTable('rooms_details');
-    $room->TypeRoom = $request->TypeRoom;
-    $room->Facilities = json_encode($request->facilities); // Save facilities as JSON array
-    $room->Rate = $request->Rate;
-
-    // If no images are uploaded, store an empty array
-    $room->ImagePath = !empty($imagePaths) ? json_encode($imagePaths) : json_encode([]);
-
-    $room->save();
-
-        // Log the event
-        Log::info('Room details successfully added with images: ' . $room->id);
-        return redirect()->route('RoomDetailsForm')->with('success', 'Room details with images successfully added!');
-    }
-
-    // Add Room to RoomList
-    public function addRoomToList(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'RoomNo' => 'required|string|max:10|unique:rooms_lists,RoomNo',
-            'TypeRoom' => 'required|string|max:50',
-            'RoomFloor' => 'required|string|max:50',
-            'RoomBlock' => 'required|string|max:50',
-            'Status' => 'required|in:Available,Booked',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-        $room = new Room();
-        $room->setTable('room_lists');
-        $room->RoomNo = $request->RoomNo;
-        $room->TypeRoom = $request->TypeRoom;
-        $room->RoomFloor = $request->RoomFloor;
-        $room->RoomBlock = $request->RoomBlock;
-        $room->Status = $request->Status;
-        $room->save();
-
-        return redirect()->route('RoomList')->with('success', 'Room added successfully to the list!');
-    }
-
-    // Update existing room details (for PUT /room/details route)
-    public function updateRoomDetails(Request $request)
-    {
-       
-        $roomId = $request->input('room_id');
-
-        // Find the room in the `rooms_details` table
-        $room = new Room();
-        $room->setTable('rooms_details');
-    
-        // Fetch the room
-        $room = $room->findOrFail($roomId);
-    
-        // Handle image update
-        if ($request->hasFile('Images')) {
-            // Delete the old image if it exists
-            if ($room->ImagePath && file_exists(storage_path('app/public/' . $room->ImagePath))) {
-                unlink(storage_path('app/public/' . $room->ImagePath));
-            }
-    
-            // Store the new image
-            $room->ImagePath = $request->file('Images')->store('room_images', 'public');
-        }
         
+         // Handle image upload
+         $imagePaths = [];
+        if ($request->hasFile('Image')) {
+            foreach ($request->file('Image') as $image) {
+                $path = $image->store('room_images', 'public'); // Save each image
+                $imagePaths[] = $path; // Collect the paths
+            } // Collect the paths
+        }
 
+        // Save user to MongoDB
+        $room = new Room;
+        $room->ImagePath = json_encode($imagePaths);
+        $room->setTable('rooms_details');
         $room->TypeRoom = $request->TypeRoom;
-        $room->Facilities = json_encode($request->facilities); 
+        $room->Facilities = json_encode($request->facilities);
         $room->Rate = $request->Rate;
         $room->save();
 
+        // Log the email verification event
+        Log::info('Room details successfully added: ' . $room->id);
+        return redirect()->route('RoomDetailsForm')->with('success', 'Room details successfully added!');
+        //return redirect()->route('login')->with('success', 'Registration successful! Please check your email for the verification link.');
+        //return redirect()->route('forgotPassword');
+    }
+
+    public function updateRoomDetails(Request $request)
+    {
+
+    $roomId = $request->input('room_id');
+
+    // Dynamically set the table using setTable() if you want to use a custom table name
+    $room = new Room();
+    $room->setTable('rooms_details'); // Set your custom table name here
+
+    // Find the room in the rooms_details table
+    $room = $room->findOrFail($roomId);
+    $imagePaths = json_decode($room->ImagePath, true) ?? [];
+
+    // Handle new image uploads
+    if ($request->hasFile('Image')) {
+        foreach ($request->file('Image') as $image) {
+            $path = $image->store('room_images', 'public'); // Store the new image
+            $imagePaths[] = $path; // Add the new image path to the existing ones
+        }
+    }
+
+        $room->TypeRoom = $request->TypeRoom;
+        $room->Facilities = json_encode($request->facilities);
+        $room->Rate = $request->Rate;
+        $room->ImagePath = json_encode($imagePaths); // Save all image paths as JSON
+        $room->save();
+    
         return redirect()->route('RoomDetailsForm')->with('success', 'Room details updated successfully!');
     }
 
-    // Update Room in RoomList
-    public function updateRoomList(Request $request)
-    {   
-        $roomId = $request->input('room_id');
 
-        // Dynamically set the table using setTable() if you want to use a custom table name
-        $room = new Room();
-        $room->setTable('room_lists'); // Set your custom table name here
-    
-        // Find the room in the rooms_details table
-        $room = $room->findOrFail($roomId);
-       
-       
-        $room->RoomNo = $request->RoomNo;
-        $room->TypeRoom = $request->TypeRoom;
-        $room->RoomFloor = $request->RoomFloor;
-        $room->RoomBlock = $request->RoomBlock;
-        $room->Status = $request->Status;
-        $room->save();
-        
-            return redirect()->route('RoomList')->with('success', 'Room details updated successfully!');
-    }
-
-    // Delete room details (for DELETE /room/details route)
     public function deleteRoomDetails(Request $request)
     {
+    
+        // Get the room_id from the request
         $roomId = $request->input('room_id');
 
-        // Set the table for the model
+        // Set the custom table for MongoDB
         $room = new Room();
-        $room->setTable('rooms_details');
+        $room->setTable('rooms_details'); // Custom table name
+
+        // Find the room by its MongoDB ObjectId
         $room = $room->find($roomId);
 
         if (!$room) {
             return redirect()->route('RoomDetailsForm')->with('error', 'Room not found!');
         }
 
-        // Delete the image if it exists
-        if ($room->ImagePath && Storage::disk('public')->exists($room->ImagePath)) {
-            Storage::disk('public')->delete($room->ImagePath);
-        }
-
         // Delete the room
         $room->delete();
 
+        // Redirect with success message
         return redirect()->route('RoomDetailsForm')->with('success', 'Room deleted successfully!');
     }
 
-    // Delete Room from RoomList
-    public function destroy(Request $request)
-    {
-        try {
 
-            $roomId = $request->input('room_id');
+    public function deleteImage(Request $request)
+    {
+        // Get roomId and imageIndex from the form submission
+        $roomId = $request->input('room_id');
+        $imageIndex = $request->input('imageIndex');
+    
+        // Find the room by ID, using the table name defined manually
+        $room = new Room();
+        $room->setTable('rooms_details'); // Ensures the correct table is being used
+        $room = $room->findOrFail($roomId); // Retrieve the room record
+    
+        // Decode the existing image paths
+        $imagePaths = json_decode($room->ImagePath, true);
+    
+        // Check if the image index is valid
+        if (isset($imagePaths[$imageIndex])) {
+            // Get the image path
+            $imagePath = $imagePaths[$imageIndex];
+    
+            // Delete the image from storage
+            Storage::disk('public')->delete($imagePath);
+    
+            // Remove the image path from the array
+            unset($imagePaths[$imageIndex]);
+    
+            // Reindex the array (to fix any gaps in keys)
+            $imagePaths = array_values($imagePaths);
+    
+            // Update the ImagePath field with the new array
+            $room->ImagePath = json_encode($imagePaths);
+            $room->save();
+    
+            // Log and redirect
+            Log::info('Image deleted from room ' . $roomId);
+            return redirect()->route('RoomDetailsForm')->with('success', 'Image deleted successfully!');
+        }
+    
+        return redirect()->route('RoomDetailsForm')->with('error', 'Image not found!');
+    }
+    
+
+
+
+    public function showFormRoomLists()
+    {
+        $rooms = (new Room)->setTable('rooms_lists')->paginate(6);
+        return view('Admin.Room.RoomLists', compact('rooms'));
+    }
+
+    public function addRoomList(Request $request)
+    {
+        
+        $validator = Validator::make($request->all(), [
+            'RoomNo' => 'required|int|unique:rooms_details|max:5',
+            'TypeRoom' => 'required|string|max:30',
+            'RoomFloor' => 'required|string|max:30',
+            'RoomBlock' => 'required|string|max:15',
+            'Status' => 'required|string|max:15',
+        ]);
+        
+        $collectionName = 'rooms_lists';  // Set this dynamically based on your requirements
+
+    // Make sure to use the correct collection
+        $existingRoom = Room::from($collectionName)->where('RoomNo', $request->RoomNo)->first();
+        if ($existingRoom) {
+            // If the RoomNo already exists, return an error message
+            return back()->with('error', 'Room No already exists!');
+        }
+      
+        // Save user to MongoDB
+        $room = new Room;
+        $room->setTable('rooms_lists');
+        $room->RoomNo = $request->RoomNo;
+        $room->TypeRoom = $request->TypeRoom;
+        $room->RoomFloor = $request->RoomFloor;
+        $room->RoomBlock = $request->RoomBlock;
+        $room->Status = $request->Status;
+        $room->save();
+
+        // Log the email verification event
+        Log::info('Room details successfully added: ' . $room->id);
+        return redirect()->route('RoomListsForm')->with('success', 'Room details successfully added!');
+        //return redirect()->route('login')->with('success', 'Registration successful! Please check your email for the verification link.');
+        //return redirect()->route('forgotPassword');
+    }
+
+    public function updateRoomList(Request $request)
+    {
+
+    $roomId = $request->input('room_id');
+
+    // Dynamically set the table using setTable() if you want to use a custom table name
+    $room = new Room();
+    $room->setTable('rooms_lists'); // Set your custom table name here
+
+    // Find the room in the rooms_details table
+    $room = $room->findOrFail($roomId);
+   
+   
+    $room->RoomNo = $request->RoomNo;
+    $room->TypeRoom = $request->TypeRoom;
+    $room->RoomFloor = $request->RoomFloor;
+    $room->RoomBlock = $request->RoomBlock;
+    $room->Status = $request->Status;
+    $room->save();
+    
+        return redirect()->route('RoomListsForm')->with('success', 'Room details updated successfully!');
+    }
+
+
+    public function deleteRoomList(Request $request)
+    {
+    
+        // Get the room_id from the request
+        $roomId = $request->input('room_id');
         
 
         // Set the custom table for MongoDB
         $room = new Room();
-        $room->setTable('room_lists'); // Custom table name
+        $room->setTable('rooms_lists'); // Custom table name
         
 
         // Find the room by its MongoDB ObjectId
@@ -197,57 +239,13 @@ class RoomController extends Controller
         if (!$room) {
             return redirect()->route('RoomListsForm')->with('error', 'Room not found!');
         }
-            // // Perform deletion
-            $room->delete();
 
-            return redirect()->route('RoomList')->with('success', 'Room deleted successfully!');
-        } catch (\Exception $e) {
-            // Log error
-            Log::error('Error deleting room: ' . $e->getMessage());
+        
 
-            return redirect()->route('RoomList')->with('error', 'Error deleting room: ' . $e->getMessage());
-        }
+        // Delete the room
+        $room->delete();
+
+        // Redirect with success message
+        return redirect()->route('RoomListsForm')->with('success', 'Room deleted successfully!');
     }
-
-    // Book Room in RoomList
-    // public function bookRoomInList(Request $request)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         'room_id' => 'required|exists:rooms_lists,_id',
-    //     ]);
-
-    //     if ($validator->fails()) {
-    //         return redirect()->back()->withErrors($validator)->withInput();
-    //     }
-
-    //     $room = RoomList::findOrFail($request->room_id);
-
-    //     if ($room->Status === 'Booked') {
-    //         return redirect()->back()->with('error', 'Room is already booked!');
-    //     }
-
-    //     $room->Status = 'Booked';
-    //     $room->save();
-
-    //     return redirect()->back()->with('success', 'Room booked successfully!');
-    // }
-
-    public function filterRoomStatus(Request $request)
-    {
-        $status = $request->get('status'); // Get the filter status from AJAX
-        $query = new Room();
-
-        // Dynamically set the table (collection) to rooms_lists
-        $query->setTable('room_lists');
-
-        if ($status && $status !== 'all') {
-            $rooms = $query->where('Status', $status)->get(); // Filter based on status
-        }else {
-            $rooms = $query->get()->all(); // Retrieve the filtered list of rooms$
-        }
-
-
-        return response()->json(['rooms' => $rooms]);
-    }
-
 }

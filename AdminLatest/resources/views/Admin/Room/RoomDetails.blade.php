@@ -299,21 +299,20 @@
                                  @csrf
                                  <div class="mb-4">
                                   <label for="Image" class="form-label">Room Image</label>
-                                  <input type="file" class="form-control" name="Image" id="Image" accept="image/*">
+                                  <input type="file" class="form-control" name="Image[]" id="Image" accept="image/*" multiple>
+
                               </div> 
                                   <div class="mb-4">
                                     <label for="exampleFormControlInput1" style="padding-left: 15px" class="form-label">Type of Room</label>
                                     <select class="form-select" name="TypeRoom" style=" 50px; height:43px; font-size: 12px;" id="inputGroupSelect01">
                                       <option selected>Choose...</option>
-                                      <option value="Single(Fan) Room">Single(Fan) Room</option>
-                                      <option value="Single(Aircond) Room">Single(Aircond) Room</option>
-                                      <option value="Standard Apartment">Standard Apartment</option>
-                                      <option value="Deluxe Apartment">Deluxe Apartment</option>
-                                      <option value="Scholars Apartment">Scholars Apartment</option>
-                                      <option value="Suite Apartment">Suite Apartment</option>
+                                      <option value="Single">Single</option>
+                                      <option value="Standard">Standard</option>
+                                      <option value="Deluxe">Deluxe</option>
+                                      <option value="Scholars">Scholars</option>
+                                      <option value="Suite">Suite</option>
                                     </select>
                                   </div>
-                                  <div class="mb-4">
                                     <label for="FormControlName" style="padding-left: 15px" class="form-label">Facilities</label>
                                     {{-- <textarea class="form-control" name="Facilities" id="exampleFormControlTextarea1" rows="3"></textarea> --}}
                                     <div>
@@ -322,7 +321,7 @@
                                     </div>
                                     <div>
                                       <input type="checkbox" id="facility2" name="facilities[]" value="2 Standard Bedroom with Single Beds">
-                                      <label for="facility2">🛌 1 Standard Bedroom with 2 Single Beds</label>
+                                      <label for="facility2">🛌 2 Standard Bedroom with Single Beds</label>
                                     </div>
                                     <div>
                                       <input type="checkbox" id="facility3" name="facilities[]" value="Bedroom with 1 Queen-sized Bed">
@@ -347,7 +346,8 @@
                                   <div>
                                       <input type="checkbox" id="facility7" name="facilities[]" value="Complimentary Toiletries">
                                       <label for="facility7">🧴 Complimentary Toiletries</label>
-                                  </div>
+                                  </div>                                  <div class="mb-4">
+
                                   <div>
                                       <input type="checkbox" id="facility8" name="facilities[]" value="Flat Screen LCD/LED TV">
                                       <label for="facility8">📺 Flat Screen LCD/LED TV</label>
@@ -377,7 +377,6 @@
                                       <label for="facility14">🧼 Towels</label>
                                   </div>
                                   </div>
-                                  
                                   <div class="mb-4">
                                     <label for="FormControlName" style="padding-left: 15px" class="form-label">Rate</label>
                                     <input type="text" class="form-control" name="Rate" placeholder="Rate" aria-label="Rate">
@@ -396,12 +395,12 @@
                     
                       <div class="container mt-4">
                         <!-- Filter Buttons -->
-                        {{-- <div class="btn-group mb-3" role="group" aria-label="Basic example">
+                        <div class="btn-group mb-3" role="group" aria-label="Basic example">
                             <button type="button" class="btn btn-filter-active btn-primary rounded-pill me-2 " onclick="filterItems('all')">All room(100)</button>
                             <button type="button" class="btn btn-filter rounded-pill me-2" onclick="filterItems('available')">Available room(20)</button>
                             <button type="button" class="btn btn-filter rounded-pill me-2" onclick="filterItems('booked')">Booked(80)</button>
                         </div>
-                    </div> --}}
+                    </div>
                     
                     </p>
                     <table class="table table-hover">
@@ -423,12 +422,44 @@
                           <td>{{ $loop->iteration + ($rooms->currentPage() - 1) * $rooms->perPage() }}</td>
                           <td style="width: 250px; text-align: center; vertical-align: middle;">
                             @if($room->ImagePath)
-                            <img src="{{ asset('storage/room_images/' .basename($room->ImagePath)) }}" alt="Room Image" style="border-radius: 0; width:200px; height: 130px;">
+                            @php
+                            $imagePaths = json_decode($room->ImagePath, true) ?? [];
+                        @endphp
+                        @if(count($imagePaths) > 0)
+                        <div class="current-images" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                            @foreach($imagePaths as $index => $imagePath)
+                                <div class="image-thumbnail" style="position: relative;">
+                                    <img src="{{ asset('storage/' . $imagePath) }}" alt="Room Image" 
+                                         style="width: 100px; height: 80px; object-fit: cover; border-radius: 5px;">
+                                    <!-- Delete Button -->
+                                    <form method="POST" action="{{ route('deleteImage') }}" style="position: absolute; top: 0; right: 0;">
+                                      @csrf
+                                      @method('DELETE')
 
-                            @else
-                                No Image
-                            @endif
+                                      <input type="hidden" name="room_id" value="{{ $room->_id }}">
+                                      <input type="hidden" name="imageIndex" value="{{ $index }}">
+
+                                  
+                                      <button type="submit" style="background: red; color: white; border: none; padding: 5px 8px; font-size: 12px; cursor: pointer;">
+                                          X
+                                      </button>
+                                  </form>
+                                  
+                                  
+                                  
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <p>No images available</p>
+                    @endif
+                    </div>
+                @else
+                    <p>No images available</p>
+                @endif
                         </td>
+                        
+                        
                           <td>{{ $room->TypeRoom }}</td>
                           <td>
                             @if($room->Facilities)
@@ -472,10 +503,10 @@
                             </a>
                             
                             <form id="deleteRoomForm{{ $room->_id }}" action="{{ route('deleteRoomDetails') }}" method="POST" style="display: none;">
-                                @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="room_id" value="{{ $room->_id }}"> <!-- Pass the room's _id -->
-                            </form>
+                              @csrf
+                              @method('DELETE')
+                              <input type="hidden" name="room_id" value="{{ $room->_id }}">
+                          </form>
                             </div>
 
                             <!-- Modal (Place Outside Dropdown Menu) -->
@@ -490,21 +521,21 @@
                                     <form action="{{ route('updateRoomDetails') }}" method="POST" enctype="multipart/form-data">
                                       @csrf
                                       @method('PUT')
-                                      <input type="hidden" name="room_id" value="{{ $room->_id }}">
+                                      <input type="hidden" name="room_id" value="{{ $room->id }}">
                                       <!-- Input Fields -->
                                       <div class="mb-4">
                                         <label for="Image" class="form-label">Room Image</label>
-                                        <input type="file" class="form-control" name="Images" id="Images" accept="image/*">
+                                        <input type="file" class="form-control" name="Image[]" id="Image" accept="image/*" multiple>
+
                                       </div>
                                       <div class="mb-4">
                                         <label for="TypeRoom{{ $room->id }}" class="form-label">Type of Room</label>
                                         <select class="form-select" name="TypeRoom" id="TypeRoom{{ $room->id }}">
-                                          <option value="Single(Fan) Room" {{ $room->TypeRoom == 'Single(Fan) Room' ? 'selected' : '' }}>Single(Fan) Room</option>
-                                          <option value="Single(Aircond) Room" {{ $room->TypeRoom == 'Single(Aircond) Room' ? 'selected' : '' }}>Single(Aircond) Room</option>
-                                          <option value="Standard Apartment" {{ $room->TypeRoom == 'Standard Apartment' ? 'selected' : '' }}>Standard Apartment</option>
-                                          <option value="Deluxe Apartment" {{ $room->TypeRoom == 'Deluxe Apartment' ? 'selected' : '' }}>Deluxe Apartment</option>
-                                          <option value="Scholars Apartment" {{ $room->TypeRoom == 'Scholars Apartment' ? 'selected' : '' }}>Scholars Apartment</option>
-                                          <option value="Suite Apartment" {{ $room->TypeRoom == 'Suite Apartment' ? 'selected' : '' }}>Suite Apartment</option>
+                                          <option value="Single" {{ $room->TypeRoom == 'Single' ? 'selected' : '' }}>Single</option>
+                                          <option value="Standard" {{ $room->TypeRoom == 'Standard' ? 'selected' : '' }}>Standard</option>
+                                          <option value="Deluxe" {{ $room->TypeRoom == 'Deluxe' ? 'selected' : '' }}>Deluxe</option>
+                                          <option value="Scholars" {{ $room->TypeRoom == 'Scholars' ? 'selected' : '' }}>Scholars</option>
+                                          <option value="Suite" {{ $room->TypeRoom == 'Suite' ? 'selected' : '' }}>Suite</option>
                                         </select>
                                       </div>
                                        <!-- Other Fields -->
@@ -522,7 +553,7 @@
                                         <div>
                                             <input type="checkbox" name="facilities[]" value="2 Standard Bedroom with Single Beds" 
                                             {{ in_array("2 Standard Bedroom with Single Beds", $facilities) ? 'checked' : '' }}>
-                                            <label for="facility2">🛌 1 Standard Bedroom with 2 Single Beds</label>
+                                            <label for="facility2">🛌 2 Standard Bedroom with Single Beds</label>
                                         </div>
                                         <div>
                                             <input type="checkbox" name="facilities[]" value="Bedroom with 1 Queen-sized Bed" 
