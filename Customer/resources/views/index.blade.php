@@ -209,15 +209,23 @@
                 @foreach ($rooms as $room)
                     <!-- Card -->
                     <div class="card">
-                        <img src="{{ asset('storage/room_images/' .basename($room->ImagePath)) }}
-                            alt="{{ $room['title'] }}" class="card-image">
+                     @if($room->ImagePath)
+                        <!-- Get the first image from the ImagePath array -->
+                        @php
+                              $imagePaths = json_decode($room->ImagePath, true); // Decode the JSON array
+                              $firstImage = $imagePaths[0] ?? null; // Get the first image if available
+                        @endphp
+                        
+                        @if($firstImage)
+                              <img src="{{ asset('storage/' . $firstImage) }}" alt="Room Image" class="card-image">
+                        @endif
+                     @endif
                         <div class="card-details">
                             <h3>{{ $room->TypeRoom }}</h3>
                             <p>
-                                <a href="#" class="link-primary" data-bs-toggle="modal"
-                                    data-bs-target="#roomDetailsModal-{{ $loop->index }}">
-                                    Room Details >
-                                </a>
+                              <a href="#" class="link-primary" data-bs-toggle="modal" data-bs-target="#roomDetailsModal-{{ $room->_id }}">
+                                 Room Details >
+                             </a>
                             </p>
                             <div class="price-book">
                                 <span class="price">RM {{ $room->Rate }}</span>
@@ -227,100 +235,81 @@
                     </div>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="roomDetailsModal-{{ $loop->index }}" tabindex="-1"
-                        aria-labelledby="roomDetailsLabel-{{ $loop->index }}" aria-hidden="true">
+                     <div class="modal fade" id="roomDetailsModal-{{ $room->_id }}" tabindex="-1" aria-labelledby="roomDetailsLabel-{{ $room->_id }}" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
-                            <div class="modal-content blur-bg">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="roomDetailsLabel-{{ $loop->index }}">
-                                        {{ $room['title'] }}</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
+                           <div class="modal-content blur-bg">
+                              <div class="modal-header">
+                                    <h5 class="modal-title" id="roomDetailsLabel-{{ $room->_id }}">{{ $room['title'] }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
                                     <div class="row">
-                                        <!-- Room Image -->
-                                        <div id="roomCarousel" class="carousel slide" data-bs-ride="carousel">
-                                            <!-- Indicators -->
-                                            <div class="carousel-indicators">
-                                                <button type="button" data-bs-target="#roomCarousel"
-                                                    data-bs-slide-to="0" class="active" aria-current="true"
-                                                    aria-label="Slide 1"></button>
-                                                <button type="button" data-bs-target="#roomCarousel"
-                                                    data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                                <button type="button" data-bs-target="#roomCarousel"
-                                                    data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                            </div>
+                                       <!-- Room Image -->
+                                       <div id="roomCarousel" class="carousel slide" data-bs-ride="carousel">
+                                          <!-- Indicators -->
+                                          <div class="carousel-indicators">
+                                                <button type="button" data-bs-target="#roomCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                                <button type="button" data-bs-target="#roomCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                                <button type="button" data-bs-target="#roomCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                          </div>
 
-                                            <!-- Slideshow Images -->
-                                            <div class="carousel-inner">
-                                                <div class="carousel-item active">
-                                                    <img src="resources/views/images/Single room(Aircond)/image 1.jpg"
-                                                        class="d-block w-100" alt="Room 1">
+                                          <!-- Slideshow Images -->
+                                          <div id="carouselRoom{{ $room->_id }}" class="carousel slide" data-bs-ride="carousel">
+                                                <div class="carousel-inner">
+                                                   @foreach(json_decode($room->ImagePath) as $index => $imagePath)
+                                                      <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                                                            <img src="{{ asset('storage/' . $imagePath) }}" class="d-block w-100" alt="Room Image {{ $index + 1 }}" style="width:300px; height: 350px">
+                                                      </div>
+                                                   @endforeach
                                                 </div>
-                                                <div class="carousel-item">
-                                                    <img src="room2.jpg" class="d-block w-100" alt="Room 2">
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <img src="room3.jpg" class="d-block w-100" alt="Room 3">
-                                                </div>
-                                            </div>
+                                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselRoom{{ $room->_id }}" data-bs-slide="prev">
+                                                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                   <span class="visually-hidden">Previous</span>
+                                                </button>
+                                                <button class="carousel-control-next" type="button" data-bs-target="#carouselRoom{{ $room->_id }}" data-bs-slide="next">
+                                                   <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                   <span class="visually-hidden">Next</span>
+                                                </button>
+                                          </div>
+                                       </div>
 
-                                            <!-- Controls -->
-                                            <button class="carousel-control-prev" type="button"
-                                                data-bs-target="#roomCarousel" data-bs-slide="prev">
-                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                <span class="visually-hidden">Previous</span>
-                                            </button>
-                                            <button class="carousel-control-next" type="button"
-                                                data-bs-target="#roomCarousel" data-bs-slide="next">
-                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                <span class="visually-hidden">Next</span>
-                                            </button>
-                                        </div>
-                                        <!-- Room Details -->
-                                        <div class="col-md-6">
-                                            <h6>Room Facilities</h6>
-                                            <ul>
-
-                                                <li>{{ $room->Facilities }}</li>
-
-                                            </ul>
-                                            <button class="book-now-card">Book Now</button>
-                                            <style>
-                                                .book-now-card {
-                                                    width: 765px;
-                                                    /* lebar butang */
-                                                    height: 50px;
-                                                    /* Tinggi butang */
-                                                    background-color: #8e0707;
-                                                    /* Warna background */
-                                                    color: white;
-                                                    /* Warna teks */
-                                                    border: none;
-                                                    /* Hilangkan border */
-                                                    border-radius: 5px;
-                                                    /* Buat hujung bulat */
-                                                    font-size: 16px;
-                                                    /* Saiz font */
-                                                    cursor: pointer;
-                                                    /* Tukar kursor jadi tngn */
-                                                }
-
-                                                .book-now-card:hover {
-                                                    background-color: #197b0e;
-                                                    /* Keluar warna hover */
-                                                }
-                                            </style>
-                                        </div>
+                                       <!-- Room Details -->
+                                       <div class="col-md-14">
+                                          <h6 style="padding-left: 50px;">Room Facilities</h6>
+                                          <div class="row">
+                                             <!-- Left Column -->
+                                             <div class="col-md-6">
+                                                 <ul style="list-style-type: bullet; padding-left: 50px;">
+                                                     @foreach(json_decode($room->Facilities) as $index => $facility)
+                                                         @if($index < ceil(count(json_decode($room->Facilities)) / 2))
+                                                             <li>{{ $facility }}</li>
+                                                         @endif
+                                                     @endforeach
+                                                 </ul>
+                                             </div>
+                                             
+                                             <!-- Right Column -->
+                                             <div class="col-md-6">
+                                                 <ul style="list-style-type: disc; padding-left: 20px;">
+                                                     @foreach(json_decode($room->Facilities) as $index => $facility)
+                                                         @if($index >= ceil(count(json_decode($room->Facilities)) / 2))
+                                                             <li>{{ $facility }}</li>
+                                                         @endif
+                                                     @endforeach
+                                                 </ul>
+                                             </div>
+                                         </div>
+                                         <div class="d-flex justify-content-center">
+                                          <button class="btn-book-now">Book Now</button>
+                                          </div>
+                                         
+                                       </div>
                                     </div>
-                                    <p class="mt-3">
-                                        {{ $room['description'] }}
-                                    </p>
-                                </div>
-                            </div>
+                                    <p class="mt-3">{{ $room['description'] }}</p>
+                              </div>
+                           </div>
                         </div>
-                    </div>
+                     </div>
                 @endforeach
             </div>
 
