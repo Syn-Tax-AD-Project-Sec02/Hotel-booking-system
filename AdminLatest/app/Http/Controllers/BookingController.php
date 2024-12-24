@@ -77,12 +77,12 @@ class BookingController extends Controller
     public function updateBookingList(Request $request)
     {
 
-        $bookingId = $request->input('booking_id');
+    $bookingId = $request->input('booking_id');
 
-        $booking = new Booking();
-        $booking->setTable('booking_list'); // Ensure you're pointing to the right table
+    $booking = new Booking();
+    $booking->setTable('booking_list'); // Ensure you're pointing to the right table
         
-        $booking = $booking->findOrFail($bookingId); // Find the record
+    $booking = $booking->findOrFail($bookingId); // Find the record
 
     $booking->Name = $request->Name;
     $booking->RoomNo = $request->RoomNo;

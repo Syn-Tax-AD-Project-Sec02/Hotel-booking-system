@@ -150,8 +150,6 @@ class RoomController extends Controller
     
         return redirect()->route('RoomDetailsForm')->with('error', 'Image not found!');
     }
-    
-
 
 
     public function showFormRoomLists()
