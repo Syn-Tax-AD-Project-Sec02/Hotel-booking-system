@@ -346,9 +346,8 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
-                                <form action="{{ route('bookingListsForm') }}" method="POST" >                                  
-                                  @csrf                                
-                                  
+                                <form action="{{ route('bookingListsForm') }}" method="POST" enctype="multipart/form-data" >                                  
+                                  @csrf   
                                   <div class="mb-4">
                                     <label for="FormControlName"  class="form-label">Name</label>
                                     <input type="text" class="form-control" name="Name" placeholder="Name" aria-label="Name">
@@ -418,7 +417,7 @@
                       <tbody>
                         @foreach ($bookings as $booking)
                         <tr>
-                          <td>{{ $loop->iteration + ($bookings->currentPage() - 1) * $bookings->perPage() }}</td>
+                          <td>{{ $loop->iteration }}</td>
                           <td>{{ $booking->BookingID }}</td> 
                           <td>{{ $booking->Name }}</td>
                           <td>{{ $booking->RoomNo }}</td>
@@ -437,7 +436,7 @@
                             <!-- Dropdown Menu -->
                             <div class="dropdown-menu navbar-dropdown" aria-labelledby="dropdownMenuIconButton1">
                               <!-- Edit Option -->
-                              <a class="dropdown-item" href="{{ route('updateBookingList') }}" data-bs-toggle="modal" data-bs-target="#modalBookingU{{ $booking->id }}">
+                              <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalBookingU{{ $booking->id }}">
                                 <i class="mdi mdi-pencil me-2 text-info"></i> Edit
                               </a>
 
@@ -469,7 +468,7 @@
                                     <form action="{{ route('updateBookingList') }}" method="POST" enctype="multipart/form-data">
                                       @csrf
                                       @method('PUT')
-                                      <input type="hidden" name="booking_id" value="{{ $booking->_id }}">
+                                      <input type="hidden" name="booking_id" value="{{ $booking->id }}">
                   
                                       <!-- Name -->
                                       <div class="mb-4">
@@ -519,7 +518,7 @@
                                     <button type="submit" class="btn btn-primary">Save</button>
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                   </div>
-                                  @endforeach
+                                  
                                 </form>
                                 </div>
                                 </div>
@@ -527,7 +526,7 @@
                             </div>
                           </td>
                         </tr>
-                        
+                       @endforeach 
 
                       </tbody>
                       

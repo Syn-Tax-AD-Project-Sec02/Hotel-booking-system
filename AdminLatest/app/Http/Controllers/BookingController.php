@@ -76,14 +76,14 @@ class BookingController extends Controller
 
     public function updateBookingList(Request $request)
     {
-
+       // dd($request->all());
     $bookingId = $request->input('booking_id');
 
     $booking = new Booking();
     $booking->setTable('booking_list'); // Ensure you're pointing to the right table
         
-    $booking = $booking->findOrFail($bookingId); // Find the record
-
+    $booking = $booking->findOrFail($bookingId);
+    
     $booking->Name = $request->Name;
     $booking->RoomNo = $request->RoomNo;
     $booking->TypeRoom = $request->TypeRoom;
@@ -98,19 +98,15 @@ class BookingController extends Controller
 
     public function deleteBookingList(Request $request)
     {
-    
+       // dd($request->all());
 
         $bookingId = $request->input('booking_id');
-
-    if (!$bookingId) {
-        return redirect()->back()->with('error', 'No booking ID provided.');
-    }
 
         // Set table dynamically
         $booking = new Booking();
         $booking->setTable('booking_list');
 
-        $booking = $booking->where('_id', $bookingId)->first();
+        $booking = $booking->find($bookingId);
 
         if (!$booking) {
             return redirect()->back()->with('error', 'Booking not found.');

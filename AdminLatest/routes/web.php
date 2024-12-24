@@ -60,8 +60,6 @@ Route::put('/room-details', [RoomController::class, 'updateRoomDetails'])->name(
 Route::delete('/room-details', [RoomController::class, 'deleteRoomDetails'])->name('deleteRoomDetails');
 Route::delete('/room-details-image', [RoomController::class, 'deleteImage'])->name('deleteImage');
 
-
-
 Route::get('/room-lists', [RoomController::class, 'showFormRoomLists'])->name('RoomListsForm');
 Route::post('/room-lists', [RoomController::class, 'addRoomList']);
 Route::put('/room-lists', [RoomController::class, 'updateRoomList'])->name('updateRoomList');
