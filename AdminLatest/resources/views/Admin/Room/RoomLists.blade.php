@@ -270,7 +270,7 @@
                                             <h5 class="modal-title" id="modalAddRoomLabel">Add Room</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <form method="POST" action="{{ route('addRoomToList') }}">
+                                        <form method="POST">
                                             @csrf
                                             <div class="modal-body">
                                                 <!-- Add Room Form Fields -->
@@ -373,7 +373,7 @@
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
-                                </thead>
+                                  </thead>
                                 <tbody>
                                     @foreach ($rooms as $room)
                                         <tr>
