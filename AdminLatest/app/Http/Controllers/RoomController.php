@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use MongoDB\BSON\UTCDateTime;
+
 use App\Models\Room;
+use App\Models\Booking;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -266,4 +270,95 @@ class RoomController extends Controller
     \Log::info("Rooms found:", $rooms->toArray());
     return response()->json(['rooms' => $rooms]);
 }
+
+public function filterByDate(Request $request)
+{
+    try {
+        // Step 1: Parse the input date
+        $date = Carbon::parse($request->input('date'))->format('Y-m-d');
+        \Log::info('Selected Date:', ['date' => $date]);
+
+        // Step 2: Fetch rooms that are booked on the selected date
+        $booking = new Booking();
+        $booking->setTable('booking_list');
+
+        $bookedRoomNumbers = $booking->where([
+            ['CheckIn', '<=', $date],
+            ['CheckOut', '>=', $date],
+        ])->pluck('RoomNo')->toArray();
+
+        \Log::info('Booked Room Numbers:', ['bookedRoomNumbers' => $bookedRoomNumbers]);
+
+        // Step 3: Fetch available rooms not in the booked list
+        $room = new Room();
+        $room->setTable('room_lists');
+
+        $availableRooms = $room->whereNotIn('RoomNo', $bookedRoomNumbers)->get();
+        \Log::info('Available Rooms:', $availableRooms->toArray());
+
+        // Step 4: Loop through rooms and set the status dynamically
+        foreach ($availableRooms as $room) {
+            // Set the status as 'Booked' if the room number is in the booked list, otherwise 'Available'
+            $room->Status = in_array($room->RoomNo, $bookedRoomNumbers) ? 'Booked' : 'Available';
+        }
+
+
+        return response()->json(['rooms' => $availableRooms]);
+    } catch (\Exception $e) {
+        \Log::error('Error while fetching room data:', ['error' => $e->getMessage()]);
+        return response()->json(['error' => 'An error occurred while fetching room data.'], 500);
+    }
+
+}
+
+public function filterRooms(Request $request)
+{
+    try {
+        $date = Carbon::parse($request->input('date'))->format('Y-m-d');  // Get selected date
+        $status = $request->input('status');  // Get selected status ('Booked' or 'Available')
+
+        // Step 1: Fetch booked rooms based on the selected date
+        $booking = new Booking();
+        $booking->setTable('booking_list');
+
+        // Get room numbers booked on the selected date
+        $bookedRoomNumbers = $booking->where([
+            ['CheckIn', '<=', $date],
+            ['CheckOut', '>=', $date],
+        ])->pluck('RoomNo')->toArray();
+
+        // Step 2: Fetch rooms based on status and date
+        $room = new Room();
+        $room->setTable('room_lists');
+
+        // Create the query based on the status and booked rooms
+        $query = $room->newQuery();
+
+        // Step 3: Assign status based on the booking data
+        // Check if the status is 'Booked' or 'Available'
+        if ($status === 'Booked') {
+            // Filter rooms that are booked on the selected date
+            $query->whereIn('RoomNo', $bookedRoomNumbers);
+        } elseif ($status === 'Available') {
+            // Filter rooms that are not booked on the selected date
+            $query->whereNotIn('RoomNo', $bookedRoomNumbers);
+        }
+
+        // Step 4: Fetch the rooms
+        $rooms = $query->get();
+
+        // Step 5: Assign status dynamically to each room
+        foreach ($rooms as $room) {
+            // Automatically set status to 'Booked' or 'Available' based on the date
+            $room->Status = in_array($room->RoomNo, $bookedRoomNumbers) ? 'Booked' : 'Available';
+        }
+        
+
+        return response()->json(['rooms' => $rooms]);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'An error occurred while filtering rooms.'], 500);
+    }
+}
+
+
 }

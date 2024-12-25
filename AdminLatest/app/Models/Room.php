@@ -35,6 +35,11 @@ class Room extends Model
         $this->collection = $collectionName;
         $this->fillable = self::$collectionConfig[$collectionName];
     }
+
+    public function booking_list()
+    {
+        return $this->hasMany(Booking::class, 'room_id'); // Assuming room_id is the foreign key in the bookings collection
+    }
 }
 
 

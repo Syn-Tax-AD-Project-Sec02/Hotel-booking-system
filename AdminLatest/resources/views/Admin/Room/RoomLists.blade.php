@@ -370,7 +370,7 @@
                             @endif
 
                             <!-- Filter Buttons -->
-                            <div class="btn-group mb-3" role="group" aria-label="Filter Rooms">
+                            <div class="btn-group mb-4" role="group" aria-label="Filter Rooms">
                               <button class="btn btn-primary btn-filter-active rounded-pill" id="allBtn" onclick="filterItems('all', this)">
                                   All Rooms ({{ count($rooms) }})
                               </button>
@@ -381,12 +381,17 @@
                                   Booked ({{ $rooms->where('Status', 'Booked')->count() }})
                               </button>
                           </div>
-                          
 
+                          <div class=" d-flex justify-content-end">
+                            <label for="filterDate">Select Date:</label>
+                          <input type="date" class="form-control"  style="width:150px; height:20px" id="filterDate" onchange="fetchRoomStatus()" />
+                        </div>
+
+                          
                             <!-- Room Table -->
-                            <table class="table table-hover">
+                            <table class="table table-hover" id="roomStatusTable">
                                 <thead>
-                                    <tr>
+                                    <tr >
                                         <th>Room No</th>
                                         <th>Room Type</th>
                                         <th>Room Floor</th>
@@ -407,6 +412,7 @@
                                                     {{ $room->Status }}
                                                 </span>
                                             </td>
+                                            
                                             <td>
                                               <a class="nav-link" id="dropdownMenuIconButton1" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <i class="mdi mdi-dots-vertical"></i>
@@ -535,23 +541,47 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function () {
+      
+      const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+    document.getElementById('filterDate').value = today;
+
     const allButton = document.getElementById('allBtn');
     const availableButton = document.getElementById('availableBtn');
     const bookedButton = document.getElementById('bookedBtn');
+    const filterDate = document.getElementById('filterDate');
 
+    // Trigger filter when a button is clicked
     allButton.addEventListener('click', () => filterItems('all', allButton));
     availableButton.addEventListener('click', () => filterItems('Available', availableButton));
     bookedButton.addEventListener('click', () => filterItems('Booked', bookedButton));
+
+    // Trigger filter when the date is changed
+    filterDate.addEventListener('change', function () {
+        const selectedDate = filterDate.value;
+        const selectedStatus = document.querySelector('input[name="status"]:checked')?.value || 'all';
+
+        // Call filterItems with the selected status and date
+        filterItems(selectedStatus, null, selectedDate);
+    });
+    filterItems('all', null, today);
 });
 
 function filterItems(status, element) {
-  console.log("Filtering rooms by status:", status); // Log status being passed
+    console.log("Filtering rooms by status:", status); // Log status being passed
+    const selectedDate = document.getElementById('filterDate').value;
+
+    if (!selectedDate) {
+        alert('Please select a date');
+        return;
+    }
+    // Send the request to the backend to filter rooms
     $.ajax({
-        url: "{{ route('filterRoomStatus') }}",  
+        url: "{{ route('filterRooms') }}",  
         type: 'POST',
         data: {
             _token: "{{ csrf_token() }}",  
-            status: status  // Send the selected status to filter rooms
+            status: status,  // Send the selected status to filter rooms
+            date: selectedDate  // Send the selected date to filter rooms
         },
         success: function(response) {
             const tableBody = $("table tbody");
@@ -594,6 +624,8 @@ function filterItems(status, element) {
     });
 }
 
+
+
 function highlightSelectedButton(selectedButton) {
     // Remove active classes from all buttons
     document.querySelectorAll('.btn-group .btn').forEach(button => {
@@ -605,6 +637,9 @@ function highlightSelectedButton(selectedButton) {
     selectedButton.classList.remove('btn-filter');
     selectedButton.classList.add('btn-primary', 'btn-filter-active');
 }
+
+
+
 
   </script>
 

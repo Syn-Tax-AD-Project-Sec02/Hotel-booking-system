@@ -66,6 +66,8 @@ Route::post('/room-lists', [RoomController::class, 'addRoomList']);
 Route::put('/room-lists', [RoomController::class, 'updateRoomList'])->name('updateRoomList');
 Route::delete('/room-lists', [RoomController::class, 'deleteRoomList'])->name('deleteRoomList');
 Route::post('/filterRoomStatus', [RoomController::class, 'filterRoomStatus'])->name('filterRoomStatus');
+Route::get('/filterRoomDate', [RoomController::class, 'filterByDate'])->name('filterRoomByDate');
+Route::post('/filter-rooms', [RoomController::class, 'filterRooms'])->name('filterRooms');
 
 Route::get('/booking', [BookingController::class, 'showBookingList'])->name('bookingListsForm');
 Route::post('/booking', [BookingController::class, 'addBookingList']);
