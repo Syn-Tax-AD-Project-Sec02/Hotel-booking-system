@@ -117,4 +117,24 @@ class BookingController extends Controller
     
         return redirect()->route('bookingListsForm')->with('success', 'Booking deleted successfully!');
     }
+
+    public function getRoomsByType(Request $request)
+    {
+        $selectedRoomType = $request->input('typeRoom');
+    
+        $roomModel = new Room();
+        $roomModel->setTable('room_lists');
+    
+        // Fetch rooms based on the selected room type
+        $rooms = $roomModel->where('TypeRoom', $selectedRoomType)
+                           ->where('Status', 'Available')
+                           ->get();
+
+         \Log::info($rooms); 
+    
+        // Return the rooms as a JSON response
+        return response()->json(['rooms' => $rooms]);
+    }
+    
+
 }

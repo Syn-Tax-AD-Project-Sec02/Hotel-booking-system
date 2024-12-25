@@ -195,7 +195,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="pages/tables/booking.html">
+              <a class="nav-link" href="{{ url('/booking')}}">
                 <span class="menu-title">Booking</span>
                 <i class="mdi mdi-calendar-edit-outline menu-icon"></i>
               </a>
@@ -214,13 +214,24 @@
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="room.html">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">Room</span>
-                <i class="mdi mdi-bookmark-outline menu-icon"></i>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-crosshairs-gps menu-icon"></i>
               </a>
+              <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/room-details') }}">Room Details</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/room-lists') }}">Room List</a>
+                  </li>
+                </ul>
+              </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="staff.html">
+              <a class="nav-link" href="{{ url('/staff-list')}}">
                 <span class="menu-title">Staff</span>
                 <i class="mdi mdi-account-outline menu-icon"></i>
               </a>
