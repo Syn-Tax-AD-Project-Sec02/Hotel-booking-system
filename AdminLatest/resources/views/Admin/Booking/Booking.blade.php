@@ -403,9 +403,7 @@
                                   <div class="mb-4">
                                     <label for="FormControlName"  class="form-label">Phone</label>
                                     <input type="text" class="form-control" name="Phone" placeholder="Phone" aria-label="Phone">
-                                  </div>
-
-                               
+                                  </div>        
                               </div>
                               <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary btn-rounded">Add</button>
