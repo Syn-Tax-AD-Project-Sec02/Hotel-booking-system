@@ -248,7 +248,7 @@
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href=" {{ url('staff.html') }}">
+              <a class="nav-link" href=" {{ url('/staff-lists') }}">
                 <span class="menu-title">Staff</span>
                 <i class="mdi mdi-account-outline menu-icon"></i>
               </a>

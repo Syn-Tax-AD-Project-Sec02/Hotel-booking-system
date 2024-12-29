@@ -3,6 +3,7 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Scholars Admin</title>
     <!-- plugins:css -->
@@ -13,6 +14,8 @@
     <meta property="og:url" content="https://keenthemes.com/products/oswald-html-pro" />
 		<meta property="og:site_name" content="Keenthemes | Oswald HTML Free" />
 		<link rel="canonical" href="https://preview.keenthemes.com/axel-html-free" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- endinject -->
     <!-- Plugin css for this page -->
@@ -192,7 +195,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="pages/tables/booking.html">
+              <a class="nav-link" href="{{ url('/booking')}}">
                 <span class="menu-title">Booking</span>
                 <i class="mdi mdi-calendar-edit-outline menu-icon"></i>
               </a>
@@ -211,13 +214,24 @@
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="room.html">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">Room</span>
-                <i class="mdi mdi-bookmark-outline menu-icon"></i>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-crosshairs-gps menu-icon"></i>
               </a>
+              <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/room-details') }}">Room Details</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/room-lists') }}">Room List</a>
+                  </li>
+                </ul>
+              </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="staff.html">
+              <a class="nav-link" href="{{ url('/staff-list')}}">
                 <span class="menu-title">Staff</span>
                 <i class="mdi mdi-account-outline menu-icon"></i>
               </a>
@@ -356,16 +370,28 @@
                             @endif
 
                             <!-- Filter Buttons -->
-                            <div class="btn-group mb-3" role="group" aria-label="Filter Rooms">
-                                <button type="button" class="btn btn-primary btn-filter-active rounded-pill" id="allBtn" onclick="filterItems('all', this)">All Rooms ({{ count($rooms) }})</button>
-                                <button type="button" class="btn btn-filter rounded-pill" id="availableBtn" onclick="filterItems('Available', this)">Available Rooms ({{ $rooms->where('Status', 'Available')->count() }})</button>
-                                <button type="button" class="btn btn-filter rounded-pill" id="bookedBtn" onclick="filterItems('Booked', this)">Booked ({{ $rooms->where('Status', 'Booked')->count() }})</button>
-                            </div>
+                            <div class="btn-group mb-4" role="group" aria-label="Filter Rooms">
+                              <button class="btn btn-primary btn-filter-active rounded-pill" id="allBtn" onclick="filterItems('all', this)">
+                                  All Rooms ({{ count($rooms) }})
+                              </button>
+                              <button class="btn btn-filter rounded-pill" id="availableBtn" onclick="filterItems('Available', this)">
+                                  Available Rooms ({{ $rooms->where('Status', 'Available')->count() }})
+                              </button>
+                              <button class="btn btn-filter rounded-pill" id="bookedBtn" onclick="filterItems('Booked', this)">
+                                  Booked ({{ $rooms->where('Status', 'Booked')->count() }})
+                              </button>
+                          </div>
 
+                          <div class=" d-flex justify-content-end">
+                            <label for="filterDate">Select Date:</label>
+                          <input type="date" class="form-control"  style="width:150px; height:20px" id="filterDate" onchange="fetchRoomStatus()" />
+                        </div>
+
+                          
                             <!-- Room Table -->
-                            <table class="table table-hover">
+                            <table class="table table-hover" id="roomStatusTable">
                                 <thead>
-                                    <tr>
+                                    <tr >
                                         <th>Room No</th>
                                         <th>Room Type</th>
                                         <th>Room Floor</th>
@@ -386,6 +412,7 @@
                                                     {{ $room->Status }}
                                                 </span>
                                             </td>
+                                            
                                             <td>
                                               <a class="nav-link" id="dropdownMenuIconButton1" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <i class="mdi mdi-dots-vertical"></i>
@@ -398,7 +425,7 @@
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <form action="{{ route('deleteRoomFromList') }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this room?');">
+                                                        <form action="{{ route('deleteRoomList') }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this room?');">
                                                             @csrf
                                                             @method('DELETE')
                                                             <input type="hidden" name="room_id" value="{{ $room->_id }}">
@@ -510,87 +537,112 @@
     <script src="{{asset('dist/assets/js/misc.js')}}"></script>
     <script src="{{asset('dist/assets/js/settings.js')}}"></script>
     <script src="{{asset('dist/assets/js/todolist.js')}}"></script>
-    <script src="{{asset('dist/assets/js/jquery.cookie.js')}}"></script>  <!-- endinject -->
+    <script src="{{asset('dist/assets/js/jquery.cookie.js')}}"></script> 
 
     <script>
-      $(document).ready(function() {
-          // By default, load the 'Available' filter and highlight it
-          const availableButton = document.getElementById('allBtn');
-          filterItems('all', availableButton);
-      });
-  
-      function filterItems(status, element) {
-          // Send AJAX request to filter rooms
-          $.ajax({
-              url: "{{ route('filterRoomStatus') }}", // Ensure this route is correct
-              type: "POST",
-              data: {
-                  _token: "{{ csrf_token() }}",
-                  status: status
-              },
-              success: function (response) {
-                  // Update the room table (your current logic)
-                  const tableBody = $("table tbody");
-                  tableBody.empty();
-                  response.rooms.forEach(room => {
-                      let statusBadge = room.Status === 'Booked'
-                          ? '<span class="badge bg-danger">Booked</span>'
-                          : '<span class="badge bg-success">Available</span>';
-                      tableBody.append(`
-                          <tr>
-                              <td>${room.RoomNo}</td>
-                              <td>${room.TypeRoom}</td>
-                              <td>${room.RoomFloor}</td>
-                              <td>${room.RoomBlock}</td>
-                              <td>${statusBadge}</td>
-                              <td>
-                                  <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                      <i class="mdi mdi-dots-vertical"></i>
-                                  </a>
-                                  <ul class="dropdown-menu">
-                                      <li>
-                                          <!-- Edit Button -->
-                                          <a class="dropdown-item" href="{{route('updateRoomList')}}" data-bs-toggle="modal" data-bs-target="#modalEditRoom${room.id}">
-                                              <i class="mdi mdi-pencil me-2 text-info"></i> Edit
-                                          </a>
-                                      </li>
-                                      <li>
-                                        <form action="{{ route('deleteRoomFromList') }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this room?');">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <input type="hidden" name="room_id" value="{{ $room->_id }}">
-                                                            <button class="dropdown-item text-danger" type="submit">
-                                                                <i class="mdi mdi-delete me-2"></i>Delete
-                                                            </button>
-                                                        </form>
-                                      </li>
-                                  </ul>
-                              </td>
-                          </tr>
-                      `);
-                  });
-  
-                  // Highlight the selected button
-                  highlightSelectedButton(element);
-              },
-              error: function (error) {
-                  console.error("Error filtering rooms:", error);
-              }
-          });
-      }
-  
-      function highlightSelectedButton(selectedButton) {
-          // Remove the 'btn-primary' class from all buttons
-          document.querySelectorAll('.btn-group .btn').forEach(button => {
-              button.classList.remove('btn-primary', 'btn-filter-active');
-              button.classList.add('btn-filter'); // Reset to default style
-          });
-  
-          // Add the highlight class to the selected button
-          selectedButton.classList.remove('btn-filter');
-          selectedButton.classList.add('btn-primary', 'btn-filter-active');
-      }
+    document.addEventListener('DOMContentLoaded', function () {
+      
+      const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+    document.getElementById('filterDate').value = today;
+
+    const allButton = document.getElementById('allBtn');
+    const availableButton = document.getElementById('availableBtn');
+    const bookedButton = document.getElementById('bookedBtn');
+    const filterDate = document.getElementById('filterDate');
+
+    // Trigger filter when a button is clicked
+    allButton.addEventListener('click', () => filterItems('all', allButton));
+    availableButton.addEventListener('click', () => filterItems('Available', availableButton));
+    bookedButton.addEventListener('click', () => filterItems('Booked', bookedButton));
+
+    // Trigger filter when the date is changed
+    filterDate.addEventListener('change', function () {
+        const selectedDate = filterDate.value;
+        const selectedStatus = document.querySelector('input[name="status"]:checked')?.value || 'all';
+
+        // Call filterItems with the selected status and date
+        filterItems(selectedStatus, null, selectedDate);
+    });
+    filterItems('all', null, today);
+});
+
+function filterItems(status, element) {
+    console.log("Filtering rooms by status:", status); // Log status being passed
+    const selectedDate = document.getElementById('filterDate').value;
+
+    if (!selectedDate) {
+        alert('Please select a date');
+        return;
+    }
+    // Send the request to the backend to filter rooms
+    $.ajax({
+        url: "{{ route('filterRooms') }}",  
+        type: 'POST',
+        data: {
+            _token: "{{ csrf_token() }}",  
+            status: status,  // Send the selected status to filter rooms
+            date: selectedDate  // Send the selected date to filter rooms
+        },
+        success: function(response) {
+            const tableBody = $("table tbody");
+            tableBody.empty();
+
+            if (response.rooms && response.rooms.length > 0) {
+                response.rooms.forEach(room => {
+                    const statusBadge = room.Status === 'Booked' 
+                        ? '<span class="badge bg-danger">Booked</span>' 
+                        : '<span class="badge bg-success">Available</span>';
+
+                    tableBody.append(`
+                        <tr>
+                            <td>${room.RoomNo}</td>
+                            <td>${room.TypeRoom}</td>
+                            <td>${room.RoomFloor}</td>
+                            <td>${room.RoomBlock}</td>
+                            <td>${statusBadge}</td>
+                            <td>
+                                <a href="#" class="nav-link" data-bs-toggle="dropdown">
+                                    <i class="mdi mdi-dots-vertical"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                                    <li><a class="dropdown-item" href="#">Delete</a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                    `);
+                });
+            } else {
+                tableBody.append('<tr><td colspan="6" class="text-center">No rooms found</td></tr>');
+            }
+
+            highlightSelectedButton(element);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error filtering rooms:', error);
+        }
+    });
+}
+
+
+
+function highlightSelectedButton(selectedButton) {
+    // Remove active classes from all buttons
+    document.querySelectorAll('.btn-group .btn').forEach(button => {
+        button.classList.remove('btn-primary', 'btn-filter-active');
+        button.classList.add('btn-filter');
+    });
+
+    // Add active classes to the selected button
+    selectedButton.classList.remove('btn-filter');
+    selectedButton.classList.add('btn-primary', 'btn-filter-active');
+}
+
+
+
+
   </script>
+
   
     <!-- Custom js for this page -->
     <!-- End custom js for this page -->

@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\StaffController;
 
 Route::get('/', function () {
     return view('Admin.user.login');
@@ -60,18 +61,25 @@ Route::put('/room-details', [RoomController::class, 'updateRoomDetails'])->name(
 Route::delete('/room-details', [RoomController::class, 'deleteRoomDetails'])->name('deleteRoomDetails');
 Route::delete('/room-details-image', [RoomController::class, 'deleteImage'])->name('deleteImage');
 
-
-
 Route::get('/room-lists', [RoomController::class, 'showFormRoomLists'])->name('RoomListsForm');
 Route::post('/room-lists', [RoomController::class, 'addRoomList']);
 Route::put('/room-lists', [RoomController::class, 'updateRoomList'])->name('updateRoomList');
 Route::delete('/room-lists', [RoomController::class, 'deleteRoomList'])->name('deleteRoomList');
+Route::post('/filterRoomStatus', [RoomController::class, 'filterRoomStatus'])->name('filterRoomStatus');
+Route::get('/filterRoomDate', [RoomController::class, 'filterByDate'])->name('filterRoomByDate');
+Route::post('/filter-rooms', [RoomController::class, 'filterRooms'])->name('filterRooms');
 
 Route::get('/booking', [BookingController::class, 'showBookingList'])->name('bookingListsForm');
 Route::post('/booking', [BookingController::class, 'addBookingList']);
 Route::put('/booking', [BookingController::class, 'updateBookingList'])->name('updateBookingList');
 Route::delete('/booking', [BookingController::class, 'deleteBookingList'])->name('deleteBookingList');
+Route::post('/getRoomsByType', [BookingController::class, 'getRoomsByType'])->name('getRoomsByType');
 
+
+Route::get('/staff-list', [StaffController::class, 'showFormStaffLists'])->name('StaffListForm');
+Route::post('/staff-list', [StaffController::class, 'addStaffList']);
+Route::put('/staff-list', [StaffController::class, 'updateStaffList'])->name('updateStaffList');
+Route::delete('/staff-list', [StaffController::class, 'deleteStaffList'])->name('deleteStaffList');
 
 
 

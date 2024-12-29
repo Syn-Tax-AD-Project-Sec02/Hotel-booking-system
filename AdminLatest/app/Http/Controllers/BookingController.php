@@ -40,7 +40,11 @@ class BookingController extends Controller
             return redirect()->back()->with('error', 'The selected room does not exist or the details do not match.');
         }
         
-        $existingBooking = Booking::where('RoomNo', $request->RoomNo)
+        // Save user to MongoDB
+        $booking = new Booking;
+        $booking->setTable('booking_list');
+
+        $existingBooking = $booking->where('RoomNo', $request->RoomNo)
         ->where(function ($query) use ($request) {
             $query->whereBetween('CheckIn', [$request->CheckIn, $request->CheckOut])
                   ->orWhereBetween('CheckOut', [$request->CheckIn, $request->CheckOut])
@@ -55,9 +59,6 @@ class BookingController extends Controller
             return redirect()->back()->with('error', 'The selected room is already booked for the chosen dates.');
         }
 
-        // Save user to MongoDB
-        $booking = new Booking;
-        $booking->setTable('booking_list');
         $booking->BookingID = 'BKG' . str_pad(rand(1, 999), 3, '0', STR_PAD_LEFT);
         $booking->Name = $request->Name;
         $booking->RoomNo = $request->RoomNo;
@@ -76,14 +77,14 @@ class BookingController extends Controller
 
     public function updateBookingList(Request $request)
     {
-
+       // dd($request->all());
     $bookingId = $request->input('booking_id');
 
     $booking = new Booking();
     $booking->setTable('booking_list'); // Ensure you're pointing to the right table
         
-    $booking = $booking->findOrFail($bookingId); // Find the record
-
+    $booking = $booking->findOrFail($bookingId);
+    
     $booking->Name = $request->Name;
     $booking->RoomNo = $request->RoomNo;
     $booking->TypeRoom = $request->TypeRoom;
@@ -98,19 +99,15 @@ class BookingController extends Controller
 
     public function deleteBookingList(Request $request)
     {
-    
+       // dd($request->all());
 
         $bookingId = $request->input('booking_id');
-
-    if (!$bookingId) {
-        return redirect()->back()->with('error', 'No booking ID provided.');
-    }
 
         // Set table dynamically
         $booking = new Booking();
         $booking->setTable('booking_list');
 
-        $booking = $booking->where('_id', $bookingId)->first();
+        $booking = $booking->find($bookingId);
 
         if (!$booking) {
             return redirect()->back()->with('error', 'Booking not found.');
@@ -121,4 +118,24 @@ class BookingController extends Controller
     
         return redirect()->route('bookingListsForm')->with('success', 'Booking deleted successfully!');
     }
+
+    public function getRoomsByType(Request $request)
+    {
+        $selectedRoomType = $request->input('typeRoom');
+    
+        $roomModel = new Room();
+        $roomModel->setTable('room_lists');
+    
+        // Fetch rooms based on the selected room type
+        $rooms = $roomModel->where('TypeRoom', $selectedRoomType)
+                           ->where('Status', 'Available')
+                           ->get();
+
+         \Log::info($rooms); 
+    
+        // Return the rooms as a JSON response
+        return response()->json(['rooms' => $rooms]);
+    }
+    
+
 }

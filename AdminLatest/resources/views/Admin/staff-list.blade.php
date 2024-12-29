@@ -16,8 +16,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css">
     <!-- Include SweetAlert JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+  
 
     
     <!-- endinject -->
@@ -198,7 +198,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="pages/tables/booking.html">
+              <a class="nav-link" href="{{ url('/booking') }}">
                 <span class="menu-title">Booking</span>
                 <i class="mdi mdi-calendar-edit-outline menu-icon"></i>
               </a>
@@ -228,13 +228,13 @@
                     <a class="nav-link" href="{{ url('/room-details') }}">Room Details</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/room-lists') }}">Room List</a>
+                    <a class="nav-link" href="{{ url('/room-list') }}">Room List</a>
                   </li>
                 </ul>
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{url('/staff-list')}}">
+              <a class="nav-link" href="{{ url('/staff-list') }}">
                 <span class="menu-title">Staff</span>
                 <i class="mdi mdi-account-outline menu-icon"></i>
               </a>
@@ -269,56 +269,16 @@
               </div>
             </div>
             
-            <div class="col-lg-12 stretch-card">
-                <div class="card">
-                    <div class="card-body ">
-                        <div class="filter-section ">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div class="btn-group">
-                                    <button class="btn btn-outline-primary active">All rooms (6)</button>
-                                    <button class="btn btn-outline-primary">Single</button>
-                                    <button class="btn btn-outline-primary">Standard</button>
-                                    <button class="btn btn-outline-primary">Deluxe</button>
-                                    <button class="btn btn-outline-primary">Scholar</button>
-                                    <button class="btn btn-outline-primary">Suite</button>
-                                </div>
-                            </div>
-                            @section('content')
-                            <form class="row g-3 align-items-center">
-                                <div class="col-md-3">
-                                    <label for="checkIn" class="form-label">Check in</label>
-                                    <input type="date" class="form-control" id="checkIn">
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="checkOut" class="form-label">Check out</label>
-                                    <input type="date" class="form-control" id="checkOut">
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="adults" class="form-label">Adults</label>
-                                    <input type="number" class="form-control" id="adults" value="1" min="1">
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="children" class="form-label">Children</label>
-                                    <input type="number" class="form-control" id="children" value="0" min="0">
-                                </div>
-                                <div class="col-md-12 d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-primary">Check availability</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div></div>
-            
             <div class="row">
               <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body ">
                     <!-- Display success message -->
-                    @if(session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                    @endif
+@if(session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+@endif
 
                 <!-- Display error message -->
                 @if(session('error'))
@@ -338,60 +298,46 @@
                 </div>
                 @endif
                       <div class=" d-flex justify-content-between align-items-center">
-                        <h4 class="card-title">All Booking</h4>
-                        <button type="button" class="btn btn-primary btn-rounded shadow" style="padding: 15PX;" data-bs-toggle="modal" data-bs-target="#modalBooking" data-bs-whatever="@mdo">Add Booking</button>
+                        <h4 class="card-title">All Staff</h4>
+                        <button type="button" class="btn btn-primary btn-rounded shadow" style="padding: 15PX;" data-bs-toggle="modal" data-bs-target="#modalBooking" data-bs-whatever="@mdo">Add Staff</button>
                         <div class="modal fade" id="modalBooking" tabindex="-1" aria-labelledby="modalBookingLabel" aria-hidden="true">
                           <div class="modal-dialog">
                             <div class="modal-content"  style="background-color: white;">
                               <div class="modal-header">
-                                <h5 class="modal-title" id="modalBookingLabel">Add Room</h5>
+                                <h5 class="modal-title" id="modalBookingLabel">Add Staff</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
-                                <form action="{{ route('bookingListsForm') }}" method="POST" enctype="multipart/form-data" >                                  
-                                  @csrf   
+                                <form action="{{ route('StaffListForm') }}" method="POST" >                                  
+                                  @csrf 
                                   <div class="mb-4">
-                                    <label for="FormControlName"  class="form-label">Name</label>
-                                    <input type="text" class="form-control" name="Name" placeholder="Name" aria-label="Name">
+                                    <label for="FormControlName"  class="form-label">Staff Email</label>
+                                    <input type="email" class="form-control" name="email" placeholder="email" aria-label="email">
+                                  </div>                               
+                                  <div class="mb-4">
+                                    <label for="FormControlName"  class="form-label">Staff Name</label>
+                                    <input type="text" class="form-control" name="name" placeholder="Full Name" aria-label="Full Name">
                                   </div>
-
                                   <div class="mb-4">
-                                    <label for="exampleFormControlInput1"  class="form-label">Type of Room</label>
-                                    <select class="form-select" style="height:43px; font-size: 12px;" name="TypeRoom" id="TypeRoom">
+                                    <label for="exampleFormControlInput1" class="form-label">Position</label>
+                                    <select class="form-select" style=" height:43px; font-size: 12px;" name="position" id="inputGroupSelect01">
                                       <option selected>Choose...</option>
-                                      <option value="Single">Single</option>
-                                      <option value="Standard">Standard</option>
-                                      <option value="Deluxe">Deluxe</option>
-                                      <option value="Scholars">Scholars</option>
-                                      <option value="Suite">Suite</option>
+                                      <option value="Manager">Manager</option>
+                                      <option value="Marketing">Marketing</option>
+                                      <option value="Receptionist">Receptionist</option>
+                                      <option value="Maintenance & cleaning">Maintenance & cleaning</option>
                                     </select>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="exampleFormControlInput1" class="form-label">Phone</label>
+                                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone Number" aria-label="Phone Number">
                                   </div>
 
                                   <div class="mb-4">
-                                    <label for="FormControlName"  class="form-label">Room No</label>
-                                      <select class="form-control form-select" style="height:43px; font-size: 12px;" name="RoomNo" id="roomNoSelect">
-                                        <option selected>Choose Room No</option>
-                                        <!-- Room numbers will be dynamically populated here -->
-                                    </select>
-                                  </div>
+                                    <label for="exampleFormControlInput1" class="form-label">Address</label>
+                                    <textarea class="form-control" name="address" id="address" placeholder="Full Address" aria-label="address"></textarea>
+                                </div>
 
-                                  
-                                  <div class="row mb-4">
-                                    <div class="col-md-6">
-                                        <label for="FormControlCheckIn" class="form-label">Check-In</label>
-                                        <input type="date" class="form-control" name="CheckIn" id="FormControlCheckIn" placeholder="Check-In" aria-label="CheckIn">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="FormControlCheckOut" class="form-label">Check-Out</label>
-                                        <input type="date" class="form-control" name="CheckOut" id="FormControlCheckOut" placeholder="Check-Out" aria-label="CheckOut">
-                                    </div>
-                                    </div>
-
-                                  <div class="mb-4">
-                                    <label for="FormControlName"  class="form-label">Phone</label>
-                                    <input type="text" class="form-control" name="Phone" placeholder="Phone" aria-label="Phone">
-                                  </div>
-                                {{--  --}}
                                
                               </div>
                               <div class="modal-footer">
@@ -411,39 +357,36 @@
                       <thead>
                         <tr>
                           <th>#</th>
-                          <th>Booking ID</th>
-                          <th>Name</th>
-                          <th>Room No</th>
-                          <th>Room Type</th>
-                          <th>Check-In</th>
-                          <th>Check-Out</th>
+                          <th>Staff Id</th>
+                          <th>Staff Email</th>
+                          <th>Staff Name</th>
+                          <th>Position</th>
                           <th>Phone</th>
+                          <th>Address</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach ($bookings as $booking)
+                        @foreach ($staffs->sortBy('staffID') as $staff)
                         <tr>
                           <td>{{ $loop->iteration }}</td>
-                          <td>{{ $booking->BookingID }}</td> 
-                          <td>{{ $booking->Name }}</td>
-                          <td>{{ $booking->TypeRoom }}</td>
-                          <td>{{ $booking->RoomNo }}</td>
-                          <td>{{ $booking->CheckIn }}</td>
-                          <td>{{ $booking->CheckOut }}</td>
-                          <td>{{ $booking->Phone }}</td>
-                          
-                          
+                          <td>{{ $staff->staffID}}</td>
+                          <td>{{ $staff->email}}</td>
+                          <td>{{ $staff->name }}</td>
+                          <td>{{ $staff->position }}</td>
+                          <td>{{ $staff->phone }}</td>
+                          <td>{{ $staff->address }}</td>
                           <td>
                             <!-- Dropdown Trigger -->
                             <a class="nav-link" id="dropdownMenuIconButton1" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                               <i class="mdi mdi-dots-vertical"></i>
                             </a>
+                            
 
                             <!-- Dropdown Menu -->
                             <div class="dropdown-menu navbar-dropdown" aria-labelledby="dropdownMenuIconButton1">
                               <!-- Edit Option -->
-                              <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalBookingU{{ $booking->id }}">
+                              <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalBookingU{{ $staff->_id }}">
                                 <i class="mdi mdi-pencil me-2 text-info"></i> Edit
                               </a>
 
@@ -452,84 +395,66 @@
 
                               <!-- Delete Option -->
                              <!-- Delete Option -->
-                             <a class="dropdown-item" href="javascript:void(0);" onclick="event.preventDefault(); document.getElementById('deleteRoomForm{{ $booking->_id }}').submit();">
+                             <a class="dropdown-item" href="javascript:void(0);" onclick="event.preventDefault(); document.getElementById('deleteStaffForm{{ $staff->_id }}').submit();">
                               <i class="mdi mdi-delete me-2 text-danger"></i> Delete
                           </a>
                           
-                          <form id="deleteRoomForm{{ $booking->_id }}" action="{{ route('deleteBookingList')}}" method="POST" style="display: none;">
+                          <form id="deleteStaffForm{{ $staff->_id }}" action="{{ route('deleteStaffList') }}" method="POST" style="display: none;">
                               @csrf
                               @method('DELETE')
-                              <input type="hidden" name="booking_id" value="{{ $booking->_id }}"> <!-- Pass the room's _id -->
+                              <input type="hidden" name="staff_id" value="{{ $staff->_id }}"> <!-- Pass the room's _id -->
                           </form>
                             </div>
 
                             <!-- Modal (Place Outside Dropdown Menu) -->
-                            <div class="modal fade" id="modalBookingU{{ $booking->id }}" tabindex="-1" aria-labelledby="modalBookingU{{ $booking->id }}Label" aria-hidden="true">
+                            <div class="modal fade" id="modalBookingU{{ $staff->id }}" tabindex="-1" aria-labelledby="modalBookingU{{ $staff->id }}Label" aria-hidden="true">
                               <div class="modal-dialog">
                                 <div class="modal-content" style="background-color: white;">
                                   <div class="modal-header">
-                                    <h5 class="modal-title" id="modalBookingU{{ $booking->id }}Label">Edit Room</h5>
+                                    <h5 class="modal-title" id="modalBookingU{{ $staff->id }}Label">Edit Staff</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                   </div>
                                   <div class="modal-body">
-                                    <form action="{{ route('updateBookingList') }}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('updateStaffList') }}" method="POST" enctype="multipart/form-data">
                                       @csrf
                                       @method('PUT')
-                                      <input type="hidden" name="booking_id" value="{{ $booking->id }}">
-                  
-                                      <!-- Name -->
+                                      <input type="hidden" name="staff_id" value="{{ $staff->id }}">
+                                      <!-- Input Fields -->
                                       <div class="mb-4">
-                                          <label for="Name{{ $booking->id }}" class="form-label">Name</label>
-                                          <input type="text" class="form-control" name="Name" id="Name{{ $booking->id }}" value="{{ $booking->Name }}">
+                                        <label for="FormControlName"  class="form-label">Staff Email</label>
+                                        <input type="email" class="form-control" name="email" placeholder="email" aria-label="email">
+                                      </div>    
+                                      <div class="mb-4">
+                                        <label for="staffID{{ $staff->id }}" class="form-label">Staff ID</label>
+                                        <input type="text" class="form-control" name="staffID" id="staffID{{ $staff->id }}" value="{{ $staff->staffID }}">
                                       </div>
-                                      
-                                      <!-- Type of Room -->
                                       <div class="mb-4">
-                                        <label for="TypeRoom{{ $booking->id }}" class="form-label">Type of Room</label>
-                                        <select class="form-select" name="TypeRoom" style="height:43px; font-size: 12px;" id="TypeRoom{{ $booking->id }}">
-                                            <option value="Single" {{ $booking->TypeRoom == 'Single' ? 'selected' : '' }}>Single</option>
-                                            <option value="Standard" {{ $booking->TypeRoom == 'Standard' ? 'selected' : '' }}>Standard</option>
-                                            <option value="Deluxe" {{ $booking->TypeRoom == 'Deluxe' ? 'selected' : '' }}>Deluxe</option>
-                                            <option value="Scholars" {{ $booking->TypeRoom == 'Scholars' ? 'selected' : '' }}>Scholars</option>
-                                            <option value="Suite" {{ $booking->TypeRoom == 'Suite' ? 'selected' : '' }}>Suite</option>
+                                        <label for="name{{ $staff->id }}" class="form-label">Staff Name</label>
+                                        <input type="text" class="form-control" name="name" id="name{{ $staff->id }}" value="{{ $staff->name }}">
+                                      </div>
+                                       <!-- Other Fields -->
+                                       <div class="mb-4">
+                                        <label for="position{{ $staff->id }}" class="form-label">Position</label>
+                                        <select class="form-select" name="position" id="position{{ $staff->id }}">
+                                          <option value="Manager" {{ $staff->position == 'Manager' ? 'selected' : '' }}>Manager</option>
+                                          <option value="Marketing" {{ $staff->position == 'Marketing' ? 'selected' : '' }}>Marketing</option>
+                                          <option value="Receptionist" {{ $staff->position == 'Receptionist' ? 'selected' : '' }}>Receptionist</option>
+                                          <option value="Maintenance & Cleaning" {{ $staff->position == 'Maintenance & Cleaning' ? 'selected' : '' }}>Maintenance & Cleaning</option>
                                         </select>
+                                      </div>
+
+                                     <div class="mb-4">
+                                        <label for="phone{{ $staff->id }}" class="form-label">Phone</label>
+                                        <input type="text" class="form-control" name="phone" id="phone{{ $staff->id }}" value="{{ $staff->phone }}">
+                                      </div>
+
+                                      <div class="mb-4">
+                                        <label for="address{{ $staff->id }}" class="form-label">Address</label>
+                                        <textarea class="form-control" name="address" id="address{{ $staff->id }}">{{ $staff->address }}</textarea>
                                     </div>
                                     
-                                    <div class="mb-4">
-                                        <label for="RoomNo{{ $booking->id }}" class="form-label">Room No</label>
-                                        <select 
-                                            class="form-control form-select" 
-                                            style="height:43px; font-size: 12px;" 
-                                            name="RoomNo" 
-                                            id="roomNoSelect{{ $booking->id }}" 
-                                            data-current-room-no="{{ $booking->RoomNo }}">
-                                            <option value="{{ $booking->RoomNo }}" selected>{{ $booking->RoomNo }}</option>
-                                        </select>
-                                    </div>
                                     
-                  
-                                      
-                  
-                                      <!-- Check-In and Check-Out -->
-                                      <div class="row mb-4">
-                                          <div class="col-md-6">
-                                              <label for="CheckIn{{ $booking->id }}" class="form-label">Check-In</label>
-                                              <input type="date" class="form-control" name="CheckIn" id="CheckIn{{ $booking->id }}" value="{{ $booking->CheckIn }}">
-                                          </div>
-                                          <div class="col-md-6">
-                                              <label for="CheckOut{{ $booking->id }}" class="form-label">Check-Out</label>
-                                              <input type="date" class="form-control" name="CheckOut" id="CheckOut{{ $booking->id }}" value="{{ $booking->CheckOut }}">
-                                          </div>
-                                      </div>
-                  
-                                      <!-- Phone -->
-                                      <div class="mb-4">
-                                          <label for="Phone{{ $booking->id }}" class="form-label">Phone</label>
-                                          <input type="text" class="form-control" name="Phone" id="Phone{{ $booking->id }}" value="{{ $booking->Phone }}">
-                                      </div>
-                                    
-                                    
-                                  
+                                  </div>
                                   <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary">Save</button>
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -537,17 +462,14 @@
                                   
                                 </form>
                                 </div>
-                                </div>
                               </div>
                             </div>
                           </td>
                         </tr>
-                        @section('content')
-                       @endforeach 
-                       
+                        @endforeach
+                        
 
                       </tbody>
-                      
                     </table>
                   </div>
                 </div>
@@ -574,109 +496,11 @@
     <!-- Plugin js for this page -->
     <!-- End plugin js for this page -->
     <!-- inject:js -->
-      <!-- endinject -->
-      <script>
-      $(document).ready(function () {
-          // Trigger the function to update room numbers when the "Type of Room" dropdown changes
-          $('#TypeRoom').on('change', function () {
-              const roomType = $(this).val();  // Get the selected room type
-              filterRoomNumbers(roomType);     // Call function to filter room numbers
-          });
-
-          // Initial call to populate room numbers for the selected room type on page load
-          const initialRoomType = $('#TypeRoom').val();
-          filterRoomNumbers(initialRoomType);
-      });
-
-      $(document).ready(function () {
-    // Attach change event to all "Type of Room" dropdowns with dynamic IDs
-        $('[id^=TypeRoom]').on('change', function () {
-            const roomType = $(this).val();           // Get the selected room type
-            const bookingId = $(this).attr('id').replace('TypeRoom', ''); // Extract the booking ID
-            UpdatefilterRoomNumbers(roomType, bookingId);   // Call function with room type and booking ID
-        });
-
-        // On page load, populate room numbers for each booking's selected room type
-        $('[id^=TypeRoom]').each(function () {
-            const roomType = $(this).val();           // Get the selected room type
-            const bookingId = $(this).attr('id').replace('TypeRoom', ''); // Extract the booking ID
-            UpdatefilterRoomNumbers(roomType, bookingId);   // Call function with room type and booking ID
-        });
-    });
-
-    function UpdatefilterRoomNumbers(roomType, bookingId) {
-    $.ajax({
-        url: "{{ route('getRoomsByType') }}",  // Ensure your route is correct
-        type: 'POST',
-        data: {
-            _token: "{{ csrf_token() }}", // Include CSRF token
-            typeRoom: roomType            // Pass the selected room type
-        },
-        success: function (response) {
-            console.log('Response:', response); // Log response for debugging
-
-            const roomNoSelect = $(`#roomNoSelect${bookingId}`);
-            roomNoSelect.empty();  // Clear the existing options
-
-            // Check if rooms exist in the response and append them
-            if (response.rooms && response.rooms.length > 0) {
-                response.rooms.forEach(room => {
-                    // Ensure room.RoomNo === 0 is handled properly
-                    roomNoSelect.append(
-                        `<option value="${room.RoomNo}" ${
-                            room.RoomNo == $(`#roomNoSelect${bookingId}`).data('current-room-no') ? 'selected' : ''
-                        }>${room.RoomNo === 0 ? '0' : room.RoomNo}</option>`
-                    );
-                });
-            } else {
-                roomNoSelect.append('<option>No rooms available for this type</option>');
-            }
-        },
-        error: function (error) {
-            console.error('Error fetching room numbers:', error);
-        }
-    });
-}
-
-
-
-      function filterRoomNumbers(roomType) {
-          $.ajax({
-              url: "{{ route('getRoomsByType') }}",  // Ensure your route is correct
-              type: 'POST',
-              data: {
-                  _token: "{{ csrf_token() }}", // Fetch CSRF token from the meta tag
-                  typeRoom: roomType              // Pass the selected room type
-              },
-              success: function(response) {
-                  console.log('Response:', response); // Log response for debugging
-
-                  const roomNoSelect = $('#roomNoSelect');
-                  roomNoSelect.empty();  // Clear the existing options
-                  roomNoSelect.append('<option selected>Choose Room No</option>');  // Default option
-
-                  // Check if rooms exist in the response and append them
-                  if (response.rooms && response.rooms.length > 0) {
-                      response.rooms.forEach(room => {
-                          roomNoSelect.append(`<option value="${room.RoomNo}">${room.RoomNo}</option>`);
-                      });
-                  } else {
-                      roomNoSelect.append('<option>No rooms available for this type</option>');
-                  }
-              },
-              error: function(error) {
-                  console.error('Error fetching room numbers:', error);
-              }
-          });
-      }
-      </script>
     <script src="{{asset('dist/assets/js/off-canvas.js')}}"></script>
     <script src="{{asset('dist/assets/js/misc.js')}}"></script>
     <script src="{{asset('dist/assets/js/settings.js')}}"></script>
     <script src="{{asset('dist/assets/js/todolist.js')}}"></script>
-    <script src="{{asset('dist/assets/js/jquery.cookie.js')}}"></script>
-
-
+    <script src="{{asset('dist/assets/js/jquery.cookie.js')}}"></script>  <!-- endinject -->
     <!-- Custom js for this page -->
     <!-- End custom js for this page -->
   </body>
