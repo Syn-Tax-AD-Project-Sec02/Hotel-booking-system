@@ -67,22 +67,22 @@
                             <div class="collapse navbar-collapse" id="navbarsExample04">
                                 <ul class="navbar-nav mr-auto">
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="index.html">Home</a>
+                                        <a class="nav-link" href="#home">Home</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="about.html">About</a>
+                                        <a class="nav-link" href="#about">About</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="room.html">Our room</a>
+                                        <a class="nav-link" href="#our_room">Our Rooms & Apartments</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="gallery.html">Gallery</a>
+                                        <a class="nav-link" href="#gallery">Gallery</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="blog.html">Blog</a>
+                                        <a class="nav-link" href="#blog">Blog</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="contact.html">Contact Us</a>
+                                        <a class="nav-link" href="#contact">Contact Us</a>
                                     </li>
                                     <!-- Conditional Rendering Based on Auth Status -->
                                     @if (Auth::check())
@@ -167,7 +167,7 @@
     </section>
     <!-- end banner -->
     <!-- about -->
-    <div class="about">
+    <div class="about" id="about">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-5">
@@ -194,7 +194,7 @@
     </div>
     <!-- end about -->
     <!-- our_room -->
-    <div class="our_room">
+    <div class="our_room" id="our_room">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -321,7 +321,7 @@
 
     <!-- end our_room -->
     <!-- gallery -->
-    <div class="gallery">
+    <div class="gallery" id="gallery">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -390,7 +390,7 @@
     </div>
     <!-- end gallery -->
     <!-- blog -->
-    <div class="blog">
+    <div class="blog" id="blog">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -451,7 +451,7 @@
     </div>
     <!-- end blog -->
     <!--  contact -->
-    <div class="contact">
+    <div class="contact" id="contact">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -517,12 +517,12 @@
                     <div class="col-md-4">
                         <h3>Menu Link</h3>
                         <ul class="link_menu">
-                            <li class="active"><a href="#">Home</a></li>
-                            <li><a href="about.html"> about</a></li>
-                            <li><a href="room.html">Our Room</a></li>
-                            <li><a href="gallery.html">Gallery</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="contact.html">Contact Us</a></li>
+                            <li class="active"><a href="#home">Home</a></li>
+                            <li><a href="#about"> About</a></li>
+                            <li><a href="#our_room">Our Room</a></li>
+                            <li><a href="#gallery">Gallery</a></li>
+                            <li><a href="#blog">Blog</a></li>
+                            <li><a href="#contact">Contact Us</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4">
