@@ -404,16 +404,7 @@
                                     <label for="FormControlName"  class="form-label">Phone</label>
                                     <input type="text" class="form-control" name="Phone" placeholder="Phone" aria-label="Phone">
                                   </div>
-<<<<<<< Updated upstream
-                                {{--  --}}
-=======
 
-                                  
-
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
                                
                               </div>
                               <div class="modal-footer">
