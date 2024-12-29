@@ -179,10 +179,37 @@
                             rooms. As part of UTM transformation, in 2004 we have moved to the current building and
                             continue our services as a non-profit public entity that provides on-campus lodging for
                             visiting scholars, guest speakers, parents of UTM students, and other visitors to the
-                            campus. Gradually, we improve ourselves to give our guests a memorable stay. </p>
+                            campus. Gradually, we improve ourselves to give our guests a memorable stay.</p>
+
+                         <a class="hidden-content" style="display: none;">
+                            
+                        <p>Scholar’s Inn is managed by UTM students as part of the University’s student engagement programme. The programme enhances students’ 
+                            leadership and decision making skills and forges a sense of community by providing opportunities for students to participate in campus 
+                            and community life. Nevertheless, we do not compromise on the quality of our service. We aim to make your stay with us as comfortable 
+                            and pleasant as possible. Please do not hesitate to inform us if our service is not up to your expectations so that we can make it right.</p></a> 
                         <a class="read_more" href="Javascript:void(0)"> Read More</a>
-                    </div>
+                    </div>                  
+                    <style>
+                    .titlepage p {
+                        color: #555;
+                        font-size: 16px;
+                        text-align: justify;
+                        margin-bottom: 15px;
+                    }
+                    </style>
                 </div>
+                <script>
+                    document.querySelector('.read_more').addEventListener('click', function () {
+                        const hiddenContent = document.querySelector('.hidden-content');
+                        if (hiddenContent.style.display === 'none') {
+                            hiddenContent.style.display = 'inline';
+                            this.textContent = 'Read Less';
+                        } else {
+                            hiddenContent.style.display = 'none';
+                            this.textContent = 'Read More';
+                        }
+                    });
+                </script>                
                 <div class="col-md-7">
                     <div class="about_img">
                         <figure><img src="{{ asset('dist/assets/images/index/tasik.jpg') }}" alt="#" />
