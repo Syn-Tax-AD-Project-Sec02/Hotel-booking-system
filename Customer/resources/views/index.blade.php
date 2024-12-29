@@ -531,15 +531,55 @@
                 <div class="row">
                     <div class=" col-md-4">
                         <h3>Contact US</h3>
-                        <ul class="conta">
-                            <li><i class="fa fa-map-marker" aria-hidden="true"></i> Scholar’s Inn
-                                Universiti Teknologi Malaysia,
-                                81310 UTM Skudai,
-                                Johor.</li>
-                            <li><i class="fa fa-mobile" aria-hidden="true"></i> +607-553 5197 ,+607-553 6695</li>
-                            <li> <i class="fa fa-envelope" aria-hidden="true"></i><a href="#">
-                                    scholarsinn@utm.my</a></li>
+                        <ul class="contact-info">
+                            <li>
+                                <i class="fa fa-clock-o" aria-hidden="true"></i> 
+                                Office Hour: Monday – Sunday : 7.00AM – 8.00PM <br>
+                                After Office Hour: Staff on standby duty (on Call)
+                            </li>
+                            <li>
+                                <i class="fa fa-map-marker" aria-hidden="true"></i> 
+                                Scholar’s Inn, Universiti Teknologi Malaysia, 81310 UTM Skudai, Johor.
+                            </li>
+                            <li>
+                                <i class="fa fa-mobile" aria-hidden="true"></i> 
+                                +607-553 5197, +607-553 6695
+                            </li>
+                            <li>
+                                <i class="fa fa-envelope" aria-hidden="true"></i> 
+                                <a href="mailto:scholarsinn@utm.my">scholarsinn@utm.my</a>
+                            </li>
                         </ul>
+                        <style>
+                        .contact-info {
+                            list-style: none; /* Hilangkan bullet list */
+                            padding: 0;
+                            margin: 0;
+                        }
+                        
+                        .contact-info li {
+                            display: flex; /* Gunakan Flexbox untuk sejajarkan ikon dan teks */
+                            align-items: baseline; /* Pastikan ikon sejajar secara vertikal */
+                            margin-bottom: 10px; /* Jarak antara setiap elemen */
+                            color: white; /* Ubah teks menjadi warna putih */
+                            font-size: 16px; /* Laraskan saiz teks */
+                        }
+                        
+                        .contact-info li i {
+                            margin-right: 10px; /* Ruang antara ikon dan teks */
+                            font-size: 20px; /* Saiz ikon */
+                            color: #ffffff; /* Warna ikon */
+                        }
+                        
+                        .contact-info a {
+                            color: #ffffff; /* Warna pautan */
+                            text-decoration: none; /* Hilangkan garisan bawah pada pautan */
+                        }
+                        
+                        .contact-info a:hover {
+                            text-decoration: underline; /* Tambah garisan bawah semasa hover */
+                        }
+                        </style>
                     </div>
                     <div class="col-md-4">
                         <h3>Menu Link</h3>
