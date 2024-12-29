@@ -346,6 +346,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
+                                {{--  --}}
                                 <form action="{{ route('bookingListsForm') }}" method="POST" >                                  
                                   @csrf                                
                                   
@@ -385,7 +386,7 @@
                                     <label for="FormControlName"  class="form-label">Phone</label>
                                     <input type="text" class="form-control" name="Phone" placeholder="Phone" aria-label="Phone">
                                   </div>
-
+                                {{--  --}}
                                
                               </div>
                               <div class="modal-footer">

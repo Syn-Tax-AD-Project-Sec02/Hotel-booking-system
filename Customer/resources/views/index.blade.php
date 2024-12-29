@@ -229,7 +229,7 @@
                             </p>
                             <div class="price-book">
                                 <span class="price">RM {{ $room->Rate }}</span>
-                                <button class="book-now">Book Now</button>
+                                <button class="book-now"><a href="{{ route('booking') }}">Book Now</a></button>
                             </div>
                         </div>
                     </div>
