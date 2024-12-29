@@ -11,7 +11,8 @@ class Booking extends Model
     // Specify the table name if it doesn't follow Laravel's naming conventions
     protected $connection = 'mongodb'; // MongoDB connection
     private static $collectionConfig = [
-        'booking_Lists' => ['Name','RoomNo' ,'TypeRoom', 'CheckIn', 'CheckOut', 'Phone'],
+        'booking_Lists' => ['Name','RoomNo' ,'TypeRoom', 'CheckIn', 'CheckOut',
+                             'Adults','Children', 'Phone'],
     ];
 
      /**
@@ -29,6 +30,11 @@ class Booking extends Model
 
         $this->collection = $collectionName;
         $this->fillable = self::$collectionConfig[$collectionName];
+    }
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class, 'room_id');  // Make sure room_id is the foreign key in the bookings table
     }
 }
 

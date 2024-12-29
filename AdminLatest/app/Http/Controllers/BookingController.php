@@ -122,15 +122,38 @@ class BookingController extends Controller
     public function getRoomsByType(Request $request)
     {
         $selectedRoomType = $request->input('typeRoom');
-    
-        $roomModel = new Room();
-        $roomModel->setTable('room_lists');
-    
-        // Fetch rooms based on the selected room type
-        $rooms = $roomModel->where('TypeRoom', $selectedRoomType)
-                           ->where('Status', 'Available')
-                           ->get();
+        $checkIn = $request->input('checkIn');
+        $checkOut = $request->input('checkOut');
 
+        // Convert input dates to Carbon instances for proper comparison
+    $checkIn = \Carbon\Carbon::parse($checkIn);
+    $checkOut = \Carbon\Carbon::parse($checkOut);
+    
+        // Fetch all rooms from the room_lists table based on the selected room type
+        $rooms = new Room();
+        $rooms->setTable('room_lists');
+        // Get all available rooms for the selected room type
+        $rooms = $rooms->where('TypeRoom', $selectedRoomType)
+        ->get();
+
+        // Get booked rooms by checking if they overlap with the requested date range
+        $booking = new Booking();
+        $booking->setTable('booking_list');
+
+        $bookedRooms = $booking->where(function ($query) use ($checkIn, $checkOut) {
+            $query->whereBetween('CheckIn', [$checkIn, $checkOut]) // Check if booking CheckIn is within the range
+                  ->orWhereBetween('CheckOut', [$checkIn, $checkOut]) // Check if booking CheckOut is within the range
+                  ->orWhere(function ($query) use ($checkIn, $checkOut) {
+                      $query->where('CheckIn', '<=', $checkIn) // Booking period completely overlaps requested period
+                            ->where('CheckOut', '>=', $checkOut);
+                  });
+        })->pluck('RoomNo')->toArray(); // Convert booked room numbers to an array
+        
+        // Step 3: Filter rooms that are not booked (exclude booked rooms)
+        $availableRooms = $rooms->filter(function ($room) use ($bookedRooms) {
+            return !in_array($room->RoomNo, $bookedRooms); // Exclude rooms already booked
+        });
+        
          \Log::info($rooms); 
     
         // Return the rooms as a JSON response

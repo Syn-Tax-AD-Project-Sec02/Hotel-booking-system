@@ -355,6 +355,17 @@
                                     <input type="text" class="form-control" name="Name" placeholder="Name" aria-label="Name">
                                   </div>
 
+                                  <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <label for="FormControlCheckIn" class="form-label">Check-In</label>
+                                        <input type="date" class="form-control" name="CheckIn" id="CheckIn" placeholder="Check-In" aria-label="CheckIn">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="FormControlCheckOut" class="form-label">Check-Out</label>
+                                        <input type="date" class="form-control" name="CheckOut" id="CheckOut" placeholder="Check-Out" aria-label="CheckOut">
+                                    </div>
+                                    </div>
+
                                   <div class="mb-4">
                                     <label for="exampleFormControlInput1"  class="form-label">Type of Room</label>
                                     <select class="form-select" style="height:43px; font-size: 12px;" name="TypeRoom" id="TypeRoom">
@@ -375,23 +386,31 @@
                                     </select>
                                   </div>
 
-                                  
                                   <div class="row mb-4">
                                     <div class="col-md-6">
-                                        <label for="FormControlCheckIn" class="form-label">Check-In</label>
-                                        <input type="date" class="form-control" name="CheckIn" id="FormControlCheckIn" placeholder="Check-In" aria-label="CheckIn">
+                                        <label for="FormControlCheckIn" class="form-label">Adults</label>
+                                        <input type="text" class="form-control" name="Adults" id="Adults" placeholder="Adults" aria-label="Adults">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="FormControlCheckOut" class="form-label">Check-Out</label>
-                                        <input type="date" class="form-control" name="CheckOut" id="FormControlCheckOut" placeholder="Check-Out" aria-label="CheckOut">
+                                        <label for="FormControlCheckOut" class="form-label">Children</label>
+                                        <input type="text" class="form-control" name="Children" id="Children" placeholder="Children" aria-label="Children">
                                     </div>
                                     </div>
+
+                                  
+                                  
 
                                   <div class="mb-4">
                                     <label for="FormControlName"  class="form-label">Phone</label>
                                     <input type="text" class="form-control" name="Phone" placeholder="Phone" aria-label="Phone">
                                   </div>
+<<<<<<< Updated upstream
                                 {{--  --}}
+=======
+
+                                  
+
+>>>>>>> Stashed changes
                                
                               </div>
                               <div class="modal-footer">
@@ -417,6 +436,7 @@
                           <th>Room Type</th>
                           <th>Check-In</th>
                           <th>Check-Out</th>
+                          <th>Guest</th>
                           <th>Phone</th>
                           <th>Action</th>
                         </tr>
@@ -431,6 +451,7 @@
                           <td>{{ $booking->RoomNo }}</td>
                           <td>{{ $booking->CheckIn }}</td>
                           <td>{{ $booking->CheckOut }}</td>
+                          <td>{{ $booking->Adults}} Adults {{ $booking->Children}} Children</td>
                           <td>{{ $booking->Phone }}</td>
                           
                           
@@ -483,6 +504,18 @@
                                           <input type="text" class="form-control" name="Name" id="Name{{ $booking->id }}" value="{{ $booking->Name }}">
                                       </div>
                                       
+                                      <!-- Check-In and Check-Out -->
+                                      <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label for="CheckIn{{ $booking->id }}" class="form-label">Check-In</label>
+                                            <input type="date" class="form-control" name="CheckIn" id="CheckIn{{ $booking->id }}" value="{{ $booking->CheckIn }}">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="CheckOut{{ $booking->id }}" class="form-label">Check-Out</label>
+                                            <input type="date" class="form-control" name="CheckOut" id="CheckOut{{ $booking->id }}" value="{{ $booking->CheckOut }}">
+                                        </div>
+                                    </div>
+
                                       <!-- Type of Room -->
                                       <div class="mb-4">
                                         <label for="TypeRoom{{ $booking->id }}" class="form-label">Type of Room</label>
@@ -506,21 +539,18 @@
                                             <option value="{{ $booking->RoomNo }}" selected>{{ $booking->RoomNo }}</option>
                                         </select>
                                     </div>
-                                    
-                  
-                                      
-                  
-                                      <!-- Check-In and Check-Out -->
+                              
+
                                       <div class="row mb-4">
-                                          <div class="col-md-6">
-                                              <label for="CheckIn{{ $booking->id }}" class="form-label">Check-In</label>
-                                              <input type="date" class="form-control" name="CheckIn" id="CheckIn{{ $booking->id }}" value="{{ $booking->CheckIn }}">
-                                          </div>
-                                          <div class="col-md-6">
-                                              <label for="CheckOut{{ $booking->id }}" class="form-label">Check-Out</label>
-                                              <input type="date" class="form-control" name="CheckOut" id="CheckOut{{ $booking->id }}" value="{{ $booking->CheckOut }}">
-                                          </div>
-                                      </div>
+                                        <div class="col-md-6">
+                                            <label for="Adults{{ $booking->id }}" class="form-label">Adults</label>
+                                            <input type="text" class="form-control" name="Adults" id="Adults{{ $booking->id }}" value="{{ $booking->Adults }}">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="Children{{ $booking->id }}" class="form-label">Children</label>
+                                            <input type="text" class="form-control" name="Children" id="Children{{ $booking->id }}" value="{{ $booking->Children }}">
+                                        </div>
+                                        </div>
                   
                                       <!-- Phone -->
                                       <div class="mb-4">
@@ -577,98 +607,105 @@
       <!-- endinject -->
       <script>
       $(document).ready(function () {
-          // Trigger the function to update room numbers when the "Type of Room" dropdown changes
-          $('#TypeRoom').on('change', function () {
-              const roomType = $(this).val();  // Get the selected room type
-              filterRoomNumbers(roomType);     // Call function to filter room numbers
-          });
+        $('#TypeRoom').on('change', function () {
+        const roomType = $(this).val();        // Selected room type
+        const checkIn = $('#CheckIn').val();  // Check-In date
+        const checkOut = $('#CheckOut').val(); // Check-Out date
 
-          // Initial call to populate room numbers for the selected room type on page load
-          const initialRoomType = $('#TypeRoom').val();
-          filterRoomNumbers(initialRoomType);
-      });
-
-      $(document).ready(function () {
-    // Attach change event to all "Type of Room" dropdowns with dynamic IDs
-        $('[id^=TypeRoom]').on('change', function () {
-            const roomType = $(this).val();           // Get the selected room type
-            const bookingId = $(this).attr('id').replace('TypeRoom', ''); // Extract the booking ID
-            UpdatefilterRoomNumbers(roomType, bookingId);   // Call function with room type and booking ID
-        });
-
-        // On page load, populate room numbers for each booking's selected room type
-        $('[id^=TypeRoom]').each(function () {
-            const roomType = $(this).val();           // Get the selected room type
-            const bookingId = $(this).attr('id').replace('TypeRoom', ''); // Extract the booking ID
-            UpdatefilterRoomNumbers(roomType, bookingId);   // Call function with room type and booking ID
-        });
-    });
-
-    function UpdatefilterRoomNumbers(roomType, bookingId) {
-    $.ajax({
-        url: "{{ route('getRoomsByType') }}",  // Ensure your route is correct
-        type: 'POST',
-        data: {
-            _token: "{{ csrf_token() }}", // Include CSRF token
-            typeRoom: roomType            // Pass the selected room type
-        },
-        success: function (response) {
-            console.log('Response:', response); // Log response for debugging
-
-            const roomNoSelect = $(`#roomNoSelect${bookingId}`);
-            roomNoSelect.empty();  // Clear the existing options
-
-            // Check if rooms exist in the response and append them
-            if (response.rooms && response.rooms.length > 0) {
-                response.rooms.forEach(room => {
-                    // Ensure room.RoomNo === 0 is handled properly
-                    roomNoSelect.append(
-                        `<option value="${room.RoomNo}" ${
-                            room.RoomNo == $(`#roomNoSelect${bookingId}`).data('current-room-no') ? 'selected' : ''
-                        }>${room.RoomNo === 0 ? '0' : room.RoomNo}</option>`
-                    );
-                });
-            } else {
-                roomNoSelect.append('<option>No rooms available for this type</option>');
-            }
-        },
-        error: function (error) {
-            console.error('Error fetching room numbers:', error);
+        if (validateDates(checkIn, checkOut)) {
+            filterRoomNumbers(roomType, checkIn, checkOut);
+        } else {
+            alert('Please ensure Check-In and Check-Out dates are valid.');
         }
     });
-}
 
+    // Attach dynamic event for multiple room types
+    $('[id^=TypeRoom]').on('change', function () {
+        const roomType = $(this).val();        // Selected room type
+        const bookingId = $(this).attr('id').replace('TypeRoom', ''); // Extract booking ID
+        updateFilterRoomNumbers(roomType, bookingId);
+    });
 
+    // Populate room numbers on page load
+    $('[id^=TypeRoom]').each(function () {
+        const roomType = $(this).val();        // Selected room type
+        const bookingId = $(this).attr('id').replace('TypeRoom', ''); // Extract booking ID
+        updateFilterRoomNumbers(roomType, bookingId);
+    });
 
-      function filterRoomNumbers(roomType) {
-          $.ajax({
-              url: "{{ route('getRoomsByType') }}",  // Ensure your route is correct
-              type: 'POST',
-              data: {
-                  _token: "{{ csrf_token() }}", // Fetch CSRF token from the meta tag
-                  typeRoom: roomType              // Pass the selected room type
-              },
-              success: function(response) {
-                  console.log('Response:', response); // Log response for debugging
+    // Function to validate dates
+    function validateDates(checkIn, checkOut) {
+        if (!checkIn || !checkOut) return false; // Both dates must be selected
 
-                  const roomNoSelect = $('#roomNoSelect');
-                  roomNoSelect.empty();  // Clear the existing options
-                  roomNoSelect.append('<option selected>Choose Room No</option>');  // Default option
+        const checkInDate = new Date(checkIn);
+        const checkOutDate = new Date(checkOut);
 
-                  // Check if rooms exist in the response and append them
-                  if (response.rooms && response.rooms.length > 0) {
-                      response.rooms.forEach(room => {
-                          roomNoSelect.append(`<option value="${room.RoomNo}">${room.RoomNo}</option>`);
-                      });
-                  } else {
-                      roomNoSelect.append('<option>No rooms available for this type</option>');
-                  }
-              },
-              error: function(error) {
-                  console.error('Error fetching room numbers:', error);
-              }
-          });
-      }
+        return checkInDate < checkOutDate; // Check-In must be before Check-Out
+    }
+
+     // Function to filter room numbers for a specific booking ID
+     function updateFilterRoomNumbers(roomType, bookingId) {
+        $.ajax({
+            url: "{{ route('getRoomsByType') }}", // Route to the controller
+            type: 'POST',
+            data: {
+                _token: "{{ csrf_token() }}", // CSRF token
+                typeRoom: roomType           // Selected room type
+            },
+            success: function (response) {
+                console.log('Response:', response); // Debug response
+
+                const roomNoSelect = $(`#roomNoSelect${bookingId}`);
+                roomNoSelect.empty(); // Clear existing options
+
+                if (response.rooms && response.rooms.length > 0) {
+                    response.rooms.forEach(room => {
+                        roomNoSelect.append(
+                            `<option value="${room.RoomNo}">${room.RoomNo}</option>`
+                        );
+                    });
+                } else {
+                    roomNoSelect.append('<option>No rooms available for this type</option>');
+                }
+            },
+            error: function (error) {
+                console.error('Error fetching room numbers:', error);
+            }
+        });
+    }
+
+    // Function to filter room numbers for the main dropdown
+    function filterRoomNumbers(roomType, checkIn, checkOut) {
+        $.ajax({
+            url: "{{ route('getRoomsByType') }}", // Route to the controller
+            type: 'POST',
+            data: {
+                _token: "{{ csrf_token() }}", // CSRF token
+                typeRoom: roomType,           // Selected room type
+                checkIn: checkIn,             // Check-In date
+                checkOut: checkOut            // Check-Out date
+            },
+            success: function (response) {
+                console.log('Response:', response); // Debug response
+
+                const roomNoSelect = $('#roomNoSelect');
+                roomNoSelect.empty(); // Clear existing options
+                roomNoSelect.append('<option selected>Choose Room No</option>'); // Default option
+
+                if (response.rooms && response.rooms.length > 0) {
+                    response.rooms.forEach(room => {
+                        roomNoSelect.append(`<option value="${room.RoomNo}">${room.RoomNo}</option>`);
+                    });
+                } else {
+                    roomNoSelect.append('<option>No rooms available for this type</option>');
+                }
+            },
+            error: function (error) {
+                console.error('Error fetching room numbers:', error);
+            }
+        });
+    }
+});
       </script>
     <script src="{{asset('dist/assets/js/off-canvas.js')}}"></script>
     <script src="{{asset('dist/assets/js/misc.js')}}"></script>

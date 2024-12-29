@@ -420,13 +420,10 @@
                                       @method('PUT')
                                       <input type="hidden" name="staff_id" value="{{ $staff->id }}">
                                       <!-- Input Fields -->
+                                        
                                       <div class="mb-4">
-                                        <label for="FormControlName"  class="form-label">Staff Email</label>
-                                        <input type="email" class="form-control" name="email" placeholder="email" aria-label="email">
-                                      </div>    
-                                      <div class="mb-4">
-                                        <label for="staffID{{ $staff->id }}" class="form-label">Staff ID</label>
-                                        <input type="text" class="form-control" name="staffID" id="staffID{{ $staff->id }}" value="{{ $staff->staffID }}">
+                                        <label for="email{{ $staff->email }}" class="form-label">email</label>
+                                        <input type="text" class="form-control" name="email" id="email{{ $staff->email }}" value="{{ $staff->email }}">
                                       </div>
                                       <div class="mb-4">
                                         <label for="name{{ $staff->id }}" class="form-label">Staff Name</label>
