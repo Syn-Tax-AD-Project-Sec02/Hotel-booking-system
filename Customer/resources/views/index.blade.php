@@ -181,25 +181,30 @@
                             visiting scholars, guest speakers, parents of UTM students, and other visitors to the
                             campus. Gradually, we improve ourselves to give our guests a memorable stay.</p>
 
-                         <a class="hidden-content" style="display: none;">
-                            
-                        <p>Scholar’s Inn is managed by UTM students as part of the University’s student engagement programme. The programme enhances students’ 
-                            leadership and decision making skills and forges a sense of community by providing opportunities for students to participate in campus 
-                            and community life. Nevertheless, we do not compromise on the quality of our service. We aim to make your stay with us as comfortable 
-                            and pleasant as possible. Please do not hesitate to inform us if our service is not up to your expectations so that we can make it right.</p></a> 
+                        <a class="hidden-content" style="display: none;">
+
+                            <p>Scholar’s Inn is managed by UTM students as part of the University’s student engagement
+                                programme. The programme enhances students’
+                                leadership and decision making skills and forges a sense of community by providing
+                                opportunities for students to participate in campus
+                                and community life. Nevertheless, we do not compromise on the quality of our service. We
+                                aim to make your stay with us as comfortable
+                                and pleasant as possible. Please do not hesitate to inform us if our service is not up
+                                to your expectations so that we can make it right.</p>
+                        </a>
                         <a class="read_more" href="Javascript:void(0)"> Read More</a>
-                    </div>                  
+                    </div>
                     <style>
-                    .titlepage p {
-                        color: #555;
-                        font-size: 16px;
-                        text-align: justify;
-                        margin-bottom: 15px;
-                    }
+                        .titlepage p {
+                            color: #555;
+                            font-size: 16px;
+                            text-align: justify;
+                            margin-bottom: 15px;
+                        }
                     </style>
                 </div>
                 <script>
-                    document.querySelector('.read_more').addEventListener('click', function () {
+                    document.querySelector('.read_more').addEventListener('click', function() {
                         const hiddenContent = document.querySelector('.hidden-content');
                         if (hiddenContent.style.display === 'none') {
                             hiddenContent.style.display = 'inline';
@@ -209,7 +214,7 @@
                             this.textContent = 'Read More';
                         }
                     });
-                </script>                
+                </script>
                 <div class="col-md-7">
                     <div class="about_img">
                         <figure><img src="{{ asset('dist/assets/images/index/tasik.jpg') }}" alt="#" />
@@ -236,23 +241,25 @@
                 @foreach ($rooms as $room)
                     <!-- Card -->
                     <div class="card">
-                     @if($room->ImagePath)
-                        <!-- Get the first image from the ImagePath array -->
-                        @php
-                              $imagePaths = json_decode($room->ImagePath, true); // Decode the JSON array
-                              $firstImage = $imagePaths[0] ?? null; // Get the first image if available
-                        @endphp
-                        
-                        @if($firstImage)
-                              <img src="{{ asset('storage/' . $firstImage) }}" alt="Room Image" class="card-image">
+                        @if ($room->ImagePath)
+                            <!-- Get the first image from the ImagePath array -->
+                            @php
+                                $imagePaths = json_decode($room->ImagePath, true); // Decode the JSON array
+                                $firstImage = $imagePaths[0] ?? null; // Get the first image if available
+                            @endphp
+
+                            @if ($firstImage)
+                                <img src="{{ asset('storage/' . $firstImage) }}" alt="Room Image"
+                                    class="card-image">
+                            @endif
                         @endif
-                     @endif
                         <div class="card-details">
                             <h3>{{ $room->TypeRoom }}</h3>
                             <p>
-                              <a href="#" class="link-primary" data-bs-toggle="modal" data-bs-target="#roomDetailsModal-{{ $room->_id }}">
-                                 Room Details >
-                             </a>
+                                <a href="#" class="link-primary" data-bs-toggle="modal"
+                                    data-bs-target="#roomDetailsModal-{{ $room->_id }}">
+                                    Room Details >
+                                </a>
                             </p>
                             <div class="price-book">
                                 <span class="price">RM {{ $room->Rate }}</span>
@@ -262,81 +269,98 @@
                     </div>
 
                     <!-- Modal -->
-                     <div class="modal fade" id="roomDetailsModal-{{ $room->_id }}" tabindex="-1" aria-labelledby="roomDetailsLabel-{{ $room->_id }}" aria-hidden="true">
+                    <div class="modal fade" id="roomDetailsModal-{{ $room->_id }}" tabindex="-1"
+                        aria-labelledby="roomDetailsLabel-{{ $room->_id }}" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
-                           <div class="modal-content blur-bg">
-                              <div class="modal-header">
-                                    <h5 class="modal-title" id="roomDetailsLabel-{{ $room->_id }}">{{ $room['title'] }}</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
+                            <div class="modal-content blur-bg">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="roomDetailsLabel-{{ $room->_id }}">
+                                        {{ $room['title'] }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
                                     <div class="row">
-                                       <!-- Room Image -->
-                                       <div id="roomCarousel" class="carousel slide" data-bs-ride="carousel">
-                                          <!-- Indicators -->
-                                          <div class="carousel-indicators">
-                                                <button type="button" data-bs-target="#roomCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                                <button type="button" data-bs-target="#roomCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                                <button type="button" data-bs-target="#roomCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                          </div>
+                                        <!-- Room Image -->
+                                        <div id="roomCarousel" class="carousel slide" data-bs-ride="carousel">
+                                            <!-- Indicators -->
+                                            <div class="carousel-indicators">
+                                                <button type="button" data-bs-target="#roomCarousel"
+                                                    data-bs-slide-to="0" class="active" aria-current="true"
+                                                    aria-label="Slide 1"></button>
+                                                <button type="button" data-bs-target="#roomCarousel"
+                                                    data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                                <button type="button" data-bs-target="#roomCarousel"
+                                                    data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                            </div>
 
-                                          <!-- Slideshow Images -->
-                                          <div id="carouselRoom{{ $room->_id }}" class="carousel slide" data-bs-ride="carousel">
+                                            <!-- Slideshow Images -->
+                                            <div id="carouselRoom{{ $room->_id }}" class="carousel slide"
+                                                data-bs-ride="carousel">
                                                 <div class="carousel-inner">
-                                                   @foreach(json_decode($room->ImagePath) as $index => $imagePath)
-                                                      <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                                                            <img src="{{ asset('storage/' . $imagePath) }}" class="d-block w-100" alt="Room Image {{ $index + 1 }}" style="width:300px; height: 350px">
-                                                      </div>
-                                                   @endforeach
+                                                    @foreach (json_decode($room->ImagePath) as $index => $imagePath)
+                                                        <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                                                            <img src="{{ asset('storage/' . $imagePath) }}"
+                                                                class="d-block w-100"
+                                                                alt="Room Image {{ $index + 1 }}"
+                                                                style="width:300px; height: 350px">
+                                                        </div>
+                                                    @endforeach
                                                 </div>
-                                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselRoom{{ $room->_id }}" data-bs-slide="prev">
-                                                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                   <span class="visually-hidden">Previous</span>
+                                                <button class="carousel-control-prev" type="button"
+                                                    data-bs-target="#carouselRoom{{ $room->_id }}"
+                                                    data-bs-slide="prev">
+                                                    <span class="carousel-control-prev-icon"
+                                                        aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Previous</span>
                                                 </button>
-                                                <button class="carousel-control-next" type="button" data-bs-target="#carouselRoom{{ $room->_id }}" data-bs-slide="next">
-                                                   <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                   <span class="visually-hidden">Next</span>
+                                                <button class="carousel-control-next" type="button"
+                                                    data-bs-target="#carouselRoom{{ $room->_id }}"
+                                                    data-bs-slide="next">
+                                                    <span class="carousel-control-next-icon"
+                                                        aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Next</span>
                                                 </button>
-                                          </div>
-                                       </div>
+                                            </div>
+                                        </div>
 
-                                       <!-- Room Details -->
-                                       <div class="col-md-14">
-                                          <h6 style="padding-left: 50px;">Room Facilities</h6>
-                                          <div class="row">
-                                             <!-- Left Column -->
-                                             <div class="col-md-6">
-                                                 <ul style="list-style-type: bullet; padding-left: 50px;">
-                                                     @foreach(json_decode($room->Facilities) as $index => $facility)
-                                                         @if($index < ceil(count(json_decode($room->Facilities)) / 2))
-                                                             <li>{{ $facility }}</li>
-                                                         @endif
-                                                     @endforeach
-                                                 </ul>
-                                             </div>
-                                             
-                                             <!-- Right Column -->
-                                             <div class="col-md-6">
-                                                 <ul style="list-style-type: disc; padding-left: 20px;">
-                                                     @foreach(json_decode($room->Facilities) as $index => $facility)
-                                                         @if($index >= ceil(count(json_decode($room->Facilities)) / 2))
-                                                             <li>{{ $facility }}</li>
-                                                         @endif
-                                                     @endforeach
-                                                 </ul>
-                                             </div>
-                                         </div>
-                                         <div class="d-flex justify-content-center">
-                                          <button class="btn-book-now">Book Now</button>
-                                          </div>
-                                         
-                                       </div>
+                                        <!-- Room Details -->
+                                        <div class="col-md-14">
+                                            <h6 style="padding-left: 50px;">Room Facilities</h6>
+                                            <div class="row">
+                                                <!-- Left Column -->
+                                                <div class="col-md-6">
+                                                    <ul style="list-style-type: bullet; padding-left: 50px;">
+                                                        @foreach (json_decode($room->Facilities) as $index => $facility)
+                                                            @if ($index < ceil(count(json_decode($room->Facilities)) / 2))
+                                                                <li>{{ $facility }}</li>
+                                                            @endif
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+
+                                                <!-- Right Column -->
+                                                <div class="col-md-6">
+                                                    <ul style="list-style-type: disc; padding-left: 20px;">
+                                                        @foreach (json_decode($room->Facilities) as $index => $facility)
+                                                            @if ($index >= ceil(count(json_decode($room->Facilities)) / 2))
+                                                                <li>{{ $facility }}</li>
+                                                            @endif
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-center">
+                                                <button class="btn-book-now">Book Now</button>
+                                            </div>
+
+                                        </div>
                                     </div>
                                     <p class="mt-3">{{ $room['description'] }}</p>
-                              </div>
-                           </div>
+                                </div>
+                            </div>
                         </div>
-                     </div>
+                    </div>
                 @endforeach
             </div>
 
@@ -489,20 +513,21 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <form id="request" class="main_form">
+                    <form id="request" class="main_form" method="POST" action="{{ route('contact.store') }}">
+                        @csrf
                         <div class="row">
-                            <div class="col-md-12 ">
-                                <input class="contactus" placeholder="Name" type="type" name="Name">
+                            <div class="col-md-12">
+                                <input class="contactus" placeholder="Name" type="text" name="Name" required>
                             </div>
                             <div class="col-md-12">
-                                <input class="contactus" placeholder="Email" type="type" name="Email">
+                                <input class="contactus" placeholder="Email" type="email" name="Email" required>
                             </div>
                             <div class="col-md-12">
-                                <input class="contactus" placeholder="Phone Number" type="type"
-                                    name="Phone Number">
+                                <input class="contactus" placeholder="Phone Number" type="text"
+                                    name="PhoneNumber" required>
                             </div>
                             <div class="col-md-12">
-                                <textarea class="textarea" placeholder="Message" type="type" Message="Name">Message</textarea>
+                                <textarea class="textarea" placeholder="Message" name="Message" required></textarea>
                             </div>
                             <div class="col-md-12">
                                 <button class="send_btn">Send</button>
@@ -533,52 +558,64 @@
                         <h3>Contact US</h3>
                         <ul class="contact-info">
                             <li>
-                                <i class="fa fa-clock-o" aria-hidden="true"></i> 
+                                <i class="fa fa-clock-o" aria-hidden="true"></i>
                                 Office Hour: Monday – Sunday : 7.00AM – 8.00PM <br>
                                 After Office Hour: Staff on standby duty (on Call)
                             </li>
                             <li>
-                                <i class="fa fa-map-marker" aria-hidden="true"></i> 
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
                                 Scholar’s Inn, Universiti Teknologi Malaysia, 81310 UTM Skudai, Johor.
                             </li>
                             <li>
-                                <i class="fa fa-mobile" aria-hidden="true"></i> 
+                                <i class="fa fa-mobile" aria-hidden="true"></i>
                                 +607-553 5197, +607-553 6695
                             </li>
                             <li>
-                                <i class="fa fa-envelope" aria-hidden="true"></i> 
+                                <i class="fa fa-envelope" aria-hidden="true"></i>
                                 <a href="mailto:scholarsinn@utm.my">scholarsinn@utm.my</a>
                             </li>
                         </ul>
                         <style>
-                        .contact-info {
-                            list-style: none; /* Hilangkan bullet list */
-                            padding: 0;
-                            margin: 0;
-                        }
-                        
-                        .contact-info li {
-                            display: flex; /* Gunakan Flexbox untuk sejajarkan ikon dan teks */
-                            align-items: baseline; /* Pastikan ikon sejajar secara vertikal */
-                            margin-bottom: 10px; /* Jarak antara setiap elemen */
-                            color: white; /* Ubah teks menjadi warna putih */
-                            font-size: 16px; /* Laraskan saiz teks */
-                        }
-                        
-                        .contact-info li i {
-                            margin-right: 10px; /* Ruang antara ikon dan teks */
-                            font-size: 20px; /* Saiz ikon */
-                            color: #ffffff; /* Warna ikon */
-                        }
-                        
-                        .contact-info a {
-                            color: #ffffff; /* Warna pautan */
-                            text-decoration: none; /* Hilangkan garisan bawah pada pautan */
-                        }
-                        
-                        .contact-info a:hover {
-                            text-decoration: underline; /* Tambah garisan bawah semasa hover */
-                        }
+                            .contact-info {
+                                list-style: none;
+                                /* Hilangkan bullet list */
+                                padding: 0;
+                                margin: 0;
+                            }
+
+                            .contact-info li {
+                                display: flex;
+                                /* Gunakan Flexbox untuk sejajarkan ikon dan teks */
+                                align-items: baseline;
+                                /* Pastikan ikon sejajar secara vertikal */
+                                margin-bottom: 10px;
+                                /* Jarak antara setiap elemen */
+                                color: white;
+                                /* Ubah teks menjadi warna putih */
+                                font-size: 16px;
+                                /* Laraskan saiz teks */
+                            }
+
+                            .contact-info li i {
+                                margin-right: 10px;
+                                /* Ruang antara ikon dan teks */
+                                font-size: 20px;
+                                /* Saiz ikon */
+                                color: #ffffff;
+                                /* Warna ikon */
+                            }
+
+                            .contact-info a {
+                                color: #ffffff;
+                                /* Warna pautan */
+                                text-decoration: none;
+                                /* Hilangkan garisan bawah pada pautan */
+                            }
+
+                            .contact-info a:hover {
+                                text-decoration: underline;
+                                /* Tambah garisan bawah semasa hover */
+                            }
                         </style>
                     </div>
                     <div class="col-md-4">

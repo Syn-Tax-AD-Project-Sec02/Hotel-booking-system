@@ -16,8 +16,6 @@ use App\Http\Controllers\BookingController;
 
 Route::get('/', [RoomController::class, 'showIndex']);
 
-
-
 Route::get('/login', [LoginController::class, 'showForm'])->name('login');
 
 Route::middleware('auth')->group(function () {
@@ -36,10 +34,6 @@ Route::get('verify/{id}/{hash}', [VerifyController::class, 'verify'])->name('ver
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-
-// Route::get('/booking', function () {
-//     return view('booking');
-// })->name('booking');
 
 Route::get('/booking', function () {return view('booking');})->name('booking');
 Route::post('/booking', [BookingController::class, 'storeBooking'])->name('storeBooking');
