@@ -577,7 +577,7 @@ button {
  }
  
  .book-now:hover {
-   background-color: #45a049;
+   background-color: #000000;
  }
 
 .our_room {
@@ -1000,4 +1000,142 @@ line-height: 35px;
      object-position: center; /* Centers the image if it gets cropped */
  }
 
+ 
+ .hotel-details h1 {
+     font-size: 36px;
+     font-weight: bold;
+     color: #333;
+ }
+
+ .hotel-details p {
+     font-size: 16px;
+     color: #777;
+     margin: 10px 0;
+ }
+
+ /* Booking Card */
+ .booking-card {
+     background: #fff;
+     border: 1px solid #ddd;
+     border-radius: 10px;
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+     padding: 20px;
+     max-width: 400px;
+     margin: auto;
+ }
+
+ /* Price Section */
+ .price-section {
+     text-align: left;
+     border-bottom: 1px solid #ddd;
+     padding-bottom: 15px;
+ }
+
+ .price-section h3 {
+     font-size: 24px;
+     font-weight: bold;
+     color: #333;
+     margin: 0;
+ }
+
+ /* Check-in, Check-out Section */
+ .check-section {
+     display: flex;
+     justify-content: space-between;
+     margin: 20px 0;
+     border: 1px solid #ddd;
+     border-radius: 10px;
+ }
+
+ .check-in-out {
+     padding: 10px;
+     border-right: 1px solid #ddd;
+     flex: 1;
+ }
+
+ .check-in-out:last-child {
+     border-right: none;
+ }
+
+ .check-in-out label {
+     display: block;
+     font-size: 12px;
+     color: #555;
+     margin-bottom: 5px;
+ }
+
+ .check-in-out input {
+     width: 100%;
+     border: none;
+     font-size: 14px;
+     padding: 5px;
+ }
+
+ /* Guest Section */
+ .guest-section {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+ }
+
+ .guest-controls {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+ }
+
+ .guest-btn {
+     background-color: #ddd;
+     border: none;
+     border-radius: 50%;
+     width: 30px;
+     height: 30px;
+     cursor: pointer;
+     font-size: 16px;
+ }
+
+ .guest-btn:hover {
+     background-color: #ccc;
+ }
+
+ .guest-number {
+     font-size: 16px;
+     font-weight: bold;
+     text-align: center;
+     min-width: 30px;
+ }
+
+ /* Total Price */
+ .total-price {
+     font-size: 18px;
+     font-weight: bold;
+     color: #333;
+     text-align: center;
+     margin-top: 10px;
+ }
+
+ /* Reserve Button */
+ .reserve-btn {
+     display: block;
+     background: #ff385c;
+     color: #fff;
+     text-align: center;
+     padding: 12px;
+     font-size: 16px;
+     font-weight: bold;
+     border-radius: 10px;
+     text-decoration: none;
+     margin-top: 20px;
+ }
+
+ .reserve-btn:hover {
+     background: #e33450;
+ }
+
+ .info-msg {
+     margin-top: 10px;
+     text-align: center;
+     color: #777;
+     font-size: 14px;
+ }
 

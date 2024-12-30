@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\VerifyController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ToyyibpayController;
 
 
 
@@ -50,3 +51,7 @@ Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkReques
 Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail']);
 Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('/reset-password', [ForgotPasswordController::class, 'reset'])->name('password.update');
+
+Route::get('/toyyibpay', [ToyyibpayController::class, 'createBill'])->name('toyyibpay');
+Route:: get('toyyibpay-status', [ToyyibpayController::class, 'paymentStatus'])->name('paymentStatus');
+Route:: post('toyyibpay-callback', [ToyyibpayController::class, 'callback'])->name('callback');

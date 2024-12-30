@@ -129,17 +129,17 @@
         <div class="booking-box">
             <form>
                 <!-- Check-in Date -->
-                <div class="form-control ">
+                <div class="form-control " style="border-style: none;">
                     <label for="checkin">Check-in</label>
                     <input type="date" id="checkin" name="checkin">
                 </div>
                 <!-- Check-out Date -->
-                <div class="form-control ">
+                <div class="form-control " style="border-style: none;" >
                     <label for="checkout">Check-out</label>
                     <input type="date" id="checkout" name="checkout">
                 </div>
                 <!-- Guests -->
-                <div class="form-control">
+                <div class="form-control" style="border-style: none;">
                     <label for="guests">Guests</label>
                     <select id="guests" name="guests">
                         <option value="1">1 Guest</option>
@@ -150,7 +150,7 @@
                     </select>
                 </div>
                 <!-- Number of Rooms -->
-                <div class="form-control">
+                <div class="form-control" style="border-style: none;">
                     <label for="rooms">Rooms</label>
                     <select id="rooms" name="rooms">
                         <option value="1">1 Room</option>
@@ -173,13 +173,18 @@
                 <div class="col-md-5">
                     <div class="titlepage">
                         <h2>About Us</h2>
-                        <p>The Scholar’s Inn began as a Guest House Unit with 7 units of 2 bedroom houses in 1989 which
-                            were scateredly located in a residential college to accommodate UTM visitors. In 1992, to
-                            fulfill the growing demand, we renovated 88 units of single rooms as part of our serviced
-                            rooms. As part of UTM transformation, in 2004 we have moved to the current building and
-                            continue our services as a non-profit public entity that provides on-campus lodging for
-                            visiting scholars, guest speakers, parents of UTM students, and other visitors to the
-                            campus. Gradually, we improve ourselves to give our guests a memorable stay. </p>
+                        <p class="about-text">
+                            The Scholar’s Inn started in 1989 as a Guest House with 7 units of 2 bedroom which were scateredly located 
+                            in a residential college to accommodate UTM visitors. 
+                            Over the years, we expanded, offering renovated single rooms and moving to our current building in 2004. 
+                            Today, we provide comfortable lodging for scholars, guest, parents, and visitors.
+                            <span class="more-text" style="display: none;">
+                                Scholar’s Inn is managed by UTM students as part of a leadership program. 
+                                We ensure quality service while enhancing students’ leadership, skills and 
+                                forges a sense of community by providing opportunities for students to participate in campus and community life. 
+                                Our goal is to make your stay comfortable and pleasant. Let us know how we can improve your experience.
+                            </span>
+                        </p>
                         <a class="read_more" href="Javascript:void(0)"> Read More</a>
                     </div>
                 </div>
@@ -229,84 +234,101 @@
                             </p>
                             <div class="price-book">
                                 <span class="price">RM {{ $room->Rate }}</span>
-                                <button class="book-now"><a href="{{ route('booking') }}">Book Now</a></button>
+                                <button class="book-now" onclick="window.location.href='{{ route('booking') }}'">Book Now</a></button>
                             </div>
                         </div>
                     </div>
 
                     <!-- Modal -->
                      <div class="modal fade" id="roomDetailsModal-{{ $room->_id }}" tabindex="-1" aria-labelledby="roomDetailsLabel-{{ $room->_id }}" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
+                        <div class="modal-dialog modal-xl">
                            <div class="modal-content blur-bg">
                               <div class="modal-header">
                                     <h5 class="modal-title" id="roomDetailsLabel-{{ $room->_id }}">{{ $room['title'] }}</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
-                                    <div class="row">
-                                       <!-- Room Image -->
-                                       <div id="roomCarousel" class="carousel slide" data-bs-ride="carousel">
-                                          <!-- Indicators -->
-                                          <div class="carousel-indicators">
-                                                <button type="button" data-bs-target="#roomCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                                <button type="button" data-bs-target="#roomCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                                <button type="button" data-bs-target="#roomCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                          </div>
-
-                                          <!-- Slideshow Images -->
-                                          <div id="carouselRoom{{ $room->_id }}" class="carousel slide" data-bs-ride="carousel">
-                                                <div class="carousel-inner">
-                                                   @foreach(json_decode($room->ImagePath) as $index => $imagePath)
-                                                      <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                                                            <img src="{{ asset('storage/' . $imagePath) }}" class="d-block w-100" alt="Room Image {{ $index + 1 }}" style="width:300px; height: 350px">
-                                                      </div>
-                                                   @endforeach
-                                                </div>
-                                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselRoom{{ $room->_id }}" data-bs-slide="prev">
-                                                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                   <span class="visually-hidden">Previous</span>
-                                                </button>
-                                                <button class="carousel-control-next" type="button" data-bs-target="#carouselRoom{{ $room->_id }}" data-bs-slide="next">
-                                                   <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                   <span class="visually-hidden">Next</span>
-                                                </button>
-                                          </div>
-                                       </div>
-
-                                       <!-- Room Details -->
-                                       <div class="col-md-14">
-                                          <h6 style="padding-left: 50px;">Room Facilities</h6>
-                                          <div class="row">
-                                             <!-- Left Column -->
-                                             <div class="col-md-6">
-                                                 <ul style="list-style-type: bullet; padding-left: 50px;">
-                                                     @foreach(json_decode($room->Facilities) as $index => $facility)
-                                                         @if($index < ceil(count(json_decode($room->Facilities)) / 2))
-                                                             <li>{{ $facility }}</li>
-                                                         @endif
-                                                     @endforeach
-                                                 </ul>
-                                             </div>
-                                             
-                                             <!-- Right Column -->
-                                             <div class="col-md-6">
-                                                 <ul style="list-style-type: disc; padding-left: 20px;">
-                                                     @foreach(json_decode($room->Facilities) as $index => $facility)
-                                                         @if($index >= ceil(count(json_decode($room->Facilities)) / 2))
-                                                             <li>{{ $facility }}</li>
-                                                         @endif
-                                                     @endforeach
-                                                 </ul>
-                                             </div>
-                                         </div>
-                                         <div class="d-flex justify-content-center">
-                                          <button class="btn-book-now">Book Now</button>
-                                          </div>
-                                         
-                                       </div>
+                                <div class="row">
+                                    <!-- Left Column: Room Carousel -->
+                                    <div class="col-md-6">
+                                        <div id="carouselRoom{{ $room->_id }}" class="carousel slide" data-bs-ride="carousel">
+                                            <!-- Slideshow Images -->
+                                            <div class="carousel-inner">
+                                                @foreach(json_decode($room->ImagePath) as $index => $imagePath)
+                                                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                                                        <img src="{{ asset('storage/' . $imagePath) }}" class="d-block w-100 rounded" 
+                                                             alt="Room Image {{ $index + 1 }}" 
+                                                             style="width:100%; height: 350px; object-fit: cover;">
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                            <!-- Carousel Controls -->
+                                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselRoom{{ $room->_id }}" data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Previous</span>
+                                            </button>
+                                            <button class="carousel-control-next" type="button" data-bs-target="#carouselRoom{{ $room->_id }}" data-bs-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Next</span>
+                                            </button>
+                                        </div>
+                                        <h6 class="section-title">Room Facilities</h6>
+                                        <ul class="facility-list">
+                                            @foreach(json_decode($room->Facilities) as $facility)
+                                                <li>{{ $facility }}</li>
+                                            @endforeach
+                                        </ul>
+                            
                                     </div>
-                                    <p class="mt-3">{{ $room['description'] }}</p>
-                              </div>
+                            
+                                    <!-- Right Column: Room Details -->
+                                    <div class="col-md-6">
+                                        <!-- Room Facilities -->
+                                       
+                                        <!-- Booking Card -->
+                                        <div class="booking-card">
+                                            <!-- Price Section -->
+                                            <div class="price-section">
+                                                <h3>$450 <span>/ Per Night</span></h3>
+                                            </div>
+                            
+                                            <!-- Check-in & Check-out -->
+                                            <div class="check-section">
+                                                <div class="check-in-out">
+                                                    <label for="checkin">CHECK-IN</label>
+                                                    <input type="date" id="checkin" value="2025-01-19">
+                                                </div>
+                                                <div class="check-in-out">
+                                                    <label for="checkout">CHECK-OUT</label>
+                                                    <input type="date" id="checkout" value="2025-01-24">
+                                                </div>
+                                            </div>
+                            
+                                            <!-- Guests Section -->
+                                            <div class="guest-section">
+                                                <label for="guests">GUESTS</label>
+                                                <div class="guest-controls">
+                                                    <button class="guest-btn" onclick="changeGuests(-1)"><i class="fas fa-minus"></i></button>
+                                                    <span class="guest-number" id="guestCount">1</span>
+                                                    <button class="guest-btn" onclick="changeGuests(1)"><i class="fas fa-plus"></i></button>
+                                                </div>
+                                            </div>
+                            
+                                            <!-- Total Price -->
+                                            <div class="total-price">
+                                                <label for="total">TOTAL</label>
+                                                <div id="total">$450</div>
+                                            </div>
+                            
+                                            <!-- Reserve Button -->
+                                            <a href="#" class="reserve-btn">Reserve Now</a>
+                                            <div class="info-msg">You won't be charged yet. Payment is due upon arrival.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Room Description -->
+                                <p class="room-description mt-3">{{ $room['description'] }}</p>
+                            </div>
                            </div>
                         </div>
                      </div>
@@ -559,6 +581,22 @@
     </footer>
     <!-- end footer -->
     <!-- Javascript files-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const readMoreLink = document.querySelector('.read_more');
+        const moreText = document.querySelector('.more-text');
+
+        readMoreLink.addEventListener('click', function () {
+            if (moreText.style.display === 'none') {
+                moreText.style.display = 'inline';
+                readMoreLink.textContent = 'Read Less';
+            } else {
+                moreText.style.display = 'none';
+                readMoreLink.textContent = 'Read More';
+            }
+        });
+    });
+    </script>
     <script src="{{ asset('dist/assets/js/jsIndex/jquery.min.js') }}"></script>
     <script src="{{ asset('dist/assets/js/jsIndex/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('dist/assets/js/jsIndex/jquery-3.0.0.min.js') }}"></script>
