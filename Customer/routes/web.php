@@ -5,7 +5,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ToyyibpayController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\VerifyController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 
 
 
@@ -43,5 +49,7 @@ Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showRes
 Route::post('/reset-password', [ForgotPasswordController::class, 'reset'])->name('password.update');
 
 Route::get('/toyyibpay', [ToyyibpayController::class, 'createBill'])->name('toyyibpay');
-Route:: get('toyyibpay-status', [ToyyibpayController::class, 'paymentStatus'])->name('paymentStatus');
-Route:: post('toyyibpay-callback', [ToyyibpayController::class, 'callback'])->name('callback');
+Route::get('toyyibpay-status', [ToyyibpayController::class, 'paymentStatus'])->name('paymentStatus');
+Route::post('toyyibpay-callback', [ToyyibpayController::class, 'callback'])->name('callback');
+
+Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
