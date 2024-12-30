@@ -2,11 +2,26 @@
 
 use App\Mail\ForgotPasswordMail;
 use Illuminate\Support\Facades\Route;
+<<<<<<< HEAD
 use App\Http\Controllers\{RoomController, ProfileController, 
                             AuthController, BookingController, 
                             ToyyibpayController};
 use App\Http\Controllers\Auth\{LoginController, RegisterController, 
                                 ForgotPasswordController, VerifyController};
+=======
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RoomController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ToyyibpayController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\VerifyController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+
+
+>>>>>>> badd14efa5e2004b460facc2af9ea2210298f806
 
 Route::get('/', [RoomController::class, 'showIndex']);
 
@@ -42,5 +57,7 @@ Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showRes
 Route::post('/reset-password', [ForgotPasswordController::class, 'reset'])->name('password.update');
 
 Route::get('/toyyibpay', [ToyyibpayController::class, 'createBill'])->name('toyyibpay');
-Route:: get('toyyibpay-status', [ToyyibpayController::class, 'paymentStatus'])->name('paymentStatus');
-Route:: post('toyyibpay-callback', [ToyyibpayController::class, 'callback'])->name('callback');
+Route::get('toyyibpay-status', [ToyyibpayController::class, 'paymentStatus'])->name('paymentStatus');
+Route::post('toyyibpay-callback', [ToyyibpayController::class, 'callback'])->name('callback');
+
+Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
