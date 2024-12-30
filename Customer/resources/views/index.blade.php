@@ -506,7 +506,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <form id="request" class="main_form" method="POST" action="{{ route('contact.store') }}">
+                    <form id="request" class="main_form" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-md-12">

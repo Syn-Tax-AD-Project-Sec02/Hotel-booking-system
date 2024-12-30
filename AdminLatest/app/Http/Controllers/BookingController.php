@@ -94,7 +94,6 @@ class BookingController extends Controller
     return redirect()->route('bookingListsForm')->with('success', 'Room details updated successfully!');
     }
 
-
     public function deleteBookingList(Request $request)
     {
        // dd($request->all());
