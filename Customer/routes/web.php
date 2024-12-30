@@ -2,26 +2,11 @@
 
 use App\Mail\ForgotPasswordMail;
 use Illuminate\Support\Facades\Route;
-<<<<<<< HEAD
 use App\Http\Controllers\{RoomController, ProfileController, 
                             AuthController, BookingController, 
                             ToyyibpayController};
 use App\Http\Controllers\Auth\{LoginController, RegisterController, 
                                 ForgotPasswordController, VerifyController};
-=======
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\RoomController;
-use App\Http\Controllers\BookingController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ToyyibpayController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\VerifyController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
-
-
->>>>>>> badd14efa5e2004b460facc2af9ea2210298f806
 
 Route::get('/', [RoomController::class, 'showIndex']);
 
