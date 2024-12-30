@@ -80,4 +80,4 @@ Route::put('/staff-list', [StaffController::class, 'updateStaffList'])->name('up
 Route::delete('/staff-list', [StaffController::class, 'deleteStaffList'])->name('deleteStaffList');
 
 // For Storing Messages
-Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/contact/index', [ContactController::class, 'index'])->name('contact.index');

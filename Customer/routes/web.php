@@ -3,14 +3,15 @@
 use App\Mail\ForgotPasswordMail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Auth\VerifyController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\VerifyController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 
 
 
@@ -35,12 +36,17 @@ Route::get('verify/{id}/{hash}', [VerifyController::class, 'verify'])->name('ver
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
-Route::get('/booking', function () {return view('booking');})->name('booking');
+Route::get('/booking', function () {
+    return view('booking');
+})->name('booking');
 Route::post('/booking', [BookingController::class, 'storeBooking'])->name('storeBooking');
 
- //Booking function
+//Booking function
 
 Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('forgotPassword');
 Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail']);
 Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('/reset-password', [ForgotPasswordController::class, 'reset'])->name('password.update');
+
+
+Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
