@@ -67,22 +67,22 @@
                             <div class="collapse navbar-collapse" id="navbarsExample04">
                                 <ul class="navbar-nav mr-auto">
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="index.html">Home</a>
+                                        <a class="nav-link" href="#home">Home</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="about.html">About</a>
+                                        <a class="nav-link" href="#about">About</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="room.html">Our room</a>
+                                        <a class="nav-link" href="#our_room">Our Rooms & Apartments</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="gallery.html">Gallery</a>
+                                        <a class="nav-link" href="#gallery">Gallery</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="blog.html">Blog</a>
+                                        <a class="nav-link" href="#blog">Blog</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="contact.html">Contact Us</a>
+                                        <a class="nav-link" href="#contact">Contact Us</a>
                                     </li>
                                     <!-- Conditional Rendering Based on Auth Status -->
                                     @if (Auth::check())
@@ -167,7 +167,7 @@
     </section>
     <!-- end banner -->
     <!-- about -->
-    <div class="about">
+    <div class="about" id="about">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-5">
@@ -187,7 +187,27 @@
                         </p>
                         <a class="read_more" href="Javascript:void(0)"> Read More</a>
                     </div>
+                    <style>
+                        .titlepage p {
+                            color: #555;
+                            font-size: 16px;
+                            text-align: justify;
+                            margin-bottom: 15px;
+                        }
+                    </style>
                 </div>
+                <script>
+                    document.querySelector('.read_more').addEventListener('click', function() {
+                        const hiddenContent = document.querySelector('.hidden-content');
+                        if (hiddenContent.style.display === 'none') {
+                            hiddenContent.style.display = 'inline';
+                            this.textContent = 'Read Less';
+                        } else {
+                            hiddenContent.style.display = 'none';
+                            this.textContent = 'Read More';
+                        }
+                    });
+                </script>
                 <div class="col-md-7">
                     <div class="about_img">
                         <figure><img src="{{ asset('dist/assets/images/index/tasik.jpg') }}" alt="#" />
@@ -199,7 +219,7 @@
     </div>
     <!-- end about -->
     <!-- our_room -->
-    <div class="our_room">
+    <div class="our_room" id="our_room">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -214,23 +234,25 @@
                 @foreach ($rooms as $room)
                     <!-- Card -->
                     <div class="card">
-                     @if($room->ImagePath)
-                        <!-- Get the first image from the ImagePath array -->
-                        @php
-                              $imagePaths = json_decode($room->ImagePath, true); // Decode the JSON array
-                              $firstImage = $imagePaths[0] ?? null; // Get the first image if available
-                        @endphp
-                        
-                        @if($firstImage)
-                              <img src="{{ asset('storage/' . $firstImage) }}" alt="Room Image" class="card-image">
+                        @if ($room->ImagePath)
+                            <!-- Get the first image from the ImagePath array -->
+                            @php
+                                $imagePaths = json_decode($room->ImagePath, true); // Decode the JSON array
+                                $firstImage = $imagePaths[0] ?? null; // Get the first image if available
+                            @endphp
+
+                            @if ($firstImage)
+                                <img src="{{ asset('storage/' . $firstImage) }}" alt="Room Image"
+                                    class="card-image">
+                            @endif
                         @endif
-                     @endif
                         <div class="card-details">
                             <h3>{{ $room->TypeRoom }}</h3>
                             <p>
-                              <a href="#" class="link-primary" data-bs-toggle="modal" data-bs-target="#roomDetailsModal-{{ $room->_id }}">
-                                 Room Details >
-                             </a>
+                                <a href="#" class="link-primary" data-bs-toggle="modal"
+                                    data-bs-target="#roomDetailsModal-{{ $room->_id }}">
+                                    Room Details >
+                                </a>
                             </p>
                             <div class="price-book">
                                 <span class="price">RM {{ $room->Rate }}</span>
@@ -331,7 +353,7 @@
                             </div>
                            </div>
                         </div>
-                     </div>
+                    </div>
                 @endforeach
             </div>
 
@@ -343,7 +365,7 @@
 
     <!-- end our_room -->
     <!-- gallery -->
-    <div class="gallery">
+    <div class="gallery" id="gallery">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -412,7 +434,7 @@
     </div>
     <!-- end gallery -->
     <!-- blog -->
-    <div class="blog">
+    <div class="blog" id="blog">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -473,7 +495,7 @@
     </div>
     <!-- end blog -->
     <!--  contact -->
-    <div class="contact">
+    <div class="contact" id="contact">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -484,20 +506,21 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <form id="request" class="main_form">
+                    <form id="request" class="main_form" method="POST" action="{{ route('contact.store') }}">
+                        @csrf
                         <div class="row">
-                            <div class="col-md-12 ">
-                                <input class="contactus" placeholder="Name" type="type" name="Name">
+                            <div class="col-md-12">
+                                <input class="contactus" placeholder="Name" type="text" name="Name" required>
                             </div>
                             <div class="col-md-12">
-                                <input class="contactus" placeholder="Email" type="type" name="Email">
+                                <input class="contactus" placeholder="Email" type="email" name="Email" required>
                             </div>
                             <div class="col-md-12">
-                                <input class="contactus" placeholder="Phone Number" type="type"
-                                    name="Phone Number">
+                                <input class="contactus" placeholder="Phone Number" type="text"
+                                    name="PhoneNumber" required>
                             </div>
                             <div class="col-md-12">
-                                <textarea class="textarea" placeholder="Message" type="type" Message="Name">Message</textarea>
+                                <textarea class="textarea" placeholder="Message" name="Message" required></textarea>
                             </div>
                             <div class="col-md-12">
                                 <button class="send_btn">Send</button>
@@ -526,25 +549,77 @@
                 <div class="row">
                     <div class=" col-md-4">
                         <h3>Contact US</h3>
-                        <ul class="conta">
-                            <li><i class="fa fa-map-marker" aria-hidden="true"></i> Scholar’s Inn
-                                Universiti Teknologi Malaysia,
-                                81310 UTM Skudai,
-                                Johor.</li>
-                            <li><i class="fa fa-mobile" aria-hidden="true"></i> +607-553 5197 ,+607-553 6695</li>
-                            <li> <i class="fa fa-envelope" aria-hidden="true"></i><a href="#">
-                                    scholarsinn@utm.my</a></li>
+                        <ul class="contact-info">
+                            <li>
+                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                Office Hour: Monday – Sunday : 7.00AM – 8.00PM <br>
+                                After Office Hour: Staff on standby duty (on Call)
+                            </li>
+                            <li>
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                Scholar’s Inn, Universiti Teknologi Malaysia, 81310 UTM Skudai, Johor.
+                            </li>
+                            <li>
+                                <i class="fa fa-mobile" aria-hidden="true"></i>
+                                +607-553 5197, +607-553 6695
+                            </li>
+                            <li>
+                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                                <a href="mailto:scholarsinn@utm.my">scholarsinn@utm.my</a>
+                            </li>
                         </ul>
+                        <style>
+                            .contact-info {
+                                list-style: none;
+                                /* Hilangkan bullet list */
+                                padding: 0;
+                                margin: 0;
+                            }
+
+                            .contact-info li {
+                                display: flex;
+                                /* Gunakan Flexbox untuk sejajarkan ikon dan teks */
+                                align-items: baseline;
+                                /* Pastikan ikon sejajar secara vertikal */
+                                margin-bottom: 10px;
+                                /* Jarak antara setiap elemen */
+                                color: white;
+                                /* Ubah teks menjadi warna putih */
+                                font-size: 16px;
+                                /* Laraskan saiz teks */
+                            }
+
+                            .contact-info li i {
+                                margin-right: 10px;
+                                /* Ruang antara ikon dan teks */
+                                font-size: 20px;
+                                /* Saiz ikon */
+                                color: #ffffff;
+                                /* Warna ikon */
+                            }
+
+                            .contact-info a {
+                                color: #ffffff;
+                                /* Warna pautan */
+                                text-decoration: none;
+                                /* Hilangkan garisan bawah pada pautan */
+                            }
+
+                            .contact-info a:hover {
+                                text-decoration: underline;
+                                /* Tambah garisan bawah semasa hover */
+                            }
+                        </style>
                     </div>
                     <div class="col-md-4">
                         <h3>Menu Link</h3>
                         <ul class="link_menu">
-                            <li class="active"><a href="#">Home</a></li>
-                            <li><a href="about.html"> about</a></li>
-                            <li><a href="room.html">Our Room</a></li>
-                            <li><a href="gallery.html">Gallery</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="contact.html">Contact Us</a></li>
+                            <li class="active"><a href="#home">Home</a></li>
+                            <li><a href="#about"> About</a></li>
+                            <li><a href="#our_room">Our Room</a></li>
+                            <li><a href="#gallery">Gallery</a></li>
+                            <li><a href="#blog">Blog</a></li>
+                            <li><a href="#contact">Contact Us</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4">

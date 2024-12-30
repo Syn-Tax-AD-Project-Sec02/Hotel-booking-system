@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Booking;
 use App\Models\Room;
+use App\Models\Booking;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Validator;
 use Illuminate\Support\Facades\Log;
-use MongoDB\BSON\ObjectId;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class BookingController extends Controller
 {
@@ -21,7 +19,7 @@ class BookingController extends Controller
 
     public function addBookingList(Request $request)
     {
-        
+
         $validator = Validator::make($request->all(), [
             'Name' => 'required|string|max:255',
             'RoomNo' => 'required|integer|min:1',
@@ -39,7 +37,7 @@ class BookingController extends Controller
         if (!$room) {
             return redirect()->back()->with('error', 'The selected room does not exist or the details do not match.');
         }
-        
+
         // Save user to MongoDB
         $booking = new Booking;
         $booking->setTable('booking_list');
@@ -82,9 +80,9 @@ class BookingController extends Controller
 
     $booking = new Booking();
     $booking->setTable('booking_list'); // Ensure you're pointing to the right table
-        
+
     $booking = $booking->findOrFail($bookingId);
-    
+
     $booking->Name = $request->Name;
     $booking->RoomNo = $request->RoomNo;
     $booking->TypeRoom = $request->TypeRoom;
@@ -92,7 +90,7 @@ class BookingController extends Controller
     $booking->CheckOut = $request->CheckOut;
     $booking->Phone = $request->Phone;
     $booking->save();
-    
+
     return redirect()->route('bookingListsForm')->with('success', 'Room details updated successfully!');
     }
 
@@ -115,7 +113,7 @@ class BookingController extends Controller
 
         // Delete booking
         $booking->delete();
-    
+
         return redirect()->route('bookingListsForm')->with('success', 'Booking deleted successfully!');
     }
 
@@ -128,7 +126,7 @@ class BookingController extends Controller
         // Convert input dates to Carbon instances for proper comparison
     $checkIn = \Carbon\Carbon::parse($checkIn);
     $checkOut = \Carbon\Carbon::parse($checkOut);
-    
+
         // Fetch all rooms from the room_lists table based on the selected room type
         $rooms = new Room();
         $rooms->setTable('room_lists');
@@ -148,17 +146,17 @@ class BookingController extends Controller
                             ->where('CheckOut', '>=', $checkOut);
                   });
         })->pluck('RoomNo')->toArray(); // Convert booked room numbers to an array
-        
+
         // Step 3: Filter rooms that are not booked (exclude booked rooms)
         $availableRooms = $rooms->filter(function ($room) use ($bookedRooms) {
             return !in_array($room->RoomNo, $bookedRooms); // Exclude rooms already booked
         });
-        
-         \Log::info($rooms); 
-    
+
+         Log::info($rooms);
+
         // Return the rooms as a JSON response
         return response()->json(['rooms' => $rooms]);
     }
-    
+
 
 }
