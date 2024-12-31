@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
         media="screen">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -256,13 +257,13 @@
                             </p>
                             <div class="price-book">
                                 <span class="price">RM {{ $room->Rate }}</span>
-                                <button class="book-now" onclick="window.location.href='{{ route('booking') }}'">Book Now</a></button>
+                                <button class="book-now">Book Now</a></button>
                             </div>
                         </div>
                     </div>
 
                     <!-- Modal -->
-                     <div class="modal fade" id="roomDetailsModal-{{ $room->_id }}" tabindex="-1" aria-labelledby="roomDetailsLabel-{{ $room->_id }}" aria-hidden="true">
+                    <div class="modal fade" id="roomDetailsModal-{{ $room->_id }}" tabindex="-1" aria-labelledby="roomDetailsLabel-{{ $room->_id }}" aria-hidden="true">
                         <div class="modal-dialog modal-xl">
                            <div class="modal-content blur-bg">
                               <div class="modal-header">
@@ -311,39 +312,35 @@
                                         <div class="booking-card">
                                             <!-- Price Section -->
                                             <div class="price-section">
-                                                <h3>$450 <span>/ Per Night</span></h3>
+                                                <h3>RM {{ $room->Rate }} <span>/ Per Night</span></h3>
                                             </div>
-                            
+                                            
                                             <!-- Check-in & Check-out -->
                                             <div class="check-section">
                                                 <div class="check-in-out">
-                                                    <label for="checkin">CHECK-IN</label>
-                                                    <input type="date" id="checkin" value="2025-01-19">
+                                                    <label for="checkin_{{ $room->_id }}">CHECK-IN</label>
+                                                    <input type="date" name="checkin" id="checkin_{{ $room->_id }}" onchange="checkAvailability('{{ $room->_id }}')">
                                                 </div>
                                                 <div class="check-in-out">
-                                                    <label for="checkout">CHECK-OUT</label>
-                                                    <input type="date" id="checkout" value="2025-01-24">
+                                                    <label for="checkout_{{ $room->_id }}">CHECK-OUT</label>
+                                                    <input type="date" name="checkout" id="checkout_{{ $room->_id }}" onchange="checkAvailability('{{ $room->_id }}')">
                                                 </div>
                                             </div>
                             
                                             <!-- Guests Section -->
-                                            <div class="guest-section">
-                                                <label for="guests">GUESTS</label>
+                                            <div class="guest-section" data-room-id="{{ $room->_id }}">
+                                                <label>GUESTS</label>
                                                 <div class="guest-controls">
-                                                    <button class="guest-btn" onclick="changeGuests(-1)"><i class="fas fa-minus"></i></button>
-                                                    <span class="guest-number" id="guestCount">1</span>
-                                                    <button class="guest-btn" onclick="changeGuests(1)"><i class="fas fa-plus"></i></button>
+                                                    <button class="guest-btn" onclick="changeGuests(this, -1)"><i class="fas fa-minus"></i></button>
+                                                    <span class="guest-number" id="guestCount_{{ $room->_id }}">1</span>
+                                                    <button class="guest-btn" onclick="changeGuests(this, 1)"><i class="fas fa-plus"></i></button>
                                                 </div>
-                                            </div>
-                            
-                                            <!-- Total Price -->
-                                            <div class="total-price">
-                                                <label for="total">TOTAL</label>
-                                                <div id="total">$450</div>
+                                                <input type="hidden" id="guestCountInput_{{ $room->_id }}" name="guests[{{ $room->_id }}]" value="1">
                                             </div>
                             
                                             <!-- Reserve Button -->
-                                            <a href="#" class="reserve-btn">Reserve Now</a>
+                                            <button class="reserve-btn" id="reserveButton" onclick="reserveRoom('{{ $room->_id }}')">Reserve</button>
+                                           
                                             <div class="info-msg">You won't be charged yet. Payment is due upon arrival.</div>
                                         </div>
                                     </div>
@@ -506,7 +503,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <form id="request" class="main_form" method="POST">
+                    <form id="request" class="main_form" method="POST" >
                         @csrf
                         <div class="row">
                             <div class="col-md-12">
@@ -657,21 +654,129 @@
     <!-- end footer -->
     <!-- Javascript files-->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-        const readMoreLink = document.querySelector('.read_more');
-        const moreText = document.querySelector('.more-text');
+        let guestCount = 1;
+    
+        function changeGuests(button, change) {
+    const roomId = button.closest('.guest-section').getAttribute('data-room-id');
+    
+    // Access the span element where the guest count is displayed
+    let guestCountElement = document.getElementById('guestCount_' + roomId);
+    
+    // Get the current guest count and adjust it based on the button click
+    let currentCount = parseInt(guestCountElement.innerText);
+    currentCount = Math.max(1, currentCount + change);  // Ensure minimum guest count is 1
+    
+    // Update the displayed guest count
+    guestCountElement.innerText = currentCount;
 
-        readMoreLink.addEventListener('click', function () {
-            if (moreText.style.display === 'none') {
-                moreText.style.display = 'inline';
-                readMoreLink.textContent = 'Read Less';
-            } else {
-                moreText.style.display = 'none';
-                readMoreLink.textContent = 'Read More';
-            }
-        });
+    // Optionally, update the hidden input field or data attribute for form submission
+    let guestCountInput = document.getElementById('guestCountInput_' + roomId);
+    if (guestCountInput) {
+        guestCountInput.value = currentCount;
+    }
+}
+
+// Function to handle the check-in or check-out date change
+function checkAvailability(roomId) {
+    const checkinDate = document.getElementById('checkin_' + roomId);
+    const checkoutDate = document.getElementById('checkout_' + roomId);
+
+    if (!checkinDate || !checkoutDate) {
+        console.error('Check-in or Check-out date elements not found');
+        return;
+    }
+
+    console.log('Check-in Date:', checkinDate.value);
+    console.log('Check-out Date:', checkoutDate.value);
+
+    // Perform the availability check
+    fetch('/check-availability', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({
+            room_id: roomId,
+            checkin: checkinDate.value,
+            checkout: checkoutDate.value,
+            guests: guestCount
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.isAvailable) {
+            console.log('Room is available');
+        } else {
+            alert('The room is not available for the selected dates.');
+        }
+    })
+    .catch(error => {
+        console.error('Error checking availability:', error);
     });
+}
+
+// Event listener to trigger checkAvailability on date change
+document.querySelectorAll('.checkin-date, .checkout-date').forEach((input) => {
+    input.addEventListener('change', (event) => {
+        const roomId = event.target.closest('.guest-section').getAttribute('data-room-id');
+        checkAvailability(roomId);
+    });
+});
+
+// Reserve Room function
+function reserveRoom(roomId) {
+    const checkinDate = document.getElementById('checkin_' + roomId).value;
+    const checkoutDate = document.getElementById('checkout_' + roomId).value;
+    let guestCountElement = document.getElementById('guestCount_' + roomId);
+    let guestCount = parseInt(guestCountElement.innerText); // Get the number of guests
+    // Check if both dates are selected
+    if (!checkinDate || !checkoutDate) {
+        alert('Please select both check-in and check-out dates.');
+        return;
+    }
+
+    console.log(`Reserving room with ID: ${roomId}`);
+    console.log(`Check-in: ${checkinDate}`);
+    console.log(`Check-out: ${checkoutDate}`);
+    console.log(`Guests: ${guestCount}`);
+
+    fetch('/check-availability', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({
+            room_id: roomId,
+            checkin: checkinDate,  // Pass the check-in date as a string
+            checkout: checkoutDate, // Pass the check-out date as a string
+            guests: guestCount // Pass the guest count directly
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.isAvailable) {
+            const redirectUrl = `/booking?room_id=${roomId}&checkin=${checkinDate}&checkout=${checkoutDate}&guests=${guestCount}`;
+            window.location.href = redirectUrl;
+        } else {
+            alert('The room is not available for the selected dates.');
+        }
+    })
+    .catch(error => {
+        console.error('Error during reservation:', error);
+    });
+}
+
+
+
+
+
     </script>
+    
+    
+    
+    
     <script src="{{ asset('dist/assets/js/jsIndex/jquery.min.js') }}"></script>
     <script src="{{ asset('dist/assets/js/jsIndex/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('dist/assets/js/jsIndex/jquery-3.0.0.min.js') }}"></script>

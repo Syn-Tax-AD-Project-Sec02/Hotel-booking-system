@@ -61,8 +61,6 @@
             font-size: 24px;
         }
 
-
-
         /* Main container */
         .cont {
             display: flex;
@@ -79,7 +77,7 @@
             width: 45%;
         }
 
-        .left-section h2, .right-section h2 {
+        .left-section h5, .right-section h5 {
             color: maroon;
             border-bottom: 2px solid maroon;
             padding-bottom: 10px;
@@ -87,8 +85,8 @@
 
         .good-to-know h2 {
             color: #800000;
-            margin: 20px;
-            padding: 10px;
+            margin-top: 20px;
+            /* padding: 10px; */
         }
 
         .details p, .good-to-know p {
@@ -247,7 +245,7 @@
            <div class="row">
               <div class="col-md-12">
                  <div class="title">
-                    <h2>Booking</h2>
+                    <h2>Booking</h2>    
                  </div>
               </div>
            </div>
@@ -255,32 +253,13 @@
     </div>
     
     <!--  contact -->
-    <div class="contact">
-        <div class="container">
-            <div class="cont">
-                <!-- Left Section: Booking Details -->
-                <div class="left-section">
-                    <h2>Your Booking Details</h2>
-                    <div class="details">
-                        <p><strong>Check-in:</strong> <span class="highlight">Sat, Dec 21, 2024</span></p>
-                        <p><strong>Check-out:</strong> <span class="highlight">Thu, Dec 26, 2024</span></p>
-                        <p><strong>Total length of stay:</strong> 5 nights</p>
-                        <p><strong>Guests:</strong> 2 adults</p>
-                    </div>
-                    <div class="price-summary">
-                        <p>Original Price: <del>MYR 7,000</del></p>
-                        <p>Limited-time Deal: <span class="highlight">MYR 3,430</span></p>
-                        <p>Includes: <br>
-                            - Taxes: MYR 274.40 <br>
-                            - Property Service: MYR 215 <br>
-                            - Refundable Deposit: MYR 200</p>
-                        <p class="total">Total Price: MYR 3,430</p>
-                    </div>
-                </div>
-        
+    {{-- <div class="contact"> --}}
+        <div class="cont">
+            {{-- <div class="container"> --}}
+
                 <!-- Right Section: Form and Information -->
-                <div class="right-section">
-                    <h2>Enter Your Details</h2>
+                <div class="left-section">
+                    <h5>Enter Your Details</h5>
                     <form>
                         <div class="form-group">
                             <label for="firstName">First Name</label>
@@ -308,9 +287,29 @@
                         <p>&#10003; Earn a <strong>free private airport taxi</strong></p>
                     </div>
                 </div>
-            </div>
+
+                <!-- Left Section: Booking Details -->
+                <div class="right-section">
+                    <h2>Your Booking Details</h2>
+                    <div class="details">
+                        <p><strong>Check-in:</strong> <span class="highlight">Sat, Dec 21, 2024</span></p>
+                        <p><strong>Check-out:</strong> <span class="highlight">Thu, Dec 26, 2024</span></p>
+                        <p><strong>Total length of stay:</strong> 5 nights</p>
+                        <p><strong>Guests:</strong> 2 adults</p>
+                    </div>
+                    <div class="price-summary">
+                        <p>Original Price: <del>MYR 7,000</del></p>
+                        <p>Limited-time Deal: <span class="highlight">MYR 3,430</span></p>
+                        <p>Includes: <br>
+                            - Taxes: MYR 274.40 <br>
+                            - Property Service: MYR 215 <br>
+                            - Refundable Deposit: MYR 200</p>
+                        <p class="total">Total Price: MYR 3,430</p>
+                    </div>
+                </div>
+            {{-- </div> --}}
         </div>
-    </div>
+    {{-- </div> --}}
     <!-- end contact -->
     <!--  footer -->
     <footer>
