@@ -33,14 +33,14 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
       <style>
         /* General Reset */
-        /* body {
+        body {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
             background: url('image.png') no-repeat center center fixed;
             background-size: cover;
             color: #333;
-        } */
+        }
 
         /* Header */
         /* .header {
@@ -51,18 +51,20 @@
             padding: 10px 20px;
         } */
 
-        /* .header img {
+        .header img {
             height: 50px;
             margin-right: 15px;
-        } */
+        }
 
-        /* .header h1 {
+        .header h1 {
             margin: 0;
             font-size: 24px;
-        } */
+        }
+
+
 
         /* Main container */
-        .container {
+        .cont {
             display: flex;
             justify-content: space-around;
             margin: 20px;
@@ -81,6 +83,12 @@
             color: maroon;
             border-bottom: 2px solid maroon;
             padding-bottom: 10px;
+        }
+
+        .good-to-know h2 {
+            color: #800000;
+            margin: 20px;
+            padding: 10px;
         }
 
         .details p, .good-to-know p {
@@ -145,7 +153,7 @@
 </head>
 <!-- body -->
 
-<body class="main-layout">
+<body>
     <!-- loader  -->
     {{-- <div class="loader_bg">
         <div class="loader"><img src="{{ asset('dist/assets/images/index/loading.gif') }}" alt="#" /></div>
@@ -249,7 +257,7 @@
     <!--  contact -->
     <div class="contact">
         <div class="container">
-            <div class="container">
+            <div class="cont">
                 <!-- Left Section: Booking Details -->
                 <div class="left-section">
                     <h2>Your Booking Details</h2>

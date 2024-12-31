@@ -29,8 +29,8 @@ Route::get('verify/{id}/{hash}', [VerifyController::class, 'verify'])->name('ver
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
-Route::get('/booking', function () {return view('Payment');})->name('booking');
-Route::get('/testBook', function () {return view('booking');})->name('testBook');
+Route::get('/booking', function () {return view('Payment');})->name('payment');
+Route::get('/testBook', function () {return view('booking');})->name('booking');
 Route::post('/booking', [BookingController::class, 'storeBooking'])->name('storeBooking');
 Route::post('/getRoomsByType', [BookingController::class, 'getRoomsByType'])->name('getRoomsByType');
 
