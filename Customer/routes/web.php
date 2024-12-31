@@ -3,6 +3,12 @@
 use App\Mail\ForgotPasswordMail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\VerifyController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ToyyibpayController;
@@ -30,10 +36,12 @@ Route::get('verify/{id}/{hash}', [VerifyController::class, 'verify'])->name('ver
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
-Route::get('/booking', function () {
-    return view('booking');
-})->name('booking');
-Route::post('/booking', [BookingController::class, 'storeBooking'])->name('storeBooking');
+Route::get('/booking', [BookingController::class, 'bookingForm'])->name('bookingForm');
+Route::post('/storeBooking', [BookingController::class, 'storeBooking'])->name('storeBooking');
+//Route::get('/booking/{room_id}/{checkin}/{checkout}/{guests}', [BookingController::class, 'showBookingForm'])->name('bookingForm');
+
+Route::post('/check-availability', [BookingController::class, 'checkAvailability'])->name('checkRoomAvailability');
+
 
 //Booking function
 

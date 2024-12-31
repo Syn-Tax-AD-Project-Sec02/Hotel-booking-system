@@ -119,7 +119,7 @@
 <body>
     <!-- Header -->
     <header class="header">
-        <img src="LOGO UTM REVERSE (putih).png" alt="UTM Logo">
+        <img src="{{ asset('dist/assets/images/LOGO UTM REVERSE (putih).png') }}" alt="UTM Logo">
         <h1>Scholars Inn Booking</h1>
     </header>
 
@@ -127,43 +127,28 @@
     <div class="container">
         <!-- Left Section: Booking Details -->
         <div class="left-section">
-            <h2>Your Booking Details</h2>
-            <div class="details">
-                <p><strong>Check-in:</strong> <span class="highlight">Sat, Dec 21, 2024</span></p>
-                <p><strong>Check-out:</strong> <span class="highlight">Thu, Dec 26, 2024</span></p>
-                <p><strong>Total length of stay:</strong> 5 nights</p>
-                <p><strong>Guests:</strong> 2 adults</p>
-            </div>
-            <div class="price-summary">
-                <p>Original Price: <del>MYR 7,000</del></p>
-                <p>Limited-time Deal: <span class="highlight">MYR 3,430</span></p>
-                <p>Includes: <br>
-                    - Taxes: MYR 274.40 <br>
-                    - Property Service: MYR 215 <br>
-                    - Refundable Deposit: MYR 200</p>
-                <p class="total">Total Price: MYR 3,430</p>
-            </div>
-        </div>
-
-        <!-- Right Section: Form and Information -->
-        <div class="right-section">
             <h2>Enter Your Details</h2>
-            <form>
+            <form action="{{ route('storeBooking') }}" method="POST">
+                @csrf
+                <input type="hidden" name="roomId" value="{{ $roomId }}">
+                <input type="hidden" name="checkin" value="{{ $checkin }}">
+                <input type="hidden" name="checkout" value="{{ $checkout }}">
+                <input type="hidden" name="guests" value="{{ $guests }}">
                 <div class="form-group">
                     <label for="firstName">First Name</label>
-                    <input type="text" id="firstName" placeholder="Enter your first name" required>
+                    <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" value="{{ $user->first_name }}" required>
                 </div>
                 <div class="form-group">
                     <label for="lastName">Last Name</label>
-                    <input type="text" id="lastName" placeholder="Enter your last name" required>
+                    <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" value="{{ $user->last_name }}" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" placeholder="Enter your email" required>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" value="{{ $user->email }}" required>
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" placeholder="Enter your phone number" required>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" value="{{ $user->phone }}" required>
                 </div>
                 <button type="submit">Confirm Booking</button>
             </form>
@@ -174,6 +159,36 @@
                 <p>&#10003; <strong>No payment today</strong>. Pay when you stay.</p>
                 <p>&#10003; Earn a <strong>free private airport taxi</strong></p>
             </div>
+        </div>
+
+        <!-- Right Section: Form and Information -->
+        <div class="right-section">
+            <h2>Your Booking Details</h2>
+            <div class="details">
+                <p><strong>Check-in:</strong> <span class="highlight">{{ $checkin }}</span></p>
+                <p><strong>Check-out:</strong> <span class="highlight">{{ $checkout }}</span></p>
+                <p><strong>Total length of stay:</strong> 
+                    @php
+                        $checkinDate = \Carbon\Carbon::parse($checkin);
+                        $checkoutDate = \Carbon\Carbon::parse($checkout);
+                        $duration = $checkinDate->lt($checkoutDate) 
+                    ? $checkinDate->diffInDays($checkoutDate) 
+                    : $checkoutDate->diffInDays($checkinDate);
+                    echo $duration . ' nights';
+                    @endphp
+                </p>
+                <p><strong>Guests:</strong> <span class="highlight">{{ $guests }} adults</span></p>
+            </div>
+            <div class="price-summary">
+                <p>Original Price: <del>MYR 7,000</del></p>
+                <p>Limited-time Deal: <span class="highlight">MYR 3,430</span></p>
+                <p>Includes: <br>
+                    - Taxes: MYR 274.40 <br>
+                    - Property Service: MYR 215 <br>
+                    - Refundable Deposit: MYR 200</p>
+                <p class="total">Total Price: MYR 3,430</p>
+            </div>
+            
         </div>
     </div>
 </body>
