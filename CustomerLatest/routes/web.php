@@ -2,16 +2,10 @@
 
 use App\Mail\ForgotPasswordMail;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Auth\VerifyController;
-use App\Http\Controllers\RoomController;
-use App\Http\Controllers\BookingController;
-use App\Http\Controllers\ToyyibpayController;
+use App\Http\Controllers\Auth\{RegisterController, LoginController, 
+                                ForgotPasswordController, VerifyController};
+use App\Http\Controllers\{AuthController, DashboardController, ProfileController, 
+                            RoomController, BookingController, ToyyibpayController};
 
 
 
