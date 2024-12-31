@@ -233,12 +233,30 @@
                 </ul>
               </div>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
               <a class="nav-link" href="{{ url('/staff-list') }}">
                 <span class="menu-title">Staff</span>
                 <i class="mdi mdi-account-outline menu-icon"></i>
               </a>
+            </li> --}}
+            <li class="nav-item">
+    <a class="nav-link" data-bs-toggle="collapse" href="#staff-dropdown" aria-expanded="false" aria-controls="staff-dropdown">
+        <span class="menu-title">Staff</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-account-outline menu-icon"></i>
+    </a>
+    <div class="collapse" id="staff-dropdown">
+        <ul class="nav flex-column sub-menu">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('/staff-list') }}">Staff List</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('/schedule') }}">Schedule</a>
+            </li>
+        </ul>
+    </div>
+</li>
+
             <li class="nav-item">
               <a class="nav-link" href="rate.html">
                 <span class="menu-title">Rate</span>
