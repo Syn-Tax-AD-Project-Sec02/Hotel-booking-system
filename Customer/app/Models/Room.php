@@ -13,7 +13,7 @@ class Room extends Model
     
     private static $collectionConfig = [
         'rooms_details' => ['Image', 'TypeRoom', 'Facilities', 'Rate'],
-        'rooms_lists' => ['RoomNo', 'TypeRoom', 'RoomFloor', 'RoomBlock', 'Status'],
+        'room_lists' => ['RoomNo', 'TypeRoom', 'RoomFloor', 'RoomBlock', 'Status'],
     ];
 
      /**
