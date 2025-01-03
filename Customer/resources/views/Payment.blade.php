@@ -134,13 +134,10 @@
                 <input type="hidden" name="checkin" value="{{ $checkin }}">
                 <input type="hidden" name="checkout" value="{{ $checkout }}">
                 <input type="hidden" name="guests" value="{{ $guests }}">
+                
                 <div class="form-group">
-                    <label for="firstName">First Name</label>
-                    <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" value="{{ $user->first_name }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="lastName">Last Name</label>
-                    <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" value="{{ $user->last_name }}" required>
+                    <label for="firstName">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" value="{{ $user->name }}" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>

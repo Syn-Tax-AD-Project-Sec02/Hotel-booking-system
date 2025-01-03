@@ -263,19 +263,19 @@
                     <form>
                         <div class="form-group">
                             <label for="firstName">First Name</label>
-                            <input type="text" id="firstName" placeholder="Enter your first name" required>
+                            <input type="text" name="firstName" id="firstName" placeholder="Enter your first name" required>
                         </div>
                         <div class="form-group">
                             <label for="lastName">Last Name</label>
-                            <input type="text" id="lastName" placeholder="Enter your last name" required>
+                            <input type="text" name="lastName" id="lastName" placeholder="Enter your last name" required>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" placeholder="Enter your email" required>
+                            <input type="email" name="email" id="email" placeholder="Enter your email" required>
                         </div>
                         <div class="form-group">
                             <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" placeholder="Enter your phone number" required>
+                            <input type="tel" name="phone" id="phone" placeholder="Enter your phone number" required>
                         </div>
                         <button type="submit">Confirm Booking</button>
                     </form>

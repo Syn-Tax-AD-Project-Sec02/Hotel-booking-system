@@ -251,18 +251,18 @@
                             <h3>{{ $room->TypeRoom }}</h3>
                             <p>
                                 <a href="#" class="link-primary" data-bs-toggle="modal"
-                                    data-bs-target="#roomDetailsModal-{{ $room->_id }}">
-                                    Room Details >
+                                    data-bs-target="#roomModal-{{ $room->_id }}">
+                                    Room Details
                                 </a>
                             </p>
                             <div class="price-book">
                                 <span class="price">RM {{ $room->Rate }}</span>
-                                <button class="book-now">Book Now</a></button>
+                                <button class="book-now" data-bs-toggle="modal"
+                                data-bs-target="#roomDetailsModal-{{ $room->_id }}">Book Now</button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Modal -->
                     <div class="modal fade" id="roomDetailsModal-{{ $room->_id }}" tabindex="-1" aria-labelledby="roomDetailsLabel-{{ $room->_id }}" aria-hidden="true">
                         <div class="modal-dialog modal-xl">
                            <div class="modal-content blur-bg">
@@ -295,12 +295,6 @@
                                                 <span class="visually-hidden">Next</span>
                                             </button>
                                         </div>
-                                        <h6 class="section-title">Room Facilities</h6>
-                                        <ul class="facility-list">
-                                            @foreach(json_decode($room->Facilities) as $facility)
-                                                <li>{{ $facility }}</li>
-                                            @endforeach
-                                        </ul>
                             
                                     </div>
                             
@@ -351,6 +345,52 @@
                            </div>
                         </div>
                     </div>
+
+                    <!-- Modal -->
+                     <!-- Room Details Modal -->
+            <div class="modal fade" id="roomModal-{{ $room->_id }}" tabindex="-1" aria-labelledby="roomLabel-{{ $room->_id }}" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content blur-bg">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="roomLabel-{{ $room->_id }}">{{ $room['title'] }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div id="carouselRoom{{ $room->_id }}" class="carousel slide" data-bs-ride="carousel">
+                                        <div class="carousel-inner">
+                                            @foreach(json_decode($room->ImagePath) as $index => $imagePath)
+                                                <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                                                    <img src="{{ asset('storage/' . $imagePath) }}" class="d-block w-100 rounded" 
+                                                         alt="Room Image {{ $index + 1 }}" 
+                                                         style="width:100%; height: 350px; object-fit: cover;">
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselRoom{{ $room->_id }}" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button" data-bs-target="#carouselRoom{{ $room->_id }}" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="section-title">Room Facilities</h6>
+                                    <ul class="facility-list">
+                                        @foreach(json_decode($room->Facilities) as $facility)
+                                            <li>{{ $facility }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
                 @endforeach
             </div>
 

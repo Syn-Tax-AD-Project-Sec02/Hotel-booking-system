@@ -38,11 +38,11 @@ public function storeBooking(Request $request)
     $booking->setTable('booking_list');
 
     $booking->BookingID = 'BKG' . str_pad(rand(1, 999), 3, '0', STR_PAD_LEFT);
-    $booking->Name = $request->customer_name;  // Assuming the input field is named 'customer_name'
-    $booking->RoomNo = $request->room_type;    // Assuming input for room number
-    $booking->TypeRoom = $request->room_type;  // Assuming room type input
-    $booking->CheckIn = $request->check_in;
-    $booking->CheckOut = $request->check_out;
+    $booking->Name = $request->name;  // Assuming the input field is named 'customer_name'
+    $booking->RoomNo = $request->TypeRoom;    // Assuming input for room number
+    $booking->TypeRoom = $request->TypeRoom;  // Assuming room type input
+    $booking->CheckIn = $request->checkin;
+    $booking->CheckOut = $request->checkout;
     $booking->Phone = $request->phone;         // Assuming the input is 'phone'
     $booking->save();
 
