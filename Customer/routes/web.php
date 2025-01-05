@@ -36,12 +36,11 @@ Route::get('verify/{id}/{hash}', [VerifyController::class, 'verify'])->name('ver
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
-Route::get('/booking', function () {
-    return view('booking');
-})->name('booking');
-Route::post('/booking', [BookingController::class, 'storeBooking'])->name('storeBooking');
+Route::get('/booking', [BookingController::class, 'bookingForm'])->name('bookingForm');
+Route::post('/storeBooking', [BookingController::class, 'storeBooking'])->name('storeBooking');
+//Route::get('/booking/{room_id}/{checkin}/{checkout}/{guests}', [BookingController::class, 'showBookingForm'])->name('bookingForm');
 
-//Booking function
+Route::post('/check-availability', [BookingController::class, 'checkAvailability'])->name('checkRoomAvailability');
 
 Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('forgotPassword');
 Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail']);
