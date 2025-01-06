@@ -12,9 +12,16 @@ class User extends Eloquent implements \Illuminate\Contracts\Auth\Authenticatabl
     protected $collection = 'users';    // MongoDB collection
 
     protected $fillable = [
-        'username', 'email', 'country', 'password',
+        'name',
+        'email',
+        'password',
+        'phone',
+        'role',  // Nullable for 'student'
+        'matricStaffNo',
+        'email_verified_at',
     ];
 
+    protected $dates = ['email_verified_at'];
     protected $hidden = [
         'password', 'remember_token',
     ];

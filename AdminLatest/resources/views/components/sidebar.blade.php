@@ -35,8 +35,7 @@
             <div class="collapse" id="icons">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('pages/icons/font-awesome.html') }}">Font
-                            Awesome</a>
+                        <a class="nav-link" href="{{ url('/guest-list') }}">Guest List</a>
                     </li>
                 </ul>
             </div>

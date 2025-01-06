@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+use App\Models\User;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -15,6 +16,12 @@ class BookingController extends Controller
     {
         $bookings = Booking::from('booking_list')->paginate(6);
         return view('Admin.Booking.Booking', compact('bookings'));
+    }
+
+    public function showGuestList()
+    {
+        $guest = User::all(); // Fetch all users
+        return view('guestList', compact('guest'));
     }
 
     public function addBookingList(Request $request)

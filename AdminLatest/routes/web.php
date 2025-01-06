@@ -72,12 +72,15 @@ Route::post('/booking', [BookingController::class, 'addBookingList']);
 Route::put('/booking', [BookingController::class, 'updateBookingList'])->name('updateBookingList');
 Route::delete('/booking', [BookingController::class, 'deleteBookingList'])->name('deleteBookingList');
 Route::post('/getRoomsByType', [BookingController::class, 'getRoomsByType'])->name('getRoomsByType');
+Route::get('/guest-list', [BookingController::class, 'showGuestList'])->name('GuestListForm');
 
 
 Route::get('/staff-list', [StaffController::class, 'showFormStaffLists'])->name('StaffListForm');
 Route::post('/staff-list', [StaffController::class, 'addStaffList']);
 Route::put('/staff-list', [StaffController::class, 'updateStaffList'])->name('updateStaffList');
 Route::delete('/staff-list', [StaffController::class, 'deleteStaffList'])->name('deleteStaffList');
+
+
 
 // For Storing Messages
 Route::get('/contact/index', [ContactController::class, 'index'])->name('contact.index');

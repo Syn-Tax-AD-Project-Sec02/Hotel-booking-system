@@ -64,10 +64,9 @@ class ToyyibpayController extends Controller
 
 
 
-    public function paymentStatus(){
-        $reponse = request()->all(['status_id','billcode','order_id']);
-        return response;
-
+    public function paymentStatus() {
+        $response = request()->all(['status_id', 'billcode', 'order_id']);
+        Log::info($response);
     }
 
     public function callback(){
