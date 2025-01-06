@@ -9,8 +9,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ToyyibpayController extends Controller
 {
+    
     public function createBill()
     {
+        
         $option = array(
             'userSecretKey' => config('toyyibpay.key'),
             'categoryCode' => config('toyyibpay.category'),

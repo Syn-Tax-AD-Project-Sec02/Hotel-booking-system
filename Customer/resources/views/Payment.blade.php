@@ -134,6 +134,7 @@
                 <input type="hidden" name="checkin" value="{{ $checkin }}">
                 <input type="hidden" name="checkout" value="{{ $checkout }}">
                 <input type="hidden" name="guests" value="{{ $guests }}">
+                <input type="hidden" name="rate" value="{{ $rate }}">
                 
                 <div class="form-group">
                     <label for="firstName">Full Name</label>
@@ -172,18 +173,19 @@
                     ? $checkinDate->diffInDays($checkoutDate) 
                     : $checkoutDate->diffInDays($checkinDate);
                     echo $duration . ' nights';
+                    $totalCost = $duration * $rate;
                     @endphp
                 </p>
                 <p><strong>Guests:</strong> <span class="highlight">{{ $guests }} adults</span></p>
             </div>
             <div class="price-summary">
-                <p>Original Price: <del>MYR 7,000</del></p>
+                <p>Original Price: <del>MYR {{ $rate  }}</del></p>
                 <p>Limited-time Deal: <span class="highlight">MYR 3,430</span></p>
                 <p>Includes: <br>
                     - Taxes: MYR 274.40 <br>
                     - Property Service: MYR 215 <br>
                     - Refundable Deposit: MYR 200</p>
-                <p class="total">Total Price: MYR 3,430</p>
+                <p class="total">Total Price: {{ $totalCost  }}</p>
             </div>
             
         </div>

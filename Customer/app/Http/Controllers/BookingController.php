@@ -23,16 +23,32 @@ class BookingController extends Controller
         $checkin = $request->query('checkin');
         $checkout = $request->query('checkout');
         $guests = $request->query('guests');
+        $rate = $request->query('rate');
 
+        $room = new Room;
+        $room->setTable('rooms_details');
+        $rate = $room->where('_id', $roomId)->value('Rate');
+        
+        
         $user = Auth::user();
-
-
-        return view('Payment',compact('roomId', 'checkin', 'checkout', 'guests', 'user'));
+        
+        return view('Payment',compact('roomId', 'checkin', 'checkout', 'guests', 'user', 'rate'));
     }
 
 public function storeBooking(Request $request)
 {
-    
+    // Calculate duration
+    $checkinDate = \Carbon\Carbon::parse($request->checkin);
+    $checkoutDate = \Carbon\Carbon::parse($request->checkout);
+    $duration = $checkinDate->diffInDays($checkoutDate);
+
+    // Retrieve rate for the room
+    $room = new Room;
+    $room->setTable('rooms_details'); // Ensure correct table name
+    $rate = $room->where('_id', $request->TypeRoom)->value('Rate');
+
+    // Calculate total cost
+    $totalCost = $duration * $rate;
     // Create a new booking
     $booking = new Booking;
     $booking->setTable('booking_list');
@@ -43,25 +59,43 @@ public function storeBooking(Request $request)
     $booking->TypeRoom = $request->TypeRoom;  // Assuming room type input
     $booking->CheckIn = $request->checkin;
     $booking->CheckOut = $request->checkout;
-    $booking->Phone = $request->phone;         // Assuming the input is 'phone'
+    $booking->Phone = $request->phone; // Assuming guests are included
+    $booking->Rate = $rate;
+    $booking->TotalPrice = $totalCost;       // Assuming the input is 'phone'
     $booking->save();
 
     // Create payment using ToyyibPay API
-    return redirect()->route('toyyibpay')->with('booking', $booking);
+    return redirect()->route('toyyibpay')->with([
+        'booking' => $booking,
+        'totalCost' => $totalCost,
+    ]);
 }
 
    // In BookingController.php
 public function checkAvailability(Request $request)
 {
     $roomId = $request->input('room_id');
-        $checkin = $request->input('checkin');
-        $checkout = $request->input('checkout');
+    $typeRoom = $request->input('type_room'); 
+    $checkin = $request->input('checkin');
+    $checkout = $request->input('checkout');
 
-        // Logic to check availability (this is just an example, adjust it to your needs)
-        $isAvailable = true; // Assume the room is available (you should replace this with actual logic)
+    $booking = new Booking();
+    $booking->setTable('booking_list');
 
-        // Return the result as a JSON response
-        return response()->json(['isAvailable' => $isAvailable]);
+    // Check for overlapping bookings
+    $availability = $booking->where('type_room', $typeRoom)
+        ->where(function ($query) use ($checkin, $checkout) {
+            $query->whereBetween('checkin', [$checkin, $checkout])
+                  ->orWhereBetween('checkout', [$checkin, $checkout])
+                  ->orWhere(function ($subQuery) use ($checkin, $checkout) {
+                      $subQuery->where('checkin', '<=', $checkin)
+                               ->where('checkout', '>=', $checkout);
+                  });
+        })
+        ->exists();
+
+    // Return response
+    return response()->json(['isAvailable' => !$availability]);
     }
 
 }

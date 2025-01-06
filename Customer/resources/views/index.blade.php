@@ -313,11 +313,11 @@
                                             <div class="check-section">
                                                 <div class="check-in-out">
                                                     <label for="checkin_{{ $room->_id }}">CHECK-IN</label>
-                                                    <input type="date" name="checkin" id="checkin_{{ $room->_id }}" onchange="checkAvailability('{{ $room->_id }}')">
+                                                    <input type="date" name="checkin" id="checkin_{{ $room->_id }}" onchange="checkAvailability('{{ $room->_id }}', '{{ $room->TypeRoom }}')">
                                                 </div>
                                                 <div class="check-in-out">
                                                     <label for="checkout_{{ $room->_id }}">CHECK-OUT</label>
-                                                    <input type="date" name="checkout" id="checkout_{{ $room->_id }}" onchange="checkAvailability('{{ $room->_id }}')">
+                                                    <input type="date" name="checkout" id="checkout_{{ $room->_id }}" onchange="checkAvailability('{{ $room->_id }}', '{{ $room->TypeRoom }}')">
                                                 </div>
                                             </div>
                             
@@ -330,11 +330,12 @@
                                                     <button class="guest-btn" onclick="changeGuests(this, 1)"><i class="fas fa-plus"></i></button>
                                                 </div>
                                                 <input type="hidden" id="guestCountInput_{{ $room->_id }}" name="guests[{{ $room->_id }}]" value="1">
+                                                <input type="hidden" id="typeRoom_{{ $room->_id }}" value="{{ $room->TypeRoom }}">
                                             </div>
                             
                                             <!-- Reserve Button -->
-                                            <button class="reserve-btn" id="reserveButton" onclick="reserveRoom('{{ $room->_id }}')">Reserve</button>
-                                           
+                                            <button class="reserve-btn" onclick="reserveRoom('{{ $room->_id }}', '{{ $room->TypeRoom }}')">Reserve</button>
+
                                             <div class="info-msg">You won't be charged yet. Payment is due upon arrival.</div>
                                         </div>
                                     </div>
@@ -717,7 +718,10 @@
 }
 
 // Function to handle the check-in or check-out date change
-function checkAvailability(roomId) {
+function checkAvailability(roomId, TypeRoom)  {
+    console.log('Room ID:', roomId);
+    console.log('TypeRoom:', TypeRoom);
+
     const checkinDate = document.getElementById('checkin_' + roomId);
     const checkoutDate = document.getElementById('checkout_' + roomId);
 
@@ -726,10 +730,14 @@ function checkAvailability(roomId) {
         return;
     }
 
+    if (!checkinDate.value || !checkoutDate.value) {
+        alert('Please select both Check-in and Check-out dates.');
+        return;
+    }
+
     console.log('Check-in Date:', checkinDate.value);
     console.log('Check-out Date:', checkoutDate.value);
 
-    // Perform the availability check
     fetch('/check-availability', {
         method: 'POST',
         headers: {
@@ -738,17 +746,20 @@ function checkAvailability(roomId) {
         },
         body: JSON.stringify({
             room_id: roomId,
+            type_room: TypeRoom,
             checkin: checkinDate.value,
             checkout: checkoutDate.value,
-            guests: guestCount
         })
     })
     .then(response => response.json())
     .then(data => {
         if (data.isAvailable) {
-            console.log('Room is available');
+            alert('The room is available for booking.');
         } else {
             alert('The room is not available for the selected dates.');
+            // Optionally, reset the date inputs
+            checkinDate.value = '';
+            checkoutDate.value = '';
         }
     })
     .catch(error => {
@@ -760,23 +771,31 @@ function checkAvailability(roomId) {
 document.querySelectorAll('.checkin-date, .checkout-date').forEach((input) => {
     input.addEventListener('change', (event) => {
         const roomId = event.target.closest('.guest-section').getAttribute('data-room-id');
-        checkAvailability(roomId);
+        if (roomId) {
+            checkAvailability(roomId);
+        } else {
+            console.error('Room ID not found for the selected date input.');
+        }
     });
 });
 
+
 // Reserve Room function
-function reserveRoom(roomId) {
-    const checkinDate = document.getElementById('checkin_' + roomId).value;
+function reserveRoom(roomId, typeRoom)  {
+     const checkinDate = document.getElementById('checkin_' + roomId).value;
     const checkoutDate = document.getElementById('checkout_' + roomId).value;
     let guestCountElement = document.getElementById('guestCount_' + roomId);
     let guestCount = parseInt(guestCountElement.innerText); // Get the number of guests
+
     // Check if both dates are selected
     if (!checkinDate || !checkoutDate) {
         alert('Please select both check-in and check-out dates.');
         return;
     }
 
+    // Proceed with the reservation logic
     console.log(`Reserving room with ID: ${roomId}`);
+    console.log(`Type of Room: ${typeRoom}`);
     console.log(`Check-in: ${checkinDate}`);
     console.log(`Check-out: ${checkoutDate}`);
     console.log(`Guests: ${guestCount}`);
@@ -789,15 +808,16 @@ function reserveRoom(roomId) {
         },
         body: JSON.stringify({
             room_id: roomId,
-            checkin: checkinDate,  // Pass the check-in date as a string
-            checkout: checkoutDate, // Pass the check-out date as a string
-            guests: guestCount // Pass the guest count directly
+            type_room: typeRoom,// Use the correct casing here
+            checkin: checkinDate,
+            checkout: checkoutDate,
+            guests: guestCount
         })
     })
     .then(response => response.json())
     .then(data => {
         if (data.isAvailable) {
-            const redirectUrl = `/booking?room_id=${roomId}&checkin=${checkinDate}&checkout=${checkoutDate}&guests=${guestCount}`;
+            const redirectUrl = `/booking?room_id=${roomId}&type_room=${typeRoom}&checkin=${checkinDate}&checkout=${checkoutDate}&guests=${guestCount}`;
             window.location.href = redirectUrl;
         } else {
             alert('The room is not available for the selected dates.');
@@ -805,6 +825,7 @@ function reserveRoom(roomId) {
     })
     .catch(error => {
         console.error('Error during reservation:', error);
+        alert('An error occurred while reserving the room. Please try again.');
     });
 }
 
