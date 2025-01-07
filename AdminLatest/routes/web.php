@@ -14,7 +14,6 @@ Route::get('/', function () {
     return view('Admin.user.login');
 });
 
-
 Route::get('/user/register', function () {
     return view('Admin.user.register');
 });
@@ -49,7 +48,6 @@ Route::middleware('auth:staff')->group(function () {
     Route::put('/profile', [ProfileController::class, 'updateStaffDetails'])->name('updateStaffDetails');
 });
 
-
 Route::get('/register', [RegisterController::class, 'showForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
@@ -74,13 +72,10 @@ Route::delete('/booking', [BookingController::class, 'deleteBookingList'])->name
 Route::post('/getRoomsByType', [BookingController::class, 'getRoomsByType'])->name('getRoomsByType');
 Route::get('/guest-list', [BookingController::class, 'showGuestList'])->name('GuestListForm');
 
-
 Route::get('/staff-list', [StaffController::class, 'showFormStaffLists'])->name('StaffListForm');
 Route::post('/staff-list', [StaffController::class, 'addStaffList']);
 Route::put('/staff-list', [StaffController::class, 'updateStaffList'])->name('updateStaffList');
 Route::delete('/staff-list', [StaffController::class, 'deleteStaffList'])->name('deleteStaffList');
-
-
 
 // For Storing Messages
 Route::get('/contact/index', [ContactController::class, 'index'])->name('contact.index');

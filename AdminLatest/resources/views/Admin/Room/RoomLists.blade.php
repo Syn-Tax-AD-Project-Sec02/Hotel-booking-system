@@ -182,7 +182,7 @@
                                                     <td>{{ $room->RoomNo }}</td>
                                                     <td>{{ $room->TypeRoom }}</td>
                                                     <td>{{ $room->RoomFloor }}</td>
-                                                    <td>{{ $room->RoomBlock }}</td>
+                                                    <td>{{ $room->Status }}</td>
                                                     <td>
                                                         <span
                                                             class="badge {{ $room->Status == 'Booked' ? 'bg-danger' : 'bg-success' }}">
@@ -216,7 +216,8 @@
                                                                         value="{{ $room->_id }}">
                                                                     <button class="dropdown-item text-danger"
                                                                         type="submit">
-                                                                        <i class="mdi mdi-delete me-2"></i>Delete
+                                                                        <i class="mdi mdi-delete me-2 text-danger"></i>
+                                                                        Delete
                                                                     </button>
                                                                 </form>
                                                             </li>
@@ -435,9 +436,31 @@
                                     <i class="mdi mdi-dots-vertical"></i>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Edit</a></li>
-                                    <li><a class="dropdown-item" href="#">Delete</a></li>
-                                </ul>
+                                                            <li>
+                                                                <!-- Edit Button -->
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('updateRoomList') }}"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#modalEditRoom{{ $room->id }}">
+                                                                    <i class="mdi mdi-pencil me-2 text-info"></i> Edit
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <form action="{{ route('deleteRoomList') }}"
+                                                                    method="POST"
+                                                                    onsubmit="return confirm('Are you sure you want to delete this room?');">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <input type="hidden" name="room_id"
+                                                                        value="{{ $room->_id }}">
+                                                                    <button class="dropdown-item text-danger"
+                                                                        type="submit">
+                                                                        <i class="mdi mdi-delete me-2 text-danger"></i>
+                                                                        Delete
+                                                                    </button>
+                                                                </form>
+                                                            </li>
+                                                        </ul>
                             </td>
                         </tr>
                     `);
