@@ -9,6 +9,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\ScheduleController;
 
 Route::get('/', function () {
     return view('Admin.user.login');
@@ -76,6 +77,13 @@ Route::get('/staff-list', [StaffController::class, 'showFormStaffLists'])->name(
 Route::post('/staff-list', [StaffController::class, 'addStaffList']);
 Route::put('/staff-list', [StaffController::class, 'updateStaffList'])->name('updateStaffList');
 Route::delete('/staff-list', [StaffController::class, 'deleteStaffList'])->name('deleteStaffList');
+
+
+Route::get('/schedule', [ScheduleController::class, 'showFormScheduleLists'])->name('ScheduleListForm');
+Route::post('/schedule', [ScheduleController::class, 'addScheduleList']);
+Route::put('/schedule', [ScheduleController::class, 'updateScheduleList'])->name('updateScheduleList');
+Route::delete('/schedule', [ScheduleController::class, 'deleteScheduleList'])->name('deleteScheduleList');
+
 
 // For Storing Messages
 Route::get('/contact/index', [ContactController::class, 'index'])->name('contact.index');
