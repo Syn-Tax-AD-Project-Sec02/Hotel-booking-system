@@ -36,6 +36,8 @@ class ComposerStaticInit08d0d5741e49747fab6b5bd01e79aabf
             'Symfony\\Contracts\\Translation\\' => 30,
             'Symfony\\Component\\Translation\\' => 30,
             'Symfony\\Component\\Clock\\' => 24,
+            'Svg\\' => 4,
+            'Sabberworm\\CSS\\' => 15,
         ),
         'P' => 
         array (
@@ -48,6 +50,7 @@ class ComposerStaticInit08d0d5741e49747fab6b5bd01e79aabf
         array (
             'MongoDB\\Laravel\\' => 16,
             'MongoDB\\' => 8,
+            'Masterminds\\' => 12,
         ),
         'L' => 
         array (
@@ -64,8 +67,13 @@ class ComposerStaticInit08d0d5741e49747fab6b5bd01e79aabf
             'Illuminate\\Cache\\' => 17,
             'Illuminate\\Bus\\' => 15,
         ),
+        'F' => 
+        array (
+            'FontLib\\' => 8,
+        ),
         'D' => 
         array (
+            'Dompdf\\' => 7,
             'Doctrine\\Inflector\\' => 19,
         ),
         'C' => 
@@ -76,6 +84,7 @@ class ComposerStaticInit08d0d5741e49747fab6b5bd01e79aabf
         'B' => 
         array (
             'Brick\\Math\\' => 11,
+            'Barryvdh\\DomPDF\\' => 16,
         ),
     );
 
@@ -112,6 +121,14 @@ class ComposerStaticInit08d0d5741e49747fab6b5bd01e79aabf
         array (
             0 => __DIR__ . '/..' . '/symfony/clock',
         ),
+        'Svg\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dompdf/php-svg-lib/src/Svg',
+        ),
+        'Sabberworm\\CSS\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/src',
+        ),
         'Psr\\SimpleCache\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
@@ -136,15 +153,19 @@ class ComposerStaticInit08d0d5741e49747fab6b5bd01e79aabf
         array (
             0 => __DIR__ . '/..' . '/mongodb/mongodb/src',
         ),
+        'Masterminds\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/masterminds/html5/src',
+        ),
         'Laravel\\SerializableClosure\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/serializable-closure/src',
         ),
         'Illuminate\\Support\\' => 
         array (
-            0 => __DIR__ . '/..' . '/illuminate/macroable',
+            0 => __DIR__ . '/..' . '/illuminate/collections',
             1 => __DIR__ . '/..' . '/illuminate/conditionable',
-            2 => __DIR__ . '/..' . '/illuminate/collections',
+            2 => __DIR__ . '/..' . '/illuminate/macroable',
             3 => __DIR__ . '/..' . '/illuminate/support',
         ),
         'Illuminate\\Pipeline\\' => 
@@ -175,6 +196,14 @@ class ComposerStaticInit08d0d5741e49747fab6b5bd01e79aabf
         array (
             0 => __DIR__ . '/..' . '/illuminate/bus',
         ),
+        'FontLib\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dompdf/php-font-lib/src/FontLib',
+        ),
+        'Dompdf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dompdf/dompdf/src',
+        ),
         'Doctrine\\Inflector\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector',
@@ -191,6 +220,10 @@ class ComposerStaticInit08d0d5741e49747fab6b5bd01e79aabf
         array (
             0 => __DIR__ . '/..' . '/brick/math/src',
         ),
+        'Barryvdh\\DomPDF\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src',
+        ),
     );
 
     public static $classMap = array (
@@ -206,6 +239,7 @@ class ComposerStaticInit08d0d5741e49747fab6b5bd01e79aabf
         'DateMalformedStringException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateMalformedStringException.php',
         'DateObjectError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateObjectError.php',
         'DateRangeError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateRangeError.php',
+        'Dompdf\\Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
         'Override' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/Override.php',
         'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
         'ReturnTypeWillChange' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
