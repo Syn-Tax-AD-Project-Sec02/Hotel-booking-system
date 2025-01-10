@@ -96,6 +96,7 @@
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                                 <a class="dropdown-item" href="{{ route('profileForm') }}">Profile</a>
+                                                <a class="dropdown-item" href="{{ route('profileForm') }}">Booking History</a>
                                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -695,6 +696,21 @@
     <!-- end footer -->
     <!-- Javascript files-->
     <script>
+         document.addEventListener('DOMContentLoaded', function () {
+        const readMoreLink = document.querySelector('.read_more');
+        const moreText = document.querySelector('.more-text');
+
+        readMoreLink.addEventListener('click', function () {
+            if (moreText.style.display === 'none') {
+                moreText.style.display = 'inline';
+                readMoreLink.textContent = 'Read Less';
+            } else {
+                moreText.style.display = 'none';
+                readMoreLink.textContent = 'Read More';
+            }
+        });
+    });
+
         let guestCount = 1;
     
         function changeGuests(button, change) {
@@ -721,7 +737,7 @@
 function checkAvailability(roomId, TypeRoom)  {
     console.log('Room ID:', roomId);
     console.log('TypeRoom:', TypeRoom);
-
+    const typeRoom = document.getElementById('typeRoom_' + roomId).value;
     const checkinDate = document.getElementById('checkin_' + roomId);
     const checkoutDate = document.getElementById('checkout_' + roomId);
 

@@ -11,7 +11,7 @@ class Booking extends Model
     // Specify the table name if it doesn't follow Laravel's naming conventions
     protected $connection = 'mongodb'; // MongoDB connection
     private static $collectionConfig = [
-        'booking_Lists' => ['Name', 'RoomNo' ,'TypeRoom', 'CheckIn', 'CheckOut', 'Phone'],
+        'booking_list' => ['Name', 'RoomNo' ,'TypeRoom', 'CheckIn', 'CheckOut', 'Phone', 'Rate', 'TotalPrice'],
     ];
 
      /**

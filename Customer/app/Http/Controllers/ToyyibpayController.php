@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Booking;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -10,8 +11,9 @@ use Illuminate\Support\Facades\Auth;
 class ToyyibpayController extends Controller
 {
     
-    public function createBill()
+    public function createBill(Request $request)
     {
+        $totalCost = $request->session()->get('totalCost')*100;
         
         $option = array(
             'userSecretKey' => config('toyyibpay.key'),
@@ -20,17 +22,15 @@ class ToyyibpayController extends Controller
             'billDescription' => 'Booking Payment for ',
             'billPriceSetting' => 1,
             'billPayorInfo' => 1,
-            'billAmount' => 1000,
-            'billReturnUrl' => url('toyyibpay-status'),
+            'billAmount' => $totalCost,
             'billCallbackUrl' => url('toyyibpay-callback'),
             'billExternalReferenceNo' => 'Booking-' . time(),
-            'billTo' => 'scholars',
+            'billTo' => Auth::user()->name,
             'billEmail' => Auth::user()->email,
             'billPhone' => Auth::user()->phone,
             'billSplitPayment' => 0,
             'billSplitPaymentArgs' => '',
             'billPaymentChannel' => '0',
-            'billContentEmail' => 'Thank you for purchasing our product!',
             'billChargeToCustomer' => 2,
         );
 

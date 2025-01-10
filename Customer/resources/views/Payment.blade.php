@@ -131,6 +131,7 @@
             <form action="{{ route('storeBooking') }}" method="POST">
                 @csrf
                 <input type="hidden" name="roomId" value="{{ $roomId }}">
+                <input type="hidden" name="type_room" value="{{ $typeRoom }}">
                 <input type="hidden" name="checkin" value="{{ $checkin }}">
                 <input type="hidden" name="checkout" value="{{ $checkout }}">
                 <input type="hidden" name="guests" value="{{ $guests }}">
