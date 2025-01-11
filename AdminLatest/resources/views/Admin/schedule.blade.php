@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <div class="container-scroller">
+      <!-- partial:../../partials/_navbar.html -->
+      <x-navbar />
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+          <!-- partial:../../partials/_sidebar.html -->
+
+          <x-sidebar />
+
+
+          <!-- partial -->
+          <div class="main-panel">
+              <div class="content-wrapper">
+                  <div class="page-header">
+                      <x-breadcrumbs title="Dashboard" subtitle="Schedule" />
+                  </div>
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -172,121 +189,7 @@
           </button>
         </div>
       </nav>
-      <!-- partial -->
-      <div class="container-fluid page-body-wrapper">
-        <!-- partial:../../partials/_sidebar.html -->
-        <nav class="sidebar sidebar-offcanvas" id="sidebar">
-          <ul class="nav">
-            <li class="nav-item nav-profile">
-              <a href="#" class="nav-link">
-                <div class="nav-profile-image">
-                  <img src="{{ ('assets/images/faces/face1.jpg')}}" alt="profile" />
-                  <span class="login-status online"></span>
-                  <!--change to offline or busy as needed-->
-                </div>
-                <div class="nav-profile-text d-flex flex-column">
-                  <span class="font-weight-bold mb-2">David Grey. H</span>
-                  <span class="text-secondary text-small">Project Manager</span>
-                </div>
-                <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('admin.dashboard.index')}}">
-                <span class="menu-title">Dashboard</span>
-                <i class="mdi mdi-home menu-icon"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url('/booking') }}">
-                <span class="menu-title">Booking</span>
-                <i class="mdi mdi-calendar-edit-outline menu-icon"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
-                <span class="menu-title">Guest</span>
-                <i class="mdi mdi-clipboard-check-multiple-outline menu-icon"></i>
-              </a>
-              <div class="collapse" id="icons">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item">
-                    <a class="nav-link" href="pages/icons/font-awesome.html">Font Awesome</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-title">Room</span>
-                <i class="menu-arrow"></i>
-                <i class="mdi mdi-crosshairs-gps menu-icon"></i>
-              </a>
-              <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/room-details') }}">Room Details</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/room-list') }}">Room List</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            {{-- <li class="nav-item">
-              <a class="nav-link" href="{{ url('/staff-list') }}">
-                <span class="menu-title">Staff</span>
-                <i class="mdi mdi-account-outline menu-icon"></i>
-              </a>
-            </li> --}}
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#staff-dropdown" aria-expanded="false" aria-controls="staff-dropdown">
-                    <span class="menu-title">Staff</span>
-                    <i class="menu-arrow"></i>
-                    <i class="mdi mdi-account-outline menu-icon"></i>
-                </a>
-                <div class="collapse" id="staff-dropdown">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/staff-list') }}">Staff List</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/schedule') }}">Schedule</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="rate.html">
-                <span class="menu-title">Rate</span>
-                <i class="mdi mdi-tag-outline menu-icon"></i>
-              </a>
-            </li>
-          </ul>
-        </nav>
-        <!-- partial -->
-        <div class="main-panel">
-          <div class="content-wrapper">
-            <div class="page-header">
-              <ul class="breadcrumb breadcrumb-separatorless fw-semibold">
-                <!--begin::Item-->
-                <li class="breadcrumb-item text-gray-700 fw-bold lh-1">
-                  <a href="../dist/index.html" class="text-gray-500">
-                    <i class="ki-duotone ki-home fs-3 text-gray-400 me-n1"></i>
-                  </a>
-                </li>
-                <!--end::Item-->
-                <div class="breadcrumb-container">
-                  <nav aria-label="breadcrumb">
-                      <ol class="breadcrumb">
-                          <li class="breadcrumb-item"><a href="#">Dashboards</a></li>
-                          <li class="breadcrumb-item active" aria-current="page">Schedule</li>
-                      </ol>
-                  </nav>
-              </div>
-            </div>
-            
+   
             <div class="row">
               <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
