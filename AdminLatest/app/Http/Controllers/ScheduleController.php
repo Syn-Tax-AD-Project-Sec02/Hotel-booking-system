@@ -59,7 +59,7 @@ class ScheduleController extends Controller
         $schedule->staffID = 'STF' . str_pad(rand(1, 999), 3, '0', STR_PAD_LEFT);
         $schedule->name = $request->name;
         $schedule->room_no = $request->room_no;
-        $schedule->date_time = $request->date_time;
+        $schedule->date_time = $request->datetime;
         $schedule->services = $request->services;
         $schedule->status = $request->status;
         $schedule->action = $request->action;
@@ -70,23 +70,26 @@ class ScheduleController extends Controller
         return redirect()->route('ScheduleListForm')->with('success', 'Schedule successfully added!');
     }
 
-    public function store(Request $request)
-    {
-        // Validasi data
-        $validated = $request->validate([
-            'staff_id' => 'required|exists:staff,_id', // MongoDB menggunakan '_id'
-            'name' => 'required|string',
-            'room' => 'required|string',
-            'date_time' => 'required|date',
-            'services' => 'required|string',
-            'status' => 'required|string',
-        ]);
+    // public function store(Request $request)
+    // {
+    //     // Validasi data
+    //     $validated = $request->validate([
+    //         'staff_id' => 'required|exists:staff,_id', // MongoDB menggunakan '_id'
+    //         'name' => 'required|string',
+    //         'room' => 'required|string',
+    //         'date_time' => 'required|date',
+    //         'services' => 'required|string',
+    //         'status' => 'required|string',
+    //     ]);
 
-        // Simpan data ke MongoDB
-        Schedule::create($validated);
+    //     // Simpan data ke MongoDB
+    //     $schedules = Schedule::all();
+    //     return view('Admin.schedules', compact('schedules'));
 
-        return redirect()->back()->with('success', 'Schedule added successfully!');
-    }
+    //     Schedule::create($validated);
+
+    //     return redirect()->back()->with('success', 'Schedule added successfully!');
+    // }
 
     // Kemas kini jadual
     public function updateScheduleList(Request $request)
@@ -103,7 +106,7 @@ class ScheduleController extends Controller
    
     $schedule->name = $request->name;
     $schedule->room_no = $request->room_no;
-    $schedule->datetime= $request->datetime;
+    $schedule->date_time= $request->datetime;
     $schedule->services= $request->services;
     $schedule->status = $request->status;
     $schedule->save();

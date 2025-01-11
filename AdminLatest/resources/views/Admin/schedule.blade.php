@@ -242,11 +242,11 @@
                                 </div>
                                 <div class="mb-4">
                                     <label for="FormControlName" class="form-label">Room No</label>
-                                    <input type="text" class="form-control" name="room" placeholder="Room No" aria-label="Room No">
+                                    <input type="text" class="form-control" name="room_no" placeholder="Room No" aria-label="Room No">
                                 </div>
                                 <div class="mb-4">
                                     <label for="FormControlDateTime" class="form-label">Date/Time</label>
-                                    <input type="datetime-local" class="form-control" name="date_time" aria-label="Date/Time">
+                                    <input type="datetime-local" class="form-control" name="datetime" placeholder="datetime" aria-label="Date/Time">
                                 </div>
                                 <div class="mb-4">
                                     <label for="exampleFormControlSelect1" class="form-label">Services</label>
@@ -295,7 +295,7 @@
                         @foreach ($schedules->sortBy('scheduleID') as $schedule)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $schedule->scheduleID }}</td>
+                            <td>{{ $schedule->staffID }}</td>
                             <td>{{ $schedule->name }}</td>
                             <td>{{ $schedule->room_no }}</td>
                             <td>{{ $schedule->datetime }}</td>
