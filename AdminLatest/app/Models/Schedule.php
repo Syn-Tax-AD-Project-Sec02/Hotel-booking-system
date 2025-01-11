@@ -4,33 +4,25 @@ namespace App\Models;
 
 use Illuminate\Auth\Authenticatable;
 use MongoDB\Laravel\Eloquent\Model as Eloquent; // Use MongoDB's Eloquent model
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 
-
-
-class schedule extends Eloquent implements \Illuminate\Contracts\Auth\Authenticatable
-{   
+class Schedule extends Eloquent implements \Illuminate\Contracts\Auth\Authenticatable
+{
      use Authenticatable;
      protected $connection = 'mongodb';  // MongoDB connection
      protected $collection = 'schedule';    // MongoDB collection
  
-     public function up()
-     {
-         Schema::create('staff_schedules', function (Blueprint $schedule) {
-             $schedule->id();
-             $schedule->foreignId('staff_id')->constrained('staff')->onDelete('cascade');
-             $schedule->foreignId('booking_id')->constrained('booking_list')->onDelete('cascade');
-             $schedule->integer('RoomNo');
-             $schedule->date('CheckIn');
-             $schedule->date('CheckOut');
-             $schedule->timestamps();
-         });
-     }
+     protected $fillable = ['name', 'room_no', 'date_time', 'services', 'status'];
+ 
+//      protected $hidden = [
+//          'password', 'remember_token',
+//      ];
+ 
+//      protected $casts = [
+//          'email_verified_at' => 'datetime',
+//      ];
 
-     public function down()
-     {
-         Schema::dropIfExists('Schedule');
-     }
-    
+//      public function getEmailForPasswordReset()
+// {
+//     return $this->user_email; // Custom column name
+// }
 }
