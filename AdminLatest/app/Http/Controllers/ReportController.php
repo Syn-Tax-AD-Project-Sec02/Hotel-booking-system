@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Room; // Example: Adjust based on your model
+use Illuminate\Support\Facades\DB; // For database queries
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ReportController extends Controller
 {
-    public function index()
+    public function showFormGenerateReport()
     {
-        return view('generateReport'); // Replace with the name of your Blade file
+        return view('Admin.Report.generateReport'); // Display the Generate Report Blade
     }
 
-    public function generate(Request $request)
+    public function generatePDF(Request $request)
     {
         // Validate request
         $request->validate([
@@ -21,16 +22,20 @@ class ReportController extends Controller
             'reportType' => 'required|string',
         ]);
 
-        // Fetch data from database based on dates
-        $rooms = Room::whereBetween('created_at', [$request->startDate, $request->endDate])
-            ->get(); // Replace with your custom query logic
+        // Fetch data based on filters
+        $bookings = DB::collection('booking_list')
+            ->whereBetween('date', [$request->startDate, $request->endDate])
+            ->get();
 
-        // Return report as JSON or to a view
-        return response()->json([
+        // Load the appropriate view and generate the PDF
+        $pdf = Pdf::loadView('pdf.bookingReport', [
+            'bookings' => $bookings,
             'reportType' => $request->reportType,
             'startDate' => $request->startDate,
             'endDate' => $request->endDate,
-            'rooms' => $rooms,
         ]);
+
+        // Return the PDF as a response for download
+        return $pdf->download('booking_report.pdf');
     }
 }

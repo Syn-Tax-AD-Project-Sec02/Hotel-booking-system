@@ -47,13 +47,8 @@
                                         </div>
                                         <div>
                                             <button type="button" class="btn btn-primary btn-rounded shadow mt-4"
-                                                onclick="generateReport()">Generate</button>
+                                                onclick="generatePDF()">Generate</button>
                                         </div>
-                                    </div>
-
-                                    <!-- Report Display -->
-                                    <div id="reportContent">
-                                        <!-- Table or visualization will be dynamically loaded here after report generation -->
                                     </div>
                                 </div>
                             </div>
@@ -83,24 +78,47 @@
 
         <!-- Custom js for Report -->
         <script>
-            function generateReport() {
+            function generatePDF() {
                 const startDate = document.getElementById("reportStartDate").value;
                 const endDate = document.getElementById("reportEndDate").value;
                 const reportType = document.getElementById("reportType").value;
 
-                // Validate inputs
+                // Validate user input
                 if (!startDate || !endDate) {
                     alert("Please select both start and end dates.");
                     return;
                 }
 
-                // Fetch or generate report (this is where you'll integrate your backend logic)
-                const reportContent = `
-                    <h5>Report (${reportType})</h5>
-                    <p>From: ${startDate} To: ${endDate}</p>
-                    <!-- Add dynamically generated report content here -->
-                `;
-                document.getElementById("reportContent").innerHTML = reportContent;
+                // Submit data via POST to the generatePDF route
+                const formData = new FormData();
+                formData.append('startDate', startDate);
+                formData.append('endDate', endDate);
+                formData.append('reportType', reportType);
+
+                fetch("{{ url('/generate-pdf') }}", {
+                        method: "POST",
+                        headers: {
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                        },
+                        body: formData,
+                    })
+                    .then((response) => {
+                        if (!response.ok) throw new Error("Failed to generate report.");
+                        return response.blob();
+                    })
+                    .then((blob) => {
+                        // Create a temporary link to download the file
+                        const url = window.URL.createObjectURL(blob);
+                        const link = document.createElement("a");
+                        link.href = url;
+                        link.download = "booking_report.pdf";
+                        link.click();
+                        window.URL.revokeObjectURL(url);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        alert("An error occurred while generating the report.");
+                    });
             }
         </script>
 </body>

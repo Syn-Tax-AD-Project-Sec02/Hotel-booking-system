@@ -65,7 +65,8 @@
             </a>
         </li> --}}
         <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#staff-dropdown" aria-expanded="false" aria-controls="staff-dropdown">
+            <a class="nav-link" data-bs-toggle="collapse" href="#staff-dropdown" aria-expanded="false"
+                aria-controls="staff-dropdown">
                 <span class="menu-title">Staff</span>
                 <i class="menu-arrow"></i>
                 <i class="mdi mdi-account-outline menu-icon"></i>
@@ -81,10 +82,10 @@
                 </ul>
             </div>
         </li>
-        
+
         <li class="nav-item">
-            <a class="nav-link" href="{{ url('rate.html') }}">
-                <span class="menu-title">Rate</span>
+            <a class="nav-link" href="{{ url('/generate-report') }}">
+                <span class="menu-title">Report</span>
                 <i class="mdi mdi-tag-outline menu-icon"></i>
             </a>
         </li>
@@ -97,7 +98,7 @@
         </li>
 
 
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
                 <span class="menu-title">User Pages</span>
                 <i class="menu-arrow"></i>
@@ -117,6 +118,6 @@
                     </li>
                 </ul>
             </div>
-        </li>
+        </li> --}}
     </ul>
 </nav>

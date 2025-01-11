@@ -14,7 +14,7 @@ class BookingController extends Controller
 {
     public function showBookingList()
     {
-        $bookings = Booking::from('booking_list')->paginate(6);
+        $bookings = Booking::from('booking_list')->paginate(100);
         return view('Admin.Booking.Booking', compact('bookings'));
     }
 
@@ -39,8 +39,8 @@ class BookingController extends Controller
         $room = new Room();
         $room->setTable('room_lists');
         $room = $room->where('RoomNo', $request->RoomNo)
-             ->where('TypeRoom', $request->TypeRoom)
-             ->first();
+            ->where('TypeRoom', $request->TypeRoom)
+            ->first();
         if (!$room) {
             return redirect()->back()->with('error', 'The selected room does not exist or the details do not match.');
         }
@@ -50,15 +50,15 @@ class BookingController extends Controller
         $booking->setTable('booking_list');
 
         $existingBooking = $booking->where('RoomNo', $request->RoomNo)
-        ->where(function ($query) use ($request) {
-            $query->whereBetween('CheckIn', [$request->CheckIn, $request->CheckOut])
-                  ->orWhereBetween('CheckOut', [$request->CheckIn, $request->CheckOut])
-                  ->orWhere(function ($query) use ($request) {
-                      $query->where('CheckIn', '<=', $request->CheckIn)
+            ->where(function ($query) use ($request) {
+                $query->whereBetween('CheckIn', [$request->CheckIn, $request->CheckOut])
+                    ->orWhereBetween('CheckOut', [$request->CheckIn, $request->CheckOut])
+                    ->orWhere(function ($query) use ($request) {
+                        $query->where('CheckIn', '<=', $request->CheckIn)
                             ->where('CheckOut', '>=', $request->CheckOut);
-                  });
-        })
-        ->first();
+                    });
+            })
+            ->first();
 
         if ($existingBooking) {
             return redirect()->back()->with('error', 'The selected room is already booked for the chosen dates.');
@@ -82,28 +82,28 @@ class BookingController extends Controller
 
     public function updateBookingList(Request $request)
     {
-       // dd($request->all());
-    $bookingId = $request->input('booking_id');
+        // dd($request->all());
+        $bookingId = $request->input('booking_id');
 
-    $booking = new Booking();
-    $booking->setTable('booking_list'); // Ensure you're pointing to the right table
+        $booking = new Booking();
+        $booking->setTable('booking_list'); // Ensure you're pointing to the right table
 
-    $booking = $booking->findOrFail($bookingId);
+        $booking = $booking->findOrFail($bookingId);
 
-    $booking->Name = $request->Name;
-    $booking->RoomNo = $request->RoomNo;
-    $booking->TypeRoom = $request->TypeRoom;
-    $booking->CheckIn = $request->CheckIn;
-    $booking->CheckOut = $request->CheckOut;
-    $booking->Phone = $request->Phone;
-    $booking->save();
+        $booking->Name = $request->Name;
+        $booking->RoomNo = $request->RoomNo;
+        $booking->TypeRoom = $request->TypeRoom;
+        $booking->CheckIn = $request->CheckIn;
+        $booking->CheckOut = $request->CheckOut;
+        $booking->Phone = $request->Phone;
+        $booking->save();
 
-    return redirect()->route('bookingListsForm')->with('success', 'Room details updated successfully!');
+        return redirect()->route('bookingListsForm')->with('success', 'Room details updated successfully!');
     }
 
     public function deleteBookingList(Request $request)
     {
-       // dd($request->all());
+        // dd($request->all());
 
         $bookingId = $request->input('booking_id');
 
@@ -130,15 +130,15 @@ class BookingController extends Controller
         $checkOut = $request->input('checkOut');
 
         // Convert input dates to Carbon instances for proper comparison
-    $checkIn = \Carbon\Carbon::parse($checkIn);
-    $checkOut = \Carbon\Carbon::parse($checkOut);
+        $checkIn = \Carbon\Carbon::parse($checkIn);
+        $checkOut = \Carbon\Carbon::parse($checkOut);
 
         // Fetch all rooms from the room_lists table based on the selected room type
         $rooms = new Room();
         $rooms->setTable('room_lists');
         // Get all available rooms for the selected room type
         $rooms = $rooms->where('TypeRoom', $selectedRoomType)
-        ->get();
+            ->get();
 
         // Get booked rooms by checking if they overlap with the requested date range
         $booking = new Booking();
@@ -146,11 +146,11 @@ class BookingController extends Controller
 
         $bookedRooms = $booking->where(function ($query) use ($checkIn, $checkOut) {
             $query->whereBetween('CheckIn', [$checkIn, $checkOut]) // Check if booking CheckIn is within the range
-                  ->orWhereBetween('CheckOut', [$checkIn, $checkOut]) // Check if booking CheckOut is within the range
-                  ->orWhere(function ($query) use ($checkIn, $checkOut) {
-                      $query->where('CheckIn', '<=', $checkIn) // Booking period completely overlaps requested period
-                            ->where('CheckOut', '>=', $checkOut);
-                  });
+                ->orWhereBetween('CheckOut', [$checkIn, $checkOut]) // Check if booking CheckOut is within the range
+                ->orWhere(function ($query) use ($checkIn, $checkOut) {
+                    $query->where('CheckIn', '<=', $checkIn) // Booking period completely overlaps requested period
+                        ->where('CheckOut', '>=', $checkOut);
+                });
         })->pluck('RoomNo')->toArray(); // Convert booked room numbers to an array
 
         // Step 3: Filter rooms that are not booked (exclude booked rooms)
@@ -158,11 +158,9 @@ class BookingController extends Controller
             return !in_array($room->RoomNo, $bookedRooms); // Exclude rooms already booked
         });
 
-         Log::info($rooms);
+        Log::info($rooms);
 
         // Return the rooms as a JSON response
         return response()->json(['rooms' => $rooms]);
     }
-
-
 }

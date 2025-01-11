@@ -6,10 +6,11 @@ use App\Http\Controllers\StaffController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\ScheduleController;
 
 Route::get('/', function () {
     return view('Admin.user.login');
@@ -84,6 +85,7 @@ Route::post('/schedule', [ScheduleController::class, 'addScheduleList']);
 Route::put('/schedule', [ScheduleController::class, 'updateScheduleList'])->name('updateScheduleList');
 Route::delete('/schedule', [ScheduleController::class, 'deleteScheduleList'])->name('deleteScheduleList');
 
+Route::get('/generate-report', [ReportController::class, 'showFormGenerateReport'])->name('generateReport');
+Route::get('/generate-pdf', [ReportController::class, 'generatePDF'])->name('generatePDF');
 
-// For Storing Messages
 Route::get('/contact/index', [ContactController::class, 'index'])->name('contact.index');
