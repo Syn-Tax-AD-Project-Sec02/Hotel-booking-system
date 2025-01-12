@@ -252,6 +252,16 @@
                                                                 <!-- Divider -->
                                                                 <div class="dropdown-divider"></div>
 
+                                                                <!-- Receipt Option -->
+                                                                    <a class="dropdown-item" href="#"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#modalReceipt{{ $booking->id }}">
+                                                                    <i class="mdi mdi-receipt-text me-2 text-success"></i> Receipt
+                                                                </a>
+
+                                                                <!-- Divider -->
+                                                                <div class="dropdown-divider"></div>
+
                                                                 <!-- Delete Option -->
                                                                 <!-- Delete Option -->
                                                                 <a class="dropdown-item" href="javascript:void(0);"
@@ -425,6 +435,50 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+
+                                                            <!-- Receipt Modal (Separate) -->
+<!-- Receipt Modal (Separate) -->
+<div class="modal fade" id="modalReceipt{{ $booking->id }}"
+    tabindex="-1"
+    aria-labelledby="modalReceiptLabel{{ $booking->id }}"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color: white;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalReceiptLabel{{ $booking->id }}">
+                    Receipt for Booking #{{ $booking->id }}
+                </h5>
+                <button type="button" class="btn-close"
+                    data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="receiptContent{{ $booking->id }}">
+                <!-- Receipt Content -->
+                <div class="receipt">
+                    <h6>Booking ID: {{ $booking->id }}</h6>
+                    <p><strong>Customer Name:</strong> {{ $booking->customer_name }}</p>
+                    <p><strong>Check-In Date:</strong> {{ $booking->CheckIn }}</p>
+                    <p><strong>Check-Out Date:</strong> {{ $booking->CheckOut }}</p>
+                    <p><strong>Room Type:</strong> {{ $booking->TypeRoom }}</p>
+                    <p><strong>Room No:</strong> {{ $booking->RoomNo }}</p>
+                    <p><strong>Total Amount:</strong> ${{ $booking->total_amount }}</p>
+                    <!-- Add more receipt details as needed -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!-- Print Button -->
+                <button type="button" class="btn btn-primary" onclick="printReceipt('receiptContent{{ $booking->id }}')">Print</button>
+                
+                <!-- Download Button -->
+                <button type="button" class="btn btn-secondary" onclick="downloadPDF('receiptContent{{ $booking->id }}', 'Receipt_{{ $booking->id }}')">Download PDF</button>
+                
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+                                                            
                                                         </td>
                                                     </tr>
                                                     @section('content')
@@ -559,12 +613,34 @@
                         });
                     }
                 });
+
+                function printReceipt(elementId) {
+        var content = document.getElementById(elementId).innerHTML;
+        var originalContent = document.body.innerHTML;
+        document.body.innerHTML = content;
+        window.print();
+        document.body.innerHTML = originalContent;
+    }
+
+                // Function to download the receipt as a PDF
+                function downloadPDF(elementId, filename) {
+                    var element = document.getElementById(elementId);
+                    var opt = {
+                        margin:       1,
+                        filename:     filename + '.pdf',
+                        image:        { type: 'jpeg', quality: 0.98 },
+                        html2canvas:  { scale: 2 },
+                        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+                    };
+                    html2pdf().from(element).set(opt).save();
+                }
             </script>
             <script src="{{ asset('dist/assets/js/off-canvas.js') }}"></script>
             <script src="{{ asset('dist/assets/js/misc.js') }}"></script>
             <script src="{{ asset('dist/assets/js/settings.js') }}"></script>
             <script src="{{ asset('dist/assets/js/todolist.js') }}"></script>
             <script src="{{ asset('dist/assets/js/jquery.cookie.js') }}"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 
 
             <!-- Custom js for this page -->

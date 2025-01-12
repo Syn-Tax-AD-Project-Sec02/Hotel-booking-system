@@ -50,6 +50,7 @@ class ScheduleController extends Controller
             'status' => 'required|string|max:50',
             'action' => 'nullable|string|max:255',
         ]);
+        
 
         // if ($validator->fails()) {
         //     return redirect()->back()->withErrors($validator)->withInput();
