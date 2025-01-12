@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use MongoDB\BSON\ObjectId;
+use Carbon\Carbon;
 
 class ScheduleController extends Controller
 {
@@ -44,7 +45,7 @@ class ScheduleController extends Controller
             'staff_id' => 'required|string|max:255',
             'name' => 'required|string|max:255',
             'room' => 'required|string|max:50',
-            'date_time' => 'required|date',
+            'date_time' => 'required|date_format:Y-m-d\TH:i',
             'services' => 'required|string|max:255',
             'status' => 'required|string|max:50',
             'action' => 'nullable|string|max:255',
@@ -59,7 +60,7 @@ class ScheduleController extends Controller
         $schedule->staffID = 'STF' . str_pad(rand(1, 999), 3, '0', STR_PAD_LEFT);
         $schedule->name = $request->name;
         $schedule->room_no = $request->room_no;
-        $schedule->date_time = $request->datetime;
+        $schedule->date_time = Carbon::createFromFormat('Y-m-d\TH:i', $request->date_time)->format('Y-m-d H:i:s');
         $schedule->services = $request->services;
         $schedule->status = $request->status;
         $schedule->action = $request->action;
@@ -106,8 +107,8 @@ class ScheduleController extends Controller
    
     $schedule->name = $request->name;
     $schedule->room_no = $request->room_no;
-    $schedule->date_time= $request->datetime;
-    $schedule->services= $request->services;
+    $schedule->date_time = Carbon::createFromFormat('Y-m-d\TH:i', $request->date_time)->format('Y-m-d H:i:s');
+    $schedule->services = $request->services;
     $schedule->status = $request->status;
     $schedule->save();
     

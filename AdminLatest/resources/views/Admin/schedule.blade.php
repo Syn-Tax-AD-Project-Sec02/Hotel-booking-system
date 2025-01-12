@@ -245,8 +245,8 @@
                                     <input type="text" class="form-control" name="room_no" placeholder="Room No" aria-label="Room No">
                                 </div>
                                 <div class="mb-4">
-                                    <label for="FormControlDateTime" class="form-label">Date/Time</label>
-                                    <input type="datetime-local" class="form-control" name="datetime" placeholder="datetime" aria-label="Date/Time">
+                                    <label for="date_time" class="form-label">Date/Time</label>
+                                    <input type="datetime-local" class="form-control" name="date_time" placeholder="date_time" aria-label="Date/Time">
                                 </div>
                                 <div class="mb-4">
                                     <label for="exampleFormControlSelect1" class="form-label">Services</label>
@@ -298,7 +298,7 @@
                             <td>{{ $schedule->staffID }}</td>
                             <td>{{ $schedule->name }}</td>
                             <td>{{ $schedule->room_no }}</td>
-                            <td>{{ $schedule->datetime }}</td>
+                            <td>{{ $schedule->date_time }}</td>
                             <td>{{ $schedule->services }}</td>
                             <td>{{ $schedule->status }}</td>
                             <td>
@@ -354,8 +354,8 @@
                                                 <input type="text" class="form-control" name="room_no" id="room_no" value="{{ $schedule->room_no }}">
                                             </div>
                                             <div class="mb-4">
-                                                <label for="datetime" class="form-label">Date/Time</label>
-                                                <input type="datetime-local" class="form-control" name="datetime" id="datetime" value="{{ $schedule->datetime }}">
+                                                <label for="date_time" class="form-label">Date/Time</label>
+                                                <input type="datetime-local" class="form-control" name="date_time" id="date_time" value="{{ $schedule->date_time }}">
                                             </div>
                                             <div class="mb-4">
                                                 <label for="services" class="form-label">Services</label>
