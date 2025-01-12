@@ -23,8 +23,10 @@ class ReportController extends Controller
         ]);
 
         // Fetch data based on filters
-        $bookings = DB::collection('booking_list')
-            ->whereBetween('date', [$request->startDate, $request->endDate])
+        $booking = new Booking;
+        $booking->setTable('booking_list');
+
+        $bookings = $booking->whereBetween('date', [$request->startDate, $request->endDate])
             ->get();
 
         // Load the appropriate view and generate the PDF

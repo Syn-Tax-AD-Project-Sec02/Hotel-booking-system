@@ -86,6 +86,6 @@ Route::put('/schedule', [ScheduleController::class, 'updateScheduleList'])->name
 Route::delete('/schedule', [ScheduleController::class, 'deleteScheduleList'])->name('deleteScheduleList');
 
 Route::get('/generate-report', [ReportController::class, 'showFormGenerateReport'])->name('generateReport');
-Route::get('/generate-pdf', [ReportController::class, 'generatePDF'])->name('generatePDF');
+Route::post('/generate-pdf', [ReportController::class, 'generatePDF']);
 
 Route::get('/contact/index', [ContactController::class, 'index'])->name('contact.index');

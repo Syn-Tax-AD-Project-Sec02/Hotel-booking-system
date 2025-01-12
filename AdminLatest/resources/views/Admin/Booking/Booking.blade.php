@@ -436,46 +436,92 @@
                                                                 </div>
                                                             </div>
 
-                                                            <!-- Receipt Modal (Separate) -->
-<!-- Receipt Modal (Separate) -->
-<div class="modal fade" id="modalReceipt{{ $booking->id }}"
-    tabindex="-1"
-    aria-labelledby="modalReceiptLabel{{ $booking->id }}"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content" style="background-color: white;">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalReceiptLabel{{ $booking->id }}">
-                    Receipt for Booking #{{ $booking->id }}
-                </h5>
-                <button type="button" class="btn-close"
-                    data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="receiptContent{{ $booking->id }}">
-                <!-- Receipt Content -->
-                <div class="receipt">
-                    <h6>Booking ID: {{ $booking->id }}</h6>
-                    <p><strong>Customer Name:</strong> {{ $booking->customer_name }}</p>
-                    <p><strong>Check-In Date:</strong> {{ $booking->CheckIn }}</p>
-                    <p><strong>Check-Out Date:</strong> {{ $booking->CheckOut }}</p>
-                    <p><strong>Room Type:</strong> {{ $booking->TypeRoom }}</p>
-                    <p><strong>Room No:</strong> {{ $booking->RoomNo }}</p>
-                    <p><strong>Total Amount:</strong> ${{ $booking->total_amount }}</p>
-                    <!-- Add more receipt details as needed -->
-                </div>
-            </div>
-            <div class="modal-footer">
-                <!-- Print Button -->
-                <button type="button" class="btn btn-primary" onclick="printReceipt('receiptContent{{ $booking->id }}')">Print</button>
-                
-                <!-- Download Button -->
-                <button type="button" class="btn btn-secondary" onclick="downloadPDF('receiptContent{{ $booking->id }}', 'Receipt_{{ $booking->id }}')">Download PDF</button>
-                
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+                                                            <!-- Receipt Modal -->
+                                                            <div class="modal fade" id="modalReceipt{{ $booking->id }}" tabindex="-1" aria-labelledby="modalReceiptLabel{{ $booking->id }}" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered">
+                                                                    <div class="modal-content" style="background-color: #fff; border-radius: 10px; overflow: hidden;">
+                                                                        <div class="modal-header" style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
+                                                                            <h5 class="modal-title fw-bold" id="modalReceiptLabel{{ $booking->id }}">
+                                                                                Receipt for Booking #{{ $booking->BookingID }}
+                                                                            </h5>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body" id="receiptContent{{ $booking->id }}" style="padding: 20px; font-family: Arial, sans-serif;">
+                                                                            <!-- Receipt Content -->
+                                                                            <div class="receipt" style="max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 10px; padding: 20px; background-color: #fdfdfd; box-shadow: 0px 4px 8px rgba(0,0,0,0.1);">
+                                                                                <!-- Header -->
+                                                                                <div style="text-align: center; margin-bottom: 20px;">
+                                                                                    <h4 style="margin: 0; font-size: 18px; color: #333;">Customer Receipt</h4>
+                                                                                    <p style="margin: 0; font-size: 12px; color: #777;">Your reservation is now confirmed</p>
+                                                                                </div>
+                                                                                <!-- Guest Details -->
+                                                                                <div style="margin-bottom: 20px;">
+                                                                                    <p style="margin: 5px 0; font-size: 14px;"><strong>Guest:</strong> {{ $booking->Name }}</p>
+                                                                                    <p style="margin: 5px 0; font-size: 14px;"><strong>Phone Number:</strong> {{ $booking->Phone }}</p>
+                                                                                </div>
+                                                                                <!-- Booking Details -->
+                                                                                <div style="margin-bottom: 20px;">
+                                                                                    <table style="width: 100%; font-size: 14px; color: #333;">
+                                                                                        <tr>
+                                                                                            <td><strong>Check-In:</strong></td>
+                                                                                            <td style="text-align: right;">{{ $booking->CheckIn }}</td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td><strong>Check-Out:</strong></td>
+                                                                                            <td style="text-align: right;">{{ $booking->CheckOut }}</td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td><strong>Room Type:</strong></td>
+                                                                                            <td style="text-align: right;">{{ $booking->TypeRoom }}</td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td><strong>Room No:</strong></td>
+                                                                                            <td style="text-align: right;">{{ $booking->RoomNo }}</td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>
+                                                                                <!-- Price Details -->
+                                                                                <div style="margin-bottom: 20px; border-top: 1px solid #ddd; padding-top: 15px;">
+                                                                                    <table style="width: 100%; font-size: 14px; color: #333;">
+                                                                                        <tr>
+                                                                                            <td><strong>Price Per Night:</strong></td>
+                                                                                            <td style="text-align: right;">
+                                                                                                <!-- Fetch Rate from the $rooms collection -->
+                                                                                                RM{{ $room[$booking->TypeRoom]->Rate ?? 'N/A' }}
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td><strong>Service Tax (6%):</strong></td>
+                                                                                            <td style="text-align: right;">RM</td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>
+                                                                                <!-- Total -->
+                                                                                <div style="border-top: 2px solid #333; padding-top: 10px;">
+                                                                                    <table style="width: 100%; font-size: 16px; font-weight: bold; color: #333;">
+                                                                                        <tr>
+                                                                                            <td>Total:</td>
+                                                                                            <td style="text-align: right;">RM{{ $booking->TotalPrice }}</td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer" style="background-color: #f8f9fa; border-top: 1px solid #ddd;">
+                                                                            <!-- Print Button -->
+                                                                            <button type="button" class="btn btn-success" onclick="printReceipt('receiptContent{{ $booking->id }}')">
+                                                                                Print
+                                                                            </button>
+                                                                            <!-- Download Button -->
+                                                                            <button type="button" class="btn btn-primary" onclick="downloadPDF('receiptContent{{ $booking->id }}', 'Receipt_{{ $booking->id }}')">
+                                                                                Download PDF
+                                                                            </button>
+                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
 
 
                                                             
