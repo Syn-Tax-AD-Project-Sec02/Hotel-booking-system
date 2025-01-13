@@ -16,18 +16,15 @@ Route::get('/', function () {
     return view('Admin.user.login');
 });
 
-Route::get('/user/register', function () {
-    return view('Admin.user.register');
-});
-
 Route::get('/user/resetPassword', function () {
     return view('Admin.user.resetPassword');
 });
 
 Route::get('/login', [LoginController::class, 'showForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
 
 // Handle login submission (POST request)
-Route::post('/login', [LoginController::class, 'login']);
+
 Route::get('/admin/dashboard', [LoginController::class, 'adminIndex'])->name('admin.dashboard.index');
 
 // Route to the staff dashboard
@@ -46,7 +43,6 @@ Route::middleware('auth:admins')->group(function () {
 Route::middleware('auth:staff')->group(function () {
     Route::get('/profile', [ProfileController::class, 'profileStaffForm'])->name('profileStaffForm');
     Route::post('/profile', [ProfileController::class, 'changePasswordStaff'])->name('changePassStaff');
-
     Route::put('/profile', [ProfileController::class, 'updateStaffDetails'])->name('updateStaffDetails');
 });
 
@@ -79,21 +75,14 @@ Route::post('/staff-list', [StaffController::class, 'addStaffList']);
 Route::put('/staff-list', [StaffController::class, 'updateStaffList'])->name('updateStaffList');
 Route::delete('/staff-list', [StaffController::class, 'deleteStaffList'])->name('deleteStaffList');
 
-
 Route::get('/schedule', [ScheduleController::class, 'showFormScheduleLists'])->name('ScheduleListForm');
 Route::post('/schedule', [ScheduleController::class, 'addScheduleList']);
 Route::put('/schedule', [ScheduleController::class, 'updateScheduleList'])->name('updateScheduleList');
 Route::delete('/schedule', [ScheduleController::class, 'deleteScheduleList'])->name('deleteScheduleList');
 
 Route::get('/generate-report', [ReportController::class, 'showFormGenerateReport'])->name('generateReport');
-
 Route::post('/generate-pdf', [ReportController::class, 'generatePDF'])->name('generatePDF');
-// Route::post('/generate-pdf', [ReportController::class, 'generatePDF'])->name('generatePDF');
-
 
 Route::get('/contact/index', [ContactController::class, 'index'])->name('contact.index');
 
 Route::post('/get-staff', [ScheduleController::class, 'getStaff'])->name('get.staff');
-
-
-
