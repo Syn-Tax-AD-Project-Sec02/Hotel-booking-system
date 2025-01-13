@@ -216,7 +216,7 @@
                                         <tbody>
                                             @foreach ($rooms as $room)
                                                 <tr>
-                                                    <td>{{ $loop->iteration + ($rooms->currentPage() - 1) * $rooms->perPage() }}
+                                                    <td>{{ $loop->iteration  }}
                                                     </td>
                                                     <td
                                                         style="width: 250px; text-align: center; vertical-align: middle;">
