@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile', [ProfileController::class, 'updateDetails'])->name('updateDetails');
     Route::get('/changePassword', [ProfileController::class, 'changePasswordForm'])->name('changePassForm');
     Route::post('/changePassword', [ProfileController::class, 'updatePasswordCust'])->name('updatePasswordCust');
+    Route::get('/booking-history', [ProfileController::class, 'HistoryForm'])->name('HistoryForm');
 
     Route::get('/booking', [BookingController::class, 'booking'])->name('booking');
 });

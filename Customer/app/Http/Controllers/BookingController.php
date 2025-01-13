@@ -31,6 +31,7 @@ class BookingController extends Controller
     $rate = $room->where('_id', $roomId)->value('Rate');
 
     $user = Auth::user();
+    
 
     return view('Payment', compact('roomId', 'typeRoom', 'checkin', 'checkout', 'guests', 'user', 'rate'));
 
@@ -75,6 +76,8 @@ public function storeBooking(Request $request)
    // In BookingController.php
 public function checkAvailability(Request $request)
 {
+
+    
     $roomId = $request->input('room_id');
     $typeRoom = $request->input('type_room');
     $checkin = $request->input('checkin');

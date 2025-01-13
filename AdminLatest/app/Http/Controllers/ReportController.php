@@ -26,7 +26,7 @@ class ReportController extends Controller
 
     //     // Convert startDate and endDate to ISODate-compatible timestamps
     //     $startDateTimestamp = strtotime($startDate . ' 00:00:00') * 1000; // Start of day in milliseconds
-    //     $endDateTimestamp = strtotime($endDate . ' 23:59:59') * 1000;    // End of day in milliseconds
+    //     $endDateTimestamp =  strtotime($endDate . ' 23:59:59') * 1000;    // End of day in milliseconds
 
     //     // Fetch data from the MongoDB 'booking_list' collection
     //     $bookings = DB::collection('booking_list')
