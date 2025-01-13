@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Validator;
 use Illuminate\Support\Facades\Log;
 use MongoDB\BSON\ObjectId;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\StaffPasswordMail;
 
 class StaffController extends Controller
 {
@@ -30,6 +32,8 @@ class StaffController extends Controller
         ]);
   
         // Save user to MongoDB
+        $password = $this->generatePassword();
+
         $staff = new Staff;
         $staff->setTable('staff');
         $staff->staffID = 'STF' . str_pad(rand(1, 999), 3, '0', STR_PAD_LEFT);
@@ -38,7 +42,12 @@ class StaffController extends Controller
         $staff->position = $request->position;
         $staff->phone = $request->phone;
         $staff->address = $request->address;
+        $staff->password = bcrypt($password);
+        
+
         $staff->save();
+
+        Mail::to($staff->email)->send(new StaffPasswordMail($staff, $password));
 
         // Log the email verification event
         Log::info('Staff details successfully added: ' . $staff->id);
@@ -46,6 +55,18 @@ class StaffController extends Controller
         //return redirect()->route('login')->with('success', 'Registration successful! Please check your email for the verification link.');
         //return redirect()->route('forgotPassword');
     }
+
+    protected function generatePassword($length = 8)
+{
+    $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+    $password = '';
+    
+    for ($i = 0; $i < $length; $i++) {
+        $password .= $characters[rand(0, strlen($characters) - 1)];
+    }
+
+    return $password;
+}
 
     public function updateStaffList(Request $request)
     {

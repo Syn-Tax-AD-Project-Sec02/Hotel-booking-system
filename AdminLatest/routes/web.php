@@ -92,3 +92,8 @@ Route::post('/generate-pdf', [ReportController::class, 'generatePDF'])->name('ge
 
 
 Route::get('/contact/index', [ContactController::class, 'index'])->name('contact.index');
+
+Route::post('/get-staff', [ScheduleController::class, 'getStaff'])->name('get.staff');
+
+
+
