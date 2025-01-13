@@ -1,33 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <title>Booking Report</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>{{ $reportType }} Report</h1>
-    <p>Date Range: {{ $startDate }} - {{ $endDate }}</p>
-    <table border="1" cellpadding="5" cellspacing="0">
+    <h1>{{ $title }}</h1>
+    <p>{{ $date }}</p>
+    <table>
         <thead>
             <tr>
+                <th>#</th>
                 <th>Booking ID</th>
-                <th>Guest Name</th>
-                <th>Room</th>
-                <th>Date</th>
-                <th>Status</th>
+                <th>Name</th>
+                <th>Room No</th>
+                <th>Room Type</th>
+                <th>Check-In</th>
+                <th>Check-Out</th>
+                <th>Phone</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($bookings as $booking)
+            @forelse ($bookings as $booking)
                 <tr>
-                    <td>{{ $booking['_id'] }}</td>
-                    <td>{{ $booking['guest_name'] }}</td>
-                    <td>{{ $booking['room'] }}</td>
-                    <td>{{ $booking['date'] }}</td>
-                    <td>{{ $booking['status'] }}</td>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $booking->BookingID }}</td>
+                    <td>{{ $booking->Name }}</td>
+                    <td>{{ $booking->TypeRoom }}</td>
+                    <td>{{ $booking->RoomNo }}</td>
+                    <td>{{ $booking->CheckIn }}</td>
+                    <td>{{ $booking->CheckOut }}</td>
+                    {{-- <td>{{ $booking->Adults }} Adults {{ $booking->Children }}
+                        Children</td> --}}
+                    <td>{{ $booking->Phone }}</td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="8">No bookings available.</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 </body>

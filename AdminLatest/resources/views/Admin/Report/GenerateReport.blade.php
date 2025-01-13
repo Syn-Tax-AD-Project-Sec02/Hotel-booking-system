@@ -23,33 +23,35 @@
                         <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <!-- Header with Generate Report Button -->
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <h4 class="card-title">Report Generator</h4>
-                                    </div>
-
-                                    <!-- Filters for Report Generation -->
-                                    <div class="d-flex justify-content-start align-items-center mb-4">
-                                        <div class="me-3">
-                                            <label for="reportStartDate" class="form-label">Start Date:</label>
-                                            <input type="date" class="form-control" id="reportStartDate" />
+                                    <!-- Report Generator Form -->
+                                    <h4 class="card-title">Report Generator</h4>
+                                    <form method="POST" action="{{ route('generatePDF') }}">
+                                        @csrf
+                                        <div class="d-flex justify-content-start align-items-center mb-4">
+                                            {{-- <div class="me-3">
+                                                <label for="reportStartDate" class="form-label">Start Date:</label>
+                                                <input type="date" class="form-control" name="startDate"
+                                                    id="reportStartDate" required />
+                                            </div>
+                                            <div class="me-3">
+                                                <label for="reportEndDate" class="form-label">End Date:</label>
+                                                <input type="date" class="form-control" name="endDate"
+                                                    id="reportEndDate" required />
+                                            </div>
+                                            <div class="me-3">
+                                                <label for="reportType" class="form-label">Report Type:</label>
+                                                <select class="form-select" name="reportType" id="reportType">
+                                                    <option value="summary">Summary</option>
+                                                    <option value="detailed">Detailed</option>
+                                                </select>
+                                            </div> --}}
+                                            <div>
+                                                <button type="submit" class="btn btn-primary btn-rounded shadow mt-4">
+                                                    Generate PDF
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div class="me-3">
-                                            <label for="reportEndDate" class="form-label">End Date:</label>
-                                            <input type="date" class="form-control" id="reportEndDate" />
-                                        </div>
-                                        <div class="me-3">
-                                            <label for="reportType" class="form-label">Report Type:</label>
-                                            <select class="form-select" id="reportType">
-                                                <option value="summary">Summary</option>
-                                                <option value="detailed">Detailed</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <button type="button" class="btn btn-primary btn-rounded shadow mt-4"
-                                                onclick="generatePDF()">Generate</button>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -75,52 +77,6 @@
         <script src="{{ asset('dist/assets/js/settings.js') }}"></script>
         <script src="{{ asset('dist/assets/js/todolist.js') }}"></script>
         <script src="{{ asset('dist/assets/js/jquery.cookie.js') }}"></script>
-
-        <!-- Custom js for Report -->
-        <script>
-            function generatePDF() {
-                const startDate = document.getElementById("reportStartDate").value;
-                const endDate = document.getElementById("reportEndDate").value;
-                const reportType = document.getElementById("reportType").value;
-
-                // Validate user input
-                if (!startDate || !endDate) {
-                    alert("Please select both start and end dates.");
-                    return;
-                }
-
-                // Submit data via POST to the generatePDF route
-                const formData = new FormData();
-                formData.append('startDate', startDate);
-                formData.append('endDate', endDate);
-                formData.append('reportType', reportType);
-
-                fetch("{{ url('/generate-pdf') }}", {
-                        method: "POST",
-                        headers: {
-                            "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                        },
-                        body: formData,
-                    })
-                    .then((response) => {
-                        if (!response.ok) throw new Error("Failed to generate report.");
-                        return response.blob();
-                    })
-                    .then((blob) => {
-                        // Create a temporary link to download the file
-                        const url = window.URL.createObjectURL(blob);
-                        const link = document.createElement("a");
-                        link.href = url;
-                        link.download = "booking_report.pdf";
-                        link.click();
-                        window.URL.revokeObjectURL(url);
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                        alert("An error occurred while generating the report.");
-                    });
-            }
-        </script>
 </body>
 
 </html>
