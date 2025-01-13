@@ -36,6 +36,7 @@ class StaffController extends Controller
 
         $staff = new Staff;
         $staff->setTable('staff');
+        $staff->role = 'staff';
         $staff->staffID = 'STF' . str_pad(rand(1, 999), 3, '0', STR_PAD_LEFT);
         $staff->email = $request->email;
         $staff->name = $request->name;
