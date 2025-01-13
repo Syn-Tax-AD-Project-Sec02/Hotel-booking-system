@@ -17,7 +17,7 @@ class RoomController extends Controller
 {
     public function showFormRoomDetails()
     {
-        $rooms = Room::from('rooms_details')->paginate(10);
+        $rooms = Room::from('rooms_details')->get();;
         return view('Admin.Room.RoomDetails', compact('rooms'));
     }
 
@@ -155,7 +155,7 @@ class RoomController extends Controller
 
     public function showFormRoomLists()
     {
-        $rooms = (new Room)->setTable('room_lists')->paginate(6);
+        $rooms = (new Room)->setTable('room_lists')->get();
         return view('Admin.Room.RoomLists', compact('rooms'));
     }
 
