@@ -50,6 +50,9 @@ Route::post('/reset-password', [ForgotPasswordController::class, 'reset'])->name
 
 Route::get('/toyyibpay', [ToyyibpayController::class, 'createBill'])->name('toyyibpay');
 Route::get('toyyibpay-status', [ToyyibpayController::class, 'paymentStatus'])->name('paymentStatus');
-Route::post('toyyibpay-callback', [ToyyibpayController::class, 'callback'])->name('callback');
+Route::post('toyyibpay-callback', [ToyyibpayController::class, 'paymentCallback'])->name('callback');
+Route::get('/payment-success/{billCode}', [ToyyibpayController::class, 'paymentSuccess'])->name('payment-success');
+Route::get('/payment-failed', [ToyyibpayController::class, 'paymentFailed'])->name('payment-failed');
+
 
 Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
