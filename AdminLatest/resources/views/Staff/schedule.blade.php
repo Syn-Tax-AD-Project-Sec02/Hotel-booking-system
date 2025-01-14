@@ -150,7 +150,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($schedules->sortBy('scheduleID') as $schedule)
+                                            @foreach ($filteredSchedule as $schedule)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $schedule->staffID }}</td>
