@@ -19,7 +19,8 @@ class ScheduleController extends Controller
     public function showFormScheduleLists()
     {
         $schedules = (new Schedule)->setTable('schedule')->paginate(20);
-        return view('Admin.schedule', compact('schedules'));
+        $staffs = Staff::all();
+        return view('Admin.schedule', compact('schedules', 'staffs'));
     }
 
     // public function showFormScheduleLists()
@@ -72,6 +73,28 @@ class ScheduleController extends Controller
         return redirect()->route('ScheduleListForm')->with('success', 'Schedule successfully added!');
     }
 
+    public function getStaff(Request $request)
+    {
+        $service = $request->input('service');
+
+        // Validate the service input to ensure it's either 'Housekeeping' or 'Maintenance'
+        $allowedServices = ['Housekeeper', 'Maintenance'];
+        if (!in_array($service, $allowedServices)) {
+            return response()->json(['error' => 'Invalid service'], 400);
+        }
+    
+        // Retrieve staff based on the selected service
+        $staff = Staff::where('position', $service)->get(['id', 'staffID', 'name']);
+    
+        // If no staff found, return an appropriate message
+        if ($staff->isEmpty()) {
+            return response()->json(['message' => 'No staff available for the selected service'], 404);
+        }
+    
+        // Return the staff data as JSON
+        return response()->json($staff);
+    }
+    
     // public function store(Request $request)
     // {
     //     // Validasi data
