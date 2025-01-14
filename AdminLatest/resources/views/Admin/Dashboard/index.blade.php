@@ -16,19 +16,20 @@
                 <div class="page-header">
                     <x-breadcrumbs title="Dashboard" subtitle="Overview" />
                 </div>
+
                 <div class="row">
-                    <div class=" col-xl-3 col-sm-6 col-12 stretch-card grid-margin">
-                        <div class="card bg-gradient-danger card-img-holder text-white ">
+                    <div class="col-xl-3 col-sm-6 col-12 stretch-card grid-margin position-relative">
+                        <a href="{{ route('bookingListsForm') }}" class="stretched-link"></a>
+                        <div class="card bg-gradient-danger card-img-holder text-white">
                             <div class="card-body">
-                                <img src="{{ asset('dist/assets/images/dashboard/circle.svg') }}"
-                                    class="card-img-absolute" alt="circle-image" />
-                                <h4 class="fs-6">Total Booking <i class="mdi mdi-chart-line mdi-24px float-end"></i>
-                                </h4>
-                                <h2 class="fs-3 ">200</h2>
+                                <img src="{{ asset('dist/assets/images/dashboard/circle.svg') }}" class="card-img-absolute" alt="circle-image" />
+                                <h4 class="fs-6">Total Booking <i class="mdi mdi-chart-line mdi-24px float-end"></i></h4>
+                                <h2 class="fs-3 ">{{ \App\Models\Booking::from('booking_list')->count() }}</h2>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xl-3 col-sm-6 col-12 stretch-card grid-margin">
+                    </div>                                     
+                    <div class="col-xl-3 col-sm-6 col-12 stretch-card grid-margin position-relative">
+                        <a href="{{ route('RoomListsForm') }}" class="stretched-link"></a>
                         <div class="card bg-gradient-info card-img-holder text-white">
                             <div class="card-body">
                                 <img src="{{ asset('dist/assets/images/dashboard/circle.svg') }}"
@@ -36,34 +37,43 @@
                                 <h4 class="fs-6">Available Room<i
                                         class="mdi mdi-bookmark-outline mdi-24px float-end"></i>
                                 </h4>
-                                <h2 class="fs-3">80</h2>
+                                <h2 class="fs-3">{{
+                                    \App\Models\Room::from('room_lists')->count() -
+                                    \App\Models\Booking::from('booking_list')
+                                        ->whereDate('CheckIn', '<=', now())
+                                        ->whereDate('CheckOut', '>=', now())
+                                        ->count()
+                                }}</h2>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-sm-6 col-12 stretch-card grid-margin">
-                        <div class="card bg-gradient-success card-img-holder text-white">
-                            <div class="card-body">
-                                <img src="{{ asset('dist/assets/images/dashboard/circle.svg') }}"
-                                    class="card-img-absolute" alt="circle-image" />
-                                <h4 class="fs-6">Total Sales <i class="mdi mdi-diamond mdi-24px float-end"></i>
-                                </h4>
-                                <h2 class="fs-3 ">RM 95000</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-sm-6 col-12 stretch-card grid-margin">
+                    <div class="col-xl-3 col-sm-6 col-12 stretch-card grid-margin position-relative">
+                        <a href="{{ route('GuestListForm') }}" class="stretched-link"></a>
                         <div class="card bg-gradient-secondary card-img-holder text-white">
                             <div class="card-body">
                                 <img src="{{ asset('dist/assets/images/dashboard/circle.svg') }}"
                                     class="card-img-absolute " alt="circle-image" />
-                                <h4 class="fs-6 ">Weekly Orders <i
-                                        class="mdi mdi-bookmark-outline mdi-24px float-end"></i>
+                                <h4 class="fs-6 ">Total Guest <i
+                                        class="mdi mdi-account-outline mdi-24px float-end"></i>
                                 </h4>
-                                <h2 class="fs-3 ms-2">45,6334</h2>
+                                <h2 class="fs-3 ms-2">{{ \App\Models\Booking::from('users')->count() }}</h2>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div class="col-xl-3 col-sm-6 col-12 stretch-card grid-margin position-relative">
+                        <a href="{{ route('generateReport') }}" class="stretched-link"></a>
+                        <div class="card bg-gradient-success card-img-holder text-white">
+                            <div class="card-body">
+                                <img src="{{ asset('dist/assets/images/dashboard/circle.svg') }}"
+                                    class="card-img-absolute" alt="circle-image" />
+                                <h4 class="fs-6">Generate Report <i class="mdi mdi-file-document-outline mdi-24px float-end"></i>
+                                </h4>
+                                <h2 class="fs-5 mt-4 text-uppercase text-white">Ready to Generate</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+
                 <div class="row">
                     <div class="col-md-12 col-lg-6 grid-margin stretch-card">
                         <div class="card">
