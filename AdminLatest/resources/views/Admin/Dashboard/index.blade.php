@@ -20,7 +20,7 @@
                 <div class="row">
                     <div class="col-xl-3 col-sm-6 col-12 stretch-card grid-margin position-relative">
                         <a href="{{ route('bookingListsForm') }}" class="stretched-link"></a>
-                        <div class="card bg-gradient-danger card-img-holder text-white">
+                        <div class="card bg-gradient-danger card-img-holder text-black">
                             <div class="card-body">
                                 <img src="{{ asset('dist/assets/images/dashboard/circle.svg') }}" class="card-img-absolute" alt="circle-image" />
                                 <h4 class="fs-6">Total Booking <i class="mdi mdi-chart-line mdi-24px float-end"></i></h4>
@@ -30,7 +30,7 @@
                     </div>                                     
                     <div class="col-xl-3 col-sm-6 col-12 stretch-card grid-margin position-relative">
                         <a href="{{ route('RoomListsForm') }}" class="stretched-link"></a>
-                        <div class="card bg-gradient-info card-img-holder text-white">
+                        <div class="card bg-gradient-info card-img-holder text-black">
                             <div class="card-body">
                                 <img src="{{ asset('dist/assets/images/dashboard/circle.svg') }}"
                                     class="card-img-absolute" alt="circle-image" />
@@ -49,7 +49,7 @@
                     </div>
                     <div class="col-xl-3 col-sm-6 col-12 stretch-card grid-margin position-relative">
                         <a href="{{ route('GuestListForm') }}" class="stretched-link"></a>
-                        <div class="card bg-gradient-secondary card-img-holder text-white">
+                        <div class="card bg-gradient-primary card-img-holder text-black">
                             <div class="card-body">
                                 <img src="{{ asset('dist/assets/images/dashboard/circle.svg') }}"
                                     class="card-img-absolute " alt="circle-image" />
@@ -62,17 +62,19 @@
                     </div>
                     <div class="col-xl-3 col-sm-6 col-12 stretch-card grid-margin position-relative">
                         <a href="{{ route('generateReport') }}" class="stretched-link"></a>
-                        <div class="card bg-gradient-success card-img-holder text-white">
+                        <div class="card bg-gradient-warning card-img-holder text-black">
                             <div class="card-body">
                                 <img src="{{ asset('dist/assets/images/dashboard/circle.svg') }}"
                                     class="card-img-absolute" alt="circle-image" />
                                 <h4 class="fs-6">Generate Report <i class="mdi mdi-file-document-outline mdi-24px float-end"></i>
                                 </h4>
-                                <h2 class="fs-5 mt-4 text-uppercase text-white">Ready to Generate</h2>
+                                <h2 class="fs-5 mt-4 text-uppercase text-black">Ready to Generate</h2>
                             </div>
                         </div>
                     </div>
                 </div> 
+                
+                
 
                 <div class="row">
                     <div class="col-md-12 col-lg-6 grid-margin stretch-card">
