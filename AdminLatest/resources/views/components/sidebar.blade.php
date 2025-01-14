@@ -83,12 +83,12 @@
             </div>
         </li>
 
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" href="{{ url('/generate-report') }}">
                 <span class="menu-title">Report</span>
                 <i class="mdi mdi-tag-outline menu-icon"></i>
             </a>
-        </li>
+        </li> --}}
 
         <li class="nav-item">
             <a class="nav-link" href="{{ url('/contact/index') }}">

@@ -149,7 +149,7 @@
                                         </button>
                                         <button class="btn btn-filter rounded-pill" id="availableBtn"
                                             onclick="filterItems('Available', this)">
-                                            Available Rooms ({{ $rooms->where('Status', 'Available')->count() }})
+                                            Available Rooms ({{ $rooms->where('Status', 'Booked')->count() }})
                                         </button>
                                         <button class="btn btn-filter rounded-pill" id="bookedBtn"
                                             onclick="filterItems('Booked', this)">

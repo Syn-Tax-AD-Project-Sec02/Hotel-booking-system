@@ -487,30 +487,29 @@
                 <div class="col-md-4">
                     <div class="blog_box">
                         <div class="blog_img">
-                            <figure><img src="{{ asset('dist/assets/images/index/blog1.jpg') }}" alt="#" />
+                            <figure><img src="{{ asset('dist/assets/images/index/gallery2.jpg') }}" alt="#" />
                             </figure>
                         </div>
                         <div class="blog_room">
-                            <h3>Bed Room</h3>
-                            <span>The standard chunk </span>
-                            <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't
-                                anything embarrassing hidden in the middle of text. All the Lorem Ipsum generatorsIf you
-                                are </p>
+                            <h3>Outdoor Seating Area</h3>
+                            {{-- <span>The standard chunk</span> --}} <span></span>
+                            <p>Enjoy the outdoors in our cozy seating area, surrounded by a peaceful and scenic environment. 
+                                Perfect for casual meetups, Scholar's Inn provides an inviting space to unwind.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="blog_box">
                         <div class="blog_img">
-                            <figure><img src="{{ asset('dist/assets/images/index/blog2.jpg') }}" alt="#" />
+                            <figure><img src="{{ asset('dist/assets/images/index/gallery6.jpg') }}" alt="#" />
                             </figure>
                         </div>
                         <div class="blog_room">
-                            <h3>Bed Room</h3>
-                            <span>The standard chunk </span>
-                            <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't
-                                anything embarrassing hidden in the middle of text. All the Lorem Ipsum generatorsIf you
-                                are </p>
+                            <h3>Lobby Area</h3>
+                            {{-- <span>The standard chunk</span> --}} <span></span>
+                            <p>Step into elegance with our modern and welcoming lobby. 
+                                Designed for comfort and style, the Scholar's Inn lobby provides a warm first impression, 
+                                complete with cozy seating and ambient lighting.</p>
                         </div>
                     </div>
                 </div>
@@ -521,11 +520,11 @@
                             </figure>
                         </div>
                         <div class="blog_room">
-                            <h3>Bed Room</h3>
-                            <span>The standard chunk </span>
-                            <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't
-                                anything embarrassing hidden in the middle of text. All the Lorem Ipsum generatorsIf you
-                                are </p>
+                            <h3>Standard Bedroom</h3>
+                            {{-- <span>The standard chunk</span> --}} <span></span>
+                            <p>Experience a restful stay in our well-appointed standard bedroom. 
+                                Featuring plush bedding, modern decor, and thoughtful amenities, 
+                                Scholar's Inn ensures a cozy and memorable visit.</p>
                         </div>
                     </div>
                 </div>
@@ -616,6 +615,14 @@
                             }
 
                             .gallery_img img {
+                                width: 100%; /* Make the images responsive and fill their container */
+                                height: 200px; /* Set a fixed height for uniformity */
+                                object-fit: cover; /* Ensures the image covers the set dimensions while maintaining aspect ratio */
+                                /* border-radius: 10px; Optional: Add rounded corners */
+                                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+                            }
+
+                            .blog_img img { 
                                 width: 100%; /* Make the images responsive and fill their container */
                                 height: 200px; /* Set a fixed height for uniformity */
                                 object-fit: cover; /* Ensures the image covers the set dimensions while maintaining aspect ratio */
