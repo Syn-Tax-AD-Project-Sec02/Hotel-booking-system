@@ -464,8 +464,10 @@
                         type: form.attr('method'),
                         data: form.serialize(),
                         success: function (response) {
-                            alert('Room updated successfully!');
-                            $('#modalBookingU' + response.room.id).modal('hide'); // Close modal
+                            const modalId = form.closest('.modal').attr('id');
+                            if (modalId) {
+                                $('#' + modalId).modal('hide');
+                            }; // Close modal
                             filterItems('all'); // Refresh the list
                         },
                         error: function (xhr, status, error) {
@@ -476,7 +478,7 @@
                 });
             });
 
-            function filterItems(status, element, selectedDate) {
+ function filterItems(status, element, selectedDate) {
     console.log('Filtering rooms by status:', status);
     selectedDate = selectedDate || document.getElementById('filterDate').value;
 
@@ -561,57 +563,33 @@
                                                     <option value="Suite" ${room.TypeRoom === 'Suite' ? 'selected' : ''}>Suite</option>
                                                 </select>
                                             </div>
-                                             <!-- Floor Selection -->
-                                                            <div class="mb-3">
-                                                                <label for="roomFloor" class="form-label">Room
-                                                                    Floor</label>
-                                                                <select class="form-select" id="roomFloor"
-                                                                    name="RoomFloor">
-                                                                    <option value="Floor 1"
-                                                                        {{ $room->RoomFloor == 'Floor 1' ? 'selected' : '' }}>
-                                                                        Floor 1</option>
-                                                                    <option value="Floor 2"
-                                                                        {{ $room->RoomFloor == 'Floor 2' ? 'selected' : '' }}>
-                                                                        Floor 2</option>
-                                                                    <option value="Floor 3"
-                                                                        {{ $room->RoomFloor == 'Floor 3' ? 'selected' : '' }}>
-                                                                        Floor 3</option>
-                                                                    <option value="Floor 4"
-                                                                        {{ $room->RoomFloor == 'Floor 4' ? 'selected' : '' }}>
-                                                                        Floor 4</option>
-                                                                    <option value="Floor 5"
-                                                                        {{ $room->RoomFloor == 'Floor 5' ? 'selected' : '' }}>
-                                                                        Floor 5</option>
-                                                                </select>
-                                                            </div>
-                                                            <!-- Block Selection -->
-                                                            <div class="mb-3">
-                                                                <label for="roomBlock"
-                                                                    class="form-label">Block</label>
-                                                                <select class="form-select" id="roomBlock"
-                                                                    name="RoomBlock">
-                                                                    <option value="U9"
-                                                                        {{ $room->RoomBlock == 'U9' ? 'selected' : '' }}>
-                                                                        U9</option>
-                                                                    <option value="S46"
-                                                                        {{ $room->RoomBlock == 'S46' ? 'selected' : '' }}>
-                                                                        S46</option>
-                                                                </select>
-                                                            </div>
-                                                            <!-- Status Selection -->
-                                                            <div class="mb-3">
-                                                                <label for="status"
-                                                                    class="form-label">Status</label>
-                                                                <select class="form-select" id="status"
-                                                                    name="Status">
-                                                                    <option value="Available"
-                                                                        {{ $room->Status == 'Available' ? 'selected' : '' }}>
-                                                                        Available</option>
-                                                                    <option value="Booked"
-                                                                        {{ $room->Status == 'Booked' ? 'selected' : '' }}>
-                                                                        Booked</option>
-                                                                </select>
-                                                            </div>
+                                              <!-- Floor Selection -->
+                                                                                <div class="mb-3">
+                                                                                    <label for="roomFloor" class="form-label">Room Floor</label>
+                                                                                    <select class="form-select" id="roomFloor" name="RoomFloor">
+                                                                                        <option value="Floor 1" {{ $room->RoomFloor == 'Floor 1' ? 'selected' : '' }}>Floor 1</option>
+                                                                                        <option value="Floor 2" {{ $room->RoomFloor == 'Floor 2' ? 'selected' : '' }}>Floor 2</option>
+                                                                                        <option value="Floor 3" {{ $room->RoomFloor == 'Floor 3' ? 'selected' : '' }}>Floor 3</option>
+                                                                                        <option value="Floor 4" {{ $room->RoomFloor == 'Floor 4' ? 'selected' : '' }}>Floor 4</option>
+                                                                                        <option value="Floor 5" {{ $room->RoomFloor == 'Floor 5' ? 'selected' : '' }}>Floor 5</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <!-- Block Selection -->
+                                                                                <div class="mb-3">
+                                                                                    <label for="roomBlock" class="form-label">Block</label>
+                                                                                    <select class="form-select" id="roomBlock" name="RoomBlock">
+                                                                                        <option value="U9" {{ $room->RoomBlock == 'U9' ? 'selected' : '' }}>U9</option>
+                                                                                        <option value="S46" {{ $room->RoomBlock == 'S46' ? 'selected' : '' }}>S46</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <!-- Status Selection -->
+                                                                                <div class="mb-3">
+                                                                                    <label for="status" class="form-label">Status</label>
+                                                                                    <select class="form-select" id="status" name="Status">
+                                                                                        <option value="Available" {{ $room->Status == 'Available' ? 'selected' : '' }}>Available</option>
+                                                                                        <option value="Booked" {{ $room->Status == 'Booked' ? 'selected' : '' }}>Booked</option>
+                                                                                    </select>
+                                                                                </div>
                                             <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">Update</button>
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
