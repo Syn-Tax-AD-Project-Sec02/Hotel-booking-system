@@ -10,7 +10,7 @@
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:../../partials/_sidebar.html -->
-            <x-sidebar />
+            <x-staffsidebar />
             <!-- partial -->
             <div class="main-panel">
                 <div class="content-wrapper">
@@ -253,10 +253,11 @@
                                                                 <div class="dropdown-divider"></div>
 
                                                                 <!-- Receipt Option -->
-                                                                    <a class="dropdown-item" href="#"
+                                                                <a class="dropdown-item" href="#"
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#modalReceipt{{ $booking->id }}">
-                                                                    <i class="mdi mdi-receipt-text me-2 text-success"></i> Receipt
+                                                                    <i class="mdi mdi-receipt-text me-2 text-success"></i>
+                                                                    Receipt
                                                                 </a>
 
                                                                 <!-- Divider -->
@@ -437,86 +438,136 @@
                                                             </div>
 
                                                             <!-- Receipt Modal -->
-                                                            <div class="modal fade" id="modalReceipt{{ $booking->id }}" tabindex="-1" aria-labelledby="modalReceiptLabel{{ $booking->id }}" aria-hidden="true">
+                                                            <div class="modal fade" id="modalReceipt{{ $booking->id }}"
+                                                                tabindex="-1"
+                                                                aria-labelledby="modalReceiptLabel{{ $booking->id }}"
+                                                                aria-hidden="true">
                                                                 <div class="modal-dialog modal-dialog-centered">
-                                                                    <div class="modal-content" style="background-color: #fff; border-radius: 10px; overflow: hidden;">
-                                                                        <div class="modal-header" style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
-                                                                            <h5 class="modal-title fw-bold" id="modalReceiptLabel{{ $booking->id }}">
-                                                                                Receipt for Booking #{{ $booking->BookingID }}
+                                                                    <div class="modal-content"
+                                                                        style="background-color: #fff; border-radius: 10px; overflow: hidden;">
+                                                                        <div class="modal-header"
+                                                                            style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
+                                                                            <h5 class="modal-title fw-bold"
+                                                                                id="modalReceiptLabel{{ $booking->id }}">
+                                                                                Receipt for Booking
+                                                                                #{{ $booking->BookingID }}
                                                                             </h5>
-                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                            <button type="button" class="btn-close"
+                                                                                data-bs-dismiss="modal"
+                                                                                aria-label="Close"></button>
                                                                         </div>
-                                                                        <div class="modal-body" id="receiptContent{{ $booking->id }}" style="padding: 20px; font-family: Arial, sans-serif;">
+                                                                        <div class="modal-body"
+                                                                            id="receiptContent{{ $booking->id }}"
+                                                                            style="padding: 20px; font-family: Arial, sans-serif;">
                                                                             <!-- Receipt Content -->
-                                                                            <div class="receipt" style="max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 10px; padding: 20px; background-color: #fdfdfd; box-shadow: 0px 4px 8px rgba(0,0,0,0.1);">
+                                                                            <div class="receipt"
+                                                                                style="max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 10px; padding: 20px; background-color: #fdfdfd; box-shadow: 0px 4px 8px rgba(0,0,0,0.1);">
                                                                                 <!-- Header -->
-                                                                                <div style="text-align: center; margin-bottom: 20px;">
-                                                                                    <h4 style="margin: 0; font-size: 18px; color: #333;">Customer Receipt</h4>
-                                                                                    <p style="margin: 0; font-size: 12px; color: #777;">Your reservation is now confirmed</p>
+                                                                                <div
+                                                                                    style="text-align: center; margin-bottom: 20px;">
+                                                                                    <h4
+                                                                                        style="margin: 0; font-size: 18px; color: #333;">
+                                                                                        Customer Receipt</h4>
+                                                                                    <p
+                                                                                        style="margin: 0; font-size: 12px; color: #777;">
+                                                                                        Your reservation is now confirmed
+                                                                                    </p>
                                                                                 </div>
                                                                                 <!-- Guest Details -->
                                                                                 <div style="margin-bottom: 20px;">
-                                                                                    <p style="margin: 5px 0; font-size: 14px;"><strong>Guest:</strong> {{ $booking->Name }}</p>
-                                                                                    <p style="margin: 5px 0; font-size: 14px;"><strong>Phone Number:</strong> {{ $booking->Phone }}</p>
+                                                                                    <p
+                                                                                        style="margin: 5px 0; font-size: 14px;">
+                                                                                        <strong>Guest:</strong>
+                                                                                        {{ $booking->Name }}</p>
+                                                                                    <p
+                                                                                        style="margin: 5px 0; font-size: 14px;">
+                                                                                        <strong>Phone Number:</strong>
+                                                                                        {{ $booking->Phone }}</p>
                                                                                 </div>
                                                                                 <!-- Booking Details -->
                                                                                 <div style="margin-bottom: 20px;">
-                                                                                    <table style="width: 100%; font-size: 14px; color: #333;">
+                                                                                    <table
+                                                                                        style="width: 100%; font-size: 14px; color: #333;">
                                                                                         <tr>
-                                                                                            <td><strong>Check-In:</strong></td>
-                                                                                            <td style="text-align: right;">{{ $booking->CheckIn }}</td>
+                                                                                            <td><strong>Check-In:</strong>
+                                                                                            </td>
+                                                                                            <td style="text-align: right;">
+                                                                                                {{ $booking->CheckIn }}
+                                                                                            </td>
                                                                                         </tr>
                                                                                         <tr>
-                                                                                            <td><strong>Check-Out:</strong></td>
-                                                                                            <td style="text-align: right;">{{ $booking->CheckOut }}</td>
+                                                                                            <td><strong>Check-Out:</strong>
+                                                                                            </td>
+                                                                                            <td style="text-align: right;">
+                                                                                                {{ $booking->CheckOut }}
+                                                                                            </td>
                                                                                         </tr>
                                                                                         <tr>
-                                                                                            <td><strong>Room Type:</strong></td>
-                                                                                            <td style="text-align: right;">{{ $booking->TypeRoom }}</td>
+                                                                                            <td><strong>Room Type:</strong>
+                                                                                            </td>
+                                                                                            <td style="text-align: right;">
+                                                                                                {{ $booking->TypeRoom }}
+                                                                                            </td>
                                                                                         </tr>
                                                                                         <tr>
-                                                                                            <td><strong>Room No:</strong></td>
-                                                                                            <td style="text-align: right;">{{ $booking->RoomNo }}</td>
+                                                                                            <td><strong>Room No:</strong>
+                                                                                            </td>
+                                                                                            <td style="text-align: right;">
+                                                                                                {{ $booking->RoomNo }}</td>
                                                                                         </tr>
                                                                                     </table>
                                                                                 </div>
                                                                                 <!-- Price Details -->
-                                                                                <div style="margin-bottom: 20px; border-top: 1px solid #ddd; padding-top: 15px;">
-                                                                                    <table style="width: 100%; font-size: 14px; color: #333;">
+                                                                                <div
+                                                                                    style="margin-bottom: 20px; border-top: 1px solid #ddd; padding-top: 15px;">
+                                                                                    <table
+                                                                                        style="width: 100%; font-size: 14px; color: #333;">
                                                                                         <tr>
-                                                                                            <td><strong>Price Per Night:</strong></td>
+                                                                                            <td><strong>Price Per
+                                                                                                    Night:</strong></td>
                                                                                             <td style="text-align: right;">
                                                                                                 <!-- Fetch Rate from the $rooms collection -->
                                                                                                 RM{{ $room[$booking->TypeRoom]->Rate ?? 'N/A' }}
                                                                                             </td>
                                                                                         </tr>
                                                                                         <tr>
-                                                                                            <td><strong>Service Tax (6%):</strong></td>
-                                                                                            <td style="text-align: right;">RM</td>
+                                                                                            <td><strong>Service Tax
+                                                                                                    (6%):</strong></td>
+                                                                                            <td style="text-align: right;">
+                                                                                                RM</td>
                                                                                         </tr>
                                                                                     </table>
                                                                                 </div>
                                                                                 <!-- Total -->
-                                                                                <div style="border-top: 2px solid #333; padding-top: 10px;">
-                                                                                    <table style="width: 100%; font-size: 16px; font-weight: bold; color: #333;">
+                                                                                <div
+                                                                                    style="border-top: 2px solid #333; padding-top: 10px;">
+                                                                                    <table
+                                                                                        style="width: 100%; font-size: 16px; font-weight: bold; color: #333;">
                                                                                         <tr>
                                                                                             <td>Total:</td>
-                                                                                            <td style="text-align: right;">RM{{ $booking->TotalPrice }}</td>
+                                                                                            <td style="text-align: right;">
+                                                                                                RM{{ $booking->TotalPrice }}
+                                                                                            </td>
                                                                                         </tr>
                                                                                     </table>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="modal-footer" style="background-color: #f8f9fa; border-top: 1px solid #ddd;">
+                                                                        <div class="modal-footer"
+                                                                            style="background-color: #f8f9fa; border-top: 1px solid #ddd;">
                                                                             <!-- Print Button -->
-                                                                            <button type="button" class="btn btn-success" onclick="printReceipt('receiptContent{{ $booking->id }}')">
+                                                                            <button type="button" class="btn btn-success"
+                                                                                onclick="printReceipt('receiptContent{{ $booking->id }}')">
                                                                                 Print
                                                                             </button>
                                                                             <!-- Download Button -->
-                                                                            <button type="button" class="btn btn-primary" onclick="downloadPDF('receiptContent{{ $booking->id }}', 'Receipt_{{ $booking->id }}')">
+                                                                            <button type="button" class="btn btn-primary"
+                                                                                onclick="downloadPDF('receiptContent{{ $booking->id }}', 'Receipt_{{ $booking->id }}')">
                                                                                 Download PDF
                                                                             </button>
-                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-bs-dismiss="modal">Close</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -524,7 +575,7 @@
 
 
 
-                                                            
+
                                                         </td>
                                                     </tr>
                                                     @section('content')
@@ -661,22 +712,31 @@
                 });
 
                 function printReceipt(elementId) {
-        var content = document.getElementById(elementId).innerHTML;
-        var originalContent = document.body.innerHTML;
-        document.body.innerHTML = content;
-        window.print();
-        document.body.innerHTML = originalContent;
-    }
+                    var content = document.getElementById(elementId).innerHTML;
+                    var originalContent = document.body.innerHTML;
+                    document.body.innerHTML = content;
+                    window.print();
+                    document.body.innerHTML = originalContent;
+                }
 
                 // Function to download the receipt as a PDF
                 function downloadPDF(elementId, filename) {
                     var element = document.getElementById(elementId);
                     var opt = {
-                        margin:       1,
-                        filename:     filename + '.pdf',
-                        image:        { type: 'jpeg', quality: 0.98 },
-                        html2canvas:  { scale: 2 },
-                        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+                        margin: 1,
+                        filename: filename + '.pdf',
+                        image: {
+                            type: 'jpeg',
+                            quality: 0.98
+                        },
+                        html2canvas: {
+                            scale: 2
+                        },
+                        jsPDF: {
+                            unit: 'in',
+                            format: 'letter',
+                            orientation: 'portrait'
+                        }
                     };
                     html2pdf().from(element).set(opt).save();
                 }

@@ -10,7 +10,7 @@
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:../../partials/_sidebar.html -->
-            <x-sidebar />
+            <x-staffsidebar />
 
             <!-- partial -->
             <div class="main-panel">
@@ -216,7 +216,7 @@
                                         <tbody>
                                             @foreach ($rooms as $room)
                                                 <tr>
-                                                    <td>{{ $loop->iteration  }}
+                                                    <td>{{ $loop->iteration }}
                                                     </td>
                                                     <td
                                                         style="width: 250px; text-align: center; vertical-align: middle;">
@@ -234,7 +234,7 @@
                                                                                 alt="Room Image"
                                                                                 style="width: 100px; height: 80px; object-fit: cover; border-radius: 5px;">
                                                                             <!-- Delete Button -->
-                                                                            <form method="POST"
+                                                                            {{-- <form method="POST"
                                                                                 action="{{ route('deleteImage') }}"
                                                                                 style="position: absolute; top: 0; right: 0;">
                                                                                 @csrf
@@ -251,10 +251,7 @@
                                                                                     style="background: red; color: white; border: none; padding: 5px 8px; font-size: 12px; cursor: pointer;">
                                                                                     X
                                                                                 </button>
-                                                                            </form>
-
-
-
+                                                                            </form> --}}
                                                                         </div>
                                                                     @endforeach
                                                                 </div>
@@ -309,18 +306,18 @@
                                         <div class="dropdown-divider"></div>
 
                                         <!-- Delete Option -->
-                                        <a class="dropdown-item" href="javascript:void(0);"
+                                        {{-- <a class="dropdown-item" href="javascript:void(0);"
                                             onclick="event.preventDefault(); document.getElementById('deleteRoomForm{{ $room->_id }}').submit();">
                                             <i class="mdi mdi-delete me-2 text-danger"></i> Delete
-                                        </a>
+                                        </a> --}}
 
-                                        <form id="deleteRoomForm{{ $room->_id }}"
+                                        {{-- <form id="deleteRoomForm{{ $room->_id }}"
                                             action="{{ route('deleteRoomDetails') }}" method="POST"
                                             style="display: none;">
                                             @csrf
                                             @method('DELETE')
                                             <input type="hidden" name="room_id" value="{{ $room->_id }}">
-                                        </form>
+                                        </form> --}}
                                     </div>
 
                                     <!-- Modal (Place Outside Dropdown Menu) -->
@@ -485,7 +482,6 @@
                                                                 id="Rate{{ $room->id }}"
                                                                 value="{{ $room->Rate }}">
                                                         </div>
-
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="submit" class="btn btn-primary">Save</button>

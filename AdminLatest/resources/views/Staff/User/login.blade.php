@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -11,8 +12,9 @@
     <link rel="stylesheet" href="{{ asset('dist/assets/vendors/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/assets/css/style.css') }}">
     <link rel="shortcut icon" href="{{ asset('dist/assets/images/favicon.png') }}" />
-    
+
 </head>
+
 <body>
     <div class="container-scroller">
         <div class="container-fluid page-body-wrapper full-page-wrapper">
@@ -25,7 +27,7 @@
                             </div>
                             <h3>Sign In</h3>
 
-                           
+
 
                             <form id="loginForm" action="{{ route('login') }}" method="POST">
                                 @csrf <!-- CSRF Token -->
@@ -33,7 +35,8 @@
                                 @if ($errors->any())
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                         <strong>Error!</strong> {{ $errors->first('email') }}
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
                                     </div>
                                 @endif
 
@@ -44,35 +47,40 @@
                                     <div class="col d-flex">
                                         <div class="form-check me-3">
                                             <label class="form-check-label">
-                                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="admin"> Admin
+                                                <input type="radio" class="form-check-input" name="optionsRadios"
+                                                    id="optionsRadios1" value="admin"> Admin
                                             </label>
                                         </div>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="staff"> Staff
+                                                <input type="radio" class="form-check-input" name="optionsRadios"
+                                                    id="optionsRadios2" value="staff"> Staff
                                             </label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-lg" name="email" placeholder="Username" required>
+                                    <input type="email" class="form-control form-control-lg" name="email"
+                                        placeholder="Username" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control form-control-lg" name="password" placeholder="Password" required>
+                                    <input type="password" class="form-control form-control-lg" name="password"
+                                        placeholder="Password" required>
                                 </div>
                                 <div class="mt-3 d-grid gap-2">
-                                    <button type="submit" class="btn btn-primary mt-3" >SIGN IN</button>
+                                    <button type="submit" class="btn btn-primary mt-3">SIGN IN</button>
                                 </div>
                                 <div class="my-2 d-flex justify-content-between align-items-center">
                                     <div class="form-check">
                                         <label class="form-check-label text-muted">
-                                            <input type="checkbox" class="form-check-input"> Keep me signed in 
+                                            <input type="checkbox" class="form-check-input"> Keep me signed in
                                         </label>
                                     </div>
-                                    <a href="{{ url('user/ForgotPassword') }}" class="auth-link text-primary">Forgot password?</a>
+                                    <a href="{{ url('user/ForgotPassword') }}" class="auth-link text-primary">Forgot
+                                        password?</a>
                                 </div>
                             </form>
-                            
+
 
                         </div>
                     </div>
@@ -95,4 +103,5 @@
     <script src="{{ asset('dist/assets/js/loginPage.js') }}"></script>
     <!-- endinject -->
 </body>
+
 </html>

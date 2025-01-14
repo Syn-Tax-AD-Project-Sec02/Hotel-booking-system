@@ -10,7 +10,7 @@
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:../../partials/_sidebar.html -->
-            <x-sidebar />
+            <x-staffsidebar />
 
             <!-- partial -->
             <div class="main-panel">
@@ -24,14 +24,14 @@
                             <div class="card">
                                 <div class="card-body">
                                     <!-- Header with Add Room Button -->
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                    {{-- <div class="d-flex justify-content-between align-items-center mb-3">
                                         <h4 class="card-title">All Rooms</h4>
                                         <button type="button" class="btn btn-primary btn-rounded shadow"
                                             data-bs-toggle="modal" data-bs-target="#modalAddRoom">Add Room</button>
-                                    </div>
+                                    </div> --}}
 
                                     <!-- Add Room Modal -->
-                                    <div class="modal fade" id="modalAddRoom" tabindex="-1"
+                                    {{-- <div class="modal fade" id="modalAddRoom" tabindex="-1"
                                         aria-labelledby="modalAddRoomLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content" style="background-color: white;">
@@ -123,7 +123,7 @@
                                                 </form>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <!-- Error/Success Messages -->
                                     @if (session('success'))
@@ -173,7 +173,6 @@
                                                 <th>Room Floor</th>
                                                 <th>Block</th>
                                                 <th>Status</th>
-                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -190,168 +189,182 @@
                                                         </span>
                                                     </td>
 
-                                                    <td>
+                                                    {{-- <td>
                                                         <a class="nav-link" id="dropdownMenuIconButton1" href="#"
                                                             data-bs-toggle="dropdown" aria-expanded="false">
                                                             <i class="mdi mdi-dots-vertical"></i>
                                                         </a>
                                                         <div class="dropdown-menu navbar-dropdown"
-                                                                aria-labelledby="dropdownMenuIconButton1">
-                                                                <!-- Edit Option -->
-                                                                <a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                                                    data-bs-target="#modalBookingU{{ $room->id }}">
-                                                                    <i class="mdi mdi-pencil me-2 text-info"></i> Edit
-                                                                </a>
+                                                            aria-labelledby="dropdownMenuIconButton1">
+                                                            <!-- Edit Option -->
+                                                            <a class="dropdown-item" href="#"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#modalBookingU{{ $room->id }}">
+                                                                <i class="mdi mdi-pencil me-2 text-info"></i> Edit
+                                                            </a>
 
-                                                                <!-- Divider -->
-                                                                <div class="dropdown-divider"></div>
+                                                            <!-- Divider -->
+                                                            <div class="dropdown-divider"></div>
 
-                                                                <!-- Delete Option -->
-                                                                <a class="dropdown-item" href="javascript:void(0);"
-                                                                    onclick="event.preventDefault(); document.getElementById('deleteRoomForm{{ $room->_id }}').submit();">
-                                                                    <i class="mdi mdi-delete me-2 text-danger"></i> Delete
-                                                                </a>
+                                                            <!-- Delete Option -->
+                                                            <a class="dropdown-item" href="javascript:void(0);"
+                                                                onclick="event.preventDefault(); document.getElementById('deleteRoomForm{{ $room->_id }}').submit();">
+                                                                <i class="mdi mdi-delete me-2 text-danger"></i> Delete
+                                                            </a>
 
-                                                                <form id="deleteRoomForm{{ $room->_id }}"
-                                                                    action="{{ route('deleteRoomList') }}" method="POST"
-                                                                    style="display: none;">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <input type="hidden" name="room_id" value="{{ $room->_id }}">
-                                                                </form>
-                                                            </div>
+                                                            <form id="deleteRoomForm{{ $room->_id }}"
+                                                                action="{{ route('deleteRoomList') }}" method="POST"
+                                                                style="display: none;">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <input type="hidden" name="room_id"
+                                                                    value="{{ $room->_id }}">
+                                                            </form>
+                                                        </div>
 
-                                                            <div class="modal fade" id="modalBookingU{{ $room->id }}" tabindex="-1"
-                                                                aria-labelledby="modalBookingU{{ $room->id }}Label" aria-hidden="true">
-                                                                <div class="modal-dialog">
-                                                                    <div class="modal-content" style="background-color: white;">
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title"
-                                                                                id="modalBookingU{{ $room->id }}Label">Edit Room</h5>
-                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                                aria-label="Close"></button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <form method="POST" action="{{ route('updateRoomList') }}">
-                                                                        @csrf
-                                                                        @method('PUT')
-                                                                        <input type="hidden" name="room_id"
-                                                                            value="{{ $room->_id }}">
+                                                        <div class="modal fade" id="modalBookingU{{ $room->id }}"
+                                                            tabindex="-1"
+                                                            aria-labelledby="modalBookingU{{ $room->id }}Label"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content"
+                                                                    style="background-color: white;">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title"
+                                                                            id="modalBookingU{{ $room->id }}Label">
+                                                                            Edit Room</h5>
+                                                                        <button type="button" class="btn-close"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <form method="POST"
+                                                                            action="{{ route('updateRoomList') }}">
+                                                                            @csrf
+                                                                            @method('PUT')
+                                                                            <input type="hidden" name="room_id"
+                                                                                value="{{ $room->_id }}">
                                                                             value="{{ $room->id }}">
-                                                                        <div class="modal-body">
-                                                                            <!-- Room Number -->
-                                                                            <div class="mb-3">
-                                                                                <label for="roomNo" class="form-label">Room
-                                                                                    No</label>
-                                                                                <input type="text" class="form-control"
-                                                                                    id="roomNo" name="RoomNo"
-                                                                                    value="{{ $room->RoomNo }}">
+                                                                            <div class="modal-body">
+                                                                                <!-- Room Number -->
+                                                                                <div class="mb-3">
+                                                                                    <label for="roomNo"
+                                                                                        class="form-label">Room
+                                                                                        No</label>
+                                                                                    <input type="text"
+                                                                                        class="form-control"
+                                                                                        id="roomNo" name="RoomNo"
+                                                                                        value="{{ $room->RoomNo }}">
+                                                                                </div>
+                                                                                <!-- Type of Room -->
+                                                                                <div class="mb-3">
+                                                                                    <label for="roomType"
+                                                                                        class="form-label">Type of
+                                                                                        Room</label>
+                                                                                    <select class="form-select"
+                                                                                        id="roomType"
+                                                                                        name="TypeRoom">
+                                                                                        <option value="Single"
+                                                                                            {{ $room->TypeRoom == 'Single' ? 'selected' : '' }}>
+                                                                                            Single</option>
+                                                                                        <option value="Standard"
+                                                                                            {{ $room->TypeRoom == 'Standard' ? 'selected' : '' }}>
+                                                                                            Standard</option>
+                                                                                        <option value="Deluxe"
+                                                                                            {{ $room->TypeRoom == 'Deluxe' ? 'selected' : '' }}>
+                                                                                            Deluxe</option>
+                                                                                        <option value="Scholars"
+                                                                                            {{ $room->TypeRoom == 'Scholars' ? 'selected' : '' }}>
+                                                                                            Scholars</option>
+                                                                                        <option value="Suite"
+                                                                                            {{ $room->TypeRoom == 'Suite' ? 'selected' : '' }}>
+                                                                                            Suite</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <!-- Floor Selection -->
+                                                                                <div class="mb-3">
+                                                                                    <label for="roomFloor"
+                                                                                        class="form-label">Room
+                                                                                        Floor</label>
+                                                                                    <select class="form-select"
+                                                                                        id="roomFloor"
+                                                                                        name="RoomFloor">
+                                                                                        <option value="Floor 1"
+                                                                                            {{ $room->RoomFloor == 'Floor 1' ? 'selected' : '' }}>
+                                                                                            Floor 1</option>
+                                                                                        <option value="Floor 2"
+                                                                                            {{ $room->RoomFloor == 'Floor 2' ? 'selected' : '' }}>
+                                                                                            Floor 2</option>
+                                                                                        <option value="Floor 3"
+                                                                                            {{ $room->RoomFloor == 'Floor 3' ? 'selected' : '' }}>
+                                                                                            Floor 3</option>
+                                                                                        <option value="Floor 4"
+                                                                                            {{ $room->RoomFloor == 'Floor 4' ? 'selected' : '' }}>
+                                                                                            Floor 4</option>
+                                                                                        <option value="Floor 5"
+                                                                                            {{ $room->RoomFloor == 'Floor 5' ? 'selected' : '' }}>
+                                                                                            Floor 5</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <!-- Block Selection -->
+                                                                                <div class="mb-3">
+                                                                                    <label for="roomBlock"
+                                                                                        class="form-label">Block</label>
+                                                                                    <select class="form-select"
+                                                                                        id="roomBlock"
+                                                                                        name="RoomBlock">
+                                                                                        <option value="U9"
+                                                                                            {{ $room->RoomBlock == 'U9' ? 'selected' : '' }}>
+                                                                                            U9</option>
+                                                                                        <option value="S46"
+                                                                                            {{ $room->RoomBlock == 'S46' ? 'selected' : '' }}>
+                                                                                            S46</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <!-- Status Selection -->
+                                                                                <div class="mb-3">
+                                                                                    <label for="status"
+                                                                                        class="form-label">Status</label>
+                                                                                    <select class="form-select"
+                                                                                        id="status" name="Status">
+                                                                                        <option value="Available"
+                                                                                            {{ $room->Status == 'Available' ? 'selected' : '' }}>
+                                                                                            Available</option>
+                                                                                        <option value="Booked"
+                                                                                            {{ $room->Status == 'Booked' ? 'selected' : '' }}>
+                                                                                            Booked</option>
+                                                                                    </select>
+                                                                                </div>
                                                                             </div>
-                                                                            <!-- Type of Room -->
-                                                                            <div class="mb-3">
-                                                                                <label for="roomType" class="form-label">Type of
-                                                                                    Room</label>
-                                                                                <select class="form-select" id="roomType"
-                                                                                    name="TypeRoom">
-                                                                                    <option value="Single"
-                                                                                        {{ $room->TypeRoom == 'Single' ? 'selected' : '' }}>
-                                                                                        Single</option>
-                                                                                    <option value="Standard"
-                                                                                        {{ $room->TypeRoom == 'Standard' ? 'selected' : '' }}>
-                                                                                        Standard</option>
-                                                                                    <option value="Deluxe"
-                                                                                        {{ $room->TypeRoom == 'Deluxe' ? 'selected' : '' }}>
-                                                                                        Deluxe</option>
-                                                                                    <option value="Scholars"
-                                                                                        {{ $room->TypeRoom == 'Scholars' ? 'selected' : '' }}>
-                                                                                        Scholars</option>
-                                                                                    <option value="Suite"
-                                                                                        {{ $room->TypeRoom == 'Suite' ? 'selected' : '' }}>
-                                                                                        Suite</option>
-                                                                                </select>
+                                                                            <div class="modal-footer">
+                                                                                <button type="submit"
+                                                                                    class="btn btn-primary btn-rounded">Save
+                                                                                    Changes</button>
+                                                                                <button type="button"
+                                                                                    class="btn btn-secondary btn-rounded"
+                                                                                    data-bs-dismiss="modal">Cancel</button>
                                                                             </div>
-                                                                            <!-- Floor Selection -->
-                                                                            <div class="mb-3">
-                                                                                <label for="roomFloor" class="form-label">Room
-                                                                                    Floor</label>
-                                                                                <select class="form-select" id="roomFloor"
-                                                                                    name="RoomFloor">
-                                                                                    <option value="Floor 1"
-                                                                                        {{ $room->RoomFloor == 'Floor 1' ? 'selected' : '' }}>
-                                                                                        Floor 1</option>
-                                                                                    <option value="Floor 2"
-                                                                                        {{ $room->RoomFloor == 'Floor 2' ? 'selected' : '' }}>
-                                                                                        Floor 2</option>
-                                                                                    <option value="Floor 3"
-                                                                                        {{ $room->RoomFloor == 'Floor 3' ? 'selected' : '' }}>
-                                                                                        Floor 3</option>
-                                                                                    <option value="Floor 4"
-                                                                                        {{ $room->RoomFloor == 'Floor 4' ? 'selected' : '' }}>
-                                                                                        Floor 4</option>
-                                                                                    <option value="Floor 5"
-                                                                                        {{ $room->RoomFloor == 'Floor 5' ? 'selected' : '' }}>
-                                                                                        Floor 5</option>
-                                                                                </select>
-                                                                            </div>
-                                                                            <!-- Block Selection -->
-                                                                            <div class="mb-3">
-                                                                                <label for="roomBlock"
-                                                                                    class="form-label">Block</label>
-                                                                                <select class="form-select" id="roomBlock"
-                                                                                    name="RoomBlock">
-                                                                                    <option value="U9"
-                                                                                        {{ $room->RoomBlock == 'U9' ? 'selected' : '' }}>
-                                                                                        U9</option>
-                                                                                    <option value="S46"
-                                                                                        {{ $room->RoomBlock == 'S46' ? 'selected' : '' }}>
-                                                                                        S46</option>
-                                                                                </select>
-                                                                            </div>
-                                                                            <!-- Status Selection -->
-                                                                            <div class="mb-3">
-                                                                                <label for="status"
-                                                                                    class="form-label">Status</label>
-                                                                                <select class="form-select" id="status"
-                                                                                    name="Status">
-                                                                                    <option value="Available"
-                                                                                        {{ $room->Status == 'Available' ? 'selected' : '' }}>
-                                                                                        Available</option>
-                                                                                    <option value="Booked"
-                                                                                        {{ $room->Status == 'Booked' ? 'selected' : '' }}>
-                                                                                        Booked</option>
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="submit"
-                                                                                class="btn btn-primary btn-rounded">Save
-                                                                                Changes</button>
-                                                                            <button type="button"
-                                                                                class="btn btn-secondary btn-rounded"
-                                                                                data-bs-dismiss="modal">Cancel</button>
-                                                                        </div>
-                                                                    </form>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                    </td>
+                                                    </td> --}}
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
 
                                     <!-- Edit Room Modal -->
-                                    @foreach ($rooms as $room)
+                                    {{-- @foreach ($rooms as $room)
                                         <div class="modal fade" id="modalEditRoom{{ $room->id }}" tabindex="-1"
-                                            aria-labelledby="modalEditRoomLabel{{ $room->id }}"
-                                            aria-hidden="true">
+                                            aria-labelledby="modalEditRoomLabel{{ $room->id }}" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content" style="background-color: white;">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title"
                                                             id="modalEditRoomLabel{{ $room->id }}">Edit Room</h5>
-                                                        <button type="button" class="btn-close"
-                                                            data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
                                                     </div>
                                                     <form method="POST" action="{{ route('updateRoomList') }}">
                                                         @csrf
@@ -415,8 +428,7 @@
                                                             </div>
                                                             <!-- Block Selection -->
                                                             <div class="mb-3">
-                                                                <label for="roomBlock"
-                                                                    class="form-label">Block</label>
+                                                                <label for="roomBlock" class="form-label">Block</label>
                                                                 <select class="form-select" id="roomBlock"
                                                                     name="RoomBlock">
                                                                     <option value="U9"
@@ -454,7 +466,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    @endforeach
+                                    @endforeach --}}
                                 </div>
                             </div>
                         </div>
@@ -543,37 +555,6 @@
                             <td>${room.RoomFloor}</td>
                             <td>${room.RoomBlock}</td>
                             <td>${statusBadge}</td>
-                            <td>
-                                <a href="#" class="nav-link" data-bs-toggle="dropdown">
-                                    <i class="mdi mdi-dots-vertical"></i>
-                                </a>
-                                <ul class="dropdown-menu">
-                                                            <li>
-                                                                <!-- Edit Button -->
-                                                                <a class="dropdown-item"
-                                                                    href="{{ route('updateRoomList') }}"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#modalEditRoom{{ $room->id }}">
-                                                                    <i class="mdi mdi-pencil me-2 text-info"></i> Edit
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <form action="{{ route('deleteRoomList') }}"
-                                                                    method="POST"
-                                                                    onsubmit="return confirm('Are you sure you want to delete this room?');">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <input type="hidden" name="room_id"
-                                                                        value="{{ $room->_id }}">
-                                                                    <button class="dropdown-item text-danger"
-                                                                        type="submit">
-                                                                        <i class="mdi mdi-delete me-2 text-danger"></i>
-                                                                        Delete
-                                                                    </button>
-                                                                </form>
-                                                            </li>
-                                                        </ul>
-                            </td>
                         </tr>
                     `);
                             });
@@ -588,8 +569,6 @@
                     }
                 });
             }
-
-
 
             function highlightSelectedButton(selectedButton) {
                 // Remove active classes from all buttons
