@@ -178,10 +178,18 @@
                                                             <div class="mb-4">
                                                                 <label for="FormControlName"
                                                                     style="padding-left: 15px"
-                                                                    class="form-label">Rate</label>
+                                                                    class="form-label">Rate (RM)</label>
                                                                 <input type="text" class="form-control"
-                                                                    name="Rate" placeholder="Rate"
+                                                                    name="Rate" placeholder="Enter the rate of the room (RM)"
                                                                     aria-label="Rate">
+                                                            </div>
+                                                            <div class="mb-4">
+                                                                <label for="FormControlName"
+                                                                    style="padding-left: 15px"
+                                                                    class="form-label">Promotion (%)</label>
+                                                                <input type="text" class="form-control"
+                                                                    name="Promotion" placeholder="Enter promotion percentage if any (%)"
+                                                                    aria-label="Promotion">
                                                             </div>
 
                                                     </div>
@@ -196,20 +204,17 @@
                                             </div>
                                         </div>
                                     </div>
-
-
-
                                     </p>
+                                    <div class="table-responsive">
                                     <table class="table table-hover">
                                         <thead>
-
                                             <tr>
                                                 <th>#</th>
                                                 <th>Image</th>
                                                 <th>Room Type</th>
                                                 <th>Facilities</th>
                                                 <th>Rate</th>
-                                                <th>Availbility</th>
+                                                <th>Promotion</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -288,7 +293,7 @@
                                     @endif
                                 </td>
                                 <td>RM{{ $room->Rate }}</td>
-                                <td>{{ $room->Availbility }}</td>
+                                <td>{{ $room->Promotion !== null ? $room->Promotion . '%' : 'N/A' }}</td>
                                 <td>
                                     <!-- Dropdown Trigger -->
                                     <a class="nav-link" id="dropdownMenuIconButton1" href="#"
@@ -480,11 +485,21 @@
 
                                                         <div class="mb-4">
                                                             <label for="Rate{{ $room->id }}"
-                                                                class="form-label">Rate</label>
+                                                                class="form-label">Rate (RM)</label>
                                                             <input type="text" class="form-control" name="Rate"
                                                                 id="Rate{{ $room->id }}"
                                                                 value="{{ $room->Rate }}">
                                                         </div>
+                                                        <div class="mb-4">
+                                                            <label for="Rate{{ $room->id }}" class="form-label">Promotion (%)</label>
+                                                            <input type="text" class="form-control" name="Promotion" id="Rate{{ $room->id }}"
+                                                                @if ($room->Promotion !== null)
+                                                                    value="{{ $room->Promotion }}"
+                                                                @else
+                                                                    placeholder="Enter promotion percentage if any (%)"
+                                                                @endif>
+                                                        </div>
+
 
                                                 </div>
                                                 <div class="modal-footer">
@@ -503,6 +518,7 @@
 
                                 </tbody>
                                 </table>
+                            </div>
                             </div>
                         </div>
                     </div>

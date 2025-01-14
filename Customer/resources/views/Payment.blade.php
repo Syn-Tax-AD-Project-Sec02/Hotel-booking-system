@@ -171,22 +171,33 @@
                         $checkinDate = \Carbon\Carbon::parse($checkin);
                         $checkoutDate = \Carbon\Carbon::parse($checkout);
                         $duration = $checkinDate->lt($checkoutDate) 
-                    ? $checkinDate->diffInDays($checkoutDate) 
-                    : $checkoutDate->diffInDays($checkinDate);
-                    echo $duration . ' nights';
-                    $totalCost = $duration * $rate;
+                        ? $checkinDate->diffInDays($checkoutDate) 
+                        : $checkoutDate->diffInDays($checkinDate);
+                        echo $duration . ' nights';
+                        if ($promotion !== null) {
+                            $totalCost = $duration * ($rate - ($rate * ($promotion * 0.01)));
+                        } else {
+                            $totalCost = $duration * $rate;
+                        }
+                        
+                        $totalCost = $totalCost + ($totalCost * 0.06);
+
+                        $totalCost = number_format($totalCost, 2, '.', '');
                     @endphp
                 </p>
                 <p><strong>Guests:</strong> <span class="highlight">{{ $guests }} adults</span></p>
             </div>
             <div class="price-summary">
-                <p>Original Price: <del>MYR {{ $rate  }}</del></p>
-                <p>Limited-time Deal: <span class="highlight">MYR 3,430</span></p>
-                <p>Includes: <br>
-                    - Taxes: MYR 274.40 <br>
-                    - Property Service: MYR 215 <br>
-                    - Refundable Deposit: MYR 200</p>
-                <p class="total">Total Price: {{ $totalCost  }}</p>
+                @if ($promotion !== null)
+                    <p>Original Price: <del>MYR {{ $rate  }}</del></p>
+                    <p>Promotion: <span class="highlight">{{ $promotion }}%</span></p>
+                @endif
+                    <p><span>Service Tax: 6%</span></p>
+                    {{-- <p>Includes: <br>
+                        - Taxes: MYR 274.40 <br>
+                        - Property Service: MYR 215 <br>
+                        - Refundable Deposit: MYR 200</p> --}}
+                <p class="total">Total Price: RM{{ $totalCost }}</p>
             </div>
             
         </div>

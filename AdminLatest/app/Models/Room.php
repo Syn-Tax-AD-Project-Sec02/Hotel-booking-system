@@ -10,9 +10,20 @@ class Room extends Model
 
     // Specify the table name if it doesn't follow Laravel's naming conventions
     protected $connection = 'mongodb'; // MongoDB connection
+
+    public function setRateAttribute($value)
+    {
+        $this->attributes['Rate'] = (double) $value;
+    }
+
+    // Define the mutator for Promotion
+    public function setPromotionAttribute($value)
+    {
+        $this->attributes['Promotion'] = isset($value) ? (double) $value : null;
+    }
     
     private static $collectionConfig = [
-        'rooms_details' => ['Image', 'TypeRoom', 'Facilities', 'Rate'],
+        'rooms_details' => ['Image', 'TypeRoom', 'Facilities', 'Rate', 'Promotion'],
         'room_lists' => ['RoomNo', 'TypeRoom', 'RoomFloor', 'RoomBlock', 'Status'],
     ];
 

@@ -80,7 +80,7 @@
                                         <a class="nav-link" href="#gallery">Gallery</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#blog">Blog</a>
+                                        <a class="nav-link" href="#blog">Information</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#contact">Contact Us</a>
@@ -416,54 +416,54 @@
             <div class="row">
                 <div class="col-md-3 col-sm-6">
                     <div class="gallery_img">
-                        <figure><img src="{{ asset('dist/assets/images/index/living-scholar.jpg') }}"
+                        <figure><img src="{{ asset('dist/assets/images/index/gallery1.jpg') }}"
                                 alt="#" />
                         </figure>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="gallery_img">
-                        <figure><img src="{{ asset('dist/assets/images/index/kecik-scholar.jpg') }}"
+                        <figure><img src="{{ asset('dist/assets/images/index/gallery2.jpg') }}"
                                 alt="#" />
                         </figure>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="gallery_img">
-                        <figure><img src="{{ asset('dist/assets/images/index/living-suite.jpg') }}" alt="#" />
+                        <figure><img src="{{ asset('dist/assets/images/index/gallery3.jpg') }}" alt="#" />
                         </figure>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="gallery_img">
-                        <figure><img src="{{ asset('dist/assets/images/index/master-scholar.jpg') }}"
+                        <figure><img src="{{ asset('dist/assets/images/index/gallery4.jpg') }}"
                                 alt="#" />
                         </figure>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="gallery_img">
-                        <figure><img src="{{ asset('dist/assets/images/index/living-scholar.jpg') }}"
+                        <figure><img src="{{ asset('dist/assets/images/index/gallery5.jpg') }}"
                                 alt="#" />
                         </figure>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="gallery_img">
-                        <figure><img src="{{ asset('dist/assets/images/index/kecik-scholar.jpg') }}"
+                        <figure><img src="{{ asset('dist/assets/images/index/gallery6.jpg') }}"
                                 alt="#" />
                         </figure>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="gallery_img">
-                        <figure><img src="{{ asset('dist/assets/images/index/living-suite.jpg') }}" alt="#" />
+                        <figure><img src="{{ asset('dist/assets/images/index/gallery7.jpg') }}" alt="#" />
                         </figure>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="gallery_img">
-                        <figure><img src="{{ asset('dist/assets/images/index/master-scholar.jpg') }}"
+                        <figure><img src="{{ asset('dist/assets/images/index/gallery8.jpg') }}"
                                 alt="#" />
                         </figure>
                     </div>
@@ -478,8 +478,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="titlepage">
-                        <h2>Blog</h2>
-                        <p>Lorem Ipsum available, but the majority have suffered </p>
+                        <h2>Information</h2>
+                        {{-- <p>Lorem Ipsum available, but the majority have suffered </p> --}}
                     </div>
                 </div>
             </div>
@@ -615,6 +615,14 @@
                                 margin: 0;
                             }
 
+                            .gallery_img img {
+                                width: 100%; /* Make the images responsive and fill their container */
+                                height: 200px; /* Set a fixed height for uniformity */
+                                object-fit: cover; /* Ensures the image covers the set dimensions while maintaining aspect ratio */
+                                /* border-radius: 10px; Optional: Add rounded corners */
+                                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+                            }
+
                             .contact-info li {
                                 display: flex;
                                 /* Gunakan Flexbox untuk sejajarkan ikon dan teks */
@@ -657,7 +665,7 @@
                             <li><a href="#about"> About</a></li>
                             <li><a href="#our_room">Our Room</a></li>
                             <li><a href="#gallery">Gallery</a></li>
-                            <li><a href="#blog">Blog</a></li>
+                            <li><a href="#blog">Information</a></li>
                             <li><a href="#contact">Contact Us</a></li>
                         </ul>
                     </div>

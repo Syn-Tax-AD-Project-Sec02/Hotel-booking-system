@@ -28,7 +28,8 @@ class RoomController extends Controller
             'Image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'TypeRoom' => 'required|string|max:255',
             'Facilities' => 'nullable|array', // Allow multiple facilities
-            'Rate' => 'required|string|max:15',
+            'Rate' => 'required|numeric|max:15',
+            'Promotion' => 'nullable|numeric|max:10',
         ]);
 
          // Handle image upload
@@ -40,13 +41,14 @@ class RoomController extends Controller
             } // Collect the paths
         }
 
-        // Save user to MongoDB
+        // Save Room Details to MongoDB
         $room = new Room;
         $room->ImagePath = json_encode($imagePaths);
         $room->setTable('rooms_details');
         $room->TypeRoom = $request->TypeRoom;
         $room->Facilities = json_encode($request->facilities);
         $room->Rate = $request->Rate;
+        $room->Promotion = $request->Promotion;
         $room->save();
 
         // Log the email verification event
@@ -80,6 +82,7 @@ class RoomController extends Controller
         $room->TypeRoom = $request->TypeRoom;
         $room->Facilities = json_encode($request->facilities);
         $room->Rate = $request->Rate;
+        $room->Promotion = $request->Promotion;
         $room->ImagePath = json_encode($imagePaths); // Save all image paths as JSON
         $room->save();
 
@@ -110,7 +113,6 @@ class RoomController extends Controller
         // Redirect with success message
         return redirect()->route('RoomDetailsForm')->with('success', 'Room deleted successfully!');
     }
-
 
     public function deleteImage(Request $request)
     {
