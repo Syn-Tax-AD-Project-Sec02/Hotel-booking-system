@@ -34,6 +34,12 @@ class BookingController extends Controller
         return view('guestList', compact('guest'));
     }
 
+    public function showStaffGuestList()
+    {
+        $guest = User::all(); // Fetch all users
+        return view('Staff.guestlist', compact('guest'));
+    }
+
     public function addBookingList(Request $request)
     {
 
@@ -86,6 +92,68 @@ class BookingController extends Controller
         // Log the email verification event
         Log::info('Booking details successfully added: ' . $booking->id);
         return redirect()->route('bookingListsForm')->with('success', 'Room details successfully added!');
+        //return redirect()->route('login')->with('success', 'Registration successful! Please check your email for the verification link.');
+        //return redirect()->route('forgotPassword');
+    }
+
+    public function addStaffBookingList(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'Name' => 'required|string|max:255',
+            'RoomNo' => 'required|integer|min:1',
+            'TypeRoom' => 'required|string|in:Single,Standard,Deluxe,Scholars,Suite',
+            'CheckIn' => 'required|date|before_or_equal:CheckOut',
+            'CheckOut' => 'required|date|after_or_equal:CheckIn',
+            'Adults' => 'required|integer|gte:1',
+            'Children' => 'required|integer|gte:0',
+            'Phone' => 'required|string|max:10,15',
+        ]);
+
+        $room = new Room();
+        $room->setTable('room_lists');
+        $room = $room->where('RoomNo', $request->RoomNo)
+            ->where('TypeRoom', $request->TypeRoom)
+            ->first();
+        if (!$room) {
+            return redirect()->back()->with('error', 'The selected room does not exist or the details do not match.');
+        }
+
+        // Save user to MongoDB
+        $booking = new Booking;
+        $booking->setTable('booking_list');
+
+        $existingBooking = $booking->where('RoomNo', $request->RoomNo)
+            ->where(function ($query) use ($request) {
+                $query->whereBetween('CheckIn', [$request->CheckIn, $request->CheckOut])
+                    ->orWhereBetween('CheckOut', [$request->CheckIn, $request->CheckOut])
+                    ->orWhere(function ($query) use ($request) {
+                        $query->where('CheckIn', '<=', $request->CheckIn)
+                            ->where('CheckOut', '>=', $request->CheckOut);
+                    });
+            })
+            ->first();
+
+        if ($existingBooking) {
+            return redirect()->back()->with('error', 'The selected room is already booked for the chosen dates.');
+        }
+
+        $booking->BookingID = 'BKG' . str_pad(rand(1, 999), 3, '0', STR_PAD_LEFT);
+        $booking->Name = $request->Name;
+        $booking->RoomNo = $request->RoomNo;
+        $booking->TypeRoom = $request->TypeRoom;
+        $booking->CheckIn = $request->CheckIn;
+        $booking->CheckOut = $request->CheckOut;
+        $booking->Phone = $request->Phone;
+        $booking->Adults = $request->Adults;
+        $booking->Children = $request->Children;
+        $booking->save();
+
+
+
+        // Log the email verification event
+        Log::info('Booking details successfully added: ' . $booking->id);
+        return redirect()->route('bookingStaffListsForm')->with('success', 'Room details successfully added!');
         //return redirect()->route('login')->with('success', 'Registration successful! Please check your email for the verification link.');
         //return redirect()->route('forgotPassword');
     }
@@ -152,6 +220,28 @@ class BookingController extends Controller
         $booking->delete();
 
         return redirect()->route('bookingListsForm')->with('success', 'Booking deleted successfully!');
+    }
+
+    public function deleteStaffBookingList(Request $request)
+    {
+        // dd($request->all());
+
+        $bookingId = $request->input('booking_id');
+
+        // Set table dynamically
+        $booking = new Booking();
+        $booking->setTable('booking_list');
+
+        $booking = $booking->find($bookingId);
+
+        if (!$booking) {
+            return redirect()->back()->with('error', 'Booking not found.');
+        }
+
+        // Delete booking
+        $booking->delete();
+
+        return redirect()->route('bookingStaffListsForm')->with('success', 'Booking deleted successfully!');
     }
 
     public function getRoomsByType(Request $request)

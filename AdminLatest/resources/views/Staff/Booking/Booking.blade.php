@@ -91,7 +91,7 @@
                                         @endif
                                         <div class=" d-flex justify-content-between align-items-center">
                                             <h4 class="card-title">All Booking</h4>
-                                            {{-- <button type="button" class="btn btn-primary btn-rounded shadow"
+                                            <button type="button" class="btn btn-primary btn-rounded shadow"
                                                 style="padding: 15PX;" data-bs-toggle="modal" data-bs-target="#modalBooking"
                                                 data-bs-whatever="@mdo">Add
                                                 Booking</button>
@@ -105,8 +105,8 @@
                                                                 aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <form action="{{ route('bookingListsForm') }}" method="POST"
-                                                                enctype="multipart/form-data">
+                                                            <form action="{{ route('bookingStaffListsForm') }}"
+                                                                method="POST" enctype="multipart/form-data">
                                                                 @csrf
                                                                 <div class="mb-4">
                                                                     <label for="FormControlName"
@@ -175,9 +175,6 @@
                                                                     </div>
                                                                 </div>
 
-
-
-
                                                                 <div class="mb-4">
                                                                     <label for="FormControlName"
                                                                         class="form-label">Phone</label>
@@ -195,7 +192,7 @@
                                                         </form>
                                                     </div>
                                                 </div>
-                                            </div> --}}
+                                            </div>
                                         </div>
 
 
@@ -233,8 +230,9 @@
 
                                                         <td>
                                                             <!-- Dropdown Trigger -->
-                                                            <a class="nav-link" id="dropdownMenuIconButton1" href="#"
-                                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <a class="nav-link" id="dropdownMenuIconButton1"
+                                                                href="#" data-bs-toggle="dropdown"
+                                                                aria-expanded="false">
                                                                 <i class="mdi mdi-dots-vertical"></i>
                                                             </a>
 
@@ -263,20 +261,20 @@
                                                                 <div class="dropdown-divider"></div>
 
                                                                 <!-- Delete Option -->
-                                                                {{-- <a class="dropdown-item" href="javascript:void(0);"
+                                                                <a class="dropdown-item" href="javascript:void(0);"
                                                                     onclick="event.preventDefault(); document.getElementById('deleteRoomForm{{ $booking->_id }}').submit();">
                                                                     <i class="mdi mdi-delete me-2 text-danger"></i> Delete
                                                                 </a>
 
                                                                 <form id="deleteRoomForm{{ $booking->_id }}"
-                                                                    action="{{ route('deleteBookingList') }}"
+                                                                    action="{{ route('deleteStaffBookingList') }}"
                                                                     method="POST" style="display: none;">
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <input type="hidden" name="booking_id"
                                                                         value="{{ $booking->_id }}">
                                                                     <!-- Pass the room's _id -->
-                                                                </form> --}}
+                                                                </form>
                                                             </div>
 
                                                             <!-- Modal (Place Outside Dropdown Menu) -->
@@ -296,7 +294,8 @@
                                                                                 aria-label="Close"></button>
                                                                         </div>
                                                                         <div class="modal-body">
-                                                                            <form action="{{ route('updateBookingList') }}"
+                                                                            <form
+                                                                                action="{{ route('updateBookingList') }}"
                                                                                 method="POST"
                                                                                 enctype="multipart/form-data">
                                                                                 @csrf
