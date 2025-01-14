@@ -27,7 +27,7 @@
                 <i class="mdi mdi-calendar-edit-outline menu-icon"></i>
             </a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
                 <span class="menu-title">Guest</span>
                 <i class="mdi mdi-clipboard-check-multiple-outline menu-icon"></i>
@@ -39,7 +39,7 @@
                     </li>
                 </ul>
             </div>
-        </li>
+        </li> --}}
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
                 aria-controls="ui-basic">
@@ -52,13 +52,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/staff-room-details') }}">Room Details</a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ url('/staff-room-lists') }}">Room List</a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#staff-dropdown" aria-expanded="false"
                 aria-controls="staff-dropdown">
                 <span class="menu-title">Staff</span>
@@ -86,6 +86,6 @@
                 <span class="menu-title">Contact Us</span>
                 <i class="mdi mdi-table-large menu-icon"></i>
             </a>
-        </li>
+        </li> --}}
     </ul>
 </nav>

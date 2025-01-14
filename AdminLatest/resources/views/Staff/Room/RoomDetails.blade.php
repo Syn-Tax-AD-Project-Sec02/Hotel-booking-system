@@ -6,7 +6,7 @@
 <body>
     <div class="container-scroller">
         <!-- partial:../../partials/_navbar.html -->
-        <x-navbar />
+        <x-staffnavbar />
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:../../partials/_sidebar.html -->

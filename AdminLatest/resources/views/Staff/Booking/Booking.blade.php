@@ -6,7 +6,7 @@
 <body>
     <div class="container-scroller">
         <!-- partial:../../partials/_navbar.html -->
-        <x-navbar />
+        <x-staffnavbar />
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:../../partials/_sidebar.html -->
@@ -91,7 +91,7 @@
                                         @endif
                                         <div class=" d-flex justify-content-between align-items-center">
                                             <h4 class="card-title">All Booking</h4>
-                                            <button type="button" class="btn btn-primary btn-rounded shadow"
+                                            {{-- <button type="button" class="btn btn-primary btn-rounded shadow"
                                                 style="padding: 15PX;" data-bs-toggle="modal" data-bs-target="#modalBooking"
                                                 data-bs-whatever="@mdo">Add
                                                 Booking</button>
@@ -195,7 +195,7 @@
                                                         </form>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
 
 
@@ -233,9 +233,8 @@
 
                                                         <td>
                                                             <!-- Dropdown Trigger -->
-                                                            <a class="nav-link" id="dropdownMenuIconButton1"
-                                                                href="#" data-bs-toggle="dropdown"
-                                                                aria-expanded="false">
+                                                            <a class="nav-link" id="dropdownMenuIconButton1" href="#"
+                                                                data-bs-toggle="dropdown" aria-expanded="false">
                                                                 <i class="mdi mdi-dots-vertical"></i>
                                                             </a>
 
@@ -264,8 +263,7 @@
                                                                 <div class="dropdown-divider"></div>
 
                                                                 <!-- Delete Option -->
-                                                                <!-- Delete Option -->
-                                                                <a class="dropdown-item" href="javascript:void(0);"
+                                                                {{-- <a class="dropdown-item" href="javascript:void(0);"
                                                                     onclick="event.preventDefault(); document.getElementById('deleteRoomForm{{ $booking->_id }}').submit();">
                                                                     <i class="mdi mdi-delete me-2 text-danger"></i> Delete
                                                                 </a>
@@ -278,7 +276,7 @@
                                                                     <input type="hidden" name="booking_id"
                                                                         value="{{ $booking->_id }}">
                                                                     <!-- Pass the room's _id -->
-                                                                </form>
+                                                                </form> --}}
                                                             </div>
 
                                                             <!-- Modal (Place Outside Dropdown Menu) -->
@@ -298,8 +296,7 @@
                                                                                 aria-label="Close"></button>
                                                                         </div>
                                                                         <div class="modal-body">
-                                                                            <form
-                                                                                action="{{ route('updateBookingList') }}"
+                                                                            <form action="{{ route('updateBookingList') }}"
                                                                                 method="POST"
                                                                                 enctype="multipart/form-data">
                                                                                 @csrf
@@ -478,11 +475,13 @@
                                                                                     <p
                                                                                         style="margin: 5px 0; font-size: 14px;">
                                                                                         <strong>Guest:</strong>
-                                                                                        {{ $booking->Name }}</p>
+                                                                                        {{ $booking->Name }}
+                                                                                    </p>
                                                                                     <p
                                                                                         style="margin: 5px 0; font-size: 14px;">
                                                                                         <strong>Phone Number:</strong>
-                                                                                        {{ $booking->Phone }}</p>
+                                                                                        {{ $booking->Phone }}
+                                                                                    </p>
                                                                                 </div>
                                                                                 <!-- Booking Details -->
                                                                                 <div style="margin-bottom: 20px;">
@@ -532,7 +531,8 @@
                                                                                         </tr>
                                                                                         <tr>
                                                                                             <td><strong>Service Tax
-                                                                                                    (6%):</strong></td>
+                                                                                                    (6%)
+                                                                                                    :</strong></td>
                                                                                             <td style="text-align: right;">
                                                                                                 RM</td>
                                                                                         </tr>
