@@ -8,11 +8,12 @@ use App\Models\Booking;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-// use Validator;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use MongoDB\BSON\ObjectId;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\StaffScheduledMail;
 
 class ScheduleController extends Controller
 {
@@ -23,23 +24,6 @@ class ScheduleController extends Controller
         return view('Admin.schedule', compact('schedules', 'staffs'));
     }
 
-    // public function showFormScheduleLists()
-    // {
-    //     $schedules = Schedule::paginate(20);
-    //     return view('Admin.schedule', compact('schedules'));
-    // }
-
-    // public function index()
-    // {
-    //     // Ambil senarai kakitangan dan jadual
-    //     $staffList = Staff::all(); 
-    //     $schedules = Schedule::all();
-
-    //     // Hantar data ke view
-    //     return view('schedule', compact('staffList', 'schedules'));
-    // }
-
-    // // Tambah jadual baru
     public function addScheduleList(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -52,21 +36,39 @@ class ScheduleController extends Controller
             'action' => 'nullable|string|max:255',
         ]);
         
-
-        // if ($validator->fails()) {
-        //     return redirect()->back()->withErrors($validator)->withInput();
-        // }
+          // Fetch staff name based on the staff_id
+    $staff = Staff::where('staffID', $request->staff_id)->first();
 
         $schedule = new Schedule;
         $schedule->setTable('schedule');
-        $schedule->staffID = 'STF' . str_pad(rand(1, 999), 3, '0', STR_PAD_LEFT);
-        $schedule->name = $request->name;
+        $schedule->staffID = $request->staff_id;
+        $schedule->name = $staff->name; 
         $schedule->room_no = $request->room_no;
         $schedule->date_time = Carbon::createFromFormat('Y-m-d\TH:i', $request->date_time)->format('Y-m-d H:i:s');
         $schedule->services = $request->services;
         $schedule->status = $request->status;
         $schedule->action = $request->action;
         $schedule->save();
+
+   
+
+    if ($staff) {
+        // Log before sending email
+        Log::info('Sending schedule notification email to staff: ' . $staff->email);
+
+        try {
+            // Send email notification to the staff
+            Mail::to($staff->email)->send(new StaffScheduledMail($schedule));
+
+            // Log after sending email successfully
+            Log::info('Schedule notification email sent successfully to staff: ' . $staff->email);
+        } catch (\Exception $e) {
+            // Log an error if email sending fails
+            Log::error('Failed to send schedule notification email to staff: ' . $staff->email . '. Error: ' . $e->getMessage());
+        }
+    } else {
+        Log::warning('Staff with ID ' . $request->staffID . ' not found.');
+    }
 
         Log::info('Schedule successfully added: ' . $schedule->id);
 
