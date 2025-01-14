@@ -65,6 +65,8 @@ Route::post('/filterRoomStatus', [RoomController::class, 'filterRoomStatus'])->n
 Route::get('/filterRoomDate', [RoomController::class, 'filterByDate'])->name('filterRoomByDate');
 Route::post('/filter-rooms', [RoomController::class, 'filterRooms'])->name('filterRooms');
 
+Route::get('/staff/room-lists', [RoomController::class, 'showStaffFormRoomLists'])->name('RoomStaffListsForm');
+
 Route::get('/booking', [BookingController::class, 'showBookingList'])->name('bookingListsForm');
 Route::post('/booking', [BookingController::class, 'addBookingList']);
 Route::put('/booking', [BookingController::class, 'updateBookingList'])->name('updateBookingList');
@@ -73,8 +75,12 @@ Route::post('/getRoomsByType', [BookingController::class, 'getRoomsByType'])->na
 
 Route::get('/staff-booking', [BookingController::class, 'showStaffBookingList'])->name('bookingStaffListsForm');
 Route::put('/staff-booking', [BookingController::class, 'updateStaffBookingList'])->name('updateStaffBookingList');
+Route::delete('/staff-booking', [BookingController::class, 'deleteStaffBookingList'])->name('deleteStaffBookingList');
+Route::post('/staff-booking', [BookingController::class, 'addStaffBookingList']);
 
 Route::get('/guest-list', [BookingController::class, 'showGuestList'])->name('GuestListForm');
+
+Route::get('/staff/guest-list', [BookingController::class, 'showStaffGuestList'])->name('GuestStaffListForm');
 
 Route::get('/staff-list', [StaffController::class, 'showFormStaffLists'])->name('StaffListForm');
 Route::post('/staff-list', [StaffController::class, 'addStaffList']);
@@ -86,9 +92,13 @@ Route::post('/schedule', [ScheduleController::class, 'addScheduleList']);
 Route::put('/schedule', [ScheduleController::class, 'updateScheduleList'])->name('updateScheduleList');
 Route::delete('/schedule', [ScheduleController::class, 'deleteScheduleList'])->name('deleteScheduleList');
 
+Route::get('/staff/schedule', [ScheduleController::class, 'showStaffFormScheduleLists'])->name('ScheduleStaffListForm');
+
 Route::get('/generate-report', [ReportController::class, 'showFormGenerateReport'])->name('generateReport');
 Route::post('/generate-pdf', [ReportController::class, 'generatePDF'])->name('generatePDF');
 
 Route::get('/contact/index', [ContactController::class, 'index'])->name('contact.index');
+
+Route::get('/staff/contact/index', [ContactController::class, 'staffindex'])->name('staff.contact.index');
 
 Route::post('/get-staff', [ScheduleController::class, 'getStaff'])->name('get.staff');
