@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
+use App\Models\Booking;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -22,6 +23,13 @@ class ProfileController extends Controller
      public function profileForm(){
         $users = auth()->user(); // Get authenticated user
         return view('profile-cust', compact('users'));
+    }
+
+    public function HistoryForm(){
+        $users = auth()->user(); // Get authenticated user
+
+        $bookings = Booking::from('booking_list')->get();
+        return view('bookingHistory', compact('users', 'bookings'));
     }
 
     public function updateDetails(Request $request)

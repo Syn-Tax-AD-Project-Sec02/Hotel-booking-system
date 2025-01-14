@@ -15,7 +15,17 @@ class BookingController extends Controller
     public function showBookingList()
     {
         $bookings = Booking::from('booking_list')->paginate(100);
-        return view('Admin.Booking.Booking', compact('bookings'));
+
+        $room = (new Room)->setTable('rooms_details')->get()->keyBy('TypeRoom');
+        return view('Admin.Booking.Booking', compact('bookings', 'room'));
+    }
+
+    public function showStaffBookingList()
+    {
+        $bookings = Booking::from('booking_list')->paginate(100);
+
+        $room = (new Room)->setTable('rooms_details')->get()->keyBy('TypeRoom');
+        return view('Staff.Booking.Booking', compact('bookings', 'room'));
     }
 
     public function showGuestList()
@@ -99,6 +109,27 @@ class BookingController extends Controller
         $booking->save();
 
         return redirect()->route('bookingListsForm')->with('success', 'Room details updated successfully!');
+    }
+
+    public function updateStaffBookingList(Request $request)
+    {
+        // dd($request->all());
+        $bookingId = $request->input('booking_id');
+
+        $booking = new Booking();
+        $booking->setTable('booking_list'); // Ensure you're pointing to the right table
+
+        $booking = $booking->findOrFail($bookingId);
+
+        $booking->Name = $request->Name;
+        $booking->RoomNo = $request->RoomNo;
+        $booking->TypeRoom = $request->TypeRoom;
+        $booking->CheckIn = $request->CheckIn;
+        $booking->CheckOut = $request->CheckOut;
+        $booking->Phone = $request->Phone;
+        $booking->save();
+
+        return redirect()->route('bookingStaffListsForm')->with('success', 'Room details updated successfully!');
     }
 
     public function deleteBookingList(Request $request)

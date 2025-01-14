@@ -24,8 +24,6 @@ class ProfileController extends Controller
     }
 
     
-
-
     public function changePasswordStaff(Request $request){
 
         

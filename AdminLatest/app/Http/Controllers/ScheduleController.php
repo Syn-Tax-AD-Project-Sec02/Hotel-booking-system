@@ -12,13 +12,15 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use MongoDB\BSON\ObjectId;
+use Carbon\Carbon;
 
 class ScheduleController extends Controller
 {
     public function showFormScheduleLists()
     {
         $schedules = (new Schedule)->setTable('schedule')->paginate(20);
-        return view('Admin.schedule', compact('schedules'));
+        $staffs = Staff::all();
+        return view('Admin.schedule', compact('schedules', 'staffs'));
     }
 
     // public function showFormScheduleLists()
@@ -44,11 +46,12 @@ class ScheduleController extends Controller
             'staff_id' => 'required|string|max:255',
             'name' => 'required|string|max:255',
             'room' => 'required|string|max:50',
-            'date_time' => 'required|date',
+            'date_time' => 'required|date_format:Y-m-d\TH:i',
             'services' => 'required|string|max:255',
             'status' => 'required|string|max:50',
             'action' => 'nullable|string|max:255',
         ]);
+        
 
         // if ($validator->fails()) {
         //     return redirect()->back()->withErrors($validator)->withInput();
@@ -59,7 +62,7 @@ class ScheduleController extends Controller
         $schedule->staffID = 'STF' . str_pad(rand(1, 999), 3, '0', STR_PAD_LEFT);
         $schedule->name = $request->name;
         $schedule->room_no = $request->room_no;
-        $schedule->date_time = $request->datetime;
+        $schedule->date_time = Carbon::createFromFormat('Y-m-d\TH:i', $request->date_time)->format('Y-m-d H:i:s');
         $schedule->services = $request->services;
         $schedule->status = $request->status;
         $schedule->action = $request->action;
@@ -70,6 +73,28 @@ class ScheduleController extends Controller
         return redirect()->route('ScheduleListForm')->with('success', 'Schedule successfully added!');
     }
 
+    public function getStaff(Request $request)
+    {
+        $service = $request->input('service');
+
+        // Validate the service input to ensure it's either 'Housekeeping' or 'Maintenance'
+        $allowedServices = ['Housekeeper', 'Maintenance'];
+        if (!in_array($service, $allowedServices)) {
+            return response()->json(['error' => 'Invalid service'], 400);
+        }
+    
+        // Retrieve staff based on the selected service
+        $staff = Staff::where('position', $service)->get(['id', 'staffID', 'name']);
+    
+        // If no staff found, return an appropriate message
+        if ($staff->isEmpty()) {
+            return response()->json(['message' => 'No staff available for the selected service'], 404);
+        }
+    
+        // Return the staff data as JSON
+        return response()->json($staff);
+    }
+    
     // public function store(Request $request)
     // {
     //     // Validasi data
@@ -106,8 +131,8 @@ class ScheduleController extends Controller
    
     $schedule->name = $request->name;
     $schedule->room_no = $request->room_no;
-    $schedule->date_time= $request->datetime;
-    $schedule->services= $request->services;
+    $schedule->date_time = Carbon::createFromFormat('Y-m-d\TH:i', $request->date_time)->format('Y-m-d H:i:s');
+    $schedule->services = $request->services;
     $schedule->status = $request->status;
     $schedule->save();
     

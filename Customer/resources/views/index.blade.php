@@ -96,7 +96,7 @@
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                                 <a class="dropdown-item" href="{{ route('profileForm') }}">Profile</a>
-                                                <a class="dropdown-item" href="{{ route('profileForm') }}">Booking History</a>
+                                                <a class="dropdown-item" href="{{ route('HistoryForm') }}">Booking History</a>
                                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -811,6 +811,22 @@ function reserveRoom(roomId, typeRoom)  {
     let guestCountElement = document.getElementById('guestCount_' + roomId);
     let guestCount = parseInt(guestCountElement.innerText); // Get the number of guests
 
+    const isLoggedIn = @json($isLoggedIn);
+    if (!isLoggedIn) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Login Required',
+            text: 'You need to log in to reserve a room.',
+            confirmButtonText: 'Login',
+            showCancelButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "{{ route('login') }}"; // Redirect to login page
+            }
+        });
+        return;
+    }
+
     // Check if both dates are selected
     if (!checkinDate || !checkoutDate) {
         alert('Please select both check-in and check-out dates.');
@@ -851,6 +867,8 @@ function reserveRoom(roomId, typeRoom)  {
         console.error('Error during reservation:', error);
         alert('An error occurred while reserving the room. Please try again.');
     });
+
+    
 }
 
 
@@ -861,7 +879,7 @@ function reserveRoom(roomId, typeRoom)  {
     
     
     
-    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('dist/assets/js/jsIndex/jquery.min.js') }}"></script>
     <script src="{{ asset('dist/assets/js/jsIndex/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('dist/assets/js/jsIndex/jquery-3.0.0.min.js') }}"></script>

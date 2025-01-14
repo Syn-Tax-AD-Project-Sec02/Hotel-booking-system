@@ -153,8 +153,9 @@
             <!-- Sidebar -->
             <aside class="col-md-3 sidebar">
                <ul>
-                  <li class="active"><a href="#"><i class="fas fa-user"></i> Your Account</a></li>
+                  <li class="active"><a href="{{ route('updateDetails') }}"><i class="fas fa-user"></i> Your Account</a></li>
                   <li><a href="{{route('changePassForm')}}"><i class="fas fa-lock"></i> Change Password</a></li>
+                  <li><a href="{{route('HistoryForm')}}"><i class="fas fa-history"></i> Booking History</a></li>
                   <li><a href="{{url('/')}}"><i class="fas fa-arrow-left"></i> Back to Homepage</a></li>
                   <li  style="margin-top:340px"> <a class="dropdown-item" href="{{ route('logout') }}"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>

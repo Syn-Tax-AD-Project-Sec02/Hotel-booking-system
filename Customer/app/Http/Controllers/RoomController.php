@@ -15,7 +15,8 @@ class RoomController extends Controller
     public function showIndex()
     {
         $rooms = Room::from('rooms_details')->get(); 
-        return view('index', compact('rooms'));
+        $isLoggedIn = auth()->check();
+        return view('index', compact('rooms' , 'isLoggedIn'));
     }
 
 }  

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        /* Sidebar */
+        .sidebar {
+            background-color: #fff;
+            border-right: 1px solid #f0f0f0;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            height: 85vh;
+            position: sticky;
+            top: 0;
+            flex: 0 0 250px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 15px;
+        }
+        .sidebar ul li a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: #555;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .sidebar ul li a:hover, .sidebar ul li.active a {
+            background-color: #cc0000;
+            color: #fff;
+        }
+        .sidebar ul li a:hover, .sidebar ul li.active a .signout {
+            background-color: #fff;
+            color: #cc0000;
+        }
+        .right-section {
+            padding: 40px;
+            margin: 40px ;
+            background-color: #fff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+         }
+        .right-section h2 {
+            color: #cc0000;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+         }
+        .details p, .price-summary p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.5;
+        }
+        .highlight {
+            font-weight: 500;
+            color: #4a90e2;
+        }
+        .details p strong, .price-summary p strong {
+            color: #333;
+        }
+        .price-summary {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f7f9fc;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .price-summary del {
+            color: #888;
+        }
+        .total {
+            font-size: 18px;
+            font-weight: 500;
+            color: #2d6a4f;
+            margin-top: 15px;
+        }
+        .price-summary br {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <ul>
+            <li class="active"><a href="{{ route('updateDetails') }}"><i class="fas fa-user"></i> Your Account</a></li>
+            <li><a href="{{route('changePassForm')}}"><i class="fas fa-lock"></i> Change Password</a></li>
+            <li><a href="#"><i class="fas fa-history"></i> Booking History</a></li>
+            <li><a href="{{url('/')}}"><i class="fas fa-arrow-left"></i> Back to Homepage</a></li>
+            <li style="margin-top:340px">
+                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </li>
+        </ul>
+    </aside>
+
+    <div class="container">
+        <!-- <h1>Hotel Booking Details</h1> -->
+
+        <div class="right-section">
+            <h2>Your Booking Details</h2>
+            <div class="details">
+                <p><strong>Check-in:</strong> <span class="highlight">{{ $checkin }}</span></p>
+                <p><strong>Check-out:</strong> <span class="highlight">{{ $checkout }}</span></p>
+                <p><strong>Total length of stay:</strong> 
+                    @php
+                        $checkinDate = \Carbon\Carbon::parse($checkin);
+                        $checkoutDate = \Carbon\Carbon::parse($checkout);
+                        $duration = $checkinDate->lt($checkoutDate) 
+                    ? $checkinDate->diffInDays($checkoutDate) 
+                    : $checkoutDate->diffInDays($checkinDate);
+                        echo $duration . ' nights';
+                        $totalCost = $duration * $rate;
+                    @endphp
+                </p>
+                <p><strong>Guests:</strong> <span class="highlight">{{ $guests }} adults</span></p>
+            </div>
+            <div class="price-summary">
+                <p>Original Price: <del>MYR {{ $rate  }}</del></p>
+                <p>Limited-time Deal: <span class="highlight">MYR 3,430</span></p>
+                <p>Includes: <br>
+                    - Taxes: MYR 274.40 <br>
+                    - Property Service: MYR 215 <br>
+                    - Refundable Deposit: MYR 200</p>
+                <p class="total">Total Price: MYR {{ $totalCost }}</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -84,6 +84,13 @@
             text-transform: uppercase;
          }
 
+         .title {
+            color: #cc0000;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+         }
+
          .form-label {
             font-weight: 600;
             padding: 0 35px 0 35px;
@@ -118,6 +125,22 @@
             background-color: #f1f1f1;
             color: #777;
          }
+
+         .price-summary {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f7f9fc;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .price-summary del {
+            color: #888;
+        }
+        .total {
+            font-size: 18px;
+            font-weight: 500;
+            color: #2d6a4f;
+        }
       </style>
    </head>
    <body>
@@ -154,32 +177,41 @@
             <aside class="col-md-3 sidebar">
                <ul>
                   <li ><a href="{{ route('updateDetails') }}"><i class="fas fa-user"></i> Your Account</a></li>
-                  <li class="active"><a href="{{route('changePassForm')}}"><i class="fas fa-lock"></i> Change Password</a></li>
-                  <li><a href="{{route('HistoryForm')}}"><i class="fas fa-history"></i> Booking History</a></li>
+                  <li><a href="{{route('changePassForm')}}"><i class="fas fa-lock"></i> Change Password</a></li>
+                  <li class="active"><a href="{{route('HistoryForm')}}"><i class="fas fa-history"></i> Booking History</a></li>
                   <li><a href="{{url('/')}}"><i class="fas fa-arrow-left"></i> Back to Homepage</a></li>
-                  <li  style="margin-top:340px"><a href="#"><i class="fas fa-sign-out-alt signout"></i> Logout</a></li>
+                  <li  style="margin-top:340px"> <a class="dropdown-item" href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                 </form></li>
                </ul>
             </aside>
             <!-- Profile Content -->
             <section class="col-md-9">
                <div class="profile-content">
-                  <div class="profile-title ">Change Password</div>
+                  <div class="profile-title ">Booking History</div>
+                  @if($bookings->isEmpty())
+                    <p>No bookings found.</p>
+                @else
+                    @foreach($bookings as $booking)
+                           <div class="details">
+                              <h2 class="title">{{ $booking->TypeRoom }}</h2>
+                              <p><strong>Check-in:</strong> <span class="highlight">{{ $booking->CheckIn }}</span></p>
+                              <p><strong>Check-out:</strong> <span class="highlight">{{ $booking->CheckOut }}</span></p>
+                              <p><strong>Total length of stay:</strong></p>
+                              <p><strong>Guests:</strong> <span class="highlight">{{ $booking->Adults }}</span></p>
+                        
+                        </div>
+                        <div class="price-summary">                    
+                           <p class="total">Total Price: MYR </p>
+                        </div>
+                           @if(!$loop->last)
+                           <hr class="divider">
+                        @endif
+                  @endforeach
+               @endif
                   
-                  <form  method="POST" action="{{route('updatePasswordCust')}}">
-                    @csrf
-                    
-                     <div class="row mb-4"> 
-                           <label for="currentPassword" class="form-label">Current Password</label>
-                           <input type="password" id="currentPassword" name="currentPassword"  class="form-control">
-                     </div>
-                     <div class="row mb-4"> 
-                        <label for="newPassword" class="form-label">New Password</label>
-                        <input type="password" id="newPassword" name="newPassword"  class="form-control">
-                  </div>
-                     
-                     <button type="submit" class="btn-submit">Save Changes</button>
-                    </div>
-                  </form>
                </div>
             </section>
          </div>

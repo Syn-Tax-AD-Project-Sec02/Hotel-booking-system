@@ -6,11 +6,11 @@
 <body>
     <div class="container-scroller">
         <!-- partial:../../partials/_navbar.html -->
-        <x-navbar />
+        <x-staffnavbar />
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:../../partials/_sidebar.html -->
-            <x-sidebar />
+            <x-staffsidebar />
 
             <!-- partial -->
             <div class="main-panel">
@@ -178,18 +178,10 @@
                                                             <div class="mb-4">
                                                                 <label for="FormControlName"
                                                                     style="padding-left: 15px"
-                                                                    class="form-label">Rate (RM)</label>
+                                                                    class="form-label">Rate</label>
                                                                 <input type="text" class="form-control"
-                                                                    name="Rate" placeholder="Enter the rate of the room (RM)"
+                                                                    name="Rate" placeholder="Rate"
                                                                     aria-label="Rate">
-                                                            </div>
-                                                            <div class="mb-4">
-                                                                <label for="FormControlName"
-                                                                    style="padding-left: 15px"
-                                                                    class="form-label">Promotion (%)</label>
-                                                                <input type="text" class="form-control"
-                                                                    name="Promotion" placeholder="Enter promotion percentage if any (%)"
-                                                                    aria-label="Promotion">
                                                             </div>
 
                                                     </div>
@@ -204,24 +196,27 @@
                                             </div>
                                         </div>
                                     </div>
+
+
+
                                     </p>
-                                    <div class="table-responsive">
                                     <table class="table table-hover">
                                         <thead>
+
                                             <tr>
                                                 <th>#</th>
                                                 <th>Image</th>
                                                 <th>Room Type</th>
                                                 <th>Facilities</th>
                                                 <th>Rate</th>
-                                                <th>Promotion</th>
+                                                <th>Availbility</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($rooms as $room)
                                                 <tr>
-                                                    <td>{{ $loop->iteration  }}
+                                                    <td>{{ $loop->iteration }}
                                                     </td>
                                                     <td
                                                         style="width: 250px; text-align: center; vertical-align: middle;">
@@ -239,7 +234,7 @@
                                                                                 alt="Room Image"
                                                                                 style="width: 100px; height: 80px; object-fit: cover; border-radius: 5px;">
                                                                             <!-- Delete Button -->
-                                                                            <form method="POST"
+                                                                            {{-- <form method="POST"
                                                                                 action="{{ route('deleteImage') }}"
                                                                                 style="position: absolute; top: 0; right: 0;">
                                                                                 @csrf
@@ -256,10 +251,7 @@
                                                                                     style="background: red; color: white; border: none; padding: 5px 8px; font-size: 12px; cursor: pointer;">
                                                                                     X
                                                                                 </button>
-                                                                            </form>
-
-
-
+                                                                            </form> --}}
                                                                         </div>
                                                                     @endforeach
                                                                 </div>
@@ -293,7 +285,7 @@
                                     @endif
                                 </td>
                                 <td>RM{{ $room->Rate }}</td>
-                                <td>{{ $room->Promotion !== null ? $room->Promotion . '%' : 'N/A' }}</td>
+                                <td>{{ $room->Availbility }}</td>
                                 <td>
                                     <!-- Dropdown Trigger -->
                                     <a class="nav-link" id="dropdownMenuIconButton1" href="#"
@@ -314,18 +306,18 @@
                                         <div class="dropdown-divider"></div>
 
                                         <!-- Delete Option -->
-                                        <a class="dropdown-item" href="javascript:void(0);"
+                                        {{-- <a class="dropdown-item" href="javascript:void(0);"
                                             onclick="event.preventDefault(); document.getElementById('deleteRoomForm{{ $room->_id }}').submit();">
                                             <i class="mdi mdi-delete me-2 text-danger"></i> Delete
-                                        </a>
+                                        </a> --}}
 
-                                        <form id="deleteRoomForm{{ $room->_id }}"
+                                        {{-- <form id="deleteRoomForm{{ $room->_id }}"
                                             action="{{ route('deleteRoomDetails') }}" method="POST"
                                             style="display: none;">
                                             @csrf
                                             @method('DELETE')
                                             <input type="hidden" name="room_id" value="{{ $room->_id }}">
-                                        </form>
+                                        </form> --}}
                                     </div>
 
                                     <!-- Modal (Place Outside Dropdown Menu) -->
@@ -485,22 +477,11 @@
 
                                                         <div class="mb-4">
                                                             <label for="Rate{{ $room->id }}"
-                                                                class="form-label">Rate (RM)</label>
+                                                                class="form-label">Rate</label>
                                                             <input type="text" class="form-control" name="Rate"
                                                                 id="Rate{{ $room->id }}"
                                                                 value="{{ $room->Rate }}">
                                                         </div>
-                                                        <div class="mb-4">
-                                                            <label for="Rate{{ $room->id }}" class="form-label">Promotion (%)</label>
-                                                            <input type="text" class="form-control" name="Promotion" id="Rate{{ $room->id }}"
-                                                                @if ($room->Promotion !== null)
-                                                                    value="{{ $room->Promotion }}"
-                                                                @else
-                                                                    placeholder="Enter promotion percentage if any (%)"
-                                                                @endif>
-                                                        </div>
-
-
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="submit" class="btn btn-primary">Save</button>
@@ -518,7 +499,6 @@
 
                                 </tbody>
                                 </table>
-                            </div>
                             </div>
                         </div>
                     </div>

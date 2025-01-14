@@ -1,8 +1,8 @@
 <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
-        <a class="navbar-brand brand-logo" href="{{ url('/admin/dashboard') }}"><img
+        <a class="navbar-brand brand-logo" href="{{ url('/staff/dashboard') }}"><img
                 src="{{ asset('dist/assets/images/LOGO-UTM.png') }}" alt="logo" /></a>
-        <a class="navbar-brand brand-logo-mini" href="{{ url('/admin/dashboard') }}"><img
+        <a class="navbar-brand brand-logo-mini" href="{{ url('/staff/dashboard') }}"><img
                 src="{{ asset('dist/assets/images/logo-mini.svg') }}" alt="logo" /></a>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-stretch">
@@ -32,8 +32,8 @@
                     </div>
                 </a>
                 <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-                    <a class="dropdown-item" href="{{ route('changePassForm') }}">
-                        <i class="mdi mdi-cached me-2 text-success"></i> Change Password </a>
+                    <a class="dropdown-item" href="{{ url('/profile') }}">
+                        <i class="mdi mdi-cached me-2 text-success"></i> Profile </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ url('/') }}">
                         <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
