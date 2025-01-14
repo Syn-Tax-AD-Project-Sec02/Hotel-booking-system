@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Schedule;
+use Carbon\Carbon;
 use App\Models\Staff;
 use App\Models\Booking;
+use App\Models\Schedule;
+use MongoDB\BSON\ObjectId;
 use Illuminate\Http\Request;
+// use Validator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-// use Validator;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
-use MongoDB\BSON\ObjectId;
-use Carbon\Carbon;
 
 class ScheduleController extends Controller
 {
@@ -23,11 +24,46 @@ class ScheduleController extends Controller
         return view('Admin.schedule', compact('schedules', 'staffs'));
     }
 
+    // public function showStaffFormScheduleLists()
+    // {
+    //     // Get the currently logged-in staff
+    //     $staff = auth()->guard('staff')->user();
+
+    //     // If no staff is logged in, redirect or handle error
+    //     if (!$staff) {
+    //         return redirect()->route('login')->with('error', 'Please log in to view your schedule.');
+    //     }
+
+    //     // Get schedules only for the logged-in staff
+    //     $schedules = DB::table('schedule')
+    //         ->where('staffID', $staff->staffID)
+    //         ->paginate(20); // You can change the pagination as needed
+
+    //     // Return the filtered schedules to the view
+    //     return view('Staff.schedule', compact('schedules', 'staff'));
+    // }
+
+
     public function showStaffFormScheduleLists()
     {
-        $schedules = (new Schedule)->setTable('schedule')->paginate(20);
-        $staffs = Staff::all();
-        return view('Staff.schedule', compact('schedules', 'staffs'));
+        // Get the currently logged-in staff's Name
+        $loggedInStaffId = auth()->guard('staff')->user();
+
+        // Fetch the schedules of the logged-in staff only
+        $schedules = DB::table('schedule')
+            // ->where('_id', $loggedInStaffId)
+            ->get();
+
+        foreach ($schedules as $schedule) {
+            if ($schedule->name == $loggedInStaffId->name) {
+                // $schedule->get();
+
+                $filteredSchedule[] = $schedule;
+            }
+        }
+
+        // Return the filtered schedules to the view
+        return view('Staff.schedule', compact('filteredSchedule'));
     }
 
     // public function showFormScheduleLists()
