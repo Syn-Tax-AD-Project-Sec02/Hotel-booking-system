@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Room;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Validator;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\ToyyibpayController;
@@ -67,9 +68,10 @@ class BookingController extends Controller
             $booking->TypeRoom = $typeRoom; // Assuming room type input
             $booking->CheckIn = $request->checkin;
             $booking->CheckOut = $request->checkout;
+            $booking->Guests = $request->TotalGuests; //Total Guests for the booking
             $booking->Phone = $request->phone; // Assuming guests are included
-            $booking->Rate = $request->rate;  // Corrected assignment
-            $booking->TotalPrice = $totalCost;      // Assuming the input is 'phone'
+            $booking->Rate = $request->rate; // Corrected assignment
+            $booking->TotalPrice = $totalCost; // Assuming the input is 'phone'
             $booking->save();
 
             // Create payment using ToyyibPay API
@@ -92,7 +94,7 @@ class BookingController extends Controller
 
             // Check for overlapping bookings
             $booking = new Booking();
-        $booking->setTable('booking_list');
+            $booking->setTable('booking_list');
 
         // Check for overlapping bookings
         $availability = $booking->where('type_room', $typeRoom)
@@ -105,10 +107,43 @@ class BookingController extends Controller
                     });
             })
             ->exists();
+        
 
         // Return response
         return response()->json(['isAvailable' => !$availability]);
 
     }
+
+    public function checkAvail(Request $request)
+    {
+        $roomId = $request->input('room_id');
+        $typeRoom = $request->input('type_room');
+        $checkin = $request->input('checkin');
+        $checkout = $request->input('checkout');
+
+        $booking = new Booking();
+        $booking->setTable('booking_list');
+
+        // Check for overlapping bookings
+        $booking = new Booking();
+        $booking->setTable('booking_list');
+
+        //Check Availability through joining of Room_List and Booking_List table
+        $availability = DB::table('room_lists')
+        ->leftJoin('booking_list', function ($join) use ($checkin, $checkout) {
+            $join->on('room_lists.RoomNo', '=', 'booking_list.RoomNo')
+                 ->where(function ($query) use ($checkin, $checkout) {
+                     $query->where('booking_list.CheckIn', '<=', $checkout)
+                           ->where('booking_list.CheckOut', '>=', $checkin);
+                 });
+        })
+        ->whereNull('booking_list.RoomNo') // Filter out rooms that are already booked
+        ->select('room_lists.*') // Select the room details
+        ->get();
+        
+        // Return response
+        return response()->json(['isAvailable' => !$availability]);
+    }
+
 
 }

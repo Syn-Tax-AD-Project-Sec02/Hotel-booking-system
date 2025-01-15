@@ -134,7 +134,7 @@
                 <input type="hidden" name="type_room" value="{{ $typeRoom }}">
                 <input type="hidden" name="checkin" value="{{ $checkin }}">
                 <input type="hidden" name="checkout" value="{{ $checkout }}">
-                <input type="hidden" name="guests" value="{{ $guests }}">
+                <input type="hidden" name="guests" value="{{ $guests }}"> 
                 <input type="hidden" name="rate" value="{{ $rate }}">
                 
                 <div class="form-group">

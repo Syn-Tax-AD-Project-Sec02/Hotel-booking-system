@@ -74,7 +74,7 @@
                                         <a class="nav-link" href="#about">About</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#our_room">Our Rooms & Apartments</a>
+                                        <a class="nav-link" href="#our_room">Our Rooms</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#gallery">Gallery</a>
@@ -108,7 +108,7 @@
                                     @else
                                         <!-- User is not logged in -->
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ route('login') }}">Registration</a>
+                                            <a class="nav-link" href="{{ route('login') }}">Sign In</a>
                                         </li>
                                     @endif
                                 </ul>
@@ -128,7 +128,7 @@
             <p>Your comfort is our priority</p>
         </header>
 
-        <div class="booking-box">
+        {{-- <div class="booking-box">
             <form>
                 <!-- Check-in Date -->
                 <div class="form-control " style="border-style: none;">
@@ -155,16 +155,16 @@
                 <div class="form-control" style="border-style: none;">
                     <label for="rooms">Rooms</label>
                     <select id="rooms" name="rooms">
-                        <option value="1">1 Room</option>
-                        <option value="2">2 Rooms</option>
-                        <option value="3">3 Rooms</option>
-                        <option value="4">4 Rooms</option>
+                        <option value="Single">Single</option>
+                        <option value="Single">Single</option>
+                        <option value="Scholars">Scholars</option>
+                        <option value="Suite">Suite</option>
                     </select>
                 </div>
                 <!-- Submit Button -->
                 <button type="button" class="booking-btn">Check Availability</button>
             </form>
-        </div>
+        </div> --}}
 
     </section>
     <!-- end banner -->
@@ -324,7 +324,7 @@
                             
                                             <!-- Guests Section -->
                                             <div class="guest-section" data-room-id="{{ $room->_id }}">
-                                                <label>GUESTS</label>
+                                                <label>Adult(s)</label>
                                                 <div class="guest-controls">
                                                     <button class="guest-btn" onclick="changeGuests(this, -1)"><i class="fas fa-minus"></i></button>
                                                     <span class="guest-number" id="guestCount_{{ $room->_id }}">1</span>
@@ -520,7 +520,7 @@
                             </figure>
                         </div>
                         <div class="blog_room">
-                            <h3>Standard Bedroom</h3>
+                            <h3>Bedroom</h3>
                             {{-- <span>The standard chunk</span> --}} <span></span>
                             <p>Experience a restful stay in our well-appointed standard bedroom. 
                                 Featuring plush bedding, modern decor, and thoughtful amenities, 
