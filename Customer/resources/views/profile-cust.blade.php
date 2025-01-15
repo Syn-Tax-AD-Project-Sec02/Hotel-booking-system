@@ -131,7 +131,7 @@
                     <div class="full">
                        <div class="center-desk">
                           <div class="logo">
-                             <a href="index.html"><img src="{{ asset('dist/assets/images/index/rsz_utm_logo.jpg')}}" alt="#" /></a>
+                             <a href="{{ route('index')}}"><img src="{{ asset('dist/assets/images/index/rsz_utm_logo.jpg')}}" alt="#" /></a>
                           </div>
                        </div>
                     </div>
@@ -194,13 +194,13 @@
                          </div>
                      </div>
                      <div class="row mb-4">
-                     <div class="col-md-6">
-                        <label for="Gender" class="form-label">Gender</label>
-                        <select id="Gender" name="gender" class="form-control" value="{{ $users ? $users->gender : '' }}" style="height:50px;">                         
-                            <option value="Female">Female</option>
-                            <option value="Male">Male</option>
-                          </select>
-                     </div>
+                        <div class="col-md-6">
+                           <label for="Gender" class="form-label">Gender</label>
+                           <select id="Gender" name="gender" class="form-control" style="height:50px;">
+                               <option value="Female" {{ isset($users) && $users->gender === 'Female' ? 'selected' : '' }}>Female</option>
+                               <option value="Male" {{ isset($users) && $users->gender === 'Male' ? 'selected' : '' }}>Male</option>
+                           </select>
+                       </div>
                      
                     </div>
                      <div class="text-center">

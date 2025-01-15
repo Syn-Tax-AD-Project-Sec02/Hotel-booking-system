@@ -15,7 +15,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 
 
 
-Route::get('/', [RoomController::class, 'showIndex']);
+Route::get('/', [RoomController::class, 'showIndex'])->name('index');
 
 Route::get('/login', [LoginController::class, 'showForm'])->name('login');
 
