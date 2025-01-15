@@ -13,4 +13,10 @@ class ContactController extends Controller
         $messages = Contact::all();
         return view('Admin.ContactUs.Contact', compact('messages'));
     }
+
+    public function staffindex()
+    {
+        $messages = Contact::all();
+        return view('Staff.ContactUs.Contact', compact('messages'));
+    }
 }

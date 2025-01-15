@@ -168,7 +168,7 @@ class RoomController extends Controller
 
     public function showStaffFormRoomLists()
     {
-        $rooms = (new Room)->setTable('room_lists')->paginate(6);
+        $rooms = (new Room)->setTable('room_lists')->get();
         return view('Staff.Room.RoomLists', compact('rooms'));
     }
 

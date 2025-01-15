@@ -77,11 +77,7 @@
                                         <option selected>Choose staff...</option>
                                     </select>
                                 </div>
-                                
-                                <div class="mb-4">
-                                    <label for="FormControlName" class="form-label">Staff Name</label>
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="Full Name" aria-label="Full Name">
-                                </div>
+                              
                                 <div class="mb-4">
                                     <label for="FormControlName" class="form-label">Room No</label>
                                     <input type="text" class="form-control" name="room_no" placeholder="Room No" aria-label="Room No">
@@ -279,7 +275,7 @@
             staffSelect.innerHTML = '<option selected>Choose staff...</option>';
 
             data.forEach((staff) => {
-                staffSelect.innerHTML += `<option value='${JSON.stringify(staff)}'>${staff.staffID}</option>`;
+              staffSelect.innerHTML += `<option value='${staff.staffID}'>${staff.staffID} - ${staff.name}</option>`;
             });
         })
         .catch((error) => {

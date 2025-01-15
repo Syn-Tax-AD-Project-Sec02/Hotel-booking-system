@@ -27,7 +27,7 @@
                 <i class="mdi mdi-calendar-edit-outline menu-icon"></i>
             </a>
         </li>
-        {{-- <li class="nav-item">
+        <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
                 <span class="menu-title">Guest</span>
                 <i class="mdi mdi-clipboard-check-multiple-outline menu-icon"></i>
@@ -35,11 +35,11 @@
             <div class="collapse" id="icons">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/guest-list') }}">Guest List</a>
+                        <a class="nav-link" href="{{ url('/staff/guest-list') }}">Guest List</a>
                     </li>
                 </ul>
             </div>
-        </li> --}}
+        </li>
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
                 aria-controls="ui-basic">
@@ -52,13 +52,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/staff-room-details') }}">Room Details</a>
                     </li>
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/staff-room-lists') }}">Room List</a>
-                    </li> --}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/staff/room-lists') }}">Room List</a>
+                    </li>
                 </ul>
             </div>
         </li>
-        {{-- <li class="nav-item">
+        <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#staff-dropdown" aria-expanded="false"
                 aria-controls="staff-dropdown">
                 <span class="menu-title">Staff</span>
@@ -68,24 +68,24 @@
             <div class="collapse" id="staff-dropdown">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/staff-schedule') }}">Schedule</a>
+                        <a class="nav-link" href="{{ url('/staff/schedule') }}">Schedule</a>
                     </li>
                 </ul>
             </div>
         </li>
 
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" href="{{ url('/generate-report') }}">
                 <span class="menu-title">Report</span>
                 <i class="mdi mdi-tag-outline menu-icon"></i>
             </a>
-        </li>
+        </li> --}}
 
         <li class="nav-item">
-            <a class="nav-link" href="{{ url('/contact/index') }}">
+            <a class="nav-link" href="{{ url('/staff/contact/index') }}">
                 <span class="menu-title">Contact Us</span>
                 <i class="mdi mdi-table-large menu-icon"></i>
             </a>
-        </li> --}}
+        </li>
     </ul>
 </nav>

@@ -63,7 +63,9 @@
                     <div class="col-xl-3 col-sm-6 col-12 stretch-card grid-margin position-relative">
                         <div class="card bg-gradient-warning card-img-holder text-black">
                             <div class="card-body">
-                                <h4 class="fs-6">Generate Report <i class="mdi mdi-file-document-outline mdi-24px float-end"></i>
+                                <img src="{{ asset('dist/assets/images/dashboard/circle.svg') }}"
+                                class="card-img-absolute " alt="circle-image" />
+                                <h4 class="fs-6">Report <i class="mdi mdi-file-document-outline mdi-24px float-end"></i>
                                 </h4>
                                 {{-- <h2 class="fs-5 mt-4 text-uppercase text-black">Ready to Generate</h2> --}}
                                 <form method="POST" action="{{ route('generatePDF') }}">
@@ -87,10 +89,34 @@
                                             </select>
                                         </div> --}}
                                         <div>
-                                            <button type="submit" class="btn btn-primary btn-rounded shadow mt-4">
-                                                Generate PDF
+                                            <button type="submit" class="btn btn-rounded shadow mt-4 text-black">
+                                                Generate Report
                                             </button>
                                         </div>
+                                        <style>
+                                            /* Gaya untuk butang */
+                                            .btn {
+                                                background-color: #ffcf3e; /* Warna latar kuning */
+                                                color: white; /* Warna teks putih */
+                                                padding: 12px 25px;
+                                                font-size: 16px;
+                                                border-radius: 25px; /* Bentuk bulat */
+                                                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Bayangan */
+                                                cursor: pointer;
+                                                transition: all 0.3s ease; /* Animasi peralihan */
+                                            }
+                                    
+                                            .btn:hover {
+                                                background-color: #ffa200; /* Warna lebih gelap apabila hover */
+                                                box-shadow: 0 8px 10px rgba(0, 0, 0, 0.3); /* Tambah bayangan */
+                                                transform: translateY(-5px); /* Gerakan ke atas */
+                                            }
+                                    
+                                            .btn:active {
+                                                transform: translateY(2px); /* Gerakan ke bawah apabila ditekan */
+                                                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Kesan bayangan kembali */
+                                            }
+                                        </style>
                                     </div>
                                 </form>
                             </div>

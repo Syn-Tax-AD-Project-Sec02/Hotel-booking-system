@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Booking;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +24,9 @@ class ToyyibpayController extends Controller
             'billPriceSetting' => 1,
             'billPayorInfo' => 1,
             'billAmount' => $totalCost,
-            'billCallbackUrl' => url('toyyibpay-callback'),
+            'billReturnUrl' => url('/payment-success/{billCode}'), // URL for success page
+            'billFailedUrl' => url('/payment-failed'), 
+            'billCallbackUrl' => url('payment-callback'),
             'billExternalReferenceNo' => 'Booking-' . time(),
             'billTo' => Auth::user()->name,
             'billEmail' => Auth::user()->email,
@@ -47,8 +50,19 @@ class ToyyibpayController extends Controller
             // Check if 'BillCode' exists in the response
             if (isset($data[0]['BillCode'])) {
                 $billCode = $data[0]['BillCode'];
-                Log::info('BillCode:', [$billCode]);
-    
+                $externalRef = $responseData[0]['billExternalReferenceNo'] ?? 'unknown-reference';
+
+                // Save transaction details to the database
+                Transaction::create([
+                    'bill_code' => $billCode,
+                    'external_reference_no' => $externalRef,
+                    'user_name' => Auth::user()->name,
+                    'user_email' => Auth::user()->email,
+                    'user_phone' => Auth::user()->phone,
+                    'amount' => $request->session()->get('totalCost'),
+                    'status' => 'pending',
+                    'transaction_date' => now(),
+                ]);
                 // Redirect the user to ToyyibPay payment page
                 return redirect('https://dev.toyyibpay.com/' . $billCode);
             }
@@ -69,8 +83,70 @@ class ToyyibpayController extends Controller
         Log::info($response);
     }
 
-    public function callback(){
-        $reponse = request()->all(['refno','status','reason', 'billcode', 'order_id', 'amount']);
-        Log::info($response);
+    public function paymentCallback(Request $request)
+{
+    $status = $request->status_id; // ToyyibPay returns the status in the callback
+    $billCode = $request->billcode;
+
+    if ($status == 1) { // 1 indicates successful payment
+        return redirect('/payment-success');
+    }  else {
+        // In case of unknown status, handle gracefully or return to a default page
+        return redirect('/payment-failed');
     }
+}
+
+public function paymentSuccess(Request $request)
+{
+    // You can retrieve the transaction details or other information based on $billCode
+    \Log::info('Payment callback received:', $request->all());
+        
+        $status = $request->status_id;
+        $billCode = $request->billcode;
+        $orderId = $request->order_id;
+        $transaction = Transaction::where('bill_code', $billCode)->first();
+        $totalCost = $transaction->amount;  // A
+        
+        if ($status == '1') { // 1 indicates successful payment
+            // Update transaction to completed
+            $transaction = Transaction::where('bill_code', $billCode)->first();
+            if ($transaction && $transaction->status === 'pending') {
+                $transaction->status = 'completed';
+                $transaction->save();
+            }
+    
+            return view('payment-success', ['transactionDetails' => [
+                'BillCode' => $billCode,
+                'ReferenceNo' => $request->order_id,
+                'DateOfTransaction' => now()->toDateTimeString(),
+                'TotalPayment' => $totalCost,
+            ]]);
+        } elseif ($status == 3){
+            // Update transaction to failed
+            $transaction = Transaction::where('bill_code', $billCode)->first();
+            if ($transaction && $transaction->status === 'pending') {
+                $transaction->status = 'failed';
+                $transaction->save();
+            }
+    
+            return view('payment-failed', ['transactionDetails' => [
+                'BillCode' => $billCode,
+                'ReferenceNo' => $request->order_id,
+                'DateOfTransaction' => now()->toDateTimeString(),
+                'TotalPayment' => $totalCost,
+            ]]);
+        }
+
+        
+    
+}
+
+
+public function paymentFailed()
+{
+    return view('payment-failed');
+}
+
+
+
 }
